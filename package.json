@@ -53,7 +53,7 @@
     "@material-ui/pickers": "^3.2.10",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^2.0.1",
-    "@rcenter/core": "file:../core/dist",
+    "@rcenter/core": "file:dist",
     "@stripe/react-stripe-js": "^1.4.0",
     "@stripe/stripe-js": "^1.13.2",
     "@swimlane/ngx-datatable": "10.1.0",

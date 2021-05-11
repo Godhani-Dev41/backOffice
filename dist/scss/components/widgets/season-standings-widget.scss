@@ -1,0 +1,110 @@
+.league-standings-wrapper {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+  &.league-standings-wrapper--border {
+    border: 1px solid #C6C6C6;
+  }
+
+  &.league-standings-wrapper--zoom {
+    zoom: 3.01;
+  }
+
+  .league-standings-header {
+    height: 61px;
+    line-height: 48px;
+    background: #24C875;
+    padding: 5px 10px;
+    color: white;
+    font-size: 18px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: 'Brandon';
+    font-weight: bold;
+
+    span {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 23px;
+    }
+  }
+
+
+  .league-standings-content {
+    table {
+      width: 100%;
+      margin-bottom: 15px;
+
+      thead {
+        td {
+          font-size: 7px;
+          padding-bottom: 0;
+        }
+      }
+
+      td {
+        padding: 5px 2px;
+        color: #646464;
+        text-align: center;
+        font-size: 10px;
+        font-weight: 500;
+
+        &.standing-team-name {
+          text-align: left;
+          padding-left: 27px;
+          position: relative
+        }
+
+        &.standing-position {
+          min-width: 20px;
+          font-size: 14px;
+          font-weight: bold;
+          font-family: 'Brandon';
+          color: #24C875;
+        }
+
+        @media screen and (max-width: 320px) {
+          &.standing-team-name {
+            max-width: 100px;
+          }
+        }
+        &.standing-team-name {
+          font-size: 11px;
+          font-weight: bold;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          text-transform: uppercase;
+          max-width: 130px;
+
+           .participant-logo {
+            height: auto;
+            width: auto;
+          }
+
+           .avatar {
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            line-height: 16px;
+          }
+
+           .team-logo-avatar-wrapper {
+            position: relative;
+            top: -4px;
+            margin-right: 5px;
+            display: inline-block;
+          }
+        }
+
+        &.standing-score {
+          min-width: 20px;
+
+          &.standing-score--success {
+            font-weight: bold;
+            color: #24C875;
+          }
+        }
+      }
+    }
+  }
+}

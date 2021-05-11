@@ -1,0 +1,55 @@
+.team-box-item {
+  width: 131px;
+  height: 149px;
+
+  .team-box-item__header {
+    height: 64px;
+
+    h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .team-box-item__header__label {
+      color: $brand-grey;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 500;
+    }
+  }
+
+  .team-box-item__details {
+    height: 71px;
+    background: #f6f6f6;
+    padding: 10px 8px 15px 5px;
+
+    .member-image {
+      display: inline-block;
+      width: 50px;
+
+      .image-wrapper {
+        width: 30px;
+        height: 30px;
+        border: 2px solid white;
+      }
+    }
+
+    .member-info {
+      padding-top: 5px;
+      font-weight: 400;
+      line-height: 12px;
+    }
+
+    .member-status {
+      margin-top: -2px;
+      font-size: 11px;
+      text-align: center;
+      display: block;
+      color: $brand-accent;
+    }
+  }
+
+  .member-data {
+    display: flex;
+  }
+}

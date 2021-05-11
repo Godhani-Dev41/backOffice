@@ -1,0 +1,14 @@
+.ColorPickerWidget {
+  width: 42px;
+  height: 42px;
+  border-radius: 100%;
+  display: inline-block;
+  background-color: $brand-light-grey;
+  text-align: center;
+  line-height: 46px;
+
+  i {
+    color: $brand-accent;
+    font-size: 16px;
+  }
+}

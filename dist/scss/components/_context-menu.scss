@@ -1,0 +1,56 @@
+.ContextMenuDropdown {
+  background: white;
+  width: 150px;
+  border: solid 0.5px $brand-light-grey;
+  border-radius: 2px;
+  position: relative;
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
+
+  &::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid white;
+    position: absolute;
+    left: 15px;
+    top: -7px;
+  }
+
+  ul {
+    position: relative;
+    z-index: 2;
+
+    li {
+      margin: 0 10px;
+      padding: 5px 0;
+      border-bottom: 1px solid $brand-grey;
+      transition: all 0.2s;
+      font-size: 10px;
+      color: $brand-dark;
+
+      i {
+        display: inline-block;
+        width: 20px;
+        text-align: center;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        cursor: pointer;
+        color: $brand-accent;
+      }
+
+      &.danger {
+        &:hover {
+          cursor: pointer;
+          color: $brand-danger;
+        }
+      }
+    }
+  }
+}
