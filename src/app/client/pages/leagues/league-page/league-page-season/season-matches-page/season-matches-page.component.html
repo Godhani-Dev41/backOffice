@@ -1,0 +1,231 @@
+<div class="matches-page-wrapper" style="height: 100%;">
+  <div class="row" style="height: 100%;">
+    <div class="col-md-6">
+      <button *ngIf="!loading" class="button button-empty button-bold button-assertive--inverted"
+        (click)="matchEditModal.showModal();">
+        ADD GAME
+      </button>
+      <button *ngIf="!season?.tournamentType && !season?.playoffType" style="margin-right: 5px;"
+        class="button button-empty button-bold button-assertive--inverted"
+        (click)="roundEditModal.showModal(roundsVM);">
+        CREATE & EDIT ROUNDS
+      </button>
+      <a href="" style="margin-right: 5px;" class="button button-assertive--inverted button-bold"
+        *ngIf="!season?.tournamentType && season?.scheduleStatus === 'draft'"
+        [routerLink]="['../../../schedule-creator/' + season?.id]">
+        SCHEDULE GENERATOR
+      </a>
+      <a href="" style="margin-right: 5px;" class="button button-assertive--inverted button-bold"
+        (click)="showExcelScheduleUpload(); $event.preventDefault()">
+        UPLOAD SCHEDULE
+      </a>
+      <a href="" style="margin-top: 5px; display: inline-block" class="button button-assertive--inverted button-bold"
+        (click)="downloadSchedule(); $event.preventDefault()">
+        DOWNLOAD SCHEDULE
+      </a>
+    </div>
+    <div class="col-md-6 ViewTypeChangeWrapper">
+      <button class="button button-assertive--inverted pull-right" style="margin-left: 10px"
+        (click)="toggleScheduleStats()" [ngClass]="{'selected-btn': scheduleDetailsOpen }">
+        STATISTICS
+      </button>
+      <button class="button button-assertive--inverted pull-right" [ngClass]="{'selected-btn': currentView === 'list'}"
+        (click)="currentView = 'list'">
+        <i class="icon-rc-list"></i> LIST
+      </button>
+      <button class="button button-assertive--inverted pull-right"
+        [ngClass]="{'selected-btn': currentView === 'calendar'}" (click)="currentView = 'calendar'">
+        <i class="icon-rc-calendar-2"></i> CALENDAR
+      </button>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="col-md-12" *ngIf="currentView === 'calendar' && !loading">
+      <rc-schedular-calendar-view [roundMatches]="rows" [seasonActivityTimes]="scheduleData?.scheduleData?.timeSlots">
+      </rc-schedular-calendar-view>
+    </div>
+
+    <div class="col-md-12" *ngIf="currentView === 'list'" style="height: calc(100% - 54px); overflow: auto">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-2 col-sm-3 col-xs-6">
+            <div class="DropdownSelectWrapper input-group" dropdown>
+              <label for="">
+                BULK ACTION
+              </label>
+              <button dropdownToggle type="button" class="DropdownSelect">
+                Change Facility <span class="fa fa-angle-down"></span>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li role="menuitem">
+                  <a class="dropdown-item" href="#" (click)="venueSelectModal.showModal(); $event.preventDefault()">
+                    <i class="icon-rc-nav-venues"></i> Change facility
+                  </a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" href="#" (click)="openChangeTimeModal(); $event.preventDefault()">
+                    <i class="icon-rc-calendar-2"></i> Change Date & Time
+                  </a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" href="#" (click)="promptToCancelMatches(); $event.preventDefault()">
+                    <i class="fa fa-times-circle"></i> Cancel Matches
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-3 col-xs-6">
+            <div class="input-group">
+              <label for="">SEARCH/TEAM FILTER</label>
+              <input type="text" (keyup)="updateTextFilter($event)" class="input" placeholder="SEARCH">
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-12" style="padding-bottom: 70px; height: 100%;">
+        <ngx-datatable style="height: 100%" #table [loadingIndicator]="loading" [trackByProp]="'id'" [rowHeight]="50"
+          [scrollbarV]="true" [sorts]="[{prop: 'startDate', dir: 'asc'}]" class="rc-datatable material"
+          [columnMode]="'force'" [selected]="selectedMatches" [selectionType]="'checkbox'"
+          (select)='onMatchSelect($event)' [rows]="rows">
+          <ngx-datatable-column tabindex="-1" [headerClass]="'checkbox-cell'" [cellClass]="'checkbox-cell'" [width]="25"
+            [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
+            [headerCheckboxable]="true" [checkboxable]="true">
+          </ngx-datatable-column>
+          <ngx-datatable-column *ngIf="season?.seasonDivisions?.length > 1" [width]="120" prop="divisionName"
+            [minWidth]="120" name="Division">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <div class="DivisionLabelBlock" [style.backgroundColor]="row.divisionColor"
+                [innerHTML]="row.divisionName">
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column [width]="100" prop="eventRound.name" [minWidth]="80" name="Round">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <div [innerHTML]="row?.eventRound?.name">
+
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column [width]="60" minWidth="50" prop="status" [cellClass]="" name="Status">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <span tooltip="Finished event" container="body" class="status-checkmark status-checkmark--success"
+                *ngIf="row.isPastMatch && row.status !== 4">
+                <i class="icon-rc-circle-check"></i>
+              </span>
+              <span tooltip="Future event" container="body" class="status-checkmark"
+                *ngIf="!row.isPastMatch && row.status !== 4">
+                <i class="icon-rc-circle-empty"></i>
+              </span>
+
+              <span tooltip="Event Canceled" container="body" class="status-checkmark status-checkmark--danger"
+                *ngIf="row.status === 4">
+                <i class="icon-rc-circle-close"></i>
+              </span>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column minWidth="150" prop="title" name="Event Name">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <span [innerHTML]="row?.match?.participants[0]?.entity?.name || 'TBD'"></span> <b>VS.</b><br>
+              <span [innerHTML]="row?.match?.participants[1]?.entity?.name || 'TBD'"></span>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column [width]="150" [maxWidth]="150" [minWidth]="120" name="Score">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <div class="ScoreBoxWrapper" placement="right" container="body" [isDisabled]="!row.disableScoreEdit"
+                tooltip='Round results determine upcoming matches, edit one round at a time. '
+                *ngIf="row?.match?.participants[0]?.entity && row?.match?.participants[1]?.entity && row.isPastMatch">
+                <span class="score-box" [ngClass]="{
+                'edit-disabled': row.disableScoreEdit,
+                'score-box--win': row?.match?.participants[0]?.score > row?.match?.participants[1]?.score,
+                'score-box--lose': row?.match?.participants[0]?.score < row?.match?.participants[1]?.score
+              }">
+                  <input type="number" [(ngModel)]="row.match.participants[0].score" (change)="matchScoreChanged(row)"
+                    [disabled]="row.status === 4" />
+                </span>
+                <i>
+                  :
+                </i>
+                <span class="score-box" [ngClass]="{
+                'edit-disabled': row.disableScoreEdit,
+                'score-box--win': row?.match?.participants[1]?.score > row?.match?.participants[0]?.score,
+                'score-box--lose': row?.match?.participants[1]?.score < row?.match?.participants[0]?.score
+              }">
+                  <input type="number" [(ngModel)]="row.match.participants[1].score" (change)="matchScoreChanged(row)"
+                    [disabled]="row.status === 4" />
+                </span>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column prop="startDate" name="Date & Time">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.startDate | momentDate:'MMM D, YYYY h:mma':row.timezone}} -
+              {{row.endDate | momentDate:'h:mma':row.timezone}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Venue" prop="venueName">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.venueName | truncate:30}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column [minWidth]="165" [width]="165" [cellClass]="'actions-column'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <a href=""
+                *ngIf="row?.match?.participants[1]?.score !== null && row?.match?.participants[0]?.score && row.status !== 4"
+                (click)="seasonPostModal.showModal('matchResults', { match: row }); $event.preventDefault()"
+                tabindex="-1" class="btn btn-empty btn--success">
+                <i class="icon-rc-comment"></i> Post
+              </a>
+              <a href="" tabindex="-1" class="btn btn-empty"
+                (click)="editMatch(row.eventRound.id, row, row.eventRound.divisionId); $event.preventDefault()">
+                <i class="icon-rc-edit-2"></i>
+                Edit
+              </a>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="BottomActionsBar" style="bottom: 0;" [ngClass]="{'BottomActionsBar--hidden': !scoreDirty}">
+    <div class="BottomActionsBar__container">
+      <rc-loading-btn [loading]="scoreUpdateProcessing" (onClick)="saveScoreChanges()" [text]="'SAVE CHANGES'"
+        [classes]="['button', 'button-assertive', 'pull-right']">
+      </rc-loading-btn>
+    </div>
+  </div>
+</div>
+
+<rc-schedule-statistics-sidebar [loading]="loadingStats" (onScheduleClose)="scheduleDetailsOpen = false"
+  [scheduleData]="scheduleData" [season]="season" [scheduleDetailsOpen]="scheduleDetailsOpen">
+</rc-schedule-statistics-sidebar>
+
+<rc-match-edit-modal #matchEditModal="modal" [season]="season" [league]="season?.seasonLeague"
+  [divisions]="season?.seasonDivisions" (onMatchAdded)="addMatch()" (onMatchUpdated)="ngOnInit()"
+  (onMatchRemoved)="removeMatch()">
+</rc-match-edit-modal>
+<rc-season-post-modal #seasonPostModal="modal"></rc-season-post-modal>
+
+<rc-confirmation-modal [title]="'PUBLISH MATCHES'"
+  [content]="'Are you sure you want to publish the selected matches? Players in participating teams will get notified via mobile app and email.'"
+  [confirmText]="'YES, PUBLISH MATCHES'" (onConfirm)="publishSelectedMatches()" #publishConfirmModal="modal">
+</rc-confirmation-modal>
+
+<rc-confirmation-modal [type]="'danger'" [title]="'CANCEL MATCHES'"
+  [content]="'Are you sure you want to cancel the selected matches? Players in participating teams will get notified via mobile app.'"
+  [confirmText]="'YES, CANCEL MATCHES'" (onConfirm)="cancelSelectedMatches()" #cancelConfirmModal="modal">
+</rc-confirmation-modal>
+
+<rc-bulk-change-time-modal [season]="season" (onSubmit)="changeMatchesTime($event)" #changeTimeModal="modal">
+</rc-bulk-change-time-modal>
+
+<rc-venue-select-modal (onSubmit)="changeMatchesVenue($event)" #venueSelectModal="modal"></rc-venue-select-modal>
+
+<rc-round-edit-modal [divisions]="season?.seasonDivisions" #roundEditModal="modal" (onUpdated)="roundsUpdated()">
+</rc-round-edit-modal>
+
+<rc-schedule-xls-upload-modal (onUploaded)="getMatches()" [season]="season" #scheduleUploaderModal="modal">
+</rc-schedule-xls-upload-modal>

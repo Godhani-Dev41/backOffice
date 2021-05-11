@@ -1,0 +1,568 @@
+<div class="inner_page">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav">
+    <div class="col-md-12">
+      <div class="WizardForm">
+        <div class="WizardForm__navigation">
+          <div class="WizardForm__navigation__header">
+            <h3>
+              CREATE NEW ORGANIZATION EVENT
+            </h3>
+          </div>
+          <div class="WizardForm__navigation__slide-info">
+            <p>
+              An event can be a pickup game, clinic, social event, training, etc. Any one-off or re-occurring event you
+              want athletes to register for.
+            </p>
+          </div>
+        </div>
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner">
+            <div class="form">
+              <form action="" [formGroup]="eventForm" novalidate>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form__section">
+                      <div class="form__section__header">
+                        ABOUT
+                        <div *ngIf="updateMode" class="pull-right">
+                          <i class="fa fa-globe"></i>
+                          <a target="_blank" href="https://web.reccenter.me/app/event/{{ editingEventId }}">website</a>
+                        </div>
+                      </div>
+                      <div class="form__section__helper">
+                        Custom your event information
+                      </div>
+
+                      <div class="input-group">
+                        <label for="">
+                          <i class="icon-rc-calendar"></i> EVENT NAME
+                          <span class="pull-right">{{ eventForm.get("title").value?.length }}/60</span>
+                        </label>
+
+                        <div class="input-wrapper">
+                          <input type="text" class="input" formControlName="title" maxlength="60" />
+                        </div>
+                      </div>
+                      <div class="input-group">
+                        <label for="">
+                          <i class="icon-rc-long-des"></i> DESCRIPTION
+                          <span class="pull-right">{{ description_length.length }}/2000</span>
+                        </label>
+                        <div class="input-wrapper">
+                          <span
+                            class="rc-tooltip"
+                            container="body"
+                            placement="right"
+                            tooltip="Only include information not provided in the league description.
+                                 You may want to write: what weeks games are played/not played,
+                                 how many times a week a team will play, season specific rules,
+                                 the location of post game drinks, and any other useful information."
+                          >
+                            <i class="fa fa-info"></i>
+                          </span>
+                          <textarea maxlength="2000" rows="6" class="input desceditor" formControlName="description">
+                          </textarea>
+                        </div>
+                      </div>
+                      <div class="input-group">
+                        <label for="">
+                          SPORT TYPE
+                        </label>
+
+                        <div class="input-wrapper">
+                          <rc-quick-sport-picker formControlName="sports" [singleSelect]="true"></rc-quick-sport-picker>
+                        </div>
+                      </div>
+                      <div *ngIf="!isBasicEdit">
+                        <div
+                          class="input-group"
+                          [ngClass]="{ 'input-group--disabled': eventForm.get('venueId').value }"
+                        >
+                          <label for=""> <i class="icon-rc-location"></i> LOCATION </label>
+
+                          <div class="input-wrapper">
+                            <rc-location-search-input
+                              (onTimezoneChange)="timeZoneChanged($event)"
+                              [timeZoneSelector]="true"
+                              [timezone]="eventForm.get('timezone').value"
+                              (onSelected)="venueSelected($event)"
+                              formControlName="venueName"
+                              [placeholder]="'Enter city, neighborhood, borough or full address.'"
+                            >
+                            </rc-location-search-input>
+                          </div>
+                        </div>
+                        <p class="text-center" style="margin-bottom: 0;" *ngIf="organizationVenues?.length">OR</p>
+                        <div class="row" *ngIf="organizationVenues?.length">
+                          <div
+                            [ngClass]="{
+                              'col-md-12': !selectedVenue?.spaces?.length,
+                              'col-md-6': selectedVenue?.spaces?.length
+                            }"
+                          >
+                            <div class="input-group">
+                              <label for="">FACILITY</label>
+                              <select name="" formControlName="venueId" class="select">
+                                <option value=""></option>
+                                <option *ngFor="let venue of organizationVenues" value="{{ venue.id }}"
+                                  >{{ venue.name }}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6" *ngIf="selectedVenue?.spaces?.length">
+                            <div class="input-group">
+                              <label for="">COURT</label>
+                              <select name="" formControlName="spaceId" class="select">
+                                <option value=""></option>
+                                <option *ngFor="let space of selectedVenue?.spaces" value="{{ space.id }}"
+                                  >{{ space.name }}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form__section">
+                      <div class="form__section__header">
+                        EVENT DATE & TIME
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="schedule-item">
+                            <div class="item-side number-side">
+                              {{ eventForm.get("startDate")?.value | date: "d" }}
+                            </div>
+                            <div
+                              class="item-side text-side"
+                              (click)="startDatePicker.togglePicker($event); endDatePicker.showDatePicker = false"
+                            >
+                              <div class="item-top-label">
+                                START DATE
+                              </div>
+                              <div class="item-mid-label text-uppercase">
+                                {{ eventForm.get("startDate")?.value | date: "MMMM" }}
+                              </div>
+                              <div class="item-bottom-label">
+                                {{ eventForm.get("startDate")?.value | date: "y" }}
+                              </div>
+                              <div class="date-select-btn">
+                                <i class="icon-rc-calendar"></i>
+                              </div>
+                            </div>
+                            <rc-datepicker
+                              [minDate]="currentDate"
+                              (onDateSelected)="startDateSelected($event)"
+                              formControlName="startDate"
+                              style="position: relative; left: -157px; top: 74px;"
+                              #startDatePicker="picker"
+                              [hideInput]="true"
+                            >
+                            </rc-datepicker>
+                            <span class="corner bottom-left"></span>
+                            <span class="corner bottom-right"></span>
+                            <span class="corner top-left"></span>
+                            <span class="corner top-right"></span>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="schedule-item">
+                            <div class="item-side number-side">
+                              {{ eventForm.get("endDate")?.value | date: "d" }}
+                            </div>
+                            <div
+                              class="item-side text-side"
+                              (click)="endDatePicker.togglePicker($event); startDatePicker.showDatePicker = false"
+                            >
+                              <div class="item-top-label">
+                                END DATE
+                              </div>
+                              <div class="item-mid-label text-uppercase">
+                                {{ eventForm.get("endDate")?.value | date: "MMMM" }}
+                              </div>
+                              <div class="item-bottom-label">
+                                {{ eventForm.get("endDate")?.value | date: "y" }}
+                              </div>
+                              <div class="date-select-btn">
+                                <i class="icon-rc-calendar"></i>
+                              </div>
+                            </div>
+                            <rc-datepicker
+                              [minDate]="eventForm.get('startDate')?.value"
+                              formControlName="endDate"
+                              style="position: relative; left: -157px; top: 74px;"
+                              #endDatePicker="picker"
+                              [hideInput]="true"
+                            >
+                            </rc-datepicker>
+                            <span class="corner bottom-left"></span>
+                            <span class="corner bottom-right"></span>
+                            <span class="corner top-left"></span>
+                            <span class="corner top-right"></span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <label for="">START TIME</label>
+                            <rc-timepicker
+                              (onChange)="startTimeSelected($event)"
+                              [required]="true"
+                              formControlName="startTime"
+                              [placeholder]="'Select time'"
+                            >
+                            </rc-timepicker>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <label for="">END TIME</label>
+                            <rc-timepicker
+                              formControlName="endTime"
+                              [placeholder]="'Select time'"
+                              [required]="true"
+                              [minTime]="eventForm.get('startTime')?.value"
+                            >
+                            </rc-timepicker>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row" *ngIf="!updateMode && !isBasicEdit">
+                        <div class="col-md-12">
+                          <div
+                            class="SettingsBtnRowToggle"
+                            (click)="eventRepeatToggle()"
+                            [ngClass]="{ 'SettingsBtnRowToggle--active': eventForm.get('eventRepeat').value }"
+                          >
+                            <div class="SettingsBtnRowToggle__checkbox"><i class="fa fa-check"></i></div>
+                            <span>REPEAT THIS EVENT</span>
+                          </div>
+                        </div>
+                        <div class="col-md-12" *ngIf="eventForm.get('eventRepeat').value">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="input-group">
+                                <label for="">REPEAT</label>
+                              </div>
+                              <div class="rc-radio">
+                                <input
+                                  id="everyDayRepeat"
+                                  formControlName="eventRepeatOccurance"
+                                  value="daily"
+                                  type="radio"
+                                />
+                                <label for="everyDayRepeat" class="radio-label">Every Day</label>
+                              </div>
+                              <div class="rc-radio">
+                                <input
+                                  id="everyWeekRepeat"
+                                  formControlName="eventRepeatOccurance"
+                                  value="weekly"
+                                  type="radio"
+                                  checked
+                                />
+                                <label for="everyWeekRepeat" class="radio-label">Every Week</label>
+                              </div>
+                              <div class="rc-radio">
+                                <input
+                                  id="every2WeeksRepeat"
+                                  formControlName="eventRepeatOccurance"
+                                  value="biWeekly"
+                                  type="radio"
+                                />
+                                <label for="every2WeeksRepeat" class="radio-label">Every 2 Weeks</label>
+                              </div>
+                              <div class="rc-radio">
+                                <input
+                                  id="everyMonthRepeat"
+                                  formControlName="eventRepeatOccurance"
+                                  value="monthly"
+                                  type="radio"
+                                />
+                                <label for="everyMonthRepeat" class="radio-label">Every Month</label>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="input-group">
+                                <label for="">END REPEAT ON DATE</label>
+                                <rc-datepicker
+                                  [minDate]="eventForm.get('endDate').value"
+                                  [maxDate]="repeatMaxDate"
+                                  formControlName="repeatEndDate"
+                                >
+                                </rc-datepicker>
+                              </div>
+                              <div style="margin-top: -10px;">
+                                <div
+                                  class="RepeatInfoBox"
+                                  *ngIf="eventForm.get('eventRepeatOccurance').value === 'weekly'"
+                                >
+                                  EVERY WEEK REPEAT CAN BE SCHEDULED UP TO 3 MONTHS
+                                </div>
+                                <div
+                                  class="RepeatInfoBox"
+                                  *ngIf="eventForm.get('eventRepeatOccurance').value === 'daily'"
+                                >
+                                  EVERY DAY REPEAT CAN BE SCHEDULED FOR UP TO 30 DAYS
+                                </div>
+                                <div
+                                  class="RepeatInfoBox"
+                                  *ngIf="eventForm.get('eventRepeatOccurance').value === 'monthly'"
+                                >
+                                  EVERY MONTH REPEAT CAN BE SCHEDULED UP TO 1 YEAR
+                                </div>
+                                <div
+                                  class="RepeatInfoBox"
+                                  *ngIf="eventForm.get('eventRepeatOccurance').value === 'biWeekly'"
+                                >
+                                  EVERY 2 WEEKS REPEAT CAN BE SCHEDULED UP TO 6 MONTHS
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form__section" *ngIf="!isBasicEdit">
+                      <div class="form__section__header">
+                        EVENT COVER IMAGE
+                      </div>
+
+                      <div class="row mg-top-20">
+                        <div class="col-md-8 mg-bottom-20">
+                          <rc-image-uploader
+                            [image]="mainImage"
+                            (onFileAdded)="mainImageAdded($event)"
+                            [text]="
+                              'Upload an image that will be used as the opening image for your event page, Image should be at least 350x230px and 1MB max size'
+                            "
+                          >
+                          </rc-image-uploader>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form__section" *ngIf="!isBasicEdit">
+                      <div class="form__section__header">
+                        PARTICIPANTS SETTINGS
+                      </div>
+
+                      <div class="input-group">
+                        <label for=""> <i class="icon-rc-person-icon"></i> AGE & GENDER </label>
+
+                        <div class="input-wrapper">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <rc-range-picker formControlName="ageRange" [min]="6"></rc-range-picker>
+                            </div>
+                            <div class="col-md-6">
+                              <rc-gender-picker formControlName="gender"></rc-gender-picker>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="input-group">
+                        <label for=""> <i class="icon-rc-person-icon"></i> PARTICIPANTS LIMIT </label>
+
+                        <div class="input-wrapper">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <input
+                                type="number"
+                                formControlName="participantsLimit"
+                                class="input"
+                                minlength="0"
+                                min="0"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="SettingsToggleRow">
+                        <div class="SettingsToggleRow__icon">
+                          <i class="icon-rc-private"></i>
+                        </div>
+
+                        <div class="SettingsToggleRow__content">
+                          <div class="SettingsToggleRow__content__title">
+                            PRIVATE EVENT
+                          </div>
+                          <p>
+                            If you create a private event only players that were invited will be able to participate and
+                            it will not show on event discovery
+                          </p>
+                        </div>
+
+                        <div class="SettingsToggleRow__toggle">
+                          <div class="rc-toggle-wrapper">
+                            <input
+                              type="checkbox"
+                              id="privateEventToggle"
+                              class="rc-toggle rc-toggle-light"
+                              formControlName="private"
+                            />
+                            <label for="privateEventToggle" class="rc-toggle-btn"></label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form__section" *ngIf="!isBasicEdit">
+                      <div class="form__section__header">
+                        REGISTRATION
+                      </div>
+                      <div class="col-md-12">
+                        <div
+                          class="SettingsBtnRowToggle"
+                          style="margin-top: 20px;"
+                          (click)="eventPriceEnabledToggle()"
+                          [ngClass]="{ 'SettingsBtnRowToggle--active': eventForm.get('priceEnabled').value }"
+                        >
+                          <div class="SettingsBtnRowToggle__checkbox"><i class="fa fa-check"></i></div>
+                          <span>MAKE THIS A PAID EVENT</span>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12" *ngIf="eventForm.get('priceEnabled').value">
+                        <div class="col-md-12">
+                          <div
+                            class="BraintreeStatusBox"
+                            [routerLink]="['/client/organization/settings/billing']"
+                            *ngIf="
+                              !organization?.stripeAccount ||
+                              organization?.stripeAccount === 0 ||
+                              organization?.stripeAccount === 3
+                            "
+                          >
+                            <img src="assets/img/stripe-logo.png" alt="" />
+                            <div
+                              class="pull-right status-label"
+                              (click)="stripeStartProccess()"
+                              *ngIf="
+                                !organization?.stripeAccount ||
+                                organization?.stripeAccount === 0 ||
+                                organization?.stripeAccount === 3
+                              "
+                            >
+                              <a target="_blank">
+                                Connect Account
+                              </a>
+                            </div>
+                          </div>
+                          <div
+                            *ngIf="
+                              !(
+                                !organization?.stripeAccount ||
+                                organization?.stripeAccount === 0 ||
+                                organization?.stripeAccount === 3
+                              )
+                            "
+                          >
+                            <div class="NumberPicker NumberPicker--currency">
+                              <a class="NumberPicker__btn NumberPicker__btn--left" (click)="decrementPrice()">
+                                <i class="fa fa-minus"></i>
+                              </a>
+                              <div class="NumberPicker__box">
+                                <div>
+                                  <i [ngClass]="'currency-digit-' + eventForm.get('price').value.toString().length"
+                                    >$</i
+                                  >
+                                  <input type="number" formControlName="price" />
+                                </div>
+                              </div>
+                              <a class="NumberPicker__btn NumberPicker__btn--right" (click)="incrementPrice()">
+                                <i class="fa fa-plus"></i>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!--questionnaireeeeeeeeeeeee-->
+
+                    <div class="form__section" *ngIf="!isBasicEdit">
+                      <div class="form__section__header">
+                        QUESTIONNAIRE
+                      </div>
+                      <div class="col-md-12">
+                        <div
+                          class="SettingsBtnRowToggle"
+                          style="margin-top: 20px;"
+                          (click)="eventQuestionnaireEnabledToggle()"
+                          [ngClass]="{ 'SettingsBtnRowToggle--active': eventForm.get('questionnaireEnabled').value }"
+                        >
+                          <div class="SettingsBtnRowToggle__checkbox"><i class="fa fa-check"></i></div>
+                          <span>USE QUESTIONNAIRE FOR THIS PARTICIPANTS</span>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12" *ngIf="eventForm.get('questionnaireEnabled').value">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="QuestionnaireBox">
+                              <div class="col-md-6" *ngIf="orgQuestionnaires?.length">
+                                <div class="input-wrapper">
+                                  <div class="input-group">
+                                    <select name="" formControlName="questionnaireId" class="select">
+                                      <option value="">Select a questionnaire</option>
+                                      <option
+                                        value="{{ questionnaire.id }}"
+                                        *ngFor="let questionnaire of orgQuestionnaires"
+                                      >
+                                        {{ questionnaire.title }}</option
+                                      >
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row bottom-nav-bar">
+        <div class="bottom-nav-bar__inner">
+          <div class="bottom-nav-bar__inner__content">
+            <rc-loading-btn
+              [loading]="loading"
+              (onClick)="submitData(eventForm.value)"
+              [disabled]="!eventForm.valid"
+              [text]="updateMode ? 'UPDATE EVENT' : 'CREATE EVENT'"
+              [classes]="['button-next', 'button', 'button-assertive', 'pull-right']"
+            >
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<rc-action-success-modal
+  (onCancelClick)="goToEvents()"
+  (onSuccessClick)="publishEvent()"
+  #actionSuccessModal="modal"
+  [titleText]="'AWESOME!'"
+  [successBtnText]="'I WANT TO PUBLISH THIS EVENT'"
+  [cancelText]="'KEEP IT AS DRAFT FOR NOW'"
+  [subTitleText]="'You\'ve successfully created an event, What’s next?'"
+>
+</rc-action-success-modal>

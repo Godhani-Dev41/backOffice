@@ -1,0 +1,115 @@
+@import "~@rcenter/core/scss/variables/index";
+
+input {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+:host ::ng-deep {
+  .timepicker-wrapper {
+    border-radius: 2px;
+    background: white;
+    box-shadow: none;
+    border: 1px solid $brand-light-grey;
+    position: relative;
+    padding: 0 7px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      border-style: solid;
+      border-color: $brand-light-grey transparent;
+      display: block;
+      width: 0;
+      top: -10px;
+      bottom: auto;
+      border-width: 0 10px 9px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      border-style: solid;
+      border-color: #fff transparent;
+      display: block;
+      width: 0;
+      top: -9px;
+      bottom: auto;
+      border-width: 0 10px 10px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+
+    &.timepicker-wrapper--inline {
+      border: none;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+
+    .btn-link {
+      color: $brand-accent;
+
+      &:hover,
+      &:focus {
+        color: lighten($brand-accent, 10%);
+      }
+    }
+
+    .btn.btn-default {
+      border-radius: 2px;
+      margin-left: 3px;
+      transition: all .1s;
+
+      &:focus,
+      &:active,
+      &:hover {
+        outline: none;
+        box-shadow: none;
+        background: white;
+      }
+
+      &:active,
+      &:hover {
+        background: $brand-accent;
+        color: white;
+      }
+    }
+
+    input {
+      height: 33px;
+      box-shadow: none;
+      border-top-left-radius: 2px !important;
+      border-top-right-radius: 2px !important;
+      border-bottom-right-radius: 2px !important;
+      border-bottom-left-radius: 2px !important;
+      font-size: 12px;
+
+      &:focus {
+        border-color: $brand-accent;
+      }
+    }
+
+    tbody {
+      tr:first-child {
+        .btn.btn-link {
+          margin-top: 2px;
+          margin-bottom: -4px;
+        }
+      }
+
+      tr:nth-child(2) {
+        td:nth-child(2) {
+          padding-left: 1px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,78 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal">
+    <div class="modal-content">
+      <div class="modal-header modal-header--assertive">
+        <button type="button" class="close pull-right" (click)="modal.hide()" aria-label="Close">
+          <i class="fa fa-times"></i>
+        </button>
+        <div class="modal-header__content">
+          <i class="icon-rc-teams-icon"></i>
+          <h5>{{ updateMode ? "UPDATE DIVISIONS" : "CREATE DIVISIONS" }}</h5>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12">
+          <p>
+            Creating divisions will allow you to separate your season teams to any type pf groups, you can come back and
+            add or remove divisions until your season start date - as long as you haven’t assigned teams and published
+            the rosters.
+          </p>
+        </div>
+
+        <form action="" [formGroup]="divisionsForm">
+          <div [formArrayName]="'divisions'">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-xs-8">
+                  <label for="">DIVISION NAME</label>
+                </div>
+                <div class="col-xs-4">
+                  <label for="">COLOR</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12" *ngFor="let control of divisionsArray.controls; let i = index" [formGroup]="control">
+              <div class="row">
+                <div class="col-xs-8">
+                  <div class="input-group" [ngClass]="{ 'has-error': !control.valid }">
+                    <input type="text" class="input at-divisionCountItem" formControlName="name" />
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="input-group">
+                    <rc-preset-color-picker #colorPicker formControlName="color"></rc-preset-color-picker>
+                    <a
+                      href=""
+                      *ngIf="divisionsArray.controls.length > 2 && control.get('removable').value"
+                      (click)="removeDivision(i); $event.preventDefault()"
+                      class="remove-btn"
+                      ><i class="fa fa-times"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <a href="" class="add-division-btn" (click)="addDivision(); $event.preventDefault()">
+                <i class="fa fa-plus"></i> ADD ANOTHER DIVISION
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="button button-empty cancel-btn" (click)="modal.hide()">
+          Cancel
+        </button>
+        <rc-loading-btn
+          [text]="updateMode ? 'UPDATE DIVISIONS' : 'CREATE DIVISIONS'"
+          [disabled]="!divisionsForm.valid"
+          (onClick)="submit(divisionsForm.value)"
+          [loading]="loading"
+          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']"
+        >
+        </rc-loading-btn>
+      </div>
+    </div>
+  </div>
+</div>

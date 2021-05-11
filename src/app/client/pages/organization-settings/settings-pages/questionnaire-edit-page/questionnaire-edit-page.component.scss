@@ -1,0 +1,32 @@
+
+.WizardForm__left-fix {
+  margin-left: -10px;
+}
+
+.bottom-nav-bar__inner {
+  margin-left: 180px;
+
+  .bottom-nav-bar__inner__content {
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 8px 0;
+
+     button {
+      height: 35px;
+      width: 77px;
+      background: #4a4a4a;
+      i {
+        font-size: 18px;
+        position: relative;
+        top: 2px;
+        right: -5px;
+      }
+
+      &.button-back {
+        i {
+          left: -5px;
+        }
+      }
+    }
+  }
+}

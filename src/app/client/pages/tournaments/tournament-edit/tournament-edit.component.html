@@ -1,0 +1,73 @@
+<div class="inner_page">
+  <div class="page-header bottom-divider page-header--no-margin">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-wrapper">
+          <rc-back-btn></rc-back-btn>
+        </div>
+        <div class="bottom-wrapper">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="pull-left text-uppercase">TOURNAMENTS</h3>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row inner-page__content inner-page__content--has-bottom-nav">
+    <div class="col-md-12">
+      <div class="WizardForm">
+        <div class="WizardForm__navigation">
+          <div class="WizardForm__navigation__header">
+            <h3>
+              CREATE NEW
+              TOURNAMENT
+              TEMPLATE
+            </h3>
+          </div>
+
+          <div class="WizardForm__navigation__slide-info">
+            <p>
+              Tournament type will create the basic settings for your tournament events
+            </p>
+          </div>
+
+        </div>
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner">
+            <div class="form">
+              <div>
+                <form action="" [formGroup]="tournamentForm" novalidate>
+                  <rc-tournament-edit-page [form]="tournamentForm" [groupName]="'tournamentInfo'"></rc-tournament-edit-page>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row bottom-nav-bar">
+        <div class="bottom-nav-bar__inner">
+          <div class="bottom-nav-bar__inner__content">
+            <rc-loading-btn
+              [disabled]="!tournamentForm.valid"
+              (onClick)="submitTournament(tournamentForm.value)"
+              [loading]="processing"
+              [text]="'CREATE TEMPLATE'"
+              [classes]="['button-next', 'button', 'button-assertive', 'pull-right']">
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<rc-action-success-modal
+  (onCancelClick)="goToDashboard()"
+  (onSuccessClick)="goToCreateEvent()"
+  #actionSuccessModal="modal"
+ [successBtnText]="'I WANT TO CREATE A TOURNAMENT'"
+ [subTitleText]="'You\'ve successfully created a tournament template, What\’s next?'">
+</rc-action-success-modal>

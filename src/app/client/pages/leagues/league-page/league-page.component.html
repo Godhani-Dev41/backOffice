@@ -1,0 +1,73 @@
+<div class="league-page-wrapper inner-page">
+  <div class="page-header bottom-divider page-header--no-margin">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-wrapper">
+        </div>
+        <div class="bottom-wrapper">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="pull-left text-uppercase">
+                <ul class="breadcrumb">
+                  <li>
+                    <a href="" [routerLink]="['/client/leagues/view']" [routerLinkActive]="['active']">
+                      Leagues
+                    </a>
+                  </li>
+                  <li>
+                    <a href="" [routerLink]="['/client/leagues/view/' + league?.id + '/details']"
+                      [routerLinkActive]="['active']">
+                      {{league?.name}}
+                    </a>
+                  </li>
+                  <li *ngIf="season?.parentSeason?.name">
+                    <a href=""
+                      [routerLink]="['/client/leagues/view/' + league?.id + '/season/' + season.parentSeason?.id + '/dashboard']"
+                      [routerLinkActive]="['active']">
+                      {{season?.parentSeason?.name}}
+                    </a>
+                  </li>
+                  <li *ngIf="season?.name" class="active">
+                    <a href=""
+                      [routerLink]="['/client/leagues/view/' + league?.id + '/season/' + season?.id + '/dashboard']"
+                      [routerLinkActive]="['active']">
+                      {{season?.name}}
+                    </a>
+                  </li>
+                </ul>
+
+              </h3>
+              <div class="pull-right">
+                <a *ngIf="league?.isPublished" style="margin-top: 20px; font-weight: bold;" class="league-site-url"
+                  [href]="getLeagueUrl()" target="_blank"><i class="icon-rc-home"></i> WEB PAGE</a>
+                <div class="season-status-btn-wrapper" *ngIf="league && !league?.isPublished">
+                  <div class="season-status-label">
+                    LEAGUE
+                    <span [ngClass]="{'color-success': league?.isPublished }" *ngIf="!publishingProccessing">
+                      <i></i>
+                      <ng-template [ngIf]="!league?.isPublished">
+                        <div class="draft-btn draft-btn--clickable" [tooltip]="'Click to publish'"
+                          (click)="publishLeague();">
+                          DRAFT
+                        </div>
+                      </ng-template>
+                      <ng-template [ngIf]="league?.isPublished">
+                        PUBLISHED
+                      </ng-template>
+                    </span>
+                    <loaders-css *ngIf="publishingProccessing" [loader]="'ball-pulse'"
+                      [loaderClass]="'rc-loader-assertive'">
+                    </loaders-css>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

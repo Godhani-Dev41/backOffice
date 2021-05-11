@@ -1,0 +1,140 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.round-standings-wrapper {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+  &.round-standings-wrapper--border {
+    border: 1px solid $brand-grey;
+  }
+
+  &.round-standings-wrapper--zoom {
+    zoom: 2;
+  }
+
+  .round-standings-header {
+    height: 61px;
+    line-height: 48px;
+    background: $brand-success;
+    padding: 5px 10px;
+    color: white;
+    font-size: 18px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: $font-brand;
+    font-weight: bold;
+
+    span {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 23px;
+    }
+  }
+
+  .round-match-item {
+    display: flex;
+    padding: 10px;
+
+    &.round-match-item--server {
+      display: -webkit-flex;
+      padding: 5px 10px 5px 10px;
+      .teams-names {
+        color: $brand-dark;
+      }
+    }
+
+    .teams-logo {
+      min-width: 75px;
+      flex: 1;
+      -webkit-flex: 1;
+
+      ::ng-deep rc-team-logo-avatar:first-child .team-logo-avatar-wrapper {
+        z-index: 1;
+        margin-right: -17px;
+        position: relative;
+        float: left;
+      }
+
+      ::ng-deep .team-logo-avatar-wrapper {
+        display: inline-block;
+
+        .participant-logo {
+          height: auto;
+          width: auto;
+
+          .avatar {
+            width: 40px;
+            height: 40px;
+            font-size: 21px;
+            line-height: 32px;
+          }
+        }
+      }
+    }
+
+    .teams-names {
+      height: 40px;
+      flex: 3;
+      -webkit-flex: 3;
+      font-size: 14px;
+      font-weight: bold;
+      color: black;
+      line-height: 40px;
+      text-transform: uppercase;
+
+
+      span.wrapper {
+        display: inline-block;
+        line-height: 16px;
+        vertical-align: middle;
+      }
+
+      span.success {
+        color: $brand-success;
+      }
+    }
+
+    .match-score {
+      min-width: 70px;
+      width: 70px;
+      flex: 1;
+      -webkit-flex: 1;
+      line-height: 40px;
+      text-align: center;
+
+      &.match-score--tbd {
+        font-size: 10px;
+        color: $brand-dark-grey;
+        text-align: center;
+      }
+
+      .score-item {
+        display: inline-block;
+        text-align: center;
+        width: 29.1px;
+        height: 30px;
+        border-radius: 1px;
+        background-color: #fff;
+        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.1);
+        font-size: 16px;
+        font-family: $font-brand;
+        color: $brand-black;
+        font-weight: bold;
+        line-height: 28px;
+
+        &.score-item--success {
+          border-top: 1px solid $brand-success;
+        }
+        &.score-item--danger {
+          border-top: 1px solid $brand-danger;
+        }
+      }
+    }
+  }
+
+  .see-all-btn {
+    display: inline-block;
+    padding: 5px 10px 10px;
+    font-weight: bold;
+    font-size: 10px;
+  }
+}

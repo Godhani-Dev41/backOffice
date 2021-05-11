@@ -1,0 +1,17 @@
+<div class="row inner-page__content inner-page__content--background padding-top-20" *ngIf="tournament">
+  <div class="col-md-6">
+    <rc-league-details [league]="tournament" [tournament]="true"></rc-league-details>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="sub-title sub-title--assertive no-mg-top">
+          LEAGUE SETTINGS
+        </h3>
+      </div>
+      <div class="col-md-12">
+        <rc-league-detail-stats [leagueDetails]="tournament?.leagueDetails"></rc-league-detail-stats>
+      </div>
+    </div>
+  </div>
+</div>

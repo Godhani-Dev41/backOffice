@@ -1,0 +1,120 @@
+<div class="inner_page inner_page__form">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav">
+    <div class="col-md-12">
+      <div class="WizardForm" #scrollArea>
+        <div class="WizardForm__navigation" >
+          <div *ngIf="currentStep === 1">
+            <div class="WizardForm__navigation__header">
+              <h3>
+                SCHEDULE PARAMETERS
+              </h3>
+            </div>
+
+            <div class="WizardForm__navigation__slide-info">
+              <p>
+                Tell us what you already know and we'll generate the best schedule for you.
+              </p>
+            </div>
+          </div>
+          <div *ngIf="currentStep === 2">
+            <div class="WizardForm__navigation__header">
+              <h3>
+                SCHEDULE CONSTRAINTS
+              </h3>
+            </div>
+
+            <div class="WizardForm__navigation__slide-info">
+              <p>
+                Apply must-have constraints such as days or holidays you
+                can’t play on and select from your team’s requests that you want to try and accommodate.
+                In case we won’t be able to accommodate all the requests we will help you solve these issues.
+              </p>
+            </div>
+          </div>
+
+          <div class="SchedulerInfoBoxesStack">
+            <div class="InfoBoxesStack__item">
+              <div class="InfoBoxesStack__item__title">
+                NO. OF MATCHES
+              </div>
+              <div class="InfoBoxesStack__item__content">
+                {{schedulerData?.numberOfEncountersNeeded || 0}}
+              </div>
+            </div>
+            <div class="InfoBoxesStack__item">
+              <div class="InfoBoxesStack__item__title">
+                SEASON PERIOD
+              </div>
+              <div class="InfoBoxesStack__item__content">
+                {{schedulerData?.percentageUse || 0}}%
+              </div>
+            </div>
+            <div class="InfoBoxesStack__item InfoBoxesStack__item--large" [ngClass]="{'InfoBoxesStack__item--disabled': !constraintsCount }">
+              <div class="InfoBoxesStack__item__title">
+                SCHEDULE <br> CONSTRAINTS
+              </div>
+              <div class="InfoBoxesStack__item__content">
+                {{constraintsCount}}
+              </div>
+            </div>
+            <div class="InfoBoxesStack__item InfoBoxesStack__item--large" [ngClass]="{'InfoBoxesStack__item--disabled': !teamConstraintsCount }">
+              <div class="InfoBoxesStack__item__title">
+                TEAM <br> CONSTRAINTS
+              </div>
+              <div class="InfoBoxesStack__item__content">
+                {{teamConstraintsCount}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner">
+            <div class="form">
+              <form action="" [formGroup]="schedulerForm" novalidate>
+                <rc-scheduler-generator-settings
+                  (onFormChange)="formChangeTrigger()"
+                  *ngIf="currentStep === 1"
+                  [season]="season"
+                  [form]="schedulerForm.get('schedulerSettings')">
+                </rc-scheduler-generator-settings>
+                <rc-scheduler-generator-constraints
+                  [playOfWeeks]="schedulerForm.get('schedulerSettings').get('playOfWeeks').value"
+                  [form]="schedulerForm.get('schedulerRules')"
+                  *ngIf="currentStep === 2"></rc-scheduler-generator-constraints>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row bottom-nav-bar">
+        <div class="bottom-nav-bar__inner">
+          <div class="bottom-nav-bar__inner__content">
+            <button class="button-back button button-empty"
+                    type="button"
+                    (click)="goBack()"
+                    *ngIf="currentStep > 1">
+              <i class="fa fa-chevron-left"></i>BACK
+            </button>
+
+            <button class="button-next button button-assertive pull-right"
+                    type="button"
+                    [disabled]="!canGoNext()"
+                    (click)="nextStep()"
+                    *ngIf="currentStep < totalSteps">
+              NEXT <i class="fa fa-chevron-right"></i>
+            </button>
+
+            <rc-loading-btn
+              *ngIf="currentStep === totalSteps"
+              [loading]="loading"
+              [text]="'GENERATE SCHEDULE'"
+              [disabled]="!canGoNext()"
+              (onClick)="submit(schedulerForm.value)"
+              [classes]="['button-next', 'button', 'button-dark', 'pull-right']">
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

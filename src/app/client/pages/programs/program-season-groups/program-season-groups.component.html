@@ -1,0 +1,433 @@
+<div class="row" style="width: 100%;">
+  <div class="col-md-6" *ngIf="
+      seasonTeams?.length || teamsPoolParticipants?.length || freeAgentPoolParticipants?.length || tempUsers?.length
+    ">
+    <h3 class="sub-title sub-title--assertive no-mg-top">
+      REGISTRATIONS
+    </h3>
+
+    <div class="tabs__navigation">
+      <ul class="no-style list list--inline">
+        <li [ngClass]="{ active: selectedTeamsNavigation === 'freeAgents' }">
+          <a href="" (click)="changeSelectedNavigation('freeAgents'); $event.preventDefault()">FREE AGENTS</a>
+        </li>
+        <li [ngClass]="{ active: selectedTeamsNavigation === 'invited' }">
+          <a href="" (click)="changeSelectedNavigation('invited'); $event.preventDefault()">INVITED BY LEAGUE</a>
+        </li>
+        <li [ngClass]="{ active: selectedTeamsNavigation === 'archived' }">
+          <a href="" (click)="changeSelectedNavigation('archived'); $event.preventDefault()">ARCHIVED</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="tabs__content">
+      <div *ngIf="loadingSeasonPool">
+        <loaders-css [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+      </div>
+
+      <div *ngIf="selectedTeamsNavigation === 'archived'">
+        <div class="row">
+          <div class="col-md-3" *ngFor="let member of archivedPlayerEntities">
+            <rc-player-card [hideTopControls]="true" (onMoreDetailsClick)="playerInfoModal.showModal(member.userId)"
+              [player]="member">
+            </rc-player-card>
+          </div>
+        </div>
+        <div class="row" style="min-height: 100px;">
+          <div class="col-md-6 col-sm-12" *ngFor="let teamParticipant of archivedTeamEntities">
+            <rc-pool-team-card (onRestoreClicked)="restoreTeamPool($event)" [restoreToPoolMode]="true"
+              [team]="teamParticipant.teamEntity">
+            </rc-pool-team-card>
+          </div>
+        </div>
+      </div>
+
+      <rc-season-invited-table (onRemoveInvite)="inviteRemoved($event)" *ngIf="selectedTeamsNavigation === 'invited'"
+        [invitedList]="invitedList" (onSendMultipleInvites)="sendMultipleInvites($event)"
+        (onPlayerCardResendInvite)="onPlayerCardResendInvite($event)">
+      </rc-season-invited-table>
+
+      <div *ngIf="selectedTeamsNavigation === 'freeAgents' && !loadingSeasonPool">
+        <div class="row" style="min-height: 600px;" id="freeAgentsPool" [dragula]="'members-bag'"
+          [dragulaModel]="tempUsers">
+          <div class="row no-drag" *ngIf="!tempUsers?.length">
+            <div class="col-md-12">
+              <div class="EmptyStateMessage" style="margin-top: 40px;">
+                <i class="icon-rc-like"></i>
+                <h5>
+                  GREAT JOB!
+                </h5>
+                <p>
+                  You’ve assigned all the free agents, If your roster is ready to publish… go for it!
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3" *ngFor="let member of tempUsers" id="agentPoolItem-{{ member?.user?.id }}">
+            <rc-player-card (onMoreDetailsClick)="playerInfoModal.showModal(member?.user?.id)" [player]="member?.user"
+              [draggable]="true">
+            </rc-player-card>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="selectedTeamsNavigation === 'teams' && !loadingSeasonPool">
+        <div class="row" style="min-height: 100px;">
+          <div class="col-md-6 col-sm-12" *ngFor="let teamParticipant of teamsPoolParticipants"
+            id="teamPoolItem-{{ teamParticipant.teamEntity?.id }}">
+            <rc-pool-team-card (onAssignedClicked)="assignTeamToSeason($event)" [team]="teamParticipant.teamEntity">
+            </rc-pool-team-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <!-- Button -->
+    <div class="row" *ngIf="season">
+      <div class="col-md-12 title-button-group">
+        <h3 class="sub-title sub-title--assertive no-mg-top pull-left">TEAMS ({{ seasonTeamsVM?.length || 0 }})</h3>
+        <a href="" class="button button-assertive--inverted button-bold pull-right" *ngIf="true"
+          (click)="openCreateTeamModal(); $event.preventDefault()">
+          CREATE NEW TEAM
+        </a>
+        <a href="" class="button button-assertive--inverted button-bold pull-right" style="margin-right: 10px;"
+          *ngIf="true" (click)="createDivisionModal.showModal(); $event.preventDefault()">
+          CREATE DIVISIONS
+        </a>
+        <a href="" class="button button-assertive--inverted button-bold pull-right" style="margin-right: 10px;"
+          (click)="showUploadRosterModal(); $event.preventDefault()">
+          UPLOAD ROSTERS
+        </a>
+      </div>
+    </div>
+    <!-- Empty -->
+    <div class="row">
+      <div class="col-md-12" *ngIf="!seasonTeams?.length">
+        <div class="box-item box--shadow box-item--empty-results">
+          <div class="box-item--empty-results__icon">
+            <i class="icon-rc-teams-icon"></i>
+          </div>
+          <div class="box-item--empty-results__text text-center">
+            set up awesome teams and <br />get the ball rollin'
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Teams -->
+    <!--
+    <div class="row">
+      <div class="col-md-12">
+        <div
+          class="teams-list-wrapper"
+          style="padding-right: 10px;"
+          *ngIf="seasonTeamsVM?.length"
+          [dragula]="'teams-bag'"
+        >
+          <div
+            class="box-item box&#45;&#45;padding box&#45;&#45;collapsable mg-bottom-20"
+            id="teamBox-{{ seasonTeam.id }}"
+            *ngFor="let seasonTeam of getDivisionTeams(null); let i = index"
+            [ngClass]="{
+              'box&#45;&#45;collapsable-active box&#45;&#45;border': currentVisibleCard[seasonTeam.id],
+              'box&#45;&#45;shadow-small': currentVisibleCard[seasonTeam.id]
+            }"
+          >
+            <div
+              class="box-header padding-bottom-20"
+              id="teamsPoolWrapper-{{ seasonTeam.id }}"
+              [dragula]="'members-bag'"
+              [dragulaModel]="seasonTeam.members"
+              (click)="openTeamCard(seasonTeam.id)"
+            >
+              <div class="no-drag box-title text-uppercase" style="position: relative;">
+                <i class="icon-rc-teams-icon color-brand-accent"></i>
+                {{ seasonTeam.name }}
+
+                <ng-template #popTemplate>
+                  <div class="PopupMenuWrapper">
+                    <ul>
+                      <li *ngIf="seasonTeam.team?.creatorType !== 'user'">
+                        <a
+                          href=""
+                          (click)="
+                            editTeamModalOpen(seasonTeam); $event.preventDefault(); $event.stopPropagation(); pop.hide()
+                          "
+                          ><i class="icon-rc-teams-icon"></i> Edit Team Details</a
+                        >
+                      </li>
+                      <li
+                        *ngIf="
+                          season?.status === RCSeasonRosterStatusEnum.PUBLISHED &&
+                          seasonTeam?.team?.creatorType !== 'user'
+                        "
+                      >
+                        <a href=""><i class="icon-rc-mail"></i> Invite To Team</a>
+                      </li>
+                      <li *ngIf="seasonTeam?.team?.creatorType !== 'user'">
+                        <a href=""><i class="icon-rc-calendar"></i> Add Constraints</a>
+                      </li>
+                      <li class="text-center">
+                        <a href="" (click)="$event.preventDefault(); pop.hide()">Close Menu</a>
+                      </li>
+                    </ul>
+                  </div>
+                </ng-template>
+                <button
+                  class="pull-right more-options-button"
+                  (click)="$event.stopPropagation()"
+                  [popover]="popTemplate"
+                  #pop="bs-popover"
+                  placement="bottom"
+                  container="body"
+                >
+                  <i class="icon-rc-nav-more"></i>
+                </button>
+                <span
+                  class="season-team-label pull-right"
+                  customClass="rc-tooltip-white"
+                  container="body"
+                  tooltip="Accepting Free Agents"
+                  placement="bottom"
+                  *ngIf="seasonTeam.team?.creatorType !== 'user'"
+                >
+                  <i class="icon-rc-person-icon"></i>
+                </span>
+              </div>
+            </div>
+            <div class="box-content">
+              <div class="row">
+                <div class="col-md-12">
+                  <div
+                    class="row"
+                    id="teamsPoolWrapper-{{ seasonTeam.id }}"
+                    [dragula]="'members-bag'"
+                    [dragulaModel]="seasonTeam.members"
+                  >
+                    <div
+                      class="col-md-3 col-sm-4 col-lg-3 mg-bottom-20 bloc&#45;&#45;inner"
+                      *ngFor="let member of seasonTeam.members"
+                      [ngClass]="{
+                        'no-drag': !member.userId || member.captain || !member.canUnassign
+                      }"
+                      id="teamMemberCard-{{ member.userId }}"
+                    >
+                      <rc-player-card
+                        [player]="member"
+                        (onTeamCaptainAssignClick)="markMemberAsCaptain(seasonTeam.id, $event.player.userId)"
+                        (onMoreDetailsClick)="playerInfoModal.showModal(member.userId)"
+                        (onInviteSend)="onPlayerCardResendInvite($event)"
+                      >
+                      </rc-player-card>
+                    </div>
+                    <div
+                      class="col-md-3 col-sm-4 col-lg-3 no-drag"
+                      *ngIf="
+                        season?.status === RCSeasonRosterStatusEnum.PUBLISHED &&
+                        seasonTeam?.team?.creatorType !== 'user'
+                      "
+                    >
+                      <div class="empty-player-card text-center" style="margin-bottom: 15px;">
+                        <div class="inner-content">
+                          <i class="fa fa-plus"></i>
+                          Add Team <br />
+                          Member
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="col-md-3 col-sm-4 col-lg-3 no-drag"
+                      *ngIf="
+                        season?.status === RCSeasonRosterStatusEnum.DRAFT && seasonTeam?.team?.creatorType !== 'user'
+                      "
+                    >
+                      <div
+                        class="empty-player-card text-center"
+                        style="margin-bottom: 15px;"
+                        container="body"
+                        [tooltip]="
+                          'Sorry, we can\'t let you do that... sending an invite to an unpublished roster would be weird right? So you\'re not allowed to invite players to the teams before publishing the roster... you can only add players to teams from the registration pool'
+                        "
+                      >
+                        <div class="inner-content">
+                          <i class="fa fa-info-circle"></i>
+                          Add Player
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+-->
+    <!-- Divisions -->
+    <div class="row">
+      <div class="col-md-12">
+        <div *ngFor="let division of divisions" class="DivisionTeamsBlock"
+          [style.border]="division.isDefault ? '0' : '1px solid ' + division.color">
+          <div class="DivisionTeamsBlock__header no-drag"
+            [ngClass]="{ 'no-drag-to': currentVisibleDivisionCard[division.id] }"
+            (click)="toggleDivisionCard(division.id)" [dragula]="'teams-bag'" id="divisionBlock-{{ division.id }}"
+            [style.backgroundColor]="division.isDefault ? 'none' : division.color"
+            [style.display]="division.isDefault ? 'none' : ''">
+            <b>{{ division.name }}</b> | {{ getDivisionTeams(division.id).length }} TEAMS
+
+            <span class="pull-right no-drag" style="position: relative; top: -3px;">
+              <i class="fa"
+                [ngClass]="currentVisibleDivisionCard[division.id] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+            </span>
+          </div>
+          <div class="DivisionTeamsBlock__content" [dragula]="'teams-bag'" id="divisionBlock-{{ division.id }}"
+            *ngIf="currentVisibleDivisionCard[division.id]">
+            <div id="teamBox-{{ seasonTeam.id }}" class="box-item box--padding box--collapsable mg-bottom-20"
+              *ngFor="let seasonTeam of getDivisionTeams(division.id); let i = index" [ngClass]="{
+                'box--collapsable-active box--border': currentVisibleCard[seasonTeam.id],
+                'box--shadow-small': currentVisibleCard[seasonTeam.id]
+              }">
+              <div class="box-header padding-bottom-20" id="teamsPoolWrapper-{{ seasonTeam.id }}"
+                [dragula]="'members-bag'" [dragulaModel]="seasonTeam.members" (click)="openTeamCard(seasonTeam.id)">
+                <div class="no-drag box-title text-uppercase" style="position: relative;">
+                  <span class="drag-left-handle" *ngIf="divisionsEnabled && !currentVisibleCard[seasonTeam.id]">
+                    <i class="icon-rc-drag-points"></i>
+                  </span>
+                  <i class="icon-rc-teams-icon color-brand-accent"></i> {{ seasonTeam.name }}
+
+                  <ng-template #popTemplate>
+                    <div class="PopupMenuWrapper">
+                      <ul>
+                        <li *ngIf="seasonTeam.team?.creatorType !== 'user'">
+                          <a href="" (click)="
+                              editTeamModalOpen(seasonTeam);
+                              $event.preventDefault();
+                              $event.stopPropagation();
+                              pop.hide()
+                            "><i class="icon-rc-teams-icon"></i> Edit Team Details</a>
+                        </li>
+                        <li *ngIf="
+                            season?.rosterStatus === RCSeasonRosterStatusEnum.PUBLISHED &&
+                            seasonTeam?.team?.creatorType !== 'user'
+                          ">
+                          <a href=""
+                            (click)="teamInviteModal.showModal(seasonTeam.id); $event.preventDefault(); pop.hide()"><i
+                              class="icon-rc-mail"></i> Invite To Team</a>
+                        </li>
+                        <li>
+                          <a href=""
+                            (click)="teamConstraintModal.showModal(seasonTeam); $event.preventDefault(); pop.hide()"><i
+                              class="icon-rc-calendar"></i> Add Constraints</a>
+                        </li>
+                        <li>
+                          <a href="" (click)="promptTeamRemove(seasonTeam); $event.preventDefault(); pop.hide()">
+                            <i class="icon-rc-circle-close"></i> Remove Team
+                          </a>
+                        </li>
+                        <li class="text-center">
+                          <a href="" (click)="$event.preventDefault(); pop.hide()">Close Menu</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </ng-template>
+
+                  <button class="pull-right more-options-button" (click)="$event.stopPropagation()"
+                    [popover]="popTemplate" #pop="bs-popover" placement="bottom" container="body">
+                    <i class="icon-rc-nav-more"></i>
+                  </button>
+                  <span class="season-team-label pull-right" customClass="rc-tooltip-white" container="body"
+                    tooltip="Accepting Free Agents" placement="bottom" *ngIf="seasonTeam.team?.creatorType !== 'user'">
+                    <i class="icon-rc-person-icon"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="box-content">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row" id="teamsPoolWrapper-{{ seasonTeam.id }}" [dragula]="'members-bag'"
+                      [dragulaModel]="seasonTeam.members">
+                      <div class="col-md-3 col-sm-4 col-lg-3 mg-bottom-20 bloc--inner"
+                        *ngFor="let member of seasonTeam.members" [ngClass]="{ 'no-drag': !member.user.id }"
+                        id="teamMemberCard-{{ member.user.id }}">
+                        <rc-player-card [player]="member.user"
+                          (onMoreDetailsClick)="playerInfoModal.showModal(member.user.id, seasonTeam)"
+                          (onTeamCaptainAssignClick)="markMemberAsCaptain(seasonTeam.id, $event.player.userId)"
+                          [team]="seasonTeam" (onInviteSend)="onPlayerCardResendInvite($event)">
+                        </rc-player-card>
+                      </div>
+                      <div class="col-md-3 col-sm-4 col-lg-3 no-drag"
+                        *ngIf="season?.rosterStatus === RCSeasonRosterStatusEnum.PUBLISHED">
+                        <div class="empty-player-card text-center" style="margin-bottom: 15px;"
+                          (click)="teamInviteModal.showModal(seasonTeam.id)">
+                          <div class="inner-content">
+                            <i class="fa fa-plus"></i>
+                            Add Team <br />
+                            Member
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3 col-sm-4 col-lg-3 no-drag" *ngIf="
+                          season?.rosterStatus === RCSeasonRosterStatusEnum.DRAFT &&
+                          seasonTeam?.team?.creatorType !== 'user'
+                        ">
+                        <div class="empty-player-card text-center" style="margin-bottom: 15px;" container="body"
+                          [tooltip]="
+                            'Sorry, we can\'t let you do that... sending an invite to an unpublished roster would be weird right? So you\'re not allowed to invite players to the teams before publishing the roster... you can only add players to teams from the registration pool'
+                          ">
+                          <div class="inner-content">
+                            <i class="fa fa-info-circle"></i>
+                            Add Player
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="BottomActionsBar" [ngClass]="{ 'BottomActionsBar--hidden': !actionsPool?.length }">
+    <div class="BottomActionsBar__container">
+      <rc-loading-btn [loading]="processing" (onClick)="saveChanges()" [text]="'SAVE CHANGES'"
+        [classes]="['button', 'button-assertive', 'pull-right']">
+      </rc-loading-btn>
+    </div>
+  </div>
+</div>
+
+<!--<rc-team-player-invite-modal #teamInviteModal="modal"></rc-team-player-invite-modal>-->
+<rc-team-edit-modal #teamEditModal="modal" (onSubmit)="reloadTeams()" [seasonId]="seasonId" [leagueId]="programId"
+  type="program" [divisionId]="divisions ? divisions[0].id : null">
+</rc-team-edit-modal>
+
+<rc-confirmation-modal [title]="'SAVE CHANGES'" [content]="'You must save roster changes before making further actions'"
+  [confirmText]="'SAVE'" (onConfirm)="saveChanges()" #saveModal="modal">
+</rc-confirmation-modal>
+
+<!--<rc-teams-constraints-modal #teamConstraintModal="modal">
+</rc-teams-constraints-modal>-->
+
+<rc-player-season-info-modal [season]="season" #playerInfoModal="modal" [isProgramSeason]="true">
+</rc-player-season-info-modal>
+
+<rc-create-division-modal [season]="season" type="program" (onUpdate)="divisionsUpdated()" #createDivisionModal="modal">
+</rc-create-division-modal>
+
+<rc-confirmation-modal [type]="'danger'" [title]="'REMOVE PLAYER FROM SEASON'" [content]="
+    'Are you sure you want to remove the player from season? He will be moved to the archive and notified that he is no longer playing the season'
+  " [confirmText]="'YES, REMOVE PLAYER'" (onConfirm)="removeSeasonPlayer($event)"
+  (onConfirm)="removeSeasonPlayer($event)" #removePlayerConfirmModal="modal">
+</rc-confirmation-modal>
+
+<rc-confirmation-modal [type]="'danger'" [title]="'REMOVE TEAM FROM SEASON'" [content]="
+    'Are you sure you want to remove the team from season? all players will be moved to the archive and notified they\'re no longer playing'
+  " [confirmText]="'YES, REMOVE TEAM'" (onConfirm)="removeSeasonTeam($event)" #removeTeamConfirmModal="modal">
+</rc-confirmation-modal>
+
+<rc-roster-xls-upload-modal [season]="season" #rosterXlsModal="modal" (onUploaded)="playerInfoChanged()">
+</rc-roster-xls-upload-modal>

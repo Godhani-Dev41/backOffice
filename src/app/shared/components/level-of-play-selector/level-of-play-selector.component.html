@@ -1,0 +1,55 @@
+<div class="LevelOfPlayPicker">
+  <div class="LevelOfPlayPicker__item"
+       (click)="selectLevelOfPlay(1)"
+       [ngClass]="{'LevelOfPlayPicker__item--active': isSelected(1) }">
+    <div class="LevelOfPlayPicker__item__active-btn">
+      <i class="fa fa-check"></i>
+    </div>
+    <div class="LevelOfPlayPicker__item__top">
+      <i class="icon-rc-star-intermediate"></i>
+
+    </div>
+    <div class="LevelOfPlayPicker__item__title">
+      BEGINNER
+    </div>
+  </div>
+  <div class="LevelOfPlayPicker__item"
+       (click)="selectLevelOfPlay(2)"
+       [ngClass]="{'LevelOfPlayPicker__item--active': isSelected(2) }">
+    <div class="LevelOfPlayPicker__item__active-btn">
+      <i class="fa fa-check"></i>
+    </div>
+    <div class="LevelOfPlayPicker__item__top">
+      <i class="icon-rc-star-medal"></i>
+    </div>
+    <div class="LevelOfPlayPicker__item__title">
+      INTERMEDIATE
+    </div>
+  </div>
+  <div class="LevelOfPlayPicker__item"
+       (click)="selectLevelOfPlay(3)"
+       [ngClass]="{'LevelOfPlayPicker__item--active': isSelected(3) }">
+    <div class="LevelOfPlayPicker__item__active-btn">
+      <i class="fa fa-check"></i>
+    </div>
+    <div class="LevelOfPlayPicker__item__top">
+      <i class="icon-rc-star-advanced"></i>
+    </div>
+    <div class="LevelOfPlayPicker__item__title">
+      ADVANCED
+    </div>
+  </div>
+  <div class="LevelOfPlayPicker__item"
+       (click)="selectLevelOfPlay(4)"
+       [ngClass]="{'LevelOfPlayPicker__item--active': isSelected(4) }">
+    <div class="LevelOfPlayPicker__item__active-btn">
+      <i class="fa fa-check"></i>
+    </div>
+    <div class="LevelOfPlayPicker__item__top">
+      <i class="icon-rc-trophy"></i>
+    </div>
+    <div class="LevelOfPlayPicker__item__title">
+      SEMI-PRO
+    </div>
+  </div>
+</div>

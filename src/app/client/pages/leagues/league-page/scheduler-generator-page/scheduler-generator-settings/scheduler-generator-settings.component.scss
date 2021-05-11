@@ -1,0 +1,154 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.SchedulerSettingBox {
+  text-align: center;
+  box-shadow: 0 6px 11px 0 rgba(255, 163, 29, 0.34);
+  border-radius: 2px;
+  padding: 18px 24px;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  &.SchedulerSettingBox--auto-height {
+    height: auto;
+    padding: 18px 16px;
+  }
+
+  .SchedulerSettingBox__header {
+    margin-top: 10px;
+
+    i {
+      font-size: 26px;
+      color: $brand-accent;
+    }
+
+    .SchedulerSettingBox__header__title {
+      margin-top: 5px;
+      font-size: 10px;
+      color: $brand-black;
+      font-weight: bold;
+    }
+  }
+
+  .SchedulerSettingBox__description {
+    margin-top: 2px;
+    font-size: 10px;
+    font-weight: 200;
+    color: $brand-dark-grey;
+    line-height: 13px;
+  }
+
+  .SchedulerSettingBox__input {
+    margin-top: auto;
+
+    .input-group,
+    .input {
+      margin-bottom: 0;
+    }
+
+    .input {
+      max-width: 62px;
+    }
+
+    &.SchedulerSettingBox__input--multi {
+      text-align: left;
+    }
+
+    .inline-label {
+      label {
+        display: inline-block;
+        font-weight: 200;
+        font-size: 12px;
+        margin-left: 4px;
+      }
+    }
+
+    .top-label {
+      font-weight: bold;
+      font-size: 10px;
+      margin-bottom: 3px;
+      color: $brand-black;
+    }
+  }
+}
+
+.WhenWhereTable {
+  text-align: left;
+
+  table {
+    width: 100%;
+  }
+
+  thead {
+    tr {
+      color: $brand-accent;
+      font-weight: bold;
+      font-size: 12px;
+    }
+  }
+
+  td {
+    padding: 3px 6px;
+  }
+}
+
+.TeamParticipantsSelector {
+  padding: 7px;
+  max-height: 378px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .label-title {
+    color: $brand-accent;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .team-box-item {
+    width: auto !important;
+    position: relative;
+    border-top: none !important;
+
+    .team-box-item__header {
+      .checkbox {
+        position: absolute;
+        left: 2px;
+        top: 2px;
+      }
+    }
+  }
+}
+
+.input-group {
+  .input[disabled] {
+    background: $brand-light-grey;
+  }
+
+  .error-message {
+    position: absolute;
+  }
+}
+
+.teams-selection-wrapper {
+  .checkbox {
+    &:after {
+      margin-right: 0;
+    }
+  }
+}
+
+.add-activity-venue-btn {
+  background: $brand-accent;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 14px;
+  display: block;
+
+  i {
+    position: relative;
+    top: -2px;
+    font-size: 8px;
+  }
+}

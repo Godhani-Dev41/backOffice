@@ -1,0 +1,19 @@
+<nz-layout>
+  <nz-row>
+    <nz-col>
+      <nz-form-label nzFor="inputRow">{{ labelString }}</nz-form-label>
+      <div class="flex-spread-far switch-number-width">
+        <nz-switch [(ngModel)]="switchValue" (ngModelChange)="onSwitchChange()"></nz-switch>
+        <nz-input-number
+          nzSize="large"
+          [(ngModel)]="numValue"
+          (ngModelChange)="onNumberChange()"
+          [nzMin]="min"
+          [nzMax]="max"
+          [nzStep]="1"
+          [nzDisabled]="!switchValue"
+        ></nz-input-number>
+      </div>
+    </nz-col>
+  </nz-row>
+</nz-layout>

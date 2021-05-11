@@ -1,0 +1,57 @@
+<div class="inner_page inner_page__form" *ngIf="organization">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav" style="height: 100%">
+    <div class="col-md-12">
+      <div class="WizardForm">
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner">
+            <div class="form">
+              <div class="form__section">
+                <div class="form__section__header">
+                  BILLING PLATFORM
+                </div>
+                <div class="form__section__helper">
+                  Bond Sports uses Stripe to collect online payment from your customers on your behalf.
+                  We charge a convenience fee on top of each transaction which includes the credit card fees.
+                  Click below to enter your Stripe login, or create an account.
+                </div>
+                <div class="row mg-bottom-20">
+                  <div class="col-md-12">
+                    <div class="BraintreeStatusBox" [ngClass]="{
+                            'BraintreeStatusBox--success': organization?.stripeAccount === 2,
+                            'BraintreeStatusBox--pending':  organization?.stripeAccount === 1
+                          }">
+                      <img src="assets/img/stripe-logo.png" alt="">
+                      <div class="pull-right status-label" (click)="stripeStartProccess()"
+                        *ngIf="!organization?.stripeAccount || organization?.stripeAccount === 0 || organization?.stripeAccount === 3">
+                        <a [href]="stripeUrl" target="_blank">
+                          Connect Account
+                        </a>
+                      </div>
+                      <div class="pull-right status-label" *ngIf="organization?.stripeAccount === 1">
+                        Pending
+                      </div>
+                      <div class="pull-right status-label" *ngIf="organization?.stripeAccount === 2">
+                        Connected
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row bottom-nav-bar" *ngIf="orgSettingsForm.dirty">
+        <div class="bottom-nav-bar__inner" style="margin-left: 0">
+          <div class="bottom-nav-bar__inner__content">
+            <rc-loading-btn [loading]="loading" [text]="'SAVE'" [disabled]="!orgSettingsForm.valid"
+              (onClick)="submit(orgSettingsForm.value)"
+              [classes]="['button-next', 'button', 'button-dark', 'pull-right']">
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

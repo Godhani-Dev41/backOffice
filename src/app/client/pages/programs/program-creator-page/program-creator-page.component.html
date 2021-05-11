@@ -1,0 +1,211 @@
+<div class="full-width-container">
+  <nz-layout *ngIf="loading">
+    <nz-row nzType="flex" nzAlign="middle" nzJustify="center" style="height: 75vh;">
+      <nz-spin nzSimple></nz-spin>
+    </nz-row>
+  </nz-layout>
+  <div class="wizard-form" *ngIf="!loading">
+    <div class="wizard-content">
+      <div class="full-width">
+        <!-- loading spinner -->
+        <div class="WizardForm__navigation__header">
+          <h3>CREATE NEW {{ this.programsService.getProgramType() | uppercase }}</h3>
+        </div>
+      </div>
+      <div class="full-width">
+        <div class="program-det-header">
+          <h3>{{ this.programsService.getProgramType() | uppercase }} DETAILS</h3>
+        </div>
+      </div>
+      <div class="full-width">
+        <nz-layout *ngIf="loading">
+          <nz-row nzType="flex" nzAlign="middle" nzJustify="center" style="height: 75vh;">
+            <nz-spin nzSimple></nz-spin>
+          </nz-row>
+        </nz-layout>
+        <div class="form" *ngIf="!loading">
+          <form action="" [formGroup]="programForm" novalidate>
+            <div class="flex-form">
+              <div class="input-group">
+                <div class="col-lg-6 col-sm-12 flex-item">
+                  <label for="sportPicker">
+                    {{ "Activity *" | titlecase }}
+                  </label>
+                  <div class="input-wrapper">
+                    <rc-quick-sport-picker id="sportPicker" formControlName="sports" [singleSelect]="true">
+                    </rc-quick-sport-picker>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 flex-item">
+                  <label for="levelPicker">
+                    {{ "Level of Play *" | titlecase }}
+                  </label>
+                  <div class="input-wrapper">
+                    <rc-level-of-play-selector id="levelPicker" formControlName="levelOfPlay">
+                    </rc-level-of-play-selector>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 flex-item">
+                  <label for="genderPicker">
+                    {{ "Gender *" | titlecase }}
+                  </label>
+                  <div class="input-wrapper">
+                    <rc-gender-picker id="genderPicker" formControlName="gender"></rc-gender-picker>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 flex-item">
+                  <label for="agePicker">
+                    {{ "Ages *" | titlecase }}
+                  </label>
+                  <div class="input-wrapper">
+                    <rc-range-age-picker id="agePicker" formControlName="ageRange" [min]="1"></rc-range-age-picker>
+                    <!-- <rc-range-picker id="agePicker" formControlName="ageRange" [min]="6"></rc-range-picker> -->
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 flex-item">
+                  <div class="inside-item-flex">
+                    <div>
+                      <label for="nameInput">
+                        {{ this.programsService.getProgramType() + " NAME *" | uppercase }}
+                        <!--                          <span class="pull-right">{{eventForm.get('title').value?.length}}/60</span>-->
+                      </label>
+                      <div class="input-wrapper">
+                        <input id="nameInput" type="text" class="input" formControlName="name" maxlength="60" />
+                      </div>
+                    </div>
+                    <div>
+                      <label for="descInput">
+                        {{ "Short description" | uppercase }}
+                      </label>
+                      <div class="input-wrapper">
+                        <span
+                          class="rc-tooltip"
+                          container="body"
+                          placement="right"
+                          tooltip="Only include information not provided in the league description.
+                                 You may want to write: what weeks games are played/not played,
+                                 how many times a week a team will play, season specific rules,
+                                 the location of post game drinks, and any other useful information."
+                        >
+                          <i class="fa fa-info"></i>
+                        </span>
+                        <rc-rich-text-wrapper
+                          *ngIf="!loading"
+                          [initialValue]="programForm.get('description').value || ''"
+                          max="100000"
+                          (handleChange)="shortDescInputChanged($event)"
+                          (setDescLength)="shortDescInputLengthChanged($event)"
+                        ></rc-rich-text-wrapper>
+                      </div>
+                    </div>
+                    <div>
+                      <label for="">
+                        {{ "Long description" | uppercase }}
+                      </label>
+                      <div class="input-wrapper">
+                        <span
+                          class="rc-tooltip"
+                          container="body"
+                          placement="right"
+                          tooltip="Only include information not provided in the league description.
+                                 You may want to write: what weeks games are played/not played,
+                                 how many times a week a team will play, season specific rules,
+                                 the location of post game drinks, and any other useful information."
+                        >
+                          <i class="fa fa-info"></i>
+                        </span>
+                        <rc-rich-text-wrapper
+                          *ngIf="!loading"
+                          [initialValue]="programForm.get('longDescription').value || ''"
+                          max="100000"
+                          (handleChange)="descInputChanged($event)"
+                          (setDescLength)="descInputLengthChanged($event)"
+                        ></rc-rich-text-wrapper>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 flex-item">
+                  <div class="input-group">
+                    <label for=""> {{ "Select Gl Code *" | uppercase }} </label>
+                    <div class="input-wrapper">
+                      <div class="input-group">
+                        <select name="" formControlName="GL" class="select">
+                          <option value="">Select a GL</option>
+                          <option value="{{ GL.code }}" *ngFor="let GL of GlCodes"> {{ GL.code }}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 flex-item">
+                  <div class="input-group">
+                    <label for=""> {{ "Select required membership to register" | uppercase }} </label>
+                    <div class="input-wrapper">
+                      <div class="input-group">
+                        <nz-select
+                          name="memberships"
+                          nzSize="large"
+                          style="width: 100%;"
+                          formControlName="memberships"
+                          nzMode="multiple"
+                          (ngModelChange)="onMembershipChange($event)"
+                        >
+                          <nz-option *ngFor="let option of memberships" [nzLabel]="option.name" [nzValue]="option.id">
+                          </nz-option>
+                        </nz-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 flex-item">
+                  <div>
+                    <label for="coverImgInput">
+                      {{ "Cover Image" | uppercase }}
+                    </label>
+                    <div class="input-wrapper">
+                      <rc-image-uploader
+                        id="coverImgInput"
+                        [image]="mainImage ? mainImage.url : ''"
+                        (onFileAdded)="mainImageAdded($event)"
+                        [text]="
+                          'Upload an image that will be used as the opening image for your event page, Image should be at least 350x230px and 1MB max size'
+                        "
+                      >
+                      </rc-image-uploader>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-nav">
+    <button class="button-back button button-empty footer-button" type="button" (click)="goBack()">
+      <i class="fa fa-chevron-left"></i>BACK
+    </button>
+
+    <rc-loading-btn
+      (onClick)="submit()"
+      [loading]="processing"
+      [text]="'COMPLETE'"
+      [classes]="['button-next', 'button', 'button-assertive', 'button-dark', 'pull-right', 'footer-button']"
+    >
+    </rc-loading-btn>
+  </div>
+</div>
+
+<rc-action-success-modal
+  (onCancelClick)="goToDashboard(true)"
+  (onSuccessClick)="goToCreateSeason()"
+  #actionSuccessModal="modal"
+  [successBtnText]="'I WANT TO ADD A SEASON'"
+  [cancelText]="'I WANT TO PUBLISH THE ' + this.programsService.getProgramType().toUpperCase()"
+  [subTitleText]="
+    'You\'ve successfully created a new ' + this.programsService.getProgramType().toLowerCase() + ', What\’s next?'
+  "
+>
+</rc-action-success-modal>

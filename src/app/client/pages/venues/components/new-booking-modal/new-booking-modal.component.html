@@ -1,0 +1,401 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal rc-modal--small-header rc-modal--large">
+    <form class="form" [formGroup]="bookingForm" novalidate (ngSubmit)="onSubmit(bookingForm.value)">
+      <div class="modal-content">
+        <div class="modal-header modal-header--purple">
+          <button type="button" class="close pull-right" (click)="cancel()" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+          <div class="modal-header__content">
+            <h5>{{editMode ? 'EDIT BOOKING' : 'NEW BOOKING'}}</h5>
+          </div>
+        </div>
+        <div class="modal-body BookingModal">
+          <div class="row" *ngIf="currentStep === 'bookingDetails'">
+            <div class="col-md-6">
+              <div class="section-header">
+                RESERVATION DETAILS
+              </div>
+
+              <div class="label-title">
+                SPACE & TIME
+              </div>
+              <div class="court-time-label">
+                {{currentCourt?.name}}
+                {{bookingForm.get('startTime').value | momentDate:'ddd, MMM D, YYYY':venue?.timezone}}
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="input-group" style="margin-bottom: 0;"
+                    [ngClass]="{'input-group--disabled': bookingForm.get('allDayEvent').value}">
+                    <label for="" class="label-title">START TIME</label>
+                    <rc-timepicker [required]="true" formControlName="startTime" [placeholder]="'Select time'">
+                    </rc-timepicker>
+                  </div>
+
+                </div>
+                <div class="col-md-4">
+                  <div class="input-group" style="margin-bottom: 0;"
+                    [ngClass]="{'input-group--disabled': bookingForm.get('allDayEvent').value}">
+                    <label for="" class="label-title">END TIME</label>
+                    <rc-timepicker [required]="true" formControlName="endTime" [placeholder]="'Select time'"
+                      [minTime]="bookingForm.get('startTime')?.value">
+                    </rc-timepicker>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="checkbox" style="margin-top: 31px;">
+                    <input type="checkbox" id="allDayEventCheckbox" formControlName="allDayEvent"
+                      class="styled-checkbox" />
+                    <label class="SelectableFormRow__label" for="allDayEventCheckbox">
+                      <b>ALL DAY EVENT</b>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="checkbox">
+                    <input type="checkbox" id="repeatEventCheckbox" formControlName="repeatEvent"
+                      class="styled-checkbox" />
+                    <label class="SelectableFormRow__label" for="repeatEventCheckbox">
+                      REPEAT EVENT
+                    </label>
+                  </div>
+                  <div class="input-group" style="margin-top: 6px;"
+                    [ngClass]="{'input-group--disabled': !bookingForm.get('repeatEvent').value }">
+                    <select name="" class="select" formControlName="repeatEventOccurance">
+                      <option value="daily">Every Day</option>
+                      <option value="weekly">Every Week</option>
+                      <option value="monthly">Every Month</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group"
+                    [ngClass]="{'input-group--disabled': !bookingForm.get('repeatEvent').value }">
+                    <label for="">
+                      END REPEAT ON
+                    </label>
+                    <div class="input-wrapper">
+                      <rc-datepicker [maxDate]="repeatMaxDate" formControlName="repeatEventEndDate"></rc-datepicker>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <!--      <div class="col-md-12">
+                  <div class="checkbox">
+                    <input type="checkbox"
+                           id="publicBooking"
+                           formControlName="publicBooking"
+                           class="styled-checkbox"/>
+                    <label class="SelectableFormRow__label" for="publicBooking">
+                      SHOW THIS EVENT ON PUBLIC CALENDAR
+                    </label>
+                  </div>
+                </div>-->
+                <div class="col-md-12 mg-top-20">
+                  <div class="label-title">
+                    SPACE
+                  </div>
+                  <div class="CourtSizeBoxes">
+                    <div class="CourtSizeBoxes__item"
+                      [ngClass]="{'CourtSizeBoxes__item--active': bookingForm.get('courtSize').value === 100}"
+                      (click)="bookingForm.get('courtSize').setValue(100)">
+                      FULL
+                    </div>
+                    <div class="CourtSizeBoxes__item"
+                      [ngClass]="{'CourtSizeBoxes__item--active': bookingForm.get('courtSize').value === 50}"
+                      (click)="bookingForm.get('courtSize').setValue(50)">
+                      HALF
+                    </div>
+                    <div class="CourtSizeBoxes__item"
+                      [ngClass]="{'CourtSizeBoxes__item--active': bookingForm.get('courtSize').value === 25}"
+                      (click)="bookingForm.get('courtSize').setValue(25)">
+                      QUARTER
+                    </div>
+                    <div class="CourtSizeBoxes__item"
+                      [ngClass]="{'CourtSizeBoxes__item--active': bookingForm.get('courtSize').value === 33}"
+                      (click)="bookingForm.get('courtSize').setValue(33)">
+                      THIRD
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 mg-top-20">
+                  <div class="label-title">
+                    <b>RESERVATION NAME</b>
+                  </div>
+                  <div class="input-group">
+                    <label for="" style="font-weight: normal">
+                      Enter a name that will make it easy to identify this event in your calendar
+                    </label>
+                    <input type="text" formControlName="name" class="input">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <label for="" style="font-weight: normal">
+                      NOTES
+                    </label>
+                    <textarea maxlength="2000" rows="3" class="input" formControlName="notes">
+                    </textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="section-header">
+                CUSTOMER DETAILS
+              </div>
+              <div class="label-title">
+                Choose from your list of customers or create a new one
+              </div>
+              <div class="CustomerTypeTabs">
+                <div class="CustomerTypeTabs__item" (click)="bookingForm.get('customerType').setValue('existing')"
+                  [ngClass]="{'CustomerTypeTabs__item--active': bookingForm.get('customerType').value === 'existing'}">
+                  EXISTING
+                </div>
+                <div class="CustomerTypeTabs__item" (click)="bookingForm.get('customerType').setValue('new')"
+                  [ngClass]="{'CustomerTypeTabs__item--active': bookingForm.get('customerType').value === 'new'}">
+                  CREATE NEW
+                </div>
+              </div>
+              <div class="ExistingCustomerPicker" style="padding-top: 25px;"
+                *ngIf="bookingForm.get('customerType').value === 'existing'">
+                <ng-select #customersInput (selected)="customerSelected($event)" (typed)="onCustomerTyped($event)"
+                  placeholder="Type existing customer name">
+                </ng-select>
+              </div>
+              <div class="CustomerCreateForm" formGroupName="customer"
+                *ngIf="bookingForm.get('customerType').value === 'new'">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <label for="">
+                        NAME
+                      </label>
+                      <input type="text" class="input" formControlName="name" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <label for="">
+                        EMAIL ADDRESS
+                      </label>
+                      <input type="email" class="input" formControlName="email" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <label for="">
+                        PHONE NO.
+                      </label>
+                      <input type="email" class="input" formControlName="phone" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <label for="">
+                        ADDRESS
+                      </label>
+                      <input type="text" class="input" formControlName="address" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <label for="">
+                        CITY
+                      </label>
+                      <input type="text" class="input" formControlName="city" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <label for="">
+                        STATE
+                      </label>
+                      <input type="text" class="input" formControlName="state" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <label for="">
+                        ZIPCODE
+                      </label>
+                      <input type="text" class="input" formControlName="zipcode" />
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="currentStep === 'bookingSummery'">
+            <div class="col-md-6">
+              <div class="section-header">
+                RESERVATION SUMMARY
+              </div>
+              <div style="max-height: 500px; overflow: auto; padding: 5px;">
+                <div class="ReservationOverviewBox" *ngFor="let session of currentSessions; let i = index">
+                  <div class="ReservationOverviewBox__content">
+                    <div class="ReservationOverviewBox__title">
+                      {{bookingForm.get('name').value}}
+                    </div>
+                    <div class="ReservationOverviewBox__text">
+                      {{currentCourt?.name}}
+                    </div>
+                    <div class="ReservationOverviewBox__text">
+                      {{session.startDate | momentDate:'ddd, MMM D, YYYY'}}
+                      {{session.startDate | momentDate:'h:mma'}} - {{session.endDate | momentDate:'h:mma'}}
+                    </div>
+                  </div>
+                  <div class="ReservationOverviewBox__error" *ngIf="!session.isValid">
+                    <p>
+                      This event conflicts
+                      with another event
+                      in your calendar
+                    </p>
+                    <a href="" (click)="removeEventOccurance(i); $event.preventDefault()">
+                      DELETE THIS EVENT
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="section-header">
+                PAYMENT DETAILS
+              </div>
+              <div class="section-label">
+                Choose billing according to your package or a custom price
+              </div>
+              <div class="ToggleBookingBoxes">
+                <div class="ToggleBookingBoxes__box" (click)="selectPriceSetting('packagePrice')" [ngClass]="{
+                       'ToggleBookingBoxes__box--active': bookingForm.get('priceSetting').value === 'packagePrice',
+                       'input-group--disabled': !calculatedPackage?.package,
+                       'ToggleBookingBoxes__box--centered': !calculatedPackage?.package
+                     }">
+                  <div class="ToggleBookingBoxes__box__checked">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div *ngIf="calculatedPackage?.package">
+                    <div class="ToggleBookingBoxes__box__title">
+                      Package Price
+                    </div>
+                    <div class="ToggleBookingBoxes__box__sub-title">
+                      ${{calculatedPackage?.package?.price}}/{{getPackageDuration(calculatedPackage?.package)}} -
+                      {{calculatedPackage?.resourcePackageAmount}}hrs
+                    </div>
+                    <div class="ToggleBookingBoxes__box__price" style="margin-top: 0;">
+                      ${{getCalculatedPrice(calculatedPackage)}}
+                    </div>
+                  </div>
+                  <div *ngIf="!calculatedPackage?.package">
+                    <div class="ToggleBookingBoxes__box__title" style="font-size: 12px; line-height: 13px;">
+                      No matching packages apply enter a custom price
+                    </div>
+                  </div>
+                </div>
+                <div class="ToggleBookingBoxes__box" (click)="selectPriceSetting('customPrice')"
+                  [ngClass]="{'ToggleBookingBoxes__box--active': bookingForm.get('priceSetting').value === 'customPrice'}">
+                  <div class="ToggleBookingBoxes__box__checked">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="ToggleBookingBoxes__box__title">
+                    Custom price
+                  </div>
+                  <div class="ToggleBookingBoxes__box__price">
+                    <div class="NumberPicker NumberPicker--currency" style="margin-top: 20px;">
+                      <a class="NumberPicker__btn NumberPicker__btn--left" (click)="decrementPrice()">
+                        <i class="fa fa-minus"></i>
+                      </a>
+                      <div class="NumberPicker__box">
+                        <div>
+                          <i
+                            [ngClass]="'currency-digit-' + (bookingForm.get('customPrice').value?.toString().length)">$</i>
+                          <input type="number" formControlName="customPrice">
+                        </div>
+                      </div>
+                      <a class="NumberPicker__btn NumberPicker__btn--right" (click)="incrementPrice()">
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="downpayment-rental" *ngIf="bookingForm.value.billingOption === 'creditCard'">
+                Down payment <input type="number" [(ngModel)]="downpayment" min="0" [ngModelOptions]="{standalone: true}" />
+
+              </div>
+
+              <div class="section-header" style="margin-top: 40px;">
+                BILLING
+              </div>
+              <p>
+                Select the payment method for this booking
+              </p>
+              <div class="ToggleBookingBoxes">
+                <div class="ToggleBookingBoxes__box ToggleBookingBoxes__box--centered"
+                  (click)="bookingForm.get('billingOption').setValue('cash')" [ngClass]="{
+                        'input-group--disabled': isFreeBooking,
+                        'ToggleBookingBoxes__box--active': bookingForm.get('billingOption').value === 'cash'
+                     }">
+                  <div class="ToggleBookingBoxes__box__checked">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="ToggleBookingBoxes__box__title">
+                    Cash
+                  </div>
+                </div>
+                <div class="ToggleBookingBoxes__box ToggleBookingBoxes__box--centered"
+                  (click)="bookingForm.get('billingOption').setValue('creditCard')"
+                  [ngClass]="{'input-group--disabled': isFreeBooking, 'ToggleBookingBoxes__box--active': bookingForm.get('billingOption').value === 'creditCard' }">
+                  <div class="ToggleBookingBoxes__box__checked">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="ToggleBookingBoxes__box__title">
+                    Credit Card
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button *ngIf="currentStep === 'bookingSummery'" type="button"
+            class="button button-empty cancel-btn pull-left" (click)="currentStep = 'bookingDetails'">
+            Back
+          </button>
+          <button type="button" class="button button-empty cancel-btn" (click)="cancel()">
+            Cancel
+          </button>
+          <rc-loading-btn [text]="'FINALIZE BOOKING'" *ngIf="currentStep === 'bookingSummery'"
+            (onClick)="finalizeBooking();" [loading]="loading"
+            [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+          <rc-loading-btn [text]="'PROCEED TO PAYMENT'" *ngIf="currentStep === 'bookingDetails'"
+            (onClick)="goToSummery();" [loading]="loading"
+            [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+
+          <get-payment-v2 *ngIf="showingPayment" 
+            [totalAmount]="downpayment"
+            [userId]="payingUserId"
+            (onPaymentCollected)="onPaymentCollected($event)" 
+            (onModalShowingChange)="onPaymentModalShowingChange($event)"></get-payment-v2>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

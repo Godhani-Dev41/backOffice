@@ -1,0 +1,103 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal">
+    <form class="form" [formGroup]="customerForm" novalidate (ngSubmit)="onSubmit(customerForm.value)">
+      <div class="modal-content">
+        <div class="modal-header modal-header--assertive">
+          <button type="button" class="close pull-right" (click)="cancel()" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+          <div class="modal-header__content">
+            <i class="icon-rc-player-small"></i>
+            <h5>CUSTOMER EDIT</h5>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="input-group">
+                <label for="">Name</label>
+                <input type="text" class="input" formControlName="name" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <label for="">
+                  Email
+                </label>
+                <input type="text" class="input" formControlName="email" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <label for="">
+                  Phone Number
+                </label>
+                <input type="text" class="input" formControlName="phoneNumber" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="input-group">
+                <label for="">
+                  ADDRESS
+                </label>
+                <input type="text" class="input" formControlName="street" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <label for="">
+                  CITY
+                </label>
+                <input type="text" class="input" formControlName="city" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <label for="">
+                  STATE
+                </label>
+                <input type="text" class="input" formControlName="state" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <label for="">
+                  ZIPCODE
+                </label>
+                <input type="text" class="input" formControlName="zip" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <h5>Last reservations</h5>
+            </div>
+            <div class="col-md-12" *ngFor="let reservation of reservations">
+              <b>{{reservation.name}}</b> - {{getPaymentStatus(reservation.paymentStatus)}}
+            </div>
+            <div class="col-md-12 text-center" *ngIf="!reservations?.length">
+              No reservations found
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="button button-empty cancel-btn" (click)="cancel()">
+            Cancel
+          </button>
+          <rc-loading-btn [text]="'SAVE CHANGES'"
+                          [disabled]="!customerForm.valid"
+                          (onClick)="onSubmit(customerForm.value);"
+                          [loading]="loading"
+                          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

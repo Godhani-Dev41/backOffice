@@ -1,0 +1,15 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.NotificationSettings__add-btn {
+  text-align: center;
+
+  a {
+    color: $brand-accent;
+    font-weight: bold;
+    font-size: 10px;
+
+    i {
+      font-size: 8px;
+    }
+  }
+}

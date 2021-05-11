@@ -1,0 +1,234 @@
+<div class="league-page-wrapper inner-page container-fluid">
+  <div class="bottom-divider page-header--no-margin">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-wrapper"></div>
+        <div class="bottom-wrapper">
+          <div class="row" *ngIf="program">
+            <div class="col-md-12">
+              <h3 class="pull-left text-uppercase">
+                <ul class="breadcrumb">
+                  <li>
+                    <a href="" [routerLink]="['/client/activities']" [routerLinkActive]="['active']">
+                      Programs
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href=""
+                      [routerLink]="['/client/programs/' + programsService.getProgramTypeParam() + '/' + program.id]"
+                      [routerLinkActive]="['active']"
+                    >
+                      {{ program?.name }}
+                    </a>
+                  </li>
+                  <li *ngIf="season?.name" class="active">
+                    <a
+                      href=""
+                      [routerLink]="[
+                        '/client/programs/' +
+                          programsService.getProgramTypeParam() +
+                          '/' +
+                          program.id +
+                          '/season/' +
+                          season.id +
+                          '/dashboard'
+                      ]"
+                      [routerLinkActive]="['active']"
+                    >
+                      {{ season?.name }}
+                    </a>
+                  </li>
+                </ul>
+              </h3>
+              <div class="pull-right">
+                <a
+                  style="margin-top: 20px; font-weight: bold;"
+                  class="league-site-url"
+                  [href]="publicSiteUrl"
+                  target="_blank"
+                  ><i class="icon-rc-home"></i> WEB PAGE</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-sub-navigation">
+    <div class="page-sub-navigation__menu">
+      <ul class="pull-left">
+        <li>
+          <a href="" [routerLink]="['dashboard']" [routerLinkActive]="['active']">DASHBOARD</a>
+        </li>
+        <li>
+          <a href="" [routerLink]="['groups']" [routerLinkActive]="['active']">GROUPS</a>
+        </li>
+        <li>
+          <a href="" [routerLink]="['events']" [routerLinkActive]="['active']">SCHEDULE</a>
+        </li>
+        <li>
+          <a href="" [routerLink]="['reports']" [routerLinkActive]="['active']">REPORTS</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- no season status changing right now
+    <div class="pull-right status-wrapper">
+      <div *ngIf="season">
+        <div class="pull-right">
+          <div style="margin-right: 10px;">
+            <div class="season-status-label" style="position: relative; top: 12px; line-height: 15px;">
+              SEASON
+              <span *ngIf="!publishingProcessing" [ngClass]="{
+                  'color-success': season?.status === 2,
+                  'color-draft': season?.status === 1
+                }">
+                <i></i>
+                <ng-template [ngIf]="season?.status === 1">
+                  <div class="draft-btn" [ngClass]="{ 'draft-btn--clickable': canPublishSeason }" [tooltip]="
+                      canPublishSeason ? 'Click to publish' : 'You must publish league before publishing season'
+                    " (click)="publishSeason()">
+                    DRAFT
+                  </div>
+                </ng-template>
+                <ng-template [ngIf]="season?.status === 2">
+                  PUBLISHED
+                </ng-template>
+                <ng-template [ngIf]="season?.status === 3">
+                  CLOSED
+                </ng-template>
+                <ng-template [ngIf]="season?.status === 4">
+                  CANCELED
+                </ng-template>
+              </span>
+
+              <loaders-css *ngIf="publishingProcessing" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'">
+              </loaders-css>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    -->
+  </div>
+  <div
+    class="row inner-page__content inner-page__content__sub-navigation inner-page__content--background padding-top-20"
+    style=""
+  >
+    <loaders-css *ngIf="loading" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+
+    <div class="col-md-12" style="position: static;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<rc-confirmation-modal
+  [title]="'PUBLISH SCHEDULE'"
+  [content]="'Are you sure you want to publish the seasons’ schedule?'"
+  [confirmText]="'YES, PUBLISH SCHEDULE'"
+  (onConfirm)="publishSchedule()"
+  #publishScheduleConfirm="modal"
+>
+</rc-confirmation-modal>
+
+<rc-confirmation-modal
+  [title]="'PUBLISH ROSTERS'"
+  [content]="
+    'Are you sure you want to publish the seasons’ rosters? Players assigned to teams will get notified via mobile app and email.'
+  "
+  [confirmText]="'YES, PUBLISH ROSTERS'"
+  (onConfirm)="publishRoster()"
+  #publishRostersConfirm="modal"
+>
+</rc-confirmation-modal>
+
+<rc-confirmation-modal
+  [title]="'SEND MATCH INVITES'"
+  [content]="
+    'You published the roster but players won\'t be invited to matches yet. Do you want to send matches invites right now ? '
+  "
+  [confirmText]="'YES, SEND INVITES'"
+  (onConfirm)="sendInvites()"
+  #sendInvitesConfirm="modal"
+>
+</rc-confirmation-modal>
+
+<!--
+<nz-layout class="full-height">
+  <nz-page-header
+    nzTitle="Teen Boys Basketball"
+    class="elevation&#45;&#45;2"
+  ></nz-page-header>
+  <nz-layout class="season-steps">
+    <span class="bold-text">About {{ seasonTitle | titlecase}}'s season</span>
+    <nz-col nzSpan="12" class="settings-header">
+      <span class="bold-text">Season settings</span>
+      <div class="settings-header">
+        <button nz-button nzType="outline" style="margin-right: 8px;">
+          {{ "Edit program" }}
+        </button>
+        <button nz-button nzType="primary" (click)="goToAttendees()">
+          {{ "View registered users" }}
+        </button>
+      </div>
+    </nz-col>
+  </nz-layout>
+  <nz-content class="body-scroll elevation&#45;&#45;2">
+    <nz-layout class="body-padding">
+      <form nz-form nzLayout="vertical">
+        <nz-row nzType="flex" nzGutter="24">
+          <nz-col nzMd="24" nzLg="6">
+            <nz-card class="card-spacing">
+              <nz-card-meta
+                nzTitle="Location"
+                [nzAvatar]="activityIcon"
+                [nzDescription]="activityTimeContent"
+              >
+              </nz-card-meta>
+            </nz-card>
+          </nz-col>
+          <nz-col nzMd="24" nzLg="12">
+            <nz-row nzType="flex" nzAlign="middle" nzJustify="center">
+              <nz-card class="card-spacing" nzTitle="Pricing">
+                <nz-row nzType="flex" nzAlign="middle" nzJustify="space-between" nzGutter="24">
+                  <nz-col *ngFor="let p of products.prices">
+                  <nz-row nzType="flex" nzAlign="middle" nzJustify="center">
+                    <span class="bold-text">{{p.name}}</span>
+                  </nz-row>
+                  <nz-row nzType="flex" nzAlign="middle" nzJustify="center">
+                    {{p.startDate}} - {{p.endDate}}
+                  </nz-row>
+                  <nz-row nzType="flex" nzAlign="middle" nzJustify="center">
+                    ${{p.price}}
+                  </nz-row>
+                  </nz-col>
+                </nz-row>
+              </nz-card>
+            </nz-row>
+          </nz-col>
+        </nz-row>
+      </form>
+    </nz-layout>
+  </nz-content>
+</nz-layout>
+
+<ng-template #activityTimeContent>
+  <nz-row
+    nzType="flex"
+    nzAlign="middle"
+    nzJustify="space-between"
+    *ngFor="let time of activityTimes"
+  >
+    <span class="bold-text">{{ daysOfWeek[time.dayOfWeek] | uppercase }}</span
+    ><span>{{ time.open }} - {{ time.close }}</span>
+  </nz-row>
+</ng-template>
+
+<ng-template #activityIcon>
+  <i nz-icon nzType="calendar" nzTheme="twotone" style="font-size: 1.6rem;"></i
+></ng-template>
+</div>-->

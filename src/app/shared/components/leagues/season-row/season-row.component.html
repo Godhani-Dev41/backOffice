@@ -1,0 +1,78 @@
+<div class="box-item box--padding box--border box--collapsable active">
+  <div class="box-header">
+    <div class="box-title text-uppercase">
+      {{season.name}} <span class="registration-status">in registration</span>
+
+      <button class="no-style collapse-btn">
+        <i class="fa fa-angle-down"></i>
+      </button>
+    </div>
+
+    <!--<div class="box-content">
+      <div class="season-schedule">
+
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="list schedule-list">
+              <li class="bold text-uppercase" *ngFor="let activity of activityTimes">
+                <i class="icon-rc-calendar color-brand-accent"></i>
+                {{activity.days.join(', ')}}
+                 <span class="pull-right">{{activity.hours}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row mg-top-20">
+          <div class="col-md-12">
+            <div class="text-center schedule-header">
+              REGISTRATION TIMELINE
+            </div>
+            <ul class="list schedule-list" *ngIf="season.priceEarlyGroup || season.priceEarlySingle || season.priceEarlyTeam">
+              <li class="bold title">
+                <i></i> EARLY BIRD <span class="pull-right">24 NOV - 25 DEC</span>
+              </li>
+              <li class="bold" *ngIf="season.priceEarlySingle">
+                <i class="icon-rc-payment-individual color-brand-accent"></i> <span>INDIVIDUAL</span> <span class="pull-right">{{season.priceEarlySingle}}$</span>
+              </li>
+              <li class="bold" *ngIf="season.priceEarlyTeam">
+                <i class="icon-rc-payment-team color-brand-accent"></i> <span>TEAM</span> <span class="pull-right">{{season.priceEarlyTeam}}$</span>
+              </li>
+              <li class="bold" *ngIf="season.priceEarlyGroup">
+                <i class="icon-rc-teams-icon color-brand-accent"></i> <span>GROUP</span> <span class="pull-right">{{season.priceEarlyGroup}}$</span>
+              </li>
+            </ul>
+            <ul class="list schedule-list" *ngIf="season.priceRegularGroup || season.priceRegularTeam || season.priceRegularSingle">
+              <li class="bold title">
+                <i></i> REGULAR<span class="pull-right">24 NOV - 25 DEC</span>
+              </li>
+              <li class="bold" *ngIf="season.priceRegularSingle">
+                <i class="icon-rc-payment-individual color-brand-accent"></i> <span>INDIVIDUAL</span> <span class="pull-right">{{season.priceRegularSingle}}$</span>
+              </li>
+              <li class="bold" *ngIf="season.priceRegularTeam">
+                <i class="icon-rc-payment-team color-brand-accent"></i> <span>TEAM</span> <span class="pull-right">{{season.priceRegularTeam}}$</span>
+              </li>
+              <li class="bold" *ngIf="season.priceRegularGroup">
+                <i class="icon-rc-teams-icon color-brand-accent"></i> <span>GROUP</span> <span class="pull-right">{{season.priceRegularGroup}}$</span>
+              </li>
+            </ul>
+            <ul class="list schedule-list" *ngIf="season.priceLateGroup || season.priceLateTeam || season.priceLateSingle">
+              <li class="bold title">
+                <i></i> LATE<span class="pull-right">24 NOV - 25 DEC</span>
+              </li>
+              <li class="bold" *ngIf="season.priceLateSingle">
+                <i class="icon-rc-payment-individual color-brand-accent"></i> <span>INDIVIDUAL</span> <span class="pull-right">{{season.priceLateSingle}}$</span>
+              </li>
+              <li class="bold" *ngIf="season.priceLateTeam">
+                <i class="icon-rc-payment-team color-brand-accent"></i> <span>TEAM</span> <span class="pull-right">{{season.priceLateTeam}}$</span>
+              </li>
+              <li class="bold" *ngIf="season.priceLateGroup">
+                <i class="icon-rc-teams-icon color-brand-accent"></i> <span>GROUP</span> <span class="pull-right">{{season.priceLateGroup}}$</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>-->
+  </div>
+
+</div>

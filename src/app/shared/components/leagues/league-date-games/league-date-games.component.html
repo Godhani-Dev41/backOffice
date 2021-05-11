@@ -1,0 +1,50 @@
+<div class="league-date-games box-item box--shadow">
+  <div class="league-date-games__header">
+    <div *ngIf="!programActivityTimes">
+      <h5>
+        {{
+          season?.startDate
+            | momentDate: "D MMM, YYYY":season?.seasonLeague?.timezone
+        }}
+        -
+        {{
+          season?.endDate
+            | momentDate: "D MMM, YYYY":season?.seasonLeague?.timezone
+        }}
+      </h5>
+    </div>
+    <div *ngIf="programActivityTimes">
+      <h5>
+        {{ startDate }}
+        -
+        {{ endDate }}
+      </h5>
+    </div>
+  </div>
+  <div class="league-date-games__body padding-15">
+    <div class="league-date-games__body__title">
+      GAME DAYS & TIMES
+    </div>
+    <ul class="list schedule-list">
+      <!--      <div *ngIf="activityTimesVM">-->
+      <li class="bold text-uppercase" *ngFor="let activity of activityTimesVM">
+        <i class="icon-rc-calendar color-brand-accent"></i>
+        {{ activity.days.join(", ") }}
+        <span class="pull-right">{{ activity.hours }}</span>
+      </li>
+      <!--</div>
+      <div *ngIf="programActivityTimes">
+        <li
+          class="bold text-uppercase"
+          *ngFor="let prgActivity of programActivityTimes"
+        >
+          <i class="icon-rc-calendar color-brand-accent"></i>
+          {{ daysOfWeekTranslation[prgActivity.dayOfWeek] }}
+          <span class="pull-right"
+            >{{ prgActivity.open }} - {{ prgActivity.close }}</span
+          >
+        </li>
+      </div>-->
+    </ul>
+  </div>
+</div>

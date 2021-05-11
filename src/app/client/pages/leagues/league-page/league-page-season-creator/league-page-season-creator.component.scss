@@ -1,0 +1,55 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.bottom-nav-bar__inner {
+  margin-left: 180px;
+
+  .bottom-nav-bar__inner__content {
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 8px 0;
+
+    ::ng-deep button {
+      height: 35px;
+      width: 77px;
+
+      &.button-unpublish {
+        width: auto;
+      }
+
+      i {
+        font-size: 18px;
+        position: relative;
+        top: 2px;
+        right: -5px;
+      }
+
+      &.button-back {
+        i {
+          left: -5px;
+        }
+      }
+
+      &.button-dark {
+        width: auto;
+        background: #4a4a4a;
+        padding: 5px 15px;
+      }
+    }
+  }
+}
+
+.WizardForm__navigation__bullets {
+  button {
+    &:hover {
+      cursor: default;
+    }
+
+    &.button-empty:hover {
+      color: $brand-dark;
+    }
+
+    &.button-assertive:not([disabled]):hover {
+      background: #ffa31d;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.success-button {
+  background-color: $brand-success;
+  border-color: $brand-success;
+}
+
+.button-row {
+  margin-top: 24px;
+}

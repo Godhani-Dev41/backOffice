@@ -1,0 +1,60 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal rc-modal--small-header">
+    <div class="modal-content">
+      <div class="modal-header modal-header--purple">
+        <button type="button" class="close pull-right" (click)="cancel()" aria-label="Close">
+          <i class="fa fa-times"></i>
+        </button>
+        <div class="modal-header__content">
+          <h5>UPLOAD SCHEDULE FROM EXCEL</h5>
+        </div>
+      </div>
+      <div class="modal-body" style="height: 250px;">
+        <p class="text-center">
+          To upload your schedule please download this  <a href="/assets/schedule-upload-demo.xlsx" style="font-weight: bold" target="_blank">file</a>, <br>
+          after downloading you can enter all your data according to fields and upload it back here.
+        </p>
+        <div ng2FileDrop
+             (click)="fileUploader.click()"
+             [uploader]="uploader"
+             class="BoxedDropZone BoxedDropZone--shadow">
+          <div class="BoxedDropZone__inner" *ngIf="!selectedFile; else previewView">
+            <div class="BoxedDropZone__bottom">
+              <div class="BoxedDropZone__bottom__side">
+                <i class="fa fa-upload"></i>
+                UPLOAD
+              </div>
+            </div>
+          </div>
+          <ng-template #previewView>
+            <div class="BoxedDropZone__preview" style="height: 60px;">
+              <p class="text-center" style="margin-top: 30px;">
+                Selected file: <b>{{selectedFile?._file?.name}}</b>
+              </p>
+            </div>
+          </ng-template>
+
+          <input type="file"
+                 ng2FileSelect
+                 [uploader]="uploader"
+                 #fileUploader
+                 style="display:none" />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="button button-empty cancel-btn" (click)="cancel()">
+          Cancel
+        </button>
+        <rc-loading-btn
+          [text]="'UPLOAD'"
+          (onClick)="onSubmit()"
+          [loading]="loading"
+          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+        </rc-loading-btn>
+      </div>
+    </div>
+  </div>
+</div>

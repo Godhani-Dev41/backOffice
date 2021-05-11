@@ -1,0 +1,38 @@
+<div class="league-details-wrapper">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="sub-title sub-title--assertive no-mg-top">ABOUT THE {{ tournament ? "TOURNAMENT" : "LEAGUE" }}</h3>
+    </div>
+    <div class="col-md-4">
+      <rc-entity-round-image
+        [image]="league?.logo || league?.mainMedia"
+        [sport]="league?.sports"
+      ></rc-entity-round-image>
+    </div>
+    <div class="col-md-8">
+      <div class="box-item box--shadow box--border-light box--padding mg-bottom-20">
+        <h4 class="box-title box--title-icon"><i class="icon-rc-location"></i> LOCATION</h4>
+        <p class="box-text text-uppercase">
+          {{ league?.address?.streetNum }} {{ league?.address?.street ? league?.address?.street + "," : "" }}
+          {{ league?.address?.city }}, {{ league?.address?.state }}
+        </p>
+        <p class="box-text text-uppercase">TIMEZONE | {{ league?.timezone }}</p>
+      </div>
+      <div class="box-item box--border-light box--shadow box--padding mg-bottom-20">
+        <h4 class="box-title box--title-icon">
+          <i class="icon-rc-short-des" style="font-size: 7px; top: 0;"></i> SHORT DESCRIPTION
+        </h4>
+        <p class="box-text text-uppercase text-show-newline" [innerHTML]="league?.shortDescription"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box-item box--border-light box--shadow box--padding mg-bottom-20">
+        <h4 class="box-title box--title-icon"><i class="icon-rc-long-des"></i> DESCRIPTION</h4>
+        <p class="box-text text-show-newline text-uppercase" [innerHTML]="league?.description"></p>
+      </div>
+    </div>
+  </div>
+</div>

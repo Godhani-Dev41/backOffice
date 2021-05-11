@@ -1,0 +1,399 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.SettingsToggleRow {
+  display: flex;
+  margin-bottom: 35px;
+
+  .SettingsToggleRow__icon {
+    min-width: 30px;
+    width: 30px;
+
+    i {
+      font-size: 16px;
+      color: $brand-accent;
+    }
+  }
+
+  .SettingsToggleRow__content {
+    width: 100%;
+
+    .SettingsToggleRow__content__title {
+      font-size: 11px;
+      font-weight: bold;
+      color: $brand-black;
+    }
+
+    p {
+      color: $brand-dark-grey;
+      font-weight: 200;
+    }
+  }
+
+  .SettingsToggleRow__toggle {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 7px;
+  }
+}
+
+.DraggableCheckableInfoBox {
+  background-color: #ffffff;
+  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  min-height: 90px;
+  margin-bottom: 17px;
+
+  .rc-tooltip {
+    position: absolute;
+    right: -11px;
+
+    .tooltip-inner {
+      font-family: $font-default;
+      font-size: 11px;
+    }
+  }
+
+  &.DraggableCheckableInfoBox--disabled {
+    opacity: 0.6;
+
+    .DraggableCheckableInfoBox__left-handle {
+      background: $brand-light-grey;
+
+      i {
+        color: $brand-grey;
+      }
+    }
+
+    .DraggableCheckableInfoBox__content__bottom,
+    .DraggableCheckableInfoBox__left-handle {
+      pointer-events: none;
+    }
+  }
+
+  .DraggableCheckableInfoBox__left-handle {
+    width: 20px;
+    min-width: 20px;
+    background-color: rgba(255, 163, 29, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    i {
+      display: inline-block;
+      transform: rotate(90deg);
+      color: $brand-accent;
+      font-size: 9px;
+    }
+  }
+
+  .DraggableCheckableInfoBox__content {
+    padding: 7px 9px;
+
+    .rc-toggle + .rc-toggle-btn {
+      width: 26px;
+      height: 13px;
+    }
+  }
+
+  .DraggableCheckableInfoBox__content__top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 17px;
+
+    h5 {
+      margin: 0;
+      display: inline-block;
+      color: $brand-black;
+      font-weight: bold;
+      font-size: 11px;
+      position: relative;
+      top: -1px;
+
+      .checkbox {
+        input {
+          margin-top: 0;
+        }
+        input + label::before {
+          margin-right: 4px;
+        }
+      }
+    }
+
+    .rc-toggle-wrapper {
+      margin-right: 9px;
+    }
+
+    label {
+      margin-bottom: 0;
+    }
+  }
+
+  .DraggableCheckableInfoBox__content {
+    width: 100%;
+
+    .DraggableCheckableInfoBox__content__bottom {
+      .col-md-1,
+      .col-md-2,
+      .col-md-3,
+      .col-md-4,
+      .col-md-6,
+      .col-md-7,
+      .col-md-8 {
+        padding: 0;
+        margin: 0;
+      }
+
+      .row {
+        margin: 0;
+      }
+
+      label {
+        color: $brand-black;
+        font-size: 12px;
+        font-weight: 200;
+        min-height: 16px;
+      }
+
+      select {
+        border-radius: 2px;
+        background: white;
+        border: solid 1px #d5d5d5;
+      }
+
+      .input-group {
+        margin-bottom: 0;
+      }
+
+      &.DraggableCheckableInfoBox__content__bottom--small-input {
+        .input-group {
+          input,
+          label {
+            display: inline-block;
+          }
+
+          .input {
+            max-width: 70px;
+            margin-right: 7px;
+          }
+        }
+      }
+    }
+
+    .or-divider {
+      text-align: center;
+
+      span {
+        font-size: 12px;
+        position: relative;
+        top: 33px;
+        font-weight: bold;
+        color: $brand-black;
+      }
+
+      &.or-divider--normal {
+        span {
+          font-weight: 200;
+        }
+      }
+    }
+  }
+}
+
+.BottomActionsBar {
+  height: 50px;
+  box-shadow: 3px 0 4px 0 rgba(155, 155, 155, 0.31);
+  background: white;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: all 0.3s ease-in;
+  opacity: 1;
+
+  .BottomActionsBar__container {
+    max-width: 780px;
+    margin: 0 auto;
+    height: 50px;
+    padding: 8px;
+  }
+
+  &.BottomActionsBar--hidden {
+    opacity: 0;
+    bottom: -50px;
+  }
+
+  ::ng-deep .button {
+    height: 35px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+.rc-modal {
+  margin-top: 70px;
+
+  .modal-header {
+    &.modal-header--purple {
+      background: $brand-blue;
+    }
+  }
+
+  &.rc-modal--small-header {
+    .modal-header {
+      height: 35px;
+      padding: 0;
+
+      .modal-header__content {
+        h5 {
+          font-size: 16px;
+          font-family: $font-brand;
+        }
+      }
+
+      .close {
+        margin-top: 20px;
+        margin-right: 20px;
+      }
+    }
+  }
+}
+
+.NumberPicker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.NumberPicker--currency {
+    input {
+      text-indent: 15px;
+    }
+  }
+
+  $btn-size: 34px;
+
+  .NumberPicker__btn {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    width: $btn-size;
+    height: $btn-size;
+    background: $brand-accent;
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.activated {
+      opacity: 0.6;
+    }
+
+    i {
+      color: white;
+      font-size: 16px;
+    }
+
+    &.NumberPicker__btn--left {
+      right: -($btn-size / 2);
+    }
+
+    &.NumberPicker__btn--right {
+      left: -($btn-size / 2);
+    }
+  }
+
+  .NumberPicker__box {
+    position: relative;
+    height: 80px;
+    width: 154px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.16);
+    background: white;
+    font-size: 28px;
+    color: $brand-accent;
+    font-family: $font-brand;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    input {
+      font-weight: bold;
+      text-align: center;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      font-size: 28px;
+      color: $brand-accent;
+      font-family: $font-brand;
+      padding: 0;
+      border: none;
+    }
+
+    > div {
+      width: 100%;
+    }
+
+    i {
+      pointer-events: none;
+      font-weight: bold;
+      position: absolute;
+      top: 20px;
+      left: 25px;
+
+      &.currency-digit-1,
+      &.currency-digit-0 {
+        left: 47px;
+      }
+
+      &.currency-digit-2 {
+        left: 42px;
+      }
+
+      &.currency-digit-3 {
+        left: 35px;
+      }
+
+      &.currency-digit-4 {
+        left: 25px;
+      }
+    }
+  }
+}
+
+.rc-modal.rc-modal--large {
+  @media (min-width: 768px) {
+    width: 980px;
+  }
+
+  .modal-body {
+    height: auto;
+    max-height: 800px;
+  }
+}
+
+.BookingModal {
+  .section-header {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    color: $brand-blue;
+    margin-bottom: 14px;
+  }
+
+  .label-title {
+    font-size: 11px;
+    color: $brand-black;
+  }
+
+  .court-time-label {
+    font-size: 24px;
+    color: rgb(255, 191, 0);
+    margin-bottom: 20px;
+  }
+}

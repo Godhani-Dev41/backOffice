@@ -1,0 +1,129 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.PageWrapper {
+  img {
+    width: 595px;
+  }
+
+  display: inline-block;
+  position: relative;
+  font-family: $font-brand;
+  font-weight: bold;
+  page-break-after: always;
+
+  .OrgTitle {
+    font-family: $font-brand;
+    position: absolute;
+    font-size: 14px;
+    font-weight: bold;
+    top: 16px;
+    line-height: 24px;
+    left: 60px;
+  }
+
+  h3 {
+    font-family: $font-brand;
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+  }
+
+  .TeamNameHeader {
+    top: 63px;
+    width: 200px;
+
+    &.TeamNameHeader--a {
+      left: 130px;
+    }
+
+    &.TeamNameHeader--b {
+      right: 130px;
+    }
+  }
+
+  .TeamNameResults {
+    position: absolute;
+    left: 12px;
+
+    &.TeamNameResults--a {
+      top: 223px;
+    }
+
+    &.TeamNameResults--b {
+      top: 522px;
+    }
+  }
+
+  p {
+    font-size: 10px;
+    font-family: $font-brand;
+    font-weight: normal;
+    position: absolute;
+    text-transform: uppercase;
+  }
+
+  .EventTime {
+    top: 160px;
+    left: 11px;
+  }
+
+  .EventVenue {
+    top: 210px;
+    left: 11px;
+  }
+
+  .PlayersTable {
+    position: absolute;
+    left: 40px;
+    font-size: 10px;
+    width: 100px;
+    text-transform: uppercase;
+
+    &.PlayersTable--team-a {
+      top: 287px;
+    }
+
+    &.PlayersTable--team-b {
+      top: 587px;
+    }
+
+    .PlayerRow {
+      line-height: 20px;
+      position: relative;
+      top: 1px;
+      display: flex;
+      font-size: 8px;
+
+      .PlayerRow__name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 130px;
+        max-width: 130px;
+        text-align: left;
+      }
+
+      .PlayerRow__email {
+        position: relative;
+        left: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 113px;
+        max-width: 113px;
+        text-align: left;
+      }
+
+      .PlayerRow__phone {
+        position: relative;
+        left: 17px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 113px;
+        max-width: 113px;
+        text-align: left;
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.top-form-label {
+  background: $brand-accent;
+  padding: 14px 16px;
+  color: white;
+  font-weight: bold;
+}
+
+.league-standings-wrapper {
+  box-shadow: none;
+}
+
+.league-standings-wrapper .league-standings-content table td {
+  padding: 15px 2px;
+}
+
+.checkbox-column {
+  text-align: center;
+  width: 30px;
+
+  .checkbox input + label::before {
+    margin-right: 0;
+  }
+}
+
+.standing-team-name {
+  padding-left: 40px !important;
+
+  ::ng-deep .team-logo-avatar-wrapper {
+    position: relative;
+    top: 0 !important;
+    left: 3px;
+
+    .participant-logo,
+    .avatar {
+      width: 30px !important;
+      height: 30px !important;
+      line-height: 9px !important;
+
+      span {
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+tr.selected-row {
+  background-color: rgba(255, 163, 29, 0.12);
+}

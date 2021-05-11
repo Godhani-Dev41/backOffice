@@ -1,0 +1,142 @@
+<div [formGroup]="arrayGroup">
+  <div class="ActivityTimeWidget">
+    <div class="input-group">
+      <label for=""> <i class="icon-rc-calendar"></i> FACILITY </label>
+
+      <div class="row">
+        <div class="col-md-12" style="margin-bottom: 5px;">
+          Select a facility or enter an address
+        </div>
+        <div class="col-md-6" *ngIf="!orgVenues?.length">
+          <div class="input-wrapper">
+            <rc-venue-search-input formControlName="venue" [seasonVenuesOnly]="seasonVenuesOnly"
+              (onSelect)="venueSelected($event)">
+            </rc-venue-search-input>
+          </div>
+        </div>
+        <div class="col-md-6" *ngIf="orgVenues?.length">
+          <div class="input-wrapper">
+            <div class="input-group">
+              <select name="" formControlName="venueId" class="select">
+                <option value="">Select a facility</option>
+                <option value="{{ venue.id }}" *ngFor="let venue of orgVenues">{{ venue.name }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6" *ngIf="orgVenues?.length && selectedVenue">
+          <div class="input-wrapper">
+            <div class="input-group">
+              <select name="" formControlName="spaceId" class="select">
+                <option value="">Select a space</option>
+                <option value="{{ space.id }}" *ngFor="let space of selectedVenue.spaces">{{ space.name }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-wrapper">
+            <rc-location-search-input [disabled]="!!arrayGroup.get('venueId').value"
+              (onSelected)="venueAddressSelected($event)" formControlName="venueName" [placeholder]="
+                'Enter city, neighborhood, borough or full address.'
+              ">
+            </rc-location-search-input>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ActivityTimeWidget__times-wrapper" [formArrayName]="'activityDates'">
+      <p>
+        When are you playing in this facility?
+      </p>
+      <div class="ActivityTimeWidget__times-wrapper__item"
+        *ngFor="let date of activityDatesArray.controls; let i = index" [formGroupName]="i">
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="list no-style days-select">
+              <li>
+                <div class="checkbox">
+                  <input type="checkbox" class="styled-checkbox" formControlName="monday" />
+                  <label>MON</label>
+                </div>
+              </li>
+              <li>
+                <div class="checkbox">
+                  <input type="checkbox" class="styled-checkbox" formControlName="tuesday" />
+                  <label>TUE</label>
+                </div>
+              </li>
+              <li>
+                <div class="checkbox">
+                  <input type="checkbox" class="styled-checkbox" formControlName="wednesday" />
+                  <label>WED</label>
+                </div>
+              </li>
+              <li>
+                <div class="checkbox">
+                  <input type="checkbox" class="styled-checkbox" formControlName="thursday" />
+                  <label>THU</label>
+                </div>
+              </li>
+              <li>
+                <div class="checkbox">
+                  <input type="checkbox" class="styled-checkbox" formControlName="friday" />
+                  <label>FRI</label>
+                </div>
+              </li>
+              <li>
+                <div class="checkbox">
+                  <input type="checkbox" class="styled-checkbox" formControlName="saturday" />
+                  <label>SAT</label>
+                </div>
+              </li>
+              <li>
+                <div class="checkbox">
+                  <input type="checkbox" class="styled-checkbox" formControlName="sunday" />
+                  <label>SUN</label>
+                </div>
+              </li>
+            </ul>
+
+            <div style="margin-top: 10px; display: flex; flex-direction: row;">
+              <div>
+                <label for="startTime">From</label>
+                <div class="input-group" id="startTime">
+                  <rc-timepicker formControlName="startTime" [inline]="true">
+                  </rc-timepicker>
+                </div>
+              </div>
+              <div>
+                <label for="endTime">To</label>
+                <div class="input-group" id="endTime">
+                  <rc-timepicker formControlName="endTime" [inline]="true"
+                    [minTime]="arrayGroup.get('activityDates').value[i].startTime">
+                  </rc-timepicker>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="concurrent-wrapper">
+              <div class="concurrent-wrapper--header">
+                Simultaneous matches
+              </div>
+              <div class="concurrent-wrapper--input">
+                <div class="input-group">
+                  <input style="height: 33px; position: relative; top: 2px;" type="number" class="input" name="" min="1"
+                    max="99" formControlName="concurrent" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ActivityTimeWidget__add-btn">
+        <a href="" (click)="addTimeSlot(); $event.preventDefault()">
+          <i class="fa fa-plus"></i> ADD ANOTHER TIME SLOT TO THIS FACILITY
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

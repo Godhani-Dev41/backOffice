@@ -1,0 +1,35 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.box-title {
+  min-height: 17px;
+}
+
+.stat-item {
+  height: 110px;
+  padding-bottom: 0;
+
+  .stat-title {
+    color: $brand-dark-grey;
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  &.stat-item--small {
+    .stat-top {
+      font-size: 18px;
+      line-height: 57px;
+    }
+  }
+
+  .stat-top {
+    font-family: $font-brand;
+    font-size: 40px;
+    font-weight: 900;
+    color: $brand-dark-grey;
+    margin-bottom: 12px;
+  }
+
+  .stat--text-shadow {
+    text-shadow: 2px 3px rgba(173, 179, 171, 0.3);
+  }
+}

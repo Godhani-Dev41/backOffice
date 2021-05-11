@@ -1,0 +1,18 @@
+
+.LabeledFeedWidget {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.LabeledFeedWidget.LabeledFeedWidget--level-up .LabeledFeedWidget__level-up__rank {
+  top: 49px;
+}
+
+.GeneratorWrapper {
+  min-width: 800px;
+  max-width: 1200px;
+  padding: 10px;
+  min-height: 640px;
+  border: 1px solid #ececec;
+  margin: 0 auto;
+}

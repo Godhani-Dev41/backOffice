@@ -1,0 +1,171 @@
+<div class="row" [formGroup]="form">
+  <div class="col-md-12">
+    <div class="form__section">
+      <div class="form__section__header">
+        ABOUT
+      </div>
+      <div class="form__section__helper">
+        Players can register to your tournament event
+      </div>
+      <div class="input-group">
+        <label for="">
+          <i class="icon-rc-calendar"></i> EVENT NAME
+          <span class="pull-right">{{form.get('name').value?.length}}/60</span>
+        </label>
+
+        <div class="input-wrapper">
+          <span class="rc-tooltip" container="body" placement="right"
+            tooltip='Tournament event name i.e: "Winter tournament 2017"'>
+            <i class="fa fa-info"></i>
+          </span>
+          <input type="text" class="input" formControlName="name" maxlength="60">
+        </div>
+      </div>
+    </div>
+
+    <div class="form__section" formGroupName="creatorSchedule">
+      <div class="form__section__header">
+        TOURNAMENT DATES
+      </div>
+      <div class="form__section__helper">
+        Date range will help us auto generate a schedule depending on the
+        number of teams registering and game days and times you’ll have
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="schedule-item">
+            <div class="item-side number-side">
+              {{form.get('creatorSchedule').get('startDate')?.value | date:'d'}}
+            </div>
+            <div class="item-side text-side"
+              (click)="startDatePicker.togglePicker($event); endDatePicker.showDatePicker = false;">
+              <div class="item-top-label">
+                START DATE
+              </div>
+              <div class="item-mid-label text-uppercase">
+                {{form.get('creatorSchedule').get('startDate')?.value | date:'MMMM'}}
+              </div>
+              <div class="item-bottom-label">
+                {{form.get('creatorSchedule').get('startDate')?.value | date:'y'}}
+              </div>
+              <div class="date-select-btn">
+                <i class="icon-rc-calendar"></i>
+
+              </div>
+            </div>
+            <rc-datepicker formControlName="startDate" style="position: relative; left: -157px; top: 74px;"
+              #startDatePicker="picker" [hideInput]="true">
+            </rc-datepicker>
+            <span class="corner bottom-left"></span>
+            <span class="corner bottom-right"></span>
+            <span class="corner top-left"></span>
+            <span class="corner top-right"></span>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="schedule-item">
+            <div class="item-side number-side">
+              {{form.get('creatorSchedule').get('endDate')?.value | date:'d'}}
+            </div>
+            <div class="item-side text-side"
+              (click)="endDatePicker.togglePicker($event); startDatePicker.showDatePicker = false;">
+              <div class="item-top-label">
+                END DATE
+              </div>
+              <div class="item-mid-label text-uppercase">
+                {{form.get('creatorSchedule').get('endDate')?.value | date:'MMMM'}}
+              </div>
+              <div class="item-bottom-label">
+                {{form.get('creatorSchedule').get('endDate')?.value | date:'y'}}
+              </div>
+              <div class="date-select-btn">
+                <i class="icon-rc-calendar"></i>
+              </div>
+            </div>
+            <rc-datepicker
+              [minDate]="form.get('creatorSchedule').get('startDate')?.value ? form.get('creatorSchedule').get('startDate')?.value : null"
+              formControlName="endDate" style="position: relative; left: -157px; top: 74px;" #endDatePicker="picker"
+              [hideInput]="true"></rc-datepicker>
+            <span class="corner bottom-left"></span>
+            <span class="corner bottom-right"></span>
+            <span class="corner top-left"></span>
+            <span class="corner top-right"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form__section" *ngIf="!tournamentEvent?.playoffType">
+      <div class="form__section__header">
+        REGISTRATION
+      </div>
+      <div class="form__section__helper">
+        Select the registration settings that fit your tournament needs
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <rc-season-registration-form-widget [form]="form"
+            [endMinDate]="form.get('creatorSchedule').get('earlyBirdRegistration').get('startDate').value"
+            [groupName]="'earlyBirdRegistration'">
+          </rc-season-registration-form-widget>
+        </div>
+        <div class="col-md-12">
+          <rc-season-registration-form-widget
+            [startMinDate]="form.get('creatorSchedule').get('earlyBirdRegistration').get('endDate').value"
+            [endMinDate]="form.get('creatorSchedule').get('regularRegistration').get('startDate').value" [form]="form"
+            [groupName]="'regularRegistration'">
+          </rc-season-registration-form-widget>
+        </div>
+        <div class="col-md-12">
+          <rc-season-registration-form-widget
+            [startMinDate]="form.get('creatorSchedule').get('regularRegistration').get('endDate').value"
+            [endMinDate]="form.get('creatorSchedule').get('lateRegistration').get('startDate').value" [form]="form"
+            [groupName]="'lateRegistration'">
+          </rc-season-registration-form-widget>
+        </div>
+      </div>
+    </div>
+
+    <div class="form__section">
+      <div class="form__section__header">
+        TOURNAMENT SETTINGS
+      </div>
+
+      <div class="input-group" style="margin-bottom: 0;" (click)="$event.preventDefault(); $event.stopPropagation()">
+        <div class="checkbox" style="opacity: 0.7">
+          <input type="checkbox" class="styled-checkbox" checked />
+          <label style="font-weight: normal">Single elimination</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="checkbox">
+          <input type="checkbox" class="styled-checkbox" formControlName="addConsolationRound" />
+          <label style="font-weight: normal">Add Consolation match (a match for 3rd place between semifinal
+            losers)</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form__section">
+      <div class="form__section__header">
+        TOURNAMENT ACTIVITY TIMES
+      </div>
+      <div class="form__section_helper">
+        Set up the times and locations in order to auto generate the tournament schedule,
+        you can skip this step and complete at a later stage
+      </div>
+      <div [formArrayName]="'activityTimes'">
+        <div *ngFor="let activity of activitiesArray.controls; let i = index;">
+          <rc-activity-time-box-widget [arrayName]="'activityTimes'" [form]="form" [arrayGroup]="activity"
+            [groupName]="i">
+          </rc-activity-time-box-widget>
+        </div>
+      </div>
+      <div class="add-activity-venue-btn">
+        <a href="" (click)="addActivitiyItem(); $event.preventDefault();">
+          <i class="fa fa-plus"></i> ADD ANOTHER FACILITY
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mg-bottom-20"></div>

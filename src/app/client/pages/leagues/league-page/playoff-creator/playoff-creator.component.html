@@ -1,0 +1,53 @@
+<div class="inner_page">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav">
+    <div class="col-md-12">
+      <div class="WizardForm">
+        <div class="WizardForm__navigation">
+          <div class="WizardForm__navigation__header">
+            <h3>
+              ADD PLAYOFF TO THE SEASON
+            </h3>
+          </div>
+
+          <div class="WizardForm__navigation__slide-info">
+            <p>
+              Set when, where, and who for your playoff brackets
+            </p>
+          </div>
+        </div>
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner">
+            <div class="form">
+              <form action="" [formGroup]="playoffForm" novalidate>
+                <rc-playoff-creator-form [form]="playoffForm" [teams]="teams" [season]="currentSeason"></rc-playoff-creator-form>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row bottom-nav-bar">
+        <div class="bottom-nav-bar__inner">
+          <div class="bottom-nav-bar__inner__content">
+            <rc-loading-btn
+              [disabled]="!playoffForm.valid"
+              [loading]="loading"
+              (onClick)="submit(playoffForm.value)"
+              [text]="updateMode ? 'UPDATE TOURNAMENT EVENT' : 'ADD PLAYOFFS'"
+              [classes]="['button-next', 'button', 'button-assertive', 'pull-right']">
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<rc-action-success-modal
+  (onCancelClick)="goToBrackets()"
+  (onSuccessClick)="publishPlayOff()"
+  [titleText]="'FIND A CHAMPION'"
+  #actionSuccessModal="modal"
+  [successBtnText]="'PUBLISH THE PLAYOFFS'"
+  [cancelText]="'SAVE IT AS DRAFT'"
+  [subTitleText]="'You\'ve successfully added playoffs to your season, What’s next?'">
+</rc-action-success-modal>

@@ -1,0 +1,51 @@
+<div class="BetWinnerItem" >
+  <div class="BetWinnerItem__image">
+    <div class="BetWinnerItem__image__wrapper">
+      <div class="label-item label-item--left">
+        EARNED
+      </div>
+      <img src="assets/img/im_a_winner.png" alt="" />
+      <div class="label-item label-item--right">
+        +{{pollData?.userAnswer.outcome}} coins!
+      </div>
+    </div>
+  </div>
+
+  <div class="BetWinnerItem__info">
+    <div class="BetWinnerItem__info__top">
+      <div class="YakitoriIcon YakitoriIcon--small">
+        <i class="icon-rc-victory"></i>
+      </div>
+      <div class="season-name text-uppercase" *ngIf="season">
+        {{season.name}}<br>
+        <span class="winner">{{userTeamPick}}</span>
+      </div>
+      <div class="season-name text-uppercase" *ngIf="event">
+        <b [ngClass]="{ 'winner': event.match.participants[0].score > event.match.participants[1].score }">
+          {{event.match.participants[0].entity.name}}
+        </b> <br>
+        <span>VS</span>
+        <b [ngClass]="{ 'winner': event.match.participants[1].score > event.match.participants[0].score }">
+          {{event.match.participants[1].entity.name}}
+        </b>
+      </div>
+      <div class="round-match-item" *ngIf="event">
+        <div class="match-score"
+             style="padding-top: 3px;"
+             *ngIf="event.match.participants[0].score !== null && event.match.participants[1].score !== null">
+          <div class="score-item score-item--success" [ngClass]="{
+						'score-item--danger': event.match.participants[0].score < event.match.participants[1].score
+					}">
+            {{event.match.participants[0].score || 0}}
+          </div>
+          <span>:</span>
+          <div class="score-item score-item--success" [ngClass]="{
+						'score-item--danger': event.match.participants[0].score > event.match.participants[1].score
+					}">
+            {{event.match.participants[1].score || 0}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

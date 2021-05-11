@@ -1,0 +1,74 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.season-standings-wrapper {
+  margin-top: -25px;
+  height: 175px;
+}
+
+.standings-inner-content {
+  height: 148px;
+  overflow: auto;
+}
+
+.SeasonStandingsListItem {
+  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.1);
+  border: solid 0.5px #f2f2f2;
+  margin-bottom: 10px;
+  background: white;
+  display: flex;
+
+  &.SeasonStandingsListItem--header {
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    margin-bottom: 0;
+
+    .SeasonStandingsListItem__score {
+      background-color: transparent;
+    }
+
+    .SeasonStandingsListItem__content__section--points {
+      font-size: 7px !important;
+    }
+  }
+
+  .SeasonStandingsListItem__score {
+    text-align: center;
+    width: 55px;
+    background-color: rgba(36, 200, 116, 0.1);
+    font-size: 18px;
+    font-weight: bold;
+    color: $brand-success;
+  }
+
+  .SeasonStandingsListItem__content {
+    font-size: 14px;
+    font-weight: 600;
+    color: $brand-black;
+    width: 100%;
+    padding: 0 12px;
+    line-height: 25px;
+    display: flex;
+
+    span {
+      color: $brand-dark-grey;
+      font-size: 11px;
+    }
+  }
+
+  .SeasonStandingsListItem__content__section {
+    flex: 6;
+
+    &.SeasonStandingsListItem__content__section--points {
+      text-align: center;
+      flex: 1;
+      font-size: 10px;
+      color: $brand-dark;
+      max-width: 40px;
+    }
+
+    &.SeasonStandingsListItem__content__section--success {
+      color: $brand-success;
+    }
+  }
+}

@@ -1,0 +1,228 @@
+<div class="inner_page inner_page__form">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav">
+    <div class="col-md-12">
+      <div class="WizardForm">
+        <div style="width: 100%;">
+          <div class="SchedulerInfoBoxesStack">
+            <div class="row">
+              <div class="col-md-2 col-xs-4">
+                <div class="InfoBoxesStack__item">
+                  <div class="InfoBoxesStack__item__title">
+                    NO. OF TEAMS
+                  </div>
+                  <div class="InfoBoxesStack__item__content">
+                    {{scheduleData?.scheduleData?.participantsList?.length}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 col-xs-4">
+                <div class="InfoBoxesStack__item">
+                  <div class="InfoBoxesStack__item__title">
+                    NO. OF WEEKS
+                  </div>
+                  <div class="InfoBoxesStack__item__content">
+                    {{scheduleData?.rounds?.length}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 col-xs-4">
+                <div class="InfoBoxesStack__item">
+                  <div class="InfoBoxesStack__item__title">
+                    NO. OF MATCHES
+                  </div>
+                  <div class="InfoBoxesStack__item__content">
+                    {{schedulerStats?.matchesCount}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 col-xs-4">
+                <div class="InfoBoxesStack__item">
+                  <div class="InfoBoxesStack__item__title">
+                    SEASON <br> PERIOD
+                  </div>
+                  <div class="InfoBoxesStack__item__content">
+                    {{scheduleData?.percentageUse || 0}}%
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 col-xs-4">
+                <div class="InfoBoxesStack__item">
+                  <div class="InfoBoxesStack__item__title">
+                    SCHEDULE <br> CONSTRAINTS
+                  </div>
+                  <div class="InfoBoxesStack__item__content">
+                    {{scheduleData?.scheduleData?.skipDates?.length}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 col-xs-4">
+                <div class="InfoBoxesStack__item InfoBoxesStack__item--white">
+                  <div class="InfoBoxesStack__item__title">
+                    SCHEDULE <br>
+                    DETAILS
+                  </div>
+                  <div class="InfoBoxesStack__item__content">
+                    <button class="button button-assertive button-full" (click)="scheduleDetailsOpen = !scheduleDetailsOpen">
+                      CHECK IT OUT
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row ">
+            <div class="col-md-12" *ngIf="loading">
+              <loaders-css [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+            </div>
+            <div class="col-md-12 ViewTypeChangeWrapper" >
+              <div *ngIf="season?.multipleDivision" class="pull-left">
+                <a href=""
+                   *ngFor="let division of season?.seasonDivisions"
+                   (click)="toggleActiveDivision(division.id); $event.preventDefault();"
+                   [ngClass]="{'DivisionButtonBlock__inactive': !isDivisionSelected(division.id)}"
+                   class="DivisionButtonBlock text-uppercase"
+                   [style.color]="isDivisionSelected(division.id) ? 'white' : division.color"
+                   [style.backgroundColor]="division.color"
+                   [style.border]="'1px solid ' + division.color">
+                  {{division.name}}
+                </a>
+              </div>
+
+              <button class="button button-assertive--inverted pull-right"
+                      [ngClass]="{'selected-btn': currentView === 'list'}"
+                      (click)="currentView = 'list'">
+                <i class="icon-rc-list"></i> LIST
+              </button>
+              <button class="button button-assertive--inverted pull-right"
+                      [ngClass]="{'selected-btn': currentView === 'calendar'}"
+                      (click)="currentView = 'calendar'">
+                <i class="icon-rc-calendar-2"></i> CALENDAR
+              </button>
+            </div>
+          </div>
+
+          <rc-schedular-calendar-view *ngIf="currentView === 'calendar'" [roundMatches]="matchesList" [seasonActivityTimes]="scheduleData?.scheduleData?.timeSlots"></rc-schedular-calendar-view>
+
+          <div *ngIf="currentView === 'list'">
+            <div class="EventsTableReview" >
+              <table>
+                <tbody>
+                <ng-template ngFor let-round [ngForOf]="filteredRounds">
+                  <tr class="header-row">
+                    <td *ngIf="season?.seasonDivisions?.length > 1">
+                      <div class="EventsTableReview__title text-uppercase">
+                        DIVISION
+                      </div>
+                    </td>
+                    <td colspan="6" style="max-width: 120px;">
+                      <div class="EventsTableReview__title text-uppercase">
+                        <i class="icon-rc-flag"></i> {{round?.name}}
+                      </div>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let roundMatch of round?.matches">
+                    <td style="max-width: 120px;" *ngIf="season?.seasonDivisions?.length > 1">
+                      <div class="DivisionLabelBlock" [style.backgroundColor]="roundMatch.divisionColor">
+                        {{roundMatch.divisionName}}
+                      </div>
+                    </td>
+                    <td>
+                      {{roundMatch.match?.participants[0]?.entity?.name || 'TBD'}} VS<br>
+                      {{roundMatch.match?.participants[1]?.entity?.name || 'TBD'}}
+                    </td>
+                    <td>
+                      {{roundMatch.startDate | momentDate:'MMM D, YYYY':roundMatch.timezone}}
+                    </td>
+                    <td>
+                      {{roundMatch.startDate | momentDate:'h:mmA':roundMatch.timezone}} - {{roundMatch.endDate | momentDate:'h:mmA':roundMatch.timezone}}
+                    </td>
+                    <td>
+                      {{roundMatch.venueName}}
+                    </td>
+                    <td>
+                      <div class="notes-column">
+                        <div class="WarningLabel" *ngIf="!roundMatch?.requestsStatus?.valid">
+                          <i class="icon-rc-circle-exclamation"></i>
+                          Conflicts with <b style="display: inline-block; margin-right: 3px;margin-left: 3px;"> {{roundMatch?.requestsStatus?.reasons[0]?.participantName}}’s </b> request
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+                <!--<tr class="holiday-row">
+                   <td class="spacer">
+
+                   </td>
+                   <td class="title">
+                     PRESIDENT'S DAY
+                   </td>
+                   <td>
+                     Jan 10, 2017
+                   </td>
+                   <td colspan="2">
+                     10:00am - 10:30am
+                   </td>
+                   <td>
+                     <div class="notes-column">
+                       <div class="WarningLabel">
+                         <i class="icon-rc-circle-exclamation"></i>
+                         Conflicts with Manhattan Jaspers Basketball’s request
+                         not to play on monday
+                       </div>
+                     </div>
+                   </td>
+                 </tr>-->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row bottom-nav-bar" *ngIf="season">
+        <div class="bottom-nav-bar__inner">
+          <div class="bottom-nav-bar__inner__content">
+            <rc-loading-btn
+              (onClick)="promptPublish()"
+              [loading]="loading"
+              [text]="'SAVE'"
+              [classes]="['button-next', 'button', 'button-assertive', 'pull-right']">
+            </rc-loading-btn>
+
+            <button class="button-next button pull-right"
+                    style="margin-right: 10px;"
+                    [routerLink]="['/client/leagues/view/' + season?.leagueId + '/schedule-creator/' + season?.id]">
+                RESTART
+            </button>
+
+            <rc-loading-btn
+              style="margin-right: 10px"
+              [loading]="discardLoading"
+              (onClick)="discardSchedule()"
+              [text]="'DISCARD SCHEDULE'"
+              [classes]="['button-text', 'button', 'pull-right']">
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <rc-schedule-statistics-sidebar
+    (onScheduleClose)="scheduleDetailsOpen = false"
+    [scheduleData]="scheduleData" [season]="season"
+    [scheduleDetailsOpen]="scheduleDetailsOpen">
+  </rc-schedule-statistics-sidebar>
+</div>
+
+
+<rc-confirmation-modal
+  [type]="'danger'"
+  [title]="'WARNING'"
+  [content]="'We found available rounds inside your season, saving this schedule will erase all existing matches.'"
+  [confirmText]="'YES, SAVE SCHEDULE'"
+  (onConfirm)="publishSchedule()"
+  #publishConfirmModal="modal">
+</rc-confirmation-modal>
+

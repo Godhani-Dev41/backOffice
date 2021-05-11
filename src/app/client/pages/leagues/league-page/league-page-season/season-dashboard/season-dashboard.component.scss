@@ -1,0 +1,188 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.rounds-list {
+  display: inline-block;
+  margin-left: 32px;
+
+  li {
+    display: inline-block;
+    margin-right: 30px;
+    color: $brand-grey;
+    font-size: 14px;
+    transition: color 0.3s;
+    margin-bottom: 0;
+
+    i {
+      color: $brand-grey;
+    }
+
+    &:hover {
+      color: lighten($brand-grey, 10%);
+      cursor: pointer;
+    }
+
+    &.active {
+      color: $brand-accent;
+
+      i {
+        color: $brand-accent;
+      }
+    }
+  }
+}
+
+.round-list-wrapper {
+  position: relative;
+  top: 4px;
+  width: 80%;
+  overflow: scroll;
+  white-space: nowrap;
+  display: inline-block;
+
+  &::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+  }
+}
+
+
+::ng-deep .button-edit {
+  border-radius: 3px;
+  background-color: #ffffff;
+  border: solid 1px $brand-dark;
+  color: $brand-dark;
+  font-family: $font-brand;
+  font-weight: bold;
+  margin-left: 10px;
+
+  .ball-pulse > div {
+    background-color: $brand-dark;
+  }
+  &.button-edit--success {
+    border: 1px solid $brand-success;
+    color: $brand-success;
+
+    .ball-pulse > div {
+      background-color: $brand-success;
+    }
+  }
+}
+
+.schedule-widget .DashboardWidget__content__item-data {
+  width: calc(100% - 130px);
+}
+
+.PlayoffCard {
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.1);
+  border: solid 0.5px #f2f2f2;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  flex-direction: column;
+
+  .PlayoffCard__title {
+    color: $brand-black;
+    font-size: 18px;
+    font-family: $font-brand;
+    font-weight: bold;
+    text-align: center;
+    line-height: 20px;
+  }
+
+  .PlayoffCard__icon {
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    i {
+      font-size: 28px;
+      color: $brand-accent;
+    }
+
+    span {
+      width: 50px;
+      height: 50px;
+      border: 2px solid $brand-accent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100%;
+    }
+  }
+}
+
+.sub-seasons-wrapper {
+  .AlertToolTip {
+    right: -158px;
+    top: -12px;
+  }
+}
+
+.AlertToolTip {
+  width: 140px;
+  position: absolute;
+  padding: 10px;
+  background: $brand-accent;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.14);
+  z-index: 2;
+
+  .AlertToolTip__inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    &:before {
+      content: '◀';
+      display: inline-block;
+      position: absolute;
+      z-index: 0;
+      left: -24px;
+      width: 20px;
+      height: 20px;
+      color: $brand-accent;
+      font-size: 18px;
+      text-shadow: -3px 3px 5px rgba(0, 0, 0, 0.10);
+    }
+  }
+
+  .button {
+    margin-top: 5px;
+    background: white;
+    width: 100%;
+    color: $brand-accent;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 2px 0;
+  }
+}
+
+.DivisionBlock {
+  margin-bottom: 15px;
+
+  .DivisionBlock__header {
+    position: relative;
+    left: -15px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: white;
+    padding: 14px;
+    border-radius: 4px;
+    padding-left: 64px;
+    padding-right: 64px;
+
+  }
+
+  .DivisionBlock__content {
+    background: #f6f6f6;
+    padding: 17px 8px;
+  }
+}

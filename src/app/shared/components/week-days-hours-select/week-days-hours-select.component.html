@@ -1,0 +1,75 @@
+<nz-layout>
+  <nz-row nzType="flex">
+    <nz-col nzSpan="24">
+      <nz-form-label nzFor="days-hours-picker">{{ labelString }}</nz-form-label>
+      <nz-layout>
+        <nz-card [className]="dangerousUpdateCss ? 'dangerous-edit' : ''">
+          <nz-layout>
+            <nz-row
+              *ngFor="let day of weekData; let idx = index"
+              nzType="flex"
+              nzAlign="middle"
+              nzJustify="space-between"
+              nzGutter="8"
+            >
+              <nz-col nzSpan="8">
+                <nz-row nzType="flex" nzAlign="middle" nzGutter="8" class="bold-text">
+                  <nz-switch
+                    [(ngModel)]="day.active"
+                    nzSize="small"
+                    (ngModelChange)="onChangeHandle()"
+                    [nzDisabled]="disabled"
+                  ></nz-switch>
+                  {{ daysOfWeekNames[day.index - 2] }}
+                </nz-row>
+              </nz-col>
+              <nz-col style="flex-grow: 1;">
+                <nz-row nzType="flex" nzAlign="middle" nzJustify="space-between" nzGutter="8">
+                  <nz-col nzSpan="10">
+                    <nz-col>
+                      <nz-select
+                        nzShowSearch
+                        nzSize="small"
+                        nzAllowClear
+                        nzPlaceHolder="Start"
+                        [nzDisabled]="!day.active || disabled"
+                        [(ngModel)]="day.startTimeValue"
+                        (ngModelChange)="onChangeHandle()"
+                      >
+                        <nz-option
+                          *ngFor="let time of timeList"
+                          [nzLabel]="time.display"
+                          [nzValue]="time.timeValue"
+                        ></nz-option>
+                      </nz-select> </nz-col
+                  ></nz-col>
+                  <nz-col nzSpan="1"><i nz-icon nzType="arrow-right" nzTheme="outline"></i> </nz-col>
+                  <nz-col nzSpan="10">
+                    <nz-col>
+                      <nz-select
+                        nzShowSearch
+                        nzSize="small"
+                        nzAllowClear
+                        nzPlaceHolder="Finish"
+                        [nzDisabled]="!day.active || disabled"
+                        [(ngModel)]="day.finishTimeValue"
+                        (ngModelChange)="onChangeHandle()"
+                      >
+                        <nz-option
+                          *ngFor="let time of timeList"
+                          [nzLabel]="time.display"
+                          [nzValue]="time.timeValue"
+                        ></nz-option>
+                      </nz-select>
+                    </nz-col>
+                  </nz-col>
+                </nz-row>
+              </nz-col>
+              <nz-divider *ngIf="idx < 6"></nz-divider>
+            </nz-row>
+          </nz-layout>
+        </nz-card>
+      </nz-layout>
+    </nz-col>
+  </nz-row>
+</nz-layout>

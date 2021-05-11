@@ -1,0 +1,116 @@
+@import "../../../../../node_modules/@rcenter/core/scss/variables/index";
+
+.RightSideWidgetSlider {
+  padding: 16px;
+  overflow: auto;
+
+  .scrollable-area {
+    overflow: auto;
+  }
+
+  .stats-table {
+    td {
+      min-width: 30px;
+      width: 30px;
+      height: 30px;
+      color: $brand-dark-grey;
+      text-align: center;
+    }
+
+    .top-header-cell {
+      text-align: center;
+      height: 90px;
+      position: relative;
+      color: $brand-black;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      span {
+        font-weight: bold;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &.top-header-cell--rotate {
+          transform: rotate(90deg);
+          position: absolute;
+          right: 11px;
+          width: 75px;
+          top: 0;
+        }
+      }
+    }
+
+    .left-header-cell {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: $brand-black;
+      font-weight: bold;
+      width: 70px;
+      max-width: 70px;
+    }
+
+    .empty-cell {
+      background-color: #ededed;
+    }
+
+    .top-header-row {
+      border-bottom: 1px solid $brand-black;
+    }
+
+    &.game-times {
+      width: 100%;
+
+      .top-header-cell {
+        height: auto;
+        width: auto;
+        text-align: center;
+      }
+    }
+  }
+
+  h5 {
+    margin-bottom: 0;
+    margin-top: 20px;
+    text-transform: uppercase;
+    color: $brand-accent;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+.RightSideWidgetSlider {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: 5;
+  width: 464px;
+  transition: all 0.5s;
+  background-color: #ffffff;
+  box-shadow: 3px 0 13px 0 rgba(155, 155, 155, 0.31);
+  opacity: 0;
+  visibility: hidden;
+
+  &.RightSideWidgetSlider--active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .close-btn {
+    background: transparent;
+    border: none;
+    position: relative;
+    img {
+      height: 16px;
+      width: 16px;
+    }
+    i {
+      font-size: 18px;
+      color: $brand-accent;
+    }
+  }
+}

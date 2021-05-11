@@ -1,0 +1,120 @@
+
+@import "~@rcenter/core/scss/variables/index";
+
+.season-status-label {
+  display: inline-block;
+  font-size: 10px;
+  font-family: $font-brand;
+  color: $brand-black;
+  font-weight: 900;
+  float: right;
+  text-align: center;
+  padding-top: 4px;
+  margin-right: 10px;
+  min-width: 80px;
+
+  ::ng-deep .ball-pulse > div {
+    margin-top: 3px;
+    width: 10px;
+    height: 10px;
+  }
+
+  span {
+    text-align: center;
+    display: block;
+    padding-left: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    color: $brand-dark;
+    margin-top: 3px;
+    line-height: 13px;
+
+    i {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: $brand-dark;
+      border-radius: 100%;
+      position: relative;
+      left: -4px;
+      top: -1px;
+    }
+
+    &.color-success {
+      i {
+        background: $brand-success;
+      }
+    }
+
+    &.color-draft {
+      i {
+        background: $brand-accent;
+      }
+    }
+  }
+}
+
+
+.season-status-btn-wrapper {
+  line-height: 27px;
+  margin-right: 0;
+
+  .season-status-label {
+    line-height: 15px;
+    position: relative;
+    top: 12px;
+  }
+
+  ::ng-deep .button.button-edit {
+    line-height: 16px;
+    position: relative;
+    top: 18px;
+
+  }
+}
+
+.draft-btn {
+  display: inline-block;
+
+  &.draft-btn--clickable {
+    border-bottom: 2px solid $brand-dark-grey;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+::ng-deep .tooltip-inner {
+  background: white !important;
+  width: 120px;
+  border: 1px solid $brand-light-grey;
+  color: $brand-black;
+  font-size: 11px;
+  padding: 5px 10px;
+}
+
+::ng-deep .tooltip.right .tooltip-arrow,
+::ng-deep .tooltip-arrow {
+  border-right-color: white !important;
+  border-bottom-color: white !important;
+  border-top-color: white !important;
+}
+
+.page-sub-navigation {
+  display: flex;
+
+  .page-sub-navigation__menu {
+    overflow: auto;
+
+    ul {
+      display: flex;
+    }
+  }
+
+  .status-wrapper {
+    margin-left: auto;
+    min-width: 405px;
+  }
+}
+

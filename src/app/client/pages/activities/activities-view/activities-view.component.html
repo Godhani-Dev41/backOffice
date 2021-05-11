@@ -1,0 +1,37 @@
+<div class="leagues-page-wrapper inner-page scrollable">
+  <div class="page-header bottom-divider">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-wrapper">
+
+        </div>
+        <div class="bottom-wrapper">
+          <h3 class="pull-left">ACTIVITIES</h3>
+          <label (click)="programCreateModal.showModal()"
+            class="button button-assertive--inverted button-bold pull-right">
+            CREATE NEW PROGRAM
+          </label>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-content inner-page__content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="PageEmptyState">
+          <h5>
+            Add The Program You Operate
+          </h5>
+          <p>
+            Adding the program you operate will enable managing your program payments, availability, customer list and
+            lots more…
+            <label (click)="programCreateModal.showModal()" class="button button-assertive">
+              ADD NEW PROGRAM
+            </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<program-create-modal #programCreateModal="modal"></program-create-modal>

@@ -1,0 +1,148 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.player-card {
+  height: 150px;
+  position: relative;
+
+  .player-card__header {
+    min-height: 20px;
+    font-size: 11px;
+
+    &.player-card__header--muted {
+      background: $brand-light-grey;
+      color: $brand-dark-grey;
+      line-height: 20px;
+    }
+
+    &.player-card__header--active {
+      background: $brand-accent;
+      color: white;
+      line-height: 20px;
+    }
+
+    .resend-button {
+      cursor: pointer;
+    }
+  }
+
+  .player-card__content {
+    .member-image {
+      margin-top: 10px;
+    }
+
+    .image-wrapper {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .player-card__content__title {
+    margin-top: 5px;
+    font-weight: 400;
+
+    &.player-card__content__title--muted {
+      text-transform: none;
+      font-weight: 300;
+    }
+  }
+
+  .player-card__content__bottom-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: #898989;
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    width: 100%;
+  }
+
+  &.player-card--draggable {
+    &:hover {
+      cursor: pointer;
+    }
+
+    .player-card__header {
+      background: #FFE8C6;
+
+      i {
+        position: relative;
+        top: 2px;
+        font-size: 8px;
+        color: $brand-accent;
+      }
+    }
+  }
+}
+
+
+.more-menu-btn-wrapper {
+  text-align: right;
+
+  button {
+    border: none;
+    background: none;
+  }
+
+  a {
+    position: relative;
+    top: 5px;
+
+    i {
+      color: $brand-dark-grey;
+    }
+  }
+}
+
+
+.PaymentLabelStatus {
+  position: absolute;
+  width: 32px;
+  height: 24px;
+  box-shadow: 2px 0 10px 0 rgba(155, 155, 155, 0.31);
+  border-top-right-radius: 100%;
+  border-bottom-right-radius: 100%;
+  left: 0;
+  line-height: 24px;
+  top: 48px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.PaymentLabelStatus--active {
+    span {
+      background: $brand-success;
+    }
+  }
+
+  &.PaymentLabelStatus--in-active {
+    span {
+      background: $brand-danger;
+    }
+  }
+
+  &.PaymentLabelStatus--disabled {
+    span {
+      background: $brand-grey;
+    }
+  }
+
+  span {
+    background: $brand-grey;
+    float: right;
+    border-radius: 100%;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    line-height: 15px;
+    position: relative;
+    top: 5px;
+    right: 6px;
+
+    i {
+      font-size: 12px;
+      color: white;
+    }
+  }
+}

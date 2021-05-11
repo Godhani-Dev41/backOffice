@@ -1,0 +1,73 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.LevelOfPlayPicker {
+  display: flex;
+
+  .LevelOfPlayPicker__item {
+    position: relative;
+    text-align: center;
+    padding: 7px 0;
+    height: 90px;
+    border-radius: 2px;
+    border: solid 1px #d5d5d5;
+    flex: 1;
+    margin: 0 4px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.LevelOfPlayPicker__item--active {
+      box-shadow: 0 6px 11px 0 rgba(255, 163, 29, 0.34);
+      border: solid 0.5px #f2f2f2;
+
+      .LevelOfPlayPicker__item__title {
+        color: $brand-accent;
+      }
+
+      .LevelOfPlayPicker__item__active-btn {
+        display: inline-block;
+      }
+
+      .LevelOfPlayPicker__item__top {
+        i {
+          color: $brand-accent;
+        }
+      }
+    }
+
+    .LevelOfPlayPicker__item__top {
+      padding-top: 10px;
+      margin-bottom: 20px;
+
+      i {
+        font-size: 30px;
+        color: #4a4a4a;
+      }
+    }
+  }
+
+  .LevelOfPlayPicker__item__title {
+    font-size: 10px;
+    font-weight: 500;
+    color: #4a4a4a;
+    text-align: center;
+  }
+
+  .LevelOfPlayPicker__item__active-btn {
+    display: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    background: $brand-accent;
+    color: white;
+    font-size: 8px;
+    text-align: center;
+    line-height: 16px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: -8px;
+  }
+}

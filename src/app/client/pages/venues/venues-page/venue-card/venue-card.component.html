@@ -1,0 +1,36 @@
+<div
+  class="venue-box box-top-border box-item box--shadow"
+  [routerLink]="
+    platformUser
+      ? ['/client/facilities/venue/' + venue.id]
+      : ['/client/facilities/venue/' + venue.id + '/details']
+  "
+  [ngClass]="{ 'border-top-border--muted': !venue.isPublished }"
+>
+  <div class="venue-box-top-container">
+    <div class="venue-photo">
+      <div class="venue-image">
+        <div
+          class="image-wrapper image--round image--shadow image--border"
+          [rcBackgroundImage]="venue.mainMedia | mediaUrl: 500"
+        ></div>
+      </div>
+      <div class="venue-sport-icon">
+        <i [class]="getSportIcon(venue.sports)">
+          <span class="path1"></span><span class="path2"></span
+          ><span class="path3"></span><span class="path4"></span>
+        </i>
+      </div>
+    </div>
+    <div class="venue-info">
+      <h3 class="text-uppercase">{{ venue.name | truncate: 42 }}</h3>
+      <ul class="list list--icon">
+        <li class="color-brand-dark-grey truncate-ellipsis">
+          <i class="icon-rc-location color-brand-accent"></i>
+          {{ venue.address?.city
+          }}{{ venue.address?.state ? ", " + venue.address?.state : "" }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

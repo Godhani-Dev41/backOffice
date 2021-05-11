@@ -1,0 +1,291 @@
+<div class="row" [formGroup]="form">
+  <div class="col-md-12">
+    <div class="form__section">
+      <div class="form__section__header">
+        ABOUT
+      </div>
+      <div class="form__section__helper">
+        Playoffs are a single elimination bracket added to the end of your regular season schedule.
+        You can create the playoff schedule and brackets before the standings have been finalized,
+        and assign teams as they secure their spot.
+      </div>
+      <div class="DivisionSelection" style="margin-bottom: 0" *ngIf="season?.multipleDivision">
+        <div class="SettingsBtnRowToggle" (click)="changePlayoffType('season')"
+          [ngClass]="{'SettingsBtnRowToggle--active': form.get('playoffType').value === 'season'}">
+          <div class="SettingsBtnRowToggle__checkbox"><i class="fa fa-check"></i></div>
+          <span>
+            ADD PLAYOFFS TO A SEASON
+          </span>
+        </div>
+        <div class="SettingsBtnRowToggle" (click)="changePlayoffType('division')"
+          [ngClass]="{'SettingsBtnRowToggle--active': form.get('playoffType').value === 'division'}">
+          <div class="SettingsBtnRowToggle__checkbox"><i class="fa fa-check"></i></div>
+          <span>
+            ADD PLAYOFFS TO A DIVISION
+          </span>
+        </div>
+      </div>
+      <div class="DivisionItemSelection" *ngIf="form.get('playoffType').value === 'division'">
+        <div class="row">
+          <div class="col-md-6" *ngFor="let division of season?.seasonDivisions">
+            <div class="DivisionItemSelection__item">
+              <div class="rc-radio">
+                <input id="divisionSelector{{division.id}}" value="true" [value]="division.id" type="radio"
+                  formControlName="selectedDivision">
+                <label for="divisionSelector{{division.id}}" class="radio-label" [style.color]="division.color">
+                  <span class="DivisionItemSelection__item__avatar" [style.backgroundColor]="division.color">
+                    {{division.name[0]}}
+                  </span> {{division?.name}}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="input-group">
+        <label for="">
+          <i class="icon-rc-calendar"></i> PLAYOFF NAME
+          <span class="pull-right">{{form.get('name').value?.length}}/60</span>
+        </label>
+
+        <div class="input-wrapper">
+          <span class="rc-tooltip" placement="right" container="body"
+            tooltip='Playoff event name i.e: "Winter playoff 2017"'>
+            <i class="fa fa-info"></i>
+          </span>
+          <input type="text" class="input" formControlName="name" maxlength="60">
+        </div>
+      </div>
+    </div>
+
+    <div class="form__section">
+      <div class="form__section__header">
+        PLAYOFF DATES
+      </div>
+      <div class="form__section__helper">
+        Date range will help us auto generate a schedule depending on the number
+        of teams registering and game days and times you’ll have
+      </div>
+      <div class="input-group">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="schedule-item">
+              <div class="item-side number-side">
+                {{form.get('startDate')?.value | date:'d'}}
+              </div>
+              <div class="item-side text-side"
+                (click)="startDatePicker.togglePicker($event); endDatePicker.showDatePicker = false;">
+                <div class="item-top-label">
+                  START DATE
+                </div>
+                <div class="item-mid-label text-uppercase">
+                  {{form.get('startDate')?.value | date:'MMMM'}}
+                </div>
+                <div class="item-bottom-label">
+                  {{form.get('startDate')?.value | date:'y'}}
+                </div>
+                <div class="date-select-btn">
+                  <i class="icon-rc-calendar"></i>
+
+                </div>
+              </div>
+              <rc-datepicker formControlName="startDate" style="position: relative; left: -157px; top: 74px;"
+                #startDatePicker="picker" [hideInput]="true"></rc-datepicker>
+              <span class="corner bottom-left"></span>
+              <span class="corner bottom-right"></span>
+              <span class="corner top-left"></span>
+              <span class="corner top-right"></span>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="schedule-item">
+              <div class="item-side number-side">
+                {{form.get('endDate')?.value | date:'d'}}
+              </div>
+              <div class="item-side text-side"
+                (click)="endDatePicker.togglePicker($event); startDatePicker.showDatePicker = false;">
+                <div class="item-top-label">
+                  END DATE
+                </div>
+                <div class="item-mid-label text-uppercase">
+                  {{form.get('endDate')?.value | date:'MMMM'}}
+                </div>
+                <div class="item-bottom-label">
+                  {{form.get('endDate')?.value | date:'y'}}
+                </div>
+                <div class="date-select-btn">
+                  <i class="icon-rc-calendar"></i>
+                </div>
+              </div>
+              <rc-datepicker [minDate]="form.get('startDate')?.value" formControlName="endDate"
+                style="position: relative; left: -157px; top: 74px;" #endDatePicker="picker" [hideInput]="true">
+              </rc-datepicker>
+              <span class="corner bottom-left"></span>
+              <span class="corner bottom-right"></span>
+              <span class="corner top-left"></span>
+              <span class="corner top-right"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form__section">
+      <div class="form__section__header">
+        GAME FACILITIES & TIMES
+      </div>
+      <div class="form__section__helper">
+        Set up the times and locations in order to auto assign the tournament
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="SettingsBtnRowToggle" (click)="useCurrentSeasonWindowsToggle()"
+            [ngClass]="{'SettingsBtnRowToggle--active': form.get('useCurrentSeasonWindows').value}">
+            <div class="SettingsBtnRowToggle__checkbox"><i class="fa fa-check"></i></div>
+            <span>
+              USE THE SAME FACILITY DETAILS AS MY SEASON
+            </span>
+          </div>
+          <div class="or-divider">
+            <span>OR</span>
+          </div>
+          <div class="SettingsBtnRowToggle" (click)="useCustomSeasonWindowsToggle()"
+            [ngClass]="{'SettingsBtnRowToggle--active': form.get('useNewSeasonWindows').value}">
+            <div class="SettingsBtnRowToggle__checkbox"><i class="fa fa-check"></i></div>
+            <span>
+              ADD A NEW FACILITY & GAMES TIMES
+            </span>
+          </div>
+        </div>
+        <div class="col-md-12" *ngIf="form.get('useNewSeasonWindows').value">
+          <div [formArrayName]="'activityTimes'">
+            <div *ngFor="let activity of activitiesArray.controls; let i = index;">
+              <rc-activity-time-box-widget [seasonVenuesOnly]="true" [arrayName]="'activityTimes'" [form]="form"
+                [arrayGroup]="activity" [groupName]="i">
+              </rc-activity-time-box-widget>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form__section">
+      <div class="form__section__header">
+        PLAYOFF SETTINGS
+      </div>
+
+      <div class="input-group" style="margin-bottom: 0;" (click)="$event.preventDefault(); $event.stopPropagation()">
+        <div class="rc-radio">
+          <input id="singleElimination" value="true" type="radio" checked>
+          <label for="singleElimination" class="radio-label">Single Elimination</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="checkbox" style="margin-left: 10px;">
+          <input type="checkbox" class="styled-checkbox" formControlName="addConsolationRound" />
+          <label style="font-weight: normal">Add Consolation match (a match for 3rd place between semifinal
+            losers)</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form__section">
+      <div class="form__section__header">
+        PARTICIPATING TEAMS
+      </div>
+      <div class="form__section__helper">
+        You can select the teams according to standings or manually
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="SettingsBtnRowToggle" (click)="selectTopTeamsToggle()"
+            [ngClass]="{'SettingsBtnRowToggle--active': form.get('useTopTeams').value}">
+            <div class="SettingsBtnRowToggle__checkbox"><i class="fa fa-check"></i></div>
+            <span>
+              TOP
+              <span class="input-group">
+                <select name="" class="select" formControlName="topTeamsCount">
+                  <option value="4">4</option>
+                  <option value="8">8</option>
+                  <option value="16">16</option>
+                  <option value="32">32</option>
+                  <option value="64">64</option>
+                  <option value="128">128</option>
+                </select>
+              </span>
+              TEAMS ACCORDING TO {{form?.get('playoffType').value === 'season' ? 'SEASON' : 'DIVISION'}} STANDINGS
+            </span>
+          </div>
+          <div class="or-divider">
+            <span>OR</span>
+          </div>
+          <div class="SettingsBtnRowToggle" (click)="selectManualyTeamsToggle()"
+            [ngClass]="{'SettingsBtnRowToggle--active': form.get('useManualSelectTeams').value}">
+            <div class="SettingsBtnRowToggle__checkbox">
+              <i class="fa fa-check"></i>
+            </div>
+            <span>
+              MANUALLY SELECT TEAMS
+            </span>
+          </div>
+          <div class="input-group" *ngIf="form.get('useManualSelectTeams').value">
+            <div class="text-center" *ngIf="!teams?.length">
+              <h5>No teams found</h5>
+            </div>
+            <div class="TeamParticipantsSelector" *ngIf="teams?.length">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="label-title">PARTICIPATING TEAMS ({{getSelectedTeams().length}})</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3 cold-md-3" *ngFor="let seasonTeam of teams">
+                  <div class="box-item box--shadow team-box-item box-top-border box-top-border--small"
+                    (click)="seasonTeam.active = !seasonTeam.active; $event.stopPropagation()">
+                    <div class="team-box-item__header">
+                      <div class="checkbox">
+                        <input type="checkbox" class="styled-checkbox" [checked]="seasonTeam.active" />
+                        <label for=""></label>
+                      </div>
+                      <h3 class="text-center">{{seasonTeam?.team?.name}}</h3>
+                      <div class="team-box-item__header__label">
+                        {{seasonTeam.team?.teamMembers?.length}} athletes
+                      </div>
+                    </div>
+                    <div class="team-box-item__details">
+                      <div class="member-data" *ngIf="seasonTeam.captain">
+                        <div class="member-image">
+                          <div class="image-wrapper image--round image--border image--shadow"
+                            [rcBackgroundImage]="seasonTeam.captain?.profilePicture"></div>
+                        </div>
+                        <div class="member-info text-uppercase">
+                          {{seasonTeam.captain?.firstName}} {{seasonTeam.captain?.lastName}}
+                        </div>
+                      </div>
+                      <div class="member-status" *ngIf="seasonTeam.captain">
+                        <i class="icon-rc-star-icon"></i> team captain
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form__section">
+      <div class="form__section__header">
+        GAME DURATION
+      </div>
+      <div class="input-group game-duration-input" [ngClass]="{'has-error': !form.get('gameDuration').valid }">
+        <div class="input-wrapper">
+          <input type="number" class="input" formControlName="gameDuration" min="1" minlength="1" maxlength="500">
+          Min
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

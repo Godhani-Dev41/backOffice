@@ -1,0 +1,36 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal">
+      <div class="modal-content">
+        <div class="modal-header modal-header--assertive">
+          <button type="button" class="close pull-right" (click)="modal.hide()" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+          <div class="modal-header__content">
+            <h5>SELECT SPORT</h5>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="SportPicker">
+            <div class="row">
+              <div class="col-sm-2 col-xs-4" *ngFor="let sport of sports" (click)="sportSelect(sport)">
+                <div class="SportPicker__item" [ngClass]="{'SportPicker__item--active': sport.active}">
+                  <i [ngClass]="sport.icon"></i>
+                  <span>{{sport.name}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="button button-empty cancel-btn" (click)="modal.hide()">
+            Cancel
+          </button>
+          <rc-loading-btn [text]="'SELECT'"
+                          (onClick)="submit()"
+                          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+        </div>
+      </div>
+  </div>
+</div>

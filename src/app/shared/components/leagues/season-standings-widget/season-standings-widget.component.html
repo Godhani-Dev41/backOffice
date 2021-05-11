@@ -1,0 +1,60 @@
+<div class="league-standings-wrapper" [ngClass]="{'league-standings-wrapper--border': border, 'league-standings-wrapper--zoom': zoom}">
+  <div class="league-standings-header">
+		<span>
+			{{league?.name || ''}} STANDINGS
+		</span>
+  </div>
+  <div class="league-standings-content">
+    <table>
+      <thead>
+      <tr>
+        <td class="standing-position">
+
+        </td>
+        <td class="standing-team-name">
+
+        </td>
+        <td class="standing-score">GP</td>
+        <td class="standing-score">W</td>
+        <td class="standing-score">L</td>
+        <td class="standing-score">D</td>
+        <td class="standing-score standing-score--success">
+          {{percentageOrPoints === 'percentage' ? 'PCT' : 'PTS'}}
+        </td>
+        <td class="standing-score">PD</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let team of standings">
+        <td class="standing-position"># {{team.standingPosition}}</td>
+        <td class="standing-team-name">
+          <rc-team-logo-avatar
+            style="position: absolute; left: 0; top: 8px"
+            [teamName]="team.team?.name" [logo]="team.team?.logo">
+          </rc-team-logo-avatar>
+          {{team.team?.name}}
+        </td>
+        <td class="standing-score">
+          {{team.statistics?.gamesPlayed  || 0}}
+        </td>
+        <td class="standing-score">
+          {{team.statistics?.wins  || 0}}
+        </td>
+        <td class="standing-score">
+          {{team.statistics?.loses || 0}}
+        </td>
+        <td class="standing-score">
+          {{team.statistics?.ties || 0}}
+        </td>
+        <td class="standing-score standing-score--success">
+          {{percentageOrPoints === 'percentage' ? team.statistics?.winPercentage.toFixed(3) || 0 : team.points}}
+        </td>
+        <td class="standing-score">
+          {{team.statistics?.forTeam || 0}}:{{team.statistics?.againstTeam || 0}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

@@ -1,0 +1,22 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "importHelpers": true,
+    "paths": {
+      "@app/*": ["app/*"]
+    },
+    "outDir": "./dist/out-tsc",
+    "baseUrl": "src",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "jsx": "react",
+    "target": "es2018",
+    "types": ["protractor", "google", "mixpanel", "@emotion/core"],
+    "typeRoots": ["node_modules/@rcenter", "node_modules/@types"],
+    "lib": ["es2018", "dom"]
+  }
+}

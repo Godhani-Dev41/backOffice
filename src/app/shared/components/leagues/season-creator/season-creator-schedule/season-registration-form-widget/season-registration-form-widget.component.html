@@ -1,0 +1,308 @@
+<div [formGroup]="form">
+  <div [formGroupName]="'creatorSchedule'">
+    <div
+      [ngClass]="{ 'box--collapsable-active box--shadow': groupControl.get('active')?.value }"
+      [formGroupName]="groupName"
+      style="overflow: visible;"
+      class="box-item box-item--form box--padding box--border box--collapsable box--collapsable--checkbox"
+    >
+      <div
+        class="box-header"
+        (click)="
+          groupName !== 'regularRegistration' && groupControl.get('active').setValue(!groupControl.get('active').value);
+          $event.stopPropagation()
+        "
+      >
+        <div class="box-title text-uppercase">
+          <div class="checkbox" *ngIf="groupName !== 'regularRegistration'">
+            <input type="checkbox" class="styled-checkbox" formControlName="active" />
+            <label></label>
+          </div>
+          <ng-template [ngIf]="groupName === 'earlyBirdRegistration'">
+            EARLY BIRD
+          </ng-template>
+          <ng-template [ngIf]="groupName === 'regularRegistration'">
+            REGULAR
+          </ng-template>
+          <ng-template [ngIf]="groupName === 'lateRegistration'">
+            LATE
+          </ng-template>
+          <ng-template [ngIf]="groupName === 'downPayment'">
+            DOWN PAYMENT
+          </ng-template>
+          <ng-template [ngIf]="groupName === 'addons'">
+            ADD ONS
+          </ng-template>
+        </div>
+      </div>
+      <div class="box-content" *ngIf="groupName !== 'downPayment' && groupControl.get('active').value">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form__section__header form__section__header--no-border">
+              DATES
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <label for="" class="input-group__label--normal">
+                Start Date
+              </label>
+              <div class="input-wrapper">
+                <rc-datepicker
+                  [minDate]="startMinDate || null"
+                  [maxDate]="startMaxDate || null"
+                  formControlName="startDate"
+                ></rc-datepicker>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <label for="" class="input-group__label--normal">
+                End Date
+              </label>
+              <div class="input-wrapper">
+                <rc-datepicker
+                  [maxDate]="endMaxDate || null"
+                  [minDate]="endMinDate || null"
+                  formControlName="endDate"
+                ></rc-datepicker>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form__section__header form__section__header--no-border">
+              PRICING
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="PricingWidget"
+              [ngClass]="{
+                'PricingWidget--active': groupControl.get('individualActive').value,
+                'PricingWidget-tall': groupName === 'regularRegistration'
+              }"
+            >
+              <div class="PricingWidget__top">
+                <i class="icon-rc-payment-individual"></i>
+                <input
+                  type="number"
+                  min="0"
+                  max="100000"
+                  formControlName="individualPrice"
+                  *ngIf="groupControl.get('individualActive').value"
+                />
+              </div>
+              <nz-row nzType="flex" nzAlign="middle" nzJustify="center">
+                <button
+                  *ngIf="groupControl.get('individualActive').value && groupName === 'regularRegistration'"
+                  nz-button
+                  (click)="$event.stopPropagation(); $event.preventDefault(); displayDiscount('individual')"
+                  style="margin: 4px 0 4px 0;"
+                >
+                  Discounts
+                </button>
+              </nz-row>
+              <div class="PricingWidget__bottom">
+                INDIVIDUAL
+              </div>
+            </div>
+            <p class="text-center PricingWidgetDescription">
+              Set a price for an <b>individual player</b> registration to your season as a <b>free agent</b>
+            </p>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="PricingWidget"
+              (click)="togglePriceItem('teamPerPlayerActive')"
+              [ngClass]="{
+                'PricingWidget--active': groupControl.get('teamPerPlayerActive').value,
+                'PricingWidget-tall': groupName === 'regularRegistration'
+              }"
+            >
+              <span class="check-label" *ngIf="groupControl.get('teamPerPlayerActive').value">
+                <i class="fa fa-check"></i>
+              </span>
+
+              <div class="PricingWidget__top">
+                <i class="icon-rc-teams-icon"></i>
+                <input
+                  type="number"
+                  autofocus
+                  min="0"
+                  max="100000"
+                  formControlName="teamPerPlayerPrice"
+                  *ngIf="groupControl.get('teamPerPlayerActive').value"
+                  (click)="$event.stopPropagation(); $event.preventDefault()"
+                />
+              </div>
+              <nz-row nzType="flex" nzAlign="middle" nzJustify="center">
+                <button
+                  *ngIf="groupControl.get('teamPerPlayerActive').value && groupName === 'regularRegistration'"
+                  nz-button
+                  (click)="$event.stopPropagation(); $event.preventDefault(); displayDiscount('teamPerPlayer')"
+                  style="margin: 4px 0 4px 0;"
+                >
+                  Discounts
+                </button>
+              </nz-row>
+              <div class="PricingWidget__bottom">
+                TEAM PER PLAYER
+              </div>
+            </div>
+            <p class="PricingWidgetDescription">
+              Set a price for a <b>single player</b> to your season as a part of a <b>team</b>
+            </p>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="PricingWidget"
+              (click)="togglePriceItem('teamActive')"
+              [ngClass]="{
+                'PricingWidget--active': groupControl.get('teamActive').value,
+                'PricingWidget-tall': groupName === 'regularRegistration'
+              }"
+            >
+              <span class="check-label" *ngIf="groupControl.get('teamActive').value">
+                <i class="fa fa-check"></i>
+              </span>
+
+              <div class="PricingWidget__top">
+                <i class="icon-rc-payment-team"></i>
+                <input
+                  type="number"
+                  autofocus
+                  min="0"
+                  max="100000"
+                  formControlName="teamPrice"
+                  *ngIf="groupControl.get('teamActive').value"
+                  (click)="$event.stopPropagation(); $event.preventDefault()"
+                />
+              </div>
+              <nz-row nzType="flex" nzAlign="middle" nzJustify="center">
+                <button
+                  *ngIf="groupControl.get('teamActive').value && groupName === 'regularRegistration'"
+                  nz-button
+                  (click)="$event.stopPropagation(); $event.preventDefault(); displayDiscount('team')"
+                  style="margin: 4px 0 4px 0;"
+                >
+                  Discounts
+                </button>
+              </nz-row>
+              <div class="PricingWidget__bottom">
+                TEAM
+              </div>
+            </div>
+            <p class="PricingWidgetDescription">
+              Set a price for a <b>team</b> that will be paid by one player/team captain registering the team
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="box-content" *ngIf="groupName === 'downPayment' && groupControl.get('active').value">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form__section__header form__section__header--no-border">
+              DOWN PAYMENT
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="PricingWidget"
+              [ngClass]="{ 'PricingWidget--active': referenceGroupControl.get('individualActive').value }"
+            >
+              <div class="PricingWidget__top">
+                <i class="icon-rc-payment-individual"></i>
+                <input
+                  type="number"
+                  min="0"
+                  max="100000"
+                  formControlName="individualDownPayment"
+                  *ngIf="referenceGroupControl.get('individualActive').value"
+                />
+              </div>
+              <div class="PricingWidget__bottom">
+                INDIVIDUAL
+              </div>
+            </div>
+            <p class="text-center PricingWidgetDescription">
+              Set a minimum price for an <b>individual player</b> down payment.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="PricingWidget"
+              (click)="togglePriceItem('teamPerPlayerActive')"
+              [ngClass]="{ 'PricingWidget--active': referenceGroupControl.get('teamPerPlayerActive').value }"
+            >
+              <span class="check-label" *ngIf="referenceGroupControl.get('teamPerPlayerActive').value">
+                <i class="fa fa-check"></i>
+              </span>
+
+              <div class="PricingWidget__top">
+                <i class="icon-rc-teams-icon"></i>
+                <input
+                  type="number"
+                  autofocus
+                  min="0"
+                  max="100000"
+                  formControlName="teamPerPlayerDownPayment"
+                  *ngIf="referenceGroupControl.get('teamPerPlayerActive').value"
+                  (click)="$event.stopPropagation(); $event.preventDefault()"
+                />
+              </div>
+              <div class="PricingWidget__bottom">
+                TEAM PER PLAYER
+              </div>
+            </div>
+            <p class="PricingWidgetDescription">
+              Set a minimum price for an <b>single player</b> as a part of a <b>team</b> down payment.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="PricingWidget"
+              (click)="togglePriceItem('teamActive')"
+              [ngClass]="{ 'PricingWidget--active': referenceGroupControl.get('teamActive').value }"
+            >
+              <span class="check-label" *ngIf="referenceGroupControl.get('teamActive').value">
+                <i class="fa fa-check"></i>
+              </span>
+
+              <div class="input-wrapper">
+                <div class="PricingWidget__top">
+                  <i class="icon-rc-payment-team"></i>
+                  <input
+                    type="number"
+                    autofocus
+                    min="0"
+                    max="100000"
+                    formControlName="teamDownPayment"
+                    *ngIf="referenceGroupControl.get('teamActive').value"
+                    (click)="$event.stopPropagation(); $event.preventDefault()"
+                  />
+                </div>
+                <div class="PricingWidget__bottom">
+                  TEAM
+                </div>
+              </div>
+              <p class="PricingWidgetDescription">
+                Set a price for a <b>team</b> down payment that will be paid by one player/team captain registering the
+                team.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<discount-v2
+  *ngIf="showingDiscounts"
+  [totalAmount]="productPrice"
+  (onClose)="closeDiscounts()"
+  (onSave)="saveEntitlements($event)"
+></discount-v2>

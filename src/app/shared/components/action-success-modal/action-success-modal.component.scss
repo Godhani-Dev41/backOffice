@@ -1,0 +1,68 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.success-modal {
+  .modal-dialog {
+    width: 550px;
+  }
+
+  .modal-body {
+    height: 325px;
+    background: $brand-accent;
+    padding-top: 40px;
+    color: white;
+
+    img {
+      font-size: 120px;
+      color: white;
+      width: 120px;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-family: $font-brand;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: white;
+    }
+
+    p {
+      margin: 0 auto;
+      font-size: 16px;
+      max-width: 290px;
+      line-height: 22px;
+    }
+  }
+
+  .modal-footer {
+    min-height: 146px;
+    display: flex;
+    padding: 25px;
+
+    .action-btn {
+      padding: 10px;
+      flex: 1;
+      color: $brand-dark-grey;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 900;
+      font-family: $font-brand;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.action-btn--assertive {
+        background: $brand-accent;
+        color: white;
+      }
+
+      a {
+        display: block;
+        //color: $brand-dark-grey !important;
+      }
+    }
+  }
+}

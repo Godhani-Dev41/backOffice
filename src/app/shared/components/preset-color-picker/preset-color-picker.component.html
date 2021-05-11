@@ -1,0 +1,13 @@
+<div class="PresetColorPickerWidget" (click)="toggleVisibility()" [style.backgroundColor]="currentColor">
+
+</div>
+<div class="PresetColorPickerWidgetWindow" *ngIf="visible">
+  <div class="PresetColorPickerWidgetWindow__title">
+    Select color
+  </div>
+  <div class="PresetColorPickerWidgetWindow__colors">
+    <div class="PresetColorPickerWidgetWindow__item" (click)="selectColor(color)" *ngFor="let color of colors;" [style.backgroundColor]="color">
+
+    </div>
+  </div>
+</div>

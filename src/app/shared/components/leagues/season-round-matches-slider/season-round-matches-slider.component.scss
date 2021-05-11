@@ -1,0 +1,86 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.round-box-item {
+  width: 131px;
+  height: 150px;
+  position: relative;
+
+  &.round-box-item--active {
+    border-top: 3px solid $brand-success;
+
+    .round-box-item__header,
+    .round-box-item__details {
+      .item-header-row,
+      .item-header-row.item-header-row--icon {
+        i {
+          color: $brand-dark-grey;
+        }
+      }
+    }
+  }
+
+  .round-box-item__header {
+    height: 71px;
+    padding-top: 11px;
+
+    .item-header-row {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      padding-bottom: 3px;
+
+      i {
+        color: $brand-accent;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .round-box-item__details {
+    height: 76px;
+    background: #f6f6f6;
+    padding: 9px 8px 15px 5px;
+
+    .ScoreBoxWrapper {
+      margin-top: 10px;
+    }
+
+    .item-header-row {
+      text-align: center;
+      color: $brand-dark-grey;
+      font-size: 10px;
+
+      &.item-header-row--icon {
+        padding-top: 5px;
+
+        i {
+          position: relative;
+          top: 2px;
+          font-size: 12px;
+          color: $brand-accent;
+        }
+      }
+
+      &.item-header-row--location {
+        line-height: 11px;
+      }
+    }
+  }
+}
+
+.add-results-btn {
+  z-index: 1;
+  border-radius: 72px;
+  color: white;
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  font-size: 10px;
+  font-weight: 600;
+  width: 95px;
+  padding: 3px;
+  display: block;
+}
+

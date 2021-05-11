@@ -1,0 +1,55 @@
+<div class="player-card box-item box--shadow-small bloc--inner" [ngClass]="{ 'player-card--draggable': draggable }">
+  <div class="player-card__header player-card__header--muted text-center" *ngIf="visibleCardHeader === 'invite'"
+    (click)="sendInvite(player)">
+    <div *ngIf="!player?.isInviteResent" class="resend-button"><i class="fa fa-envelope"></i> resend invite</div>
+    <div *ngIf="player?.isInviteResent" class="color-brand-success"><i class="fa fa-check-circle"></i> invite sent</div>
+  </div>
+  <div class="player-card__header text-center bloc--inner" *ngIf="visibleCardHeader === 'normal'"
+    [ngClass]="{ 'player-card__header--active': player?.captain, 'more-menu-btn-wrapper': !player?.captain }">
+    <ng-template [ngIf]="player?.captain"> <i class="icon-rc-star-icon"></i> team captain </ng-template>
+    <ng-template [ngIf]="!player?.captain && (player.userId || player.id) && team?.team?.creatorType !== 'user'">
+      <div dropdown container="body">
+        <button type="button" dropdownToggle>
+          <i class="icon-rc-nav-more"></i>
+        </button>
+        <ul *dropdownMenu class="dropdown-menu dropdown-select-menu" role="menu">
+          <li role="menuitem" *ngIf="team?.team?.creatorType !== 'user'">
+            <a class="dropdown-item" href="#" *ngIf="(player?.userId || player?.id) && !player?.captain"
+              (click)="onTeamCaptainAssignClick.emit({ player: player }); $event.preventDefault()">
+              <i class="icon-rc-star-selected"></i> Make Captain
+            </a>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+  </div>
+  <div class="player-card__header text-center bloc--inner" *ngIf="visibleCardHeader === 'draggable'">
+    <i class="icon-rc-drag-points"></i>
+  </div>
+  <div class="player-card__header text-center bloc--inner" *ngIf="!visibleCardHeader"></div>
+  <div class="player-card__content text-center bloc--inner" (click)="onMoreDetailsClick.emit()">
+    <div class="PaymentLabelStatus" container="body" [tooltip]="getPaymentTooltipText(player.paymentStatus)" [ngClass]="{
+        'PaymentLabelStatus--active': player.paymentStatus === RCPaymentStatus.ACCEPTED,
+        'PaymentLabelStatus--in-active':
+          player.paymentStatus === RCPaymentStatus.PENDING ||
+          player.paymentStatus === RCPaymentStatus.FRAUD ||
+          player.notRegistered
+      }">
+      <span>
+        <i class="fa fa-usd"></i>
+      </span>
+    </div>
+    <div class="member-image text-center bloc--inner">
+      <div class="image-wrapper image--border image--round image--shadow bloc--inner"
+        [rcBackgroundImage]="player?.picture?.url" [rcBackgroundDefaultType]="'user'"></div>
+    </div>
+    <div class="player-card__content__title text-uppercase bloc--inner">
+      {{ player.firstName ? player.firstName : "" }} {{ player.lastName ? player.lastName : "" }}
+      {{ player.name ? player.name : player.email }}
+    </div>
+    <div class="player-card__content__bottom-label bloc--inner">
+      {{ getMemberGender(player?.gender) }}
+      {{ !player?.isRegistered && player?.captain ? "(Captain)" : "" }}
+    </div>
+  </div>
+</div>

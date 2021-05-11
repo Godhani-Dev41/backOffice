@@ -1,0 +1,125 @@
+<loaders-css *ngIf="loadingTeamsUpdate" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+
+<div style="display: flex">
+  <div class="TeamAssignScreen" *ngIf="assignTeamsBarVisible">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="TeamAssignScreen__title">
+          DRAG TEAMS TO ASSIGN THEM TO YOUR PLAYOFFS
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngFor="let division of divisions" [ngClass]="divisions?.length > 1 ? 'col-md-6' : 'col-md-12'">
+        <div class="TeamAssignScreen__division-wrapper">
+          <div class="TeamAssignScreen__division-wrapper__title" [style.color]="division.color" *ngIf="divisions.length > 1">
+            <span class="division-icon" [style.backgroundColor]="division.color">
+              {{division.name[0]}}
+            </span> {{division.name}}
+          </div>
+          <div id="teamsPool-1" class="no-drag-to" [dragula]="'participant-drag-bag'" [dragulaModel]="getVisibleAssignTeams(division.seasonTeams)">
+            <div *ngIf="!getVisibleAssignTeams(division.seasonTeams).length" class="text-center padding-top-20">
+              No teams found
+            </div>
+            <div class="TeamAssignScreen__team-row"
+                 [style.borderLeft]="'2px solid ' + division.color"
+                 id="teamBox-{{seasonTeam.id}}"
+                 *ngFor="let seasonTeam of getVisibleAssignTeams(division.seasonTeams)">
+              <span class="standing-position">
+                #{{seasonTeam.standingPosition}}
+              </span>
+
+              {{seasonTeam.team?.name}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="TournamentBrackets" *ngIf="bracketsVM && bracketsVM.length">
+    <div class="TournamentBrackets__round" *ngFor="let round of bracketsVM; let roundIndex = index">
+      <div class="TournamentBrackets__round__title text-uppercase">
+        {{round?.name}}
+      </div>
+      <div class="TournamentBrackets__round__content">
+        <div class="MatchUp" *ngFor="let matchUp of round.matchUps" style="min-height: 93px;">
+          <div class="RoundSeries"
+               *ngFor="let series of matchUp; let seriesIndex = index"
+               [ngClass]="(roundIndex === (bracketsVM.length - 1) && seriesIndex === 1) ? 'RoundSeries--consolation' : ''">
+            <h5 *ngIf="(roundIndex === (bracketsVM.length - 1) && seriesIndex === 1)">Consolation Match</h5>
+            <div
+              class="RoundSeries__participant-box-wrapper"
+              id="seriesWrapper-{{series.id}}"
+              [ngClass]="{'no-drag-to': (roundIndex > 0) || (series.seriesParticipants[0]?.score !== null || series.seriesParticipants[1]?.score !== null) }"
+              [dragula]="'participant-drag-bag'"
+              [dragulaModel]='getSeriesParticipants(series.seriesParticipants)'>
+              <div *ngFor="let participant of getSeriesParticipants(series.seriesParticipants); let i = index;"
+                   [ngClass]="{
+                    'RoundSeries__participant-drag-to-drop': roundIndex === 0 && !participant.entity,
+                    'no-drag': (roundIndex > 0) || (roundIndex === 0 && !participant.entity) || series.seriesParticipants[1]?.score !== null
+                   }"
+                   id="participant-{{participant.id}}">
+
+                <div class="RoundSeries__participant-box"
+                     id="teamBox-{{participant.id}}"
+                     [ngClass]="{
+                      'RoundSeries__participant-box--unknown': !participant.entity,
+                      'no-drag': roundIndex > 0
+                     }">
+                  <div class="RoundSeries__participant-box__logo" *ngIf="participant.entity">
+                    <rc-team-logo-avatar
+                      [teamName]="participant.entity?.name"
+                      [logo]="participant.entity?.logo">
+                    </rc-team-logo-avatar>
+                  </div>
+                  <div class="RoundSeries__participant-box__title">
+                    {{participant.entity?.name || 'TBA'}}
+                  </div>
+                  <div class="RoundSeries__participant-box__score" *ngIf="participant.score !== null">
+                    <div class="score-box" [ngClass]="{
+                      'score-box--win': participant.score > series.seriesParticipants[i === 0 ? 1 : 0]?.score,
+                      'score-box--lose': participant.score < series.seriesParticipants[i === 0 ? 1 : 0]?.score
+                    }">
+                      {{participant?.score}}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="RoundSeries__drag-to-drop-box" style="display: none;">
+                  DRAG TO ASSIGN TEAM
+                </div>
+
+                <div class="RoundSeries__matches no-drag" *ngIf="i === 0">
+                  <span class="vs-wrapper">
+                    VS.
+                  </span>
+                  <ul class="list no-style">
+                    <li *ngFor="let match of series.matches">
+                      {{match.startDate | momentDate:'MMM D, h:mma':match.timezone}} - {{match.endDate | momentDate:'h:mma':match.timezone}}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="connector" *ngIf="matchUp?.length > 1 && roundIndex !== (bracketsVM.length - 1)"></div>
+        </div>
+      </div>
+    </div>
+    <div class="TournamentBrackets__round TournamentBrackets__round--winner">
+      <div class="TournamentBrackets__round__title">
+        WINNER
+      </div>
+      <div class="TournamentBrackets__round__content">
+        <div class="MatchUp">
+          <div class="RoundSeries">
+            <div class="RoundSeries__trophy" *ngIf="!bracketsWinner">
+              <i class="icon-rc-trophy-unknown"></i>
+            </div>
+            <rc-team-logo-avatar *ngIf="bracketsWinner" [teamName]="bracketsWinner.name" [logo]="bracketsWinner.logo"></rc-team-logo-avatar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="rounds-slider cards-slider">
+  <div class="slider-area-wrapper" *ngIf="matches?.length">
+      <div class="item" *ngFor="let seasonMatch of matches"
+           (click)="onClick.emit({ roundId: round?.id, match: seasonMatch, isPast: isPastMatch(seasonMatch), divisionId: round?.divisionId })">
+        <div class="box-item box--shadow round-box-item box-top-border box-top-border--small"
+             [ngClass]="{'round-box-item--active': isPastMatch(seasonMatch)}">
+          <div class="round-box-item__header">
+            <div class="item-header-row">
+              {{(seasonMatch.match?.participants[0]?.entity?.name || 'TBA') | truncate:21}}
+            </div>
+            <div class="item-header-row">
+              <i class="icon-rc-double-flag"></i>
+            </div>
+            <div class="item-header-row">
+              {{(seasonMatch.match?.participants[1]?.entity?.name || 'TBA') | truncate:21}}
+            </div>
+          </div>
+          <div class="round-box-item__details" *ngIf="!(isPastMatch(seasonMatch) && seasonMatch?.match?.participants[0]?.score !== null && seasonMatch?.match?.participants[1]?.score !== null)">
+            <div class="item-header-row text-uppercase">
+              {{seasonMatch.startDate | momentDate:'MMM D, YYYY':seasonMatch.timezone}}
+            </div>
+            <div class="item-header-row">
+              {{seasonMatch.startDate | momentDate:'hh:mmA':seasonMatch.timezone}} - {{seasonMatch.endDate | momentDate:'hh:mmA':seasonMatch.timezone}}
+            </div>
+            <div class="item-header-row item-header-row--icon item-header-row--location" *ngIf="seasonMatch.venueName">
+              <i class="icon-rc-location"></i> {{seasonMatch.venueName | truncate:40}}
+            </div>
+          </div>
+          <div class="round-box-item__details text-center" *ngIf="(isPastMatch(seasonMatch) && seasonMatch?.match?.participants[0]?.score !== null && seasonMatch?.match?.participants[1]?.score !== null)">
+            <div class="ScoreBoxWrapper">
+              <span class="score-box" [ngClass]="{
+                'score-box--win': seasonMatch?.match?.participants[0]?.score > seasonMatch?.match?.participants[1]?.score,
+                'score-box--lose': seasonMatch?.match?.participants[0]?.score < seasonMatch?.match?.participants[1]?.score
+              }">
+                {{seasonMatch?.match?.participants[0]?.score}}
+              </span>
+              <i>
+                :
+              </i>
+              <span class="score-box" [ngClass]="{
+                'score-box--win': seasonMatch?.match?.participants[1]?.score > seasonMatch?.match?.participants[0]?.score,
+                'score-box--lose': seasonMatch?.match?.participants[1]?.score < seasonMatch?.match?.participants[0]?.score
+              }">
+                {{seasonMatch?.match?.participants[1]?.score }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <button class="button button-black add-results-btn"
+                *ngIf="isPastMatch(seasonMatch) &&
+                 seasonMatch?.match?.participants[0] && seasonMatch?.match?.participants[1] &&
+                 seasonMatch?.match?.participants[0]?.score === null && seasonMatch?.match?.participants[1]?.score === null ">
+          ADD SCORE
+        </button>
+        <button class="button button-success add-results-btn"
+                (click)="onShareClick.emit(seasonMatch); $event.stopPropagation()"
+                *ngIf="isPastMatch(seasonMatch) && seasonMatch?.match?.participants[0]?.score !== null && seasonMatch?.match?.participants[1]?.score !== null ">
+          POST SCORE
+        </button>
+      </div>
+  </div>
+</div>
+

@@ -1,0 +1,15 @@
+export enum RCServerErrorCodes {
+  UNEXPECTED_ERROR = 10,
+  PERMISSIONS_INSUFFICIENT = 11,
+    // Event
+  EVENT_NAME_TOO_LONG = 5010,
+    // League
+  LEAGUE_NAME_TOO_LONG = 6010,
+    // Venue
+  VENUE_NAME_TOO_LONG = 7010,
+    // Team
+  TEAM_NAME_TOO_LONG = 11010,
+  TEAM_NOT_MEMBER = 11011,
+    // User Agreements
+  AGREEMENTS_USER_NOT_FOUND = 20000
+}

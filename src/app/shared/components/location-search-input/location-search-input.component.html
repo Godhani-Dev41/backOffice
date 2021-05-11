@@ -1,0 +1,24 @@
+<div class="row">
+  <div [ngClass]="timeZoneSelector ? 'col-md-10' : 'col-md-12'">
+    <input [placeholder]="placeholder"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="off"
+           [required]="required"
+           (keyup)="onTextEnter($event.target.value)"
+           [name]="name"
+           [attr.disabled]="disabled || null"
+           type="text"
+           class="form-control"
+           #search [formControl]="searchControl"
+    />
+  </div>
+  <div class="col-md-2 timezone-label" *ngIf="timeZoneSelector">
+    <div class="timezone-top">
+      Time Zone
+    </div>
+    <div class="timezone-content">
+      {{timezone}}
+    </div>
+  </div>
+</div>

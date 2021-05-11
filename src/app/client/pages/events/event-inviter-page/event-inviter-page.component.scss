@@ -1,0 +1,106 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.inner_page{
+  height: 100%;
+}
+
+.inner-page__content {
+  height: 100%;
+}
+
+.WizardForm__navigation__slide-info {
+  margin-top: 15px;
+}
+
+.bottom-nav-bar__inner {
+  margin-left: 180px;
+
+  .bottom-nav-bar__inner__content {
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 8px 0;
+
+    ::ng-deep button {
+      height: 35px;
+      min-width: 77px;
+
+      i {
+        font-size: 18px;
+        position: relative;
+        top: 2px;
+        right: -5px;
+      }
+
+      &.button-back {
+        i {
+          left: -5px;
+        }
+      }
+
+      &.button-dark {
+        width: auto;
+        background: #4a4a4a;
+        padding: 5px 15px;
+      }
+    }
+  }
+}
+
+.SettingsBtnRowToggle {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 11px 0 rgba(255, 163, 29, 0.34);
+  border: solid 0.5px #f2f2f2;
+  margin-bottom: 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.SettingsBtnRowToggle--active {
+    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.1);
+
+    .SettingsBtnRowToggle__checkbox {
+      display: block;
+    }
+  }
+
+  span {
+    font-weight: bold;
+    font-size: 12px;
+    color: $brand-accent;
+  }
+
+  .SettingsBtnRowToggle__checkbox {
+    display: none;
+    position: absolute;
+    top: -12px;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    background: $brand-accent;
+    text-align: center;
+
+    i {
+      font-size: 12px;
+      color: white;
+      position: relative;
+      top: 4px;
+    }
+  }
+}
+
+.advanced-options-box {
+  .SelectableFormRow__label {
+    color: $brand-accent;
+  }
+}
+
+.top-invite-label {
+  background: $brand-accent;
+  padding: 14px 16px;
+  color: white;
+  font-weight: bold;
+}

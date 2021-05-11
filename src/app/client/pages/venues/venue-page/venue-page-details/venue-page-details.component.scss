@@ -1,0 +1,116 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.VenueMapIcon {
+  height: 110px;
+  background-size: cover;
+  background-position: center;
+}
+
+.SportIcon {
+  display: inline-block;
+
+  i {
+    font-size: 36px;
+    color: rgb(255,191,0);
+  }
+}
+
+
+.CourtCard {
+  height: 227px;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
+  background: white;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .CourtCard__image {
+    background-color: $brand-accent;
+    height: 108px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .CourtCard__content {
+    padding: 5px 15px;
+  }
+
+  h5 {
+    color: rgb(255,191,0);
+    font-size: 14px;
+    font-weight: bold;
+    font-family: $font-brand;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  p {
+    font-size: 12px;
+    font-weight: 500;
+    color: $brand-black;
+    line-height: 15px;
+  }
+
+  .CourtCard__sports {
+    position: relative;
+    left: -10px;
+    top: -4px;
+  }
+}
+
+
+hr {
+  border: solid 1px $brand-grey;
+}
+
+.more-options-button {
+  background: transparent;
+  border: none;
+  position: relative;
+  margin-right: 10px;
+  i {
+    transition: color .3s;
+    font-size: 20px;
+    color: #8c8c8c;
+    margin-right: 0;
+  }
+
+  &:hover {
+    i {
+      color:  #202020;
+    }
+  }
+}
+
+.PopupMenuWrapper {
+  width: 110px;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      font-size: 10px;
+      color: $brand-dark-grey;
+      border-bottom: solid 1px #d6d6d6;
+
+      a {
+        line-height: 22px;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    i {
+      text-align: center;
+      font-size: 8px;
+      display: inline-block;
+      width: 20px;
+    }
+  }
+}

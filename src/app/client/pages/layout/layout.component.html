@@ -1,0 +1,18 @@
+<div *ngIf="adminLogged" class="admin-top-bar">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center text-wrapper">
+        Current User: <b>{{loggedUser.firstName}} {{loggedUser.lastName}}</b> -- <a href="" [routerLink]="['/admin']"><b>Change User</b></a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="app-layout-wrapper">
+  <rc-sidemenu class="rc-sidemenu"></rc-sidemenu>
+  <div class="page-content-wrapper">
+    <rc-top-menu></rc-top-menu>
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.DraggableCheckableInfoBox__content__bottom {
+  color: $brand-black;
+  font-weight: 200;
+  font-size: 12px;
+
+  p {
+    color: $brand-dark-grey;
+  }
+
+  .col-md-4,
+  .col-md-6,
+  .col-md-8 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .row {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+
+  .inline-label {
+    label {
+      display: inline-block;
+      font-weight: 200;
+      font-size: 12px;
+      margin-left: 4px;
+    }
+
+    input {
+      max-width: 70px;
+    }
+  }
+
+  .addAnswerBtn {
+    font-size: 12px;
+    font-weight: bold;
+    color: $brand-black;
+  }
+
+  .customQuestionOptionRow {
+    label {
+      a {
+        margin-left: 5px;
+        display: inline-block;
+        font-size: 18px;
+        color: $brand-dark-grey;
+      }
+    }
+  }
+}

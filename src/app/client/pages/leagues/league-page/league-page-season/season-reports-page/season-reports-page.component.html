@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3 class="sub-title sub-title--assertive no-mg-top text-uppercase">
+      {{season?.name}} REPORTS
+    </h3>
+  </div>
+
+  <div class="col-md-12" *ngIf="season">
+    <div class="ReportRowBox">
+      <div class="ReportRowBox__content">
+        <i class="icon-rc-questionnaire"></i> {{season?.name}} | Registration Questionnaire
+
+        <a href="" class="button pull-right ReportDownloadBtn button-assertive" (click)="downloadReport(); $event.preventDefault()">
+          <i class="icon-rc-download"></i> DOWNLOAD REPORT
+        </a>
+      </div>
+    </div>
+
+    <div class="ReportRowBox">
+      <div class="ReportRowBox__content">
+        <i class="icon-rc-questionnaire"></i> {{season?.name}} | Players Report
+
+        <a href="" class="button pull-right ReportDownloadBtn button-assertive" (click)="downloadPlayersReport(); $event.preventDefault()">
+          <i class="icon-rc-download"></i> DOWNLOAD REPORT
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div class="ComingSoonBox">
+      <i class="icon-rc-questionnaire"></i>
+      <p>
+        COMING SOON! <br>
+        Come back for more exciting reports
+        about your season
+      </p>
+    </div>
+  </div>
+</div>

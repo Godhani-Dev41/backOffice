@@ -1,0 +1,62 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal">
+    <div class="modal-content">
+      <div class="modal-header modal-header--assertive">
+        <button type="button" class="close pull-right" (click)="modal.hide()" aria-label="Close">
+          <i class="fa fa-times"></i>
+        </button>
+        <div class="modal-header__content">
+          <i class="icon-rc-calendar-2"></i>
+          <h5>CHANGE TIME</h5>
+        </div>
+      </div>
+      <div class="modal-body">
+        <form action="" class="form" [formGroup]="matchForm" novalidate>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="input-group"
+                    [ngClass]="{'has-error': !matchForm.get('startDate').valid && matchForm.get('startDate').touched}">
+                    <label for="">DATE</label>
+                    <rc-datepicker placeholder="Select match date" [required]="true" formControlName="startDate">
+                    </rc-datepicker>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="input-group"
+                    [ngClass]="{'has-error': !matchForm.get('startTime').valid && matchForm.get('startTime').touched}">
+                    <label for="">START TIME</label>
+                    <rc-timepicker [required]="true" (onChange)="timeChanged($event, 'start')"
+                      formControlName="startTime" [placeholder]="'Select time'">
+                    </rc-timepicker>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="input-group"
+                    [ngClass]="{'has-error': !matchForm.get('endTime').valid && matchForm.get('endTime').touched}">
+                    <label for="">END TIME</label>
+                    <rc-timepicker [minTime]="matchForm.get('startTime').value" formControlName="endTime"
+                      [placeholder]="'Select time'" [required]="true">
+                    </rc-timepicker>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="button button-empty cancel-btn" (click)="modal.hide()">
+          Cancel
+        </button>
+        <rc-loading-btn (onClick)="submit(matchForm.value)" [disabled]="!matchForm.valid" [text]="'CHANGE TIME'"
+          [classes]="['button', 'button-success']">
+        </rc-loading-btn>
+      </div>
+    </div>
+  </div>
+</div>

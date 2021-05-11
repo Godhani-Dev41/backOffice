@@ -1,0 +1,51 @@
+<div class="tournament-page-wrapper inner-page">
+  <div class="page-header bottom-divider page-header--no-margin" *ngIf="tournament">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-wrapper">
+          <rc-back-btn></rc-back-btn>
+        </div>
+        <div class="bottom-wrapper">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="pull-left text-uppercase">
+                <ul class="breadcrumb">
+                  <li *ngIf="!currentSeason?.playoffType">
+                    <a href="" [routerLink]="['/client/tournaments/view/' + tournament?.id]">
+                      {{tournament?.name}}
+                    </a>
+                  </li>
+                  <li *ngIf="currentSeason?.playoffType">
+                    <a href="" [routerLink]="['/client/leagues/view/' + tournament?.id]">
+                      {{tournament?.name}}
+                    </a>
+                  </li>
+                  <li *ngIf="currentSeason?.parentSeason">
+                    <a href="" [routerLink]="['/client/leagues/view/' + currentSeason?.parentSeason?.leagueId + '/season/' + currentSeason?.parentSeason.id]">
+                      {{currentSeason?.parentSeason?.name}}
+                    </a>
+                  </li>
+                  <li *ngIf="currentSeason" class="active">
+                    <a href="" [routerLink]="['/client/tournaments/view/' + tournament?.id + '/item/' + currentSeason.id]">
+                      {{currentSeason?.name}}
+                    </a>
+                  </li>
+                </ul>
+              </h3>
+
+              <a href="" class="button button-assertive pull-right"
+                 *ngIf="!currentSeason?.playoffType"
+                 [routerLink]="['/client/tournaments/view/' + tournament?.id + '/item-edit']"
+                 [routerLinkActive]="['hidden']">
+                NEW TOURNAMENT EVENT
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

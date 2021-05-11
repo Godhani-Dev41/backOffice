@@ -1,0 +1,22 @@
+<div class="text-center" style="zoom: 1.9">
+  <div style="min-width: 330px; display: inline-block; border: 1px solid #f2f2f2; padding: 15px;">
+    <div class="reachout-widget-wrapper team-looking-players-cta" *ngIf="feed">
+      <div class="reachout-widget-wrapper__top">
+        <div class="reachout-widget-wrapper__image" style="background-image: url('assets/img/Looking_for_players.png');">
+          <rc-team-logo-avatar [teamName]="feed?.creator?.name" [logo]="feed?.creator?.mainMedia"></rc-team-logo-avatar>
+        </div>
+      </div>
+      <div class="reachout-widget-wrapper__content">
+        <h5>IS LOOKING FOR PLAYERS</h5>
+        <div class="rechout-info-box" *ngIf="feed?.feedMetadata?.reachOut?.levelOfPlay">
+          <h6>Level of Play</h6>
+          <p>
+            {{getLevelOfPlayText(feed?.feedMetadata?.reachOut.levelOfPlay)}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

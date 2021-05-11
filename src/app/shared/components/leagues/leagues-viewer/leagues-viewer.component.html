@@ -1,0 +1,7 @@
+<div class="leagues-viewer-wrapper">
+  <div class="row">
+    <div class="col-lg-4 col-md-6" *ngFor="let league of leagues">
+      <rc-league-box [league]="league" [tournament]="tournament" [type]="type"></rc-league-box>
+    </div>
+  </div>
+</div>

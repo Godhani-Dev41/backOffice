@@ -1,0 +1,318 @@
+<div class="sidemenu-wrapper">
+  <div class="top-menu-wrapper">
+    <div class="logo-wrapper">
+      <img src="assets/img/logo.png" alt="bond sports logo" style="height: auto; width: 198px;" />
+    </div>
+    <div class="brand-details-wrapper">
+      <div class="brand-logo">
+        <a href="" [routerLink]="['organization', 'settings']">
+          <div
+            class="logo-image"
+            [ngStyle]="{
+              'background-image':
+                'url(' + ((organization?.logo | mediaUrl) || 'assets/img/rec_sports_demo_logo.png') + ')'
+            }"
+          ></div>
+        </a>
+      </div>
+      <div class="brand-details">
+        <h1 class="text-uppercase">{{ organization?.name }}</h1>
+        <div class="brand-email">
+          <i class="icon-rc-person-icon"></i>
+          {{ organization?.email | truncate: 24 }}
+        </div>
+        <div class="brand-address" *ngIf="organizationAddress">
+          <i class="icon-rc-location"></i>
+          {{ organizationAddress | truncate: 20 }}
+        </div>
+
+        <div
+          class="btn-group OrganizationSelectButton"
+          *ngIf="userOrganizations?.length && userOrganizations?.length > 1"
+          dropdown
+        >
+          <button dropdownToggle type="button" class="btn dropdown-toggle">
+            Change Organization <span class="caret"></span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <ng-template ngFor let-org [ngForOf]="userOrganizations">
+              <li role="menuitem" *ngIf="org.id !== organization?.id">
+                <a class="dropdown-item" href="#" (click)="selectOrganization(org); $event.preventDefault()">{{
+                  org.name
+                }}</a>
+              </li>
+            </ng-template>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="menu-items-wrapper">
+    <div class="menu-list">
+      <ul *ngIf="currentLeague && currentLeague.leagueType !== 'tournament'" class="menu-list--secondary">
+        <li class="back-btn">
+          <a href="" [routerLink]="['leagues', 'view']" [routerLinkActive]="['active']">LEAGUES</a>
+        </li>
+        <li class="nav-inner-item">
+          <a href="" [routerLink]="['leagues', 'view', currentLeague.id, 'details']" [routerLinkActive]="['active']"
+            >DETAILS</a
+          >
+        </li>
+        <li class="nav-inner-item" *ngIf="currentLeague?.leagueSeasons?.length">
+          <a href="" (click)="$event.preventDefault()">SEASONS</a>
+        </li>
+        <li class="nav-inner-item">
+          <ul class="menu-list__inner">
+            <li
+              *ngFor="let season of currentLeague.leagueSeasons"
+              [ngClass]="{
+                'menu-list__inner-item--muted': season.seasonTiming === 'past'
+              }"
+            >
+              <a
+                href=""
+                [routerLink]="['leagues', 'view', currentLeague.id, 'season', season.id]"
+                [routerLinkActive]="['active']"
+                >{{ season.name }}
+              </a>
+
+              <ul class="menu-list__inner" *ngIf="season?.id === currentSeason?.id">
+                <li
+                  *ngFor="let playoff of currentSeason.subSeasons"
+                  [ngClass]="{
+                    'menu-list__inner-item--muted': playoff.seasonTiming === 'past'
+                  }"
+                >
+                  <a
+                    href=""
+                    [routerLink]="['tournaments', 'view', currentLeague.id, 'item', playoff.id]"
+                    [routerLinkActive]="['active']"
+                    >{{ playoff.name }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul *ngIf="currentLeague && currentLeague.leagueType === 'tournament'" class="menu-list--secondary">
+        <li class="back-btn">
+          <a href="" [routerLink]="['tournaments', 'view']" [routerLinkActive]="['active']">TOURNAMENTS</a>
+        </li>
+        <li class="nav-inner-item">
+          <a href="" [routerLink]="['tournaments', 'view', currentLeague.id, 'details']" [routerLinkActive]="['active']"
+            >DETAILS</a
+          >
+        </li>
+        <li class="nav-inner-item" *ngIf="currentLeague?.leagueSeasons?.length">
+          <a href="" (click)="$event.preventDefault()">EVENTS</a>
+        </li>
+        <li class="nav-inner-item">
+          <ul class="menu-list__inner">
+            <li
+              *ngFor="let season of currentLeague.leagueSeasons"
+              [ngClass]="{
+                'menu-list__inner-item--muted': season.seasonTiming === 'past'
+              }"
+            >
+              <a
+                href=""
+                [routerLink]="['tournaments', 'view', currentLeague.id, 'item', season.id]"
+                [routerLinkActive]="['active']"
+                >{{ season.name }}</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul *ngIf="!currentLeague">
+        <li>
+          <a href="" [routerLink]="['dashboard']" [routerLinkActive]="['active']">DASHBOARD</a>
+        </li>
+        <li class="has-secondary-menu">
+          <a href="" [routerLink]="['facilities']" [routerLinkActive]="['active']">FACILITIES</a>
+          <ul class="menu-list__inner" *ngIf="currentVenue">
+            <span placement="right" container="body" [tooltip]="!platformUser ? tooltipMsg : null">
+              <li>
+                <a
+                  href=""
+                  [routerLink]="['/client/facilities/venue/' + currentVenue.id + '/schedule/all']"
+                  [routerLinkActive]="['active']"
+                  [class.disabled]="!platformUser ? true : null"
+                >
+                  SCHEDULE
+                </a>
+              </li>
+            </span>
+            <span placement="right" container="body" [tooltip]="!platformUser ? tooltipMsg : null">
+              <li>
+                <a
+                  href=""
+                  [routerLink]="['/client/facilities/venue/' + currentVenue.id + '/reservations']"
+                  [routerLinkActive]="['active']"
+                  [class.disabled]="!platformUser ? true : null"
+                >
+                  RESERVATIONS
+                </a>
+              </li>
+            </span>
+            <li>
+              <a
+                href=""
+                [routerLink]="['/client/facilities/venue/' + currentVenue.id + '/details']"
+                [routerLinkActive]="['active']"
+              >
+                DETAILS
+              </a>
+            </li>
+            <span placement="right" container="body" [tooltip]="!platformUser ? tooltipMsg : null">
+              <li>
+                <a
+                  href=""
+                  [routerLink]="['/client/facilities/venue/' + currentVenue.id + '/questionnaire']"
+                  [routerLinkActive]="['active']"
+                  [class.disabled]="!platformUser ? true : null"
+                >
+                  APPLICATION
+                </a>
+              </li>
+            </span>
+            <li>
+              <a
+                href=""
+                [routerLink]="['/client/facilities/venue/' + currentVenue.id + '/packages']"
+                [routerLinkActive]="['active']"
+              >
+                PRICING
+              </a>
+            </li>
+            <span placement="right" container="body" [tooltip]="!platformUser ? tooltipMsg : null">
+              <li>
+                <a
+                  href=""
+                  [routerLink]="['/client/facilities/venue/' + currentVenue.id + '/addons']"
+                  [routerLinkActive]="['active']"
+                  [class.disabled]="!platformUser ? true : null"
+                >
+                  ADD-ONS
+                </a>
+              </li>
+            </span>
+          </ul>
+        </li>
+
+        <li class="has-secondary-menu">
+          <a
+            href=""
+            [routerLink]="['activities']"
+            [routerLinkActive]="['active']"
+            (click)="activitiesVisible = !activitiesVisible; handleProgramTypes()"
+            >ACTIVITIES</a
+          >
+
+          <ul class="menu-list__inner" *ngIf="activitiesVisible">
+            <li class="has-secondary-menu"></li>
+            <li>
+              <a
+                href=""
+                [routerLink]="['programs/camps']"
+                [routerLinkActive]="['active']"
+                *ngIf="existingProgramsTypes[programTypeEnum.CAMP]"
+                >CAMPS</a
+              >
+            </li>
+            <li>
+              <a
+                href=""
+                [routerLink]="['programs/classes']"
+                [routerLinkActive]="['active']"
+                *ngIf="existingProgramsTypes[programTypeEnum.CLASS]"
+                >CLASSES</a
+              >
+            </li>
+            <li>
+              <a
+                href=""
+                [routerLink]="['programs/clinics']"
+                [routerLinkActive]="['active']"
+                *ngIf="existingProgramsTypes[programTypeEnum.CLINIC]"
+                >CLINICS</a
+              >
+            </li>
+            <li>
+              <a
+                href=""
+                [routerLink]="['programs/clubs']"
+                [routerLinkActive]="['active']"
+                *ngIf="existingProgramsTypes[programTypeEnum.CLUB_TEAM]"
+                >CLUB TEAMS</a
+              >
+            </li>
+            <li>
+              <a
+                href=""
+                [routerLink]="['leagues']"
+                [routerLinkActive]="['active']"
+                *ngIf="existingProgramsTypes[programTypeEnum.LEAGUE]"
+                >LEAGUES</a
+              >
+            </li>
+            <li>
+              <a
+                href=""
+                [routerLink]="['programs/lessons']"
+                [routerLinkActive]="['active']"
+                *ngIf="existingProgramsTypes[programTypeEnum.LESSON]"
+                >LESSONS</a
+              >
+            </li>
+            <li>
+              <a
+                href=""
+                [routerLink]="['tournaments']"
+                [routerLinkActive]="['active']"
+                *ngIf="existingProgramsTypes[programTypeEnum.TOURNAMENT]"
+                >TOURNAMENTS</a
+              >
+            </li>
+
+            <li>
+              <a href="" [routerLink]="['events']" [routerLinkActive]="['active']">EVENTS</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="" [routerLink]="['customers']" [routerLinkActive]="['active']">CUSTOMERS</a>
+        </li>
+        <li>
+          <a href="" [routerLink]="['memberships']" [routerLinkActive]="['active']" (click)="membershipClicked()"
+            >MEMBERSHIPS</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="global-menu-wrapper">
+      <ul class="static-menu">
+        <li>
+          <a href="" [routerLink]="['organization', 'settings']" [routerLinkActive]="['active']">
+            <img src="assets/img/group.svg" alt="settings icon" class="menu-icon" />
+            Organization Settings
+          </a>
+        </li>
+        <li>
+          <a target="_blank" href="https://intercom.help/bond-sports">
+            <img src="assets/img/lifebuoy.svg" alt="settings icon" class="menu-icon" />
+            Support
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="menu-bottom-wrapper">
+    <a href="" class="button button-empty button-full" (click)="logout(); $event.preventDefault()">
+      <i class="icon-rc-logout"></i>
+      LOG OUT
+    </a>
+  </div>
+</div>

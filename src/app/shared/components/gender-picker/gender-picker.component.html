@@ -1,0 +1,42 @@
+<div class="GenderPicker">
+  <div class="GenderPicker__item"
+       (click)="selectGender(RCGenderEnum.MALE)"
+       [ngClass]="{'GenderPicker__item--active': selectedGender === RCGenderEnum.MALE }">
+    <div class="GenderPicker__item__active-btn">
+      <i class="fa fa-check"></i>
+    </div>
+    <div class="GenderPicker__item__top">
+      <img src="assets/img/profile_pic_male.png" alt="">
+    </div>
+    <div class="GenderPicker__item__title">
+      MEN
+    </div>
+  </div>
+  <div class="GenderPicker__item"
+       (click)="selectGender(RCGenderEnum.FEMALE)"
+       [ngClass]="{'GenderPicker__item--active': selectedGender === RCGenderEnum.FEMALE }">
+    <div class="GenderPicker__item__active-btn">
+      <i class="fa fa-check"></i>
+    </div>
+    <div class="GenderPicker__item__top">
+      <img src="assets/img/profile_pic_female.png" alt="">
+    </div>
+    <div class="GenderPicker__item__title">
+      WOMEN
+    </div>
+  </div>
+  <div class="GenderPicker__item GenderPicker__item--coed"
+       (click)="selectGender(RCGenderEnum.OTHER)"
+       [ngClass]="{'GenderPicker__item--active': selectedGender === RCGenderEnum.OTHER }">
+    <div class="GenderPicker__item__active-btn">
+      <i class="fa fa-check"></i>
+    </div>
+    <div class="GenderPicker__item__top">
+      <img src="assets/img/profile_pic_female.png" alt="">
+      <img src="assets/img/profile_pic_male.png" alt="">
+    </div>
+    <div class="GenderPicker__item__title">
+      CO-ED
+    </div>
+  </div>
+</div>

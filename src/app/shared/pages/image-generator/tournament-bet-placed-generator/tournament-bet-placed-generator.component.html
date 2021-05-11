@@ -1,0 +1,33 @@
+<div class="BetPlacedFeedWidget BetPlacedFeedWidget--tournament">
+  <div class="BetPlacedFeedWidget__title BetPlacedFeedWidget__title--blue BetPlacedFeedWidget__title--no-margin BetPlacedFeedWidget__title--hand-write text-uppercase text-center">
+    I Picked my winning team
+  </div>
+  <div class="BetPlacedFeedWidget__title BetPlacedFeedWidget__title--large BetPlacedFeedWidget__title--blue text-uppercase text-center">
+    {{getTeamAnswer}}
+  </div>
+  <div class="BetPlacedTicket">
+    <div class="BetPlacedTicket__row PriceRow">
+      <div class="divider"></div>
+
+      <span class="PriceRow__price" ng-if="pollData.userAnswer.coins">
+				{{pollData?.userAnswer.coins}}c
+			</span>
+    </div>
+    <div class="BetPlacedTicket__row ParticipantsRow ParticipantsRow--full">
+      <div class="ParticipantsRow__hand-title">
+        Season Pass
+      </div>
+      <div class="ParticipantsRow__title text-uppercase">
+        {{season?.name}}
+      </div>
+      <div class="ParticipantsRow__content" ng-if="season">
+        STARTING ON {{season?.startDate | momentDate:'dddd, D MMM, YYYY':season?.seasonLeague?.timezone}}
+        <br>
+        {{season?.startDate | momentDate:'h:mmA':season?.seasonLeague?.timezone}}
+      </div>
+    </div>
+  </div>
+  <div class="YakitoriIcon">
+    <i class="icon-rc-victory"></i>
+  </div>
+</div>

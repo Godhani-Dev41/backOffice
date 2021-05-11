@@ -1,0 +1,29 @@
+<div class="leagues-page-wrapper inner-page scrollable">
+  <div class="page-header bottom-divider">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-wrapper">
+
+        </div>
+        <div class="bottom-wrapper">
+          <h3 class="pull-left">LEAGUES</h3>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-content inner-page__content">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="" class="button button-assertive--inverted button-bold pull-right"
+          [routerLink]="['../league-creator']">
+          CREATE NEW LEAGUE
+        </a>
+      </div>
+      <div class="col-md-12">
+        <loaders-css *ngIf="loading" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+        <rc-leagues-viewer [leagues]="leagues" [type]="0" *ngIf="!loading"></rc-leagues-viewer>
+      </div>
+    </div>
+  </div>
+</div>

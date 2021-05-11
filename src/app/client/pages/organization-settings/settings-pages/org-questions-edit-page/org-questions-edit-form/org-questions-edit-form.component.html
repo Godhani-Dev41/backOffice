@@ -1,0 +1,323 @@
+<div class="row" [formGroup]="formGroup">
+  <div class="col-md-12">
+    <div class="form__section" *ngIf="!hideWaiver">
+      <div class="form__section__header">
+        WAIVER
+      </div>
+      <div class="form__section__helper">
+        Add/remove a waiver singing step to your registration process,
+        all Customers will be obliged to sign it in order to register.
+        When setting up your league you'll be able to add your specific waiver document.
+      </div>
+
+      <div class="input-group">
+        <b style="position: relative; top: 3px;">WAIVER SIGNING</b>
+        <div class="rc-toggle-wrapper pull-right">
+          <input type="checkbox" id="mandatoryWaiver" class="rc-toggle rc-toggle-light"
+            formControlName="mandatoryWaiver">
+          <label for="mandatoryWaiver" class="rc-toggle-btn"></label>
+        </div>
+        <div *ngIf="formGroup.get('mandatoryWaiver').value">
+          <div class="input-wrapper" *ngIf="waiverQ" [formGroup]="waiverQ">
+            <span class="rc-tooltip" placement="right" container="body"
+              tooltip="We are the perfect combo of athletes and tech geeks...not lawyers! Please seek assistance from the appropriate sources and paste your waiver here.">
+              <i class="fa fa-info"></i>
+            </span>
+            <div class="input-wrapper">
+              <textarea maxlength="50000" rows="8" class="input" formControlName="text"></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form__section">
+      <div class="form__section__header">
+        QUESTIONS
+      </div>
+      <div class="form__section__helper" *ngIf="questionDescription">
+        {{questionDescription}}
+      </div>
+      <div class="form__section__helper" *ngIf="!questionDescription">
+        Drag & drop the questions the Customer will be asked prior to signing up as members of your organization, you
+        can make the questions mandatory or not and you can add custom questions to your registration form
+      </div>
+      <div class="row">
+        <div class="col-md-12" [formArrayName]="'questions'" [dragula]='"formats-bag"'
+          [dragulaModel]='questionsArray.controls'>
+          <div *ngFor="let question of questionsArray.controls; let i = index;">
+            <div class="DraggableCheckableInfoBox"
+              *ngIf="!question.get('toDelete').value && question.get('questionType').value !== 'waiver'"
+              [formGroup]="question"
+              [ngClass]="{'DraggableCheckableInfoBox--disabled no-drag': !question.get('isActive').value }">
+              <div class="DraggableCheckableInfoBox__left-handle">
+                <i class="icon-rc-drag-points"></i>
+              </div>
+              <div class="DraggableCheckableInfoBox__content">
+                <div class="DraggableCheckableInfoBox__content__top">
+                  <div class="rc-toggle-wrapper">
+                    <input (change)="toggleChanged(question, $event)" type="checkbox" [id]="'toggleItem' + i"
+                      class="rc-toggle rc-toggle-light" formControlName="isActive">
+                    <label [for]="'toggleItem' + i" class="rc-toggle-btn"></label>
+                  </div>
+                  <h5 [ngSwitch]="question.get('questionType').value">
+                    <ng-template [ngSwitchCase]="RCQuestionTypesEnum.T_SHIRT_SIZE">
+                      T-SHIRT SIZE
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="RCQuestionTypesEnum.PHONE_NUMBER">
+                      PHONE NUMBER
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="RCQuestionTypesEnum.EMAIL_ADDRESS">
+                      EMAIL ADDRESS
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="RCQuestionTypesEnum.ADDRESS">
+                      ADDRESS
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="RCQuestionTypesEnum.BIRTH_DATE">
+                      DATE OF BIRTH
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="RCQuestionTypesEnum.PREFERRED_TEAM">
+                      PREFERRED TEAM
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="RCQuestionTypesEnum.CUSTOM_WAIVER">
+                      TERMS AND CONDITIONS
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="RCQuestionTypesEnum.OTHER">
+                      CUSTOM QUESTIONS
+                    </ng-template>
+
+                    <div class="checkbox pull-right" style="margin-left: 15px;">
+                      <input type="checkbox" class="styled-checkbox" formControlName="isMandatory" />
+                      <label>Make Mandatory</label>
+                    </div>
+                  </h5>
+                  <a style="display: inline-block; margin-left: auto; color: red;"
+                    (click)="removeQuestion(question); $event.preventDefault();" href=""
+                    *ngIf="question.get('questionType').value === RCQuestionTypesEnum.OTHER">
+                    <i class="icon-rc-circle-close"></i> Delete Question
+                  </a>
+                </div>
+                <div class="DraggableCheckableInfoBox__content__bottom">
+                  <div *ngIf="question.get('questionType').value !== RCQuestionTypesEnum.OTHER">
+                    <p [ngSwitch]="question.get('questionType').value">
+                      <ng-template [ngSwitchCase]="RCQuestionTypesEnum.T_SHIRT_SIZE">
+                        Customer will choose a T-Shirt size from these options - XS, S, M, L, XL, XXL, XXXL
+                      </ng-template>
+                      <ng-template [ngSwitchCase]="RCQuestionTypesEnum.PHONE_NUMBER">
+                        Customer will be asked to provide his phone number
+                      </ng-template>
+                      <ng-template [ngSwitchCase]="RCQuestionTypesEnum.EMAIL_ADDRESS">
+                        Customer will be asked to provide an Email address
+                      </ng-template>
+                      <ng-template [ngSwitchCase]="RCQuestionTypesEnum.ADDRESS">
+                        Customer will be asked to provide a home address
+                      </ng-template>
+                      <ng-template [ngSwitchCase]="RCQuestionTypesEnum.BIRTH_DATE">
+                        Customer will be asked to provide his date of birth
+                      </ng-template>
+                      <ng-template [ngSwitchCase]="RCQuestionTypesEnum.CUSTOM_WAIVER">
+                        Customer will be asked to agree to the terms and conditions
+                      </ng-template>
+                      <ng-template [ngSwitchCase]="RCQuestionTypesEnum.PREFERRED_TEAM">
+                        Customer will be able to select a preffered team from the list of teams you created.
+                        In case non exist in your rosters this question will not be displayed
+                      </ng-template>
+                    </p>
+                    <div *ngIf="question.get('questionType').value === RCQuestionTypesEnum.CUSTOM_WAIVER">
+                      <div class="input-group">
+                        <div class="input-wrapper">
+                          <textarea maxlength="50000" rows="8" class="input" formControlName="text"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="question.get('questionType').value === RCQuestionTypesEnum.OTHER">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="input-group">
+                          <label for="">
+                            Question Type
+                          </label>
+                          <div class="input-wrapper">
+                            <select formControlName="customType" class="input select">
+                              <option [value]="RCCustomQuestionType.TEXT">Free Text</option>
+                              <option [value]="RCCustomQuestionType.YES_NO">Yes / No question</option>
+                              <option [value]="RCCustomQuestionType.MULTIPLE_CHOICE">Multiple Choice</option>
+                              <option [value]="RCCustomQuestionType.SINGLE_CHOICE">Single Choice</option>
+                              <option [value]="RCCustomQuestionType.NUMERIC">Numeric</option>
+                              <option [value]="RCCustomQuestionType.DATE">Date</option>
+                              <option [value]="RCCustomQuestionType.FILE_UPLOAD">Upload File</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group"
+                          [ngClass]="{'has-error': !question.get('question').valid && question.get('question').dirty}">
+                          <label for="">
+                            Question
+                          </label>
+                          <div class="input-wrapper">
+                            <input type="text" formControlName="question" class="input">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="question.get('customType').value === RCCustomQuestionType.TEXT">
+                      <div class="col-md-4">
+                        <div>
+                          Limit answer to
+                        </div>
+                        <div class="input-group inline-label">
+                          <div class="input-wrapper">
+                            <input class="input" type="number" formControlName="maxLength">
+                            <label for="">
+                              Characters
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="question.get('customType').value === RCCustomQuestionType.YES_NO">
+                      <div class="col-md-12">
+                        Customer will have a <b>single select</b> option between <b>Yes</b> and <b>No</b>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="question.get('customType').value === RCCustomQuestionType.MULTIPLE_CHOICE">
+                      <div class="col-md-12">
+                        <div>
+                          Customer will have a <b>multiple select</b> option between the following
+                        </div>
+                        <div formArrayName="selectOptions">
+                          <div class="row">
+                            <div class="col-md-8">
+                              <div class="input-group inline-input customQuestionOptionRow"
+                                *ngFor="let option of getOptionsControl(question).controls; let optionIndex = index"
+                                [formGroup]="option">
+                                <input class="input" type="text" formControlName="text"
+                                  style="max-width: calc(100% - 30px)">
+                                <label for="" style="display: inline-block"
+                                  *ngIf="getOptionsControl(question).controls.length > 2">
+                                  <a href=""
+                                    (click)="removeAvailableOption(question.get('selectOptions'), optionIndex); $event.preventDefault();">
+                                    X
+                                  </a>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <a href="" *ngIf="getOptionsControl(question).controls.length < 20"
+                          (click)="addAvailableOption(question); $event.preventDefault();" class="addAnswerBtn">
+                          <i class="fa fa-plus"></i> ADD ANSWER OPTION (up to 20 options)
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="row" *ngIf="question.get('customType').value === RCCustomQuestionType.SINGLE_CHOICE">
+                      <div class="col-md-12">
+                        <div>
+                          Customer will have a <b>single select</b> option between the following
+                        </div>
+                        <div formArrayName="selectOptions">
+                          <div class="row">
+                            <div class="col-md-8">
+                              <div class="input-group inline-input customQuestionOptionRow"
+                                *ngFor="let option of getOptionsControl(question).controls; let optionIndex = index"
+                                [formGroup]="option">
+                                <input class="input" type="text" formControlName="text"
+                                  style="max-width: calc(100% - 30px)">
+                                <label for="" style="display: inline-block"
+                                  *ngIf="getOptionsControl(question).controls.length > 2">
+                                  <a href=""
+                                    (click)="removeAvailableOption(question.get('selectOptions'), optionIndex); $event.preventDefault();">
+                                    X
+                                  </a>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <a href="" (click)="addAvailableOption(question); $event.preventDefault();"
+                          class="addAnswerBtn">
+                          <i class="fa fa-plus"></i> ADD ANSWER OPTION (up to 20 options)
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="row" *ngIf="question.get('customType').value === RCCustomQuestionType.NUMERIC">
+                      <div class="col-md-12">
+                        <div>
+                          Customer will choose a number in following range
+                        </div>
+                        <div class="input-group inline-label">
+                          <input type="number" formControlName="numericFrom" class="input">
+                          <label for="" style="margin-right: 8px; margin-left: 8px;">
+                            TO
+                          </label>
+                          <input type="number" formControlName="numericTo" class="input">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="question.get('customType').value === RCCustomQuestionType.NUMERIC">
+                      <div class="col-md-12">
+                        <div>
+                          Customer will upload a file
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="question.get('customType').value === RCCustomQuestionType.DATE">
+                      <!--     <div class="col-md-12">
+                             <div class="rc-radio" style="display: inline-block;">
+                               <input id="dateRange" formControlName="dateType" value="range" type="radio">
+                               <label for="dateRange" class="radio-label">Date range</label>
+                             </div>
+                             <div class="rc-radio" style="display: inline-block;">
+                               <input id="singleDate" formControlName="dateType" value="singleDate" type="radio">
+                               <label for="singleDate" class="radio-label">Single date</label>
+                             </div>
+                           </div>-->
+                      <!--
+                                          <div class="col-md-12" *ngIf="question.get('dateType').value === 'range'">
+                                            <div class="row">
+                                              <div class="col-md-12">
+                                                Customer will choose a specific date or a date range
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="input-group">
+                                                  <label for="">
+                                                    Start Date
+                                                  </label>
+                                                  <rc-datepicker [formControlName]="'dateFrom'"></rc-datepicker>
+                                                </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="input-group">
+                                                  <label for="">
+                                                    Start Date
+                                                  </label>
+                                                  <rc-datepicker [formControlName]="'dateTo'"></rc-datepicker>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                      -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="add-activity-venue-btn mg-bottom-20">
+            <a href="" (click)="addCustomQuestions(); $event.preventDefault();">
+              <i class="fa fa-plus"></i> ADD CUSTOM QUESTION
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

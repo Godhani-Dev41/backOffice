@@ -1,0 +1,92 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.rc-datatable {
+  .status-checkmark {
+    i {
+      font-size: 20px;
+      color: #bbbdbf;
+    }
+
+    &.status-checkmark--success i {
+      color: $brand-success;
+    }
+
+    &.status-checkmark--danger i {
+      color: $brand-danger;
+    }
+  }
+
+  ::ng-deep .status-column {
+    i {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 100%;
+      background: $brand-success;
+      position: relative;
+      top: -1px;
+
+      &.draft-mode {
+        background: #f99400;
+      }
+    }
+  }
+
+  ::ng-deep .actions-column {
+    .btn {
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      &.btn--success {
+        color: $brand-success;
+      }
+    }
+  }
+
+  ::ng-deep .datatable-body-row {
+    &:hover {
+      background: black;
+
+      ::ng-deep .actions-column {
+        .btn {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .tooltip-inner {
+  background: white !important;
+  width: auto;
+  color: $brand-dark-grey;
+  font-size: 11px;
+  padding: 5px 10px;
+  font-family: $font-default;
+}
+
+::ng-deep .tooltip.right .tooltip-arrow,
+::ng-deep .tooltip-arrow {
+  border-right-color: white !important;
+  border-bottom-color: white !important;
+  border-top-color: white !important;
+}
+
+::ng-deep .DivisionLabelBlock {
+  margin-right: 10px;
+  text-transform: uppercase;
+  border-radius: 2px;
+  color: white;
+  line-height: 17px;
+  overflow: hidden;
+  width: 110px;
+  font-size: 10px;
+  text-align: center;
+}
+
+.ScoreBoxWrapper {
+  .edit-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+}

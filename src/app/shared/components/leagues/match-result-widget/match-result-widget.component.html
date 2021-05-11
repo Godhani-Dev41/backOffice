@@ -1,0 +1,69 @@
+<div class="match-results-wrapper" *ngIf="match">
+  <div class="match-results-header">
+    <div class="header-content">
+      <div class="header-side">
+        <div class="header-side-top">
+          <rc-team-logo-avatar [teamName]="match.match?.participants[0]?.entity?.name" [logo]="match.match?.participants[0]?.entity?.logo"></rc-team-logo-avatar>
+        </div>
+        <div class="header-side-content text-uppercase">
+					<span>
+            {{match.match?.participants[0]?.entity?.name}}
+					</span>
+        </div>
+      </div>
+
+      <div class="header-side header-side-center">
+        <div class="header-side-top">
+          <i class="icon-rc-double-flag"></i>
+        </div>
+        <div class="header-side-content">
+					<span>
+							VS.
+					</span>
+        </div>
+      </div>
+      <div class="header-side">
+        <div class="header-side-top">
+          <rc-team-logo-avatar [teamName]="match.match?.participants[1]?.entity?.name" [logo]="match.match?.participants[1]?.entity?.logo">
+          </rc-team-logo-avatar>
+        </div>
+        <div class="header-side-content text-uppercase">
+					<span>
+						{{match.match?.participants[1]?.entity?.name}}
+					</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="match-results-content">
+    <div class="result-board">
+      <div class="match-result">
+        <div class="result-box result-box--success-border" [ngClass]="{
+				'result-box--danger-border': match.match?.participants[1].score > match.match?.participants[0].score
+				}">
+{{match.match?.participants[0]?.score}}
+        </div>
+      </div>
+      <div class="match-result match-result--divider">
+				<span>
+				  :
+				</span>
+      </div>
+      <div class="match-result">
+        <div class="result-box result-box--success-border" [ngClass]="{
+				'result-box--danger-border': match.match?.participants[0]?.score > match.match?.participants[1]?.score
+				}">
+{{match.match?.participants[1]?.score}}
+        </div>
+      </div>
+    </div>
+    <div class="match-details">
+      {{match.startDate | date:'EEE h:mma'}}
+      - {{match.endDate | date:'h:mma, MMM d'}}
+      <br>
+      {{getSportName(match?.sports && match?.sports[0])}} Match
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

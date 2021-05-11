@@ -1,0 +1,11 @@
+<rc-ion-range-slider #sliderElement
+                  type="double"
+                  [min]="min"
+                  [max]="max"
+                  [from]="fromNumber"
+                  [to]="toNumber"
+                  [min_interval]="minInterval"
+                  from_shadow="true"
+                  to_shadow="true"
+                  (onChange)="onRangeChange($event)"
+></rc-ion-range-slider>

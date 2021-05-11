@@ -1,0 +1,129 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal rc-modal--small-header">
+    <form class="form" [formGroup]="bookingForm" novalidate (ngSubmit)="onSubmit(bookingForm.value)">
+      <div class="modal-content">
+        <div class="modal-header modal-header--purple">
+          <button type="button" class="close pull-right" (click)="cancel()" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+          <div class="modal-header__content">
+            <h5>EDIT BOOKING</h5>
+          </div>
+        </div>
+        <div class="modal-body BookingModal">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="section-header">
+                RESERVATION DETAILS
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="InfoRow">
+                    <span>NAME</span> {{session?.reservation?.customer?.name}}
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="InfoRow">
+                        <span>EMAIL</span> {{session?.reservation?.customer?.email}}
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="InfoRow">
+                        <span>PHONE NO.</span> {{session?.reservation?.customer?.phoneNumber}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <label for="">
+                      RESERVATION NAME
+                    </label>
+                    <input type="text" class="input" formControlName="name">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <label for="">
+                      SPACE
+                    </label>
+                    <select name="" formControlName="spaceId" class="select">
+                      <option [value]="space.id" *ngFor="let space of spaces">{{space.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <label for="">SIZE</label>
+                    <select name="" formControlName="courtSize" class="select">
+                      <option value="100">Full</option>
+                      <option value="50">Half</option>
+                      <option value="25">Quarter</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="input-group">
+                        <label for="">
+                          DATE
+                        </label>
+                        <rc-datepicker formControlName="date">
+                        </rc-datepicker>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="input-group" style="margin-bottom: 0;">
+                        <label for="" class="label-title">START TIME</label>
+                        <rc-timepicker [required]="true" formControlName="startTime" [placeholder]="'Select time'">
+                        </rc-timepicker>
+                      </div>
+
+                    </div>
+                    <div class="col-md-3">
+                      <div class="input-group" style="margin-bottom: 0;">
+                        <label for="" class="label-title">END TIME</label>
+                        <rc-timepicker [required]="true" formControlName="endTime" [placeholder]="'Select time'"
+                          [minTime]="bookingForm.get('startTime')?.value">
+                        </rc-timepicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <label for="">
+                      NOTES
+                    </label>
+                    <textarea formControlName="notes" class="input" cols="30" rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="button button-empty pull-left match-cancel" (click)="cancelSession()">
+            <i class="fa fa-times"></i> Cancel this session
+          </button>
+          <button type="button" class="button button-empty cancel-btn" (click)="cancel()">
+            Cancel
+          </button>
+          <rc-loading-btn [text]="'SAVE CHANGES'" (onClick)="onSubmit(bookingForm.value)" [loading]="loading"
+            [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

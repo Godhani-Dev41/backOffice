@@ -1,0 +1,21 @@
+<div class="PackageCard">
+  <div class="PackageCard__top">
+    <h5>
+      {{package.name}}
+    </h5>
+    <p>
+      {{getPackageHours(package.duration)}} / {{getPackageSize(package.percentage)}} <br>
+    </p>
+    <div class="PackageCard__price">
+      ${{package.price}}
+    </div>
+  </div>
+  <div class="PackageCard__bottom">
+    <h5>
+      Assigned To
+    </h5>
+    <div *ngFor="let resource of package.resources">
+      {{resource.space?.name}}
+    </div>
+  </div>
+</div>

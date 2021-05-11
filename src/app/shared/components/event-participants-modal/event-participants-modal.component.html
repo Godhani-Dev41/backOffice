@@ -1,0 +1,114 @@
+<div
+  bsModal
+  #modal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog rc-modal">
+    <div class="modal-content">
+      <div class="modal-header modal-header--assertive">
+        <button
+          type="button"
+          class="close pull-right"
+          (click)="modal.hide()"
+          aria-label="Close"
+        >
+          <i class="fa fa-times"></i>
+        </button>
+        <div class="modal-header__content">
+          <i class="icon-rc-teams-icon"></i>
+          <h5>EVENT PARTICIPANT</h5>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 0;">
+        <div class="TabbedNavigationView">
+          <div class="TabbedNavigationView__menu">
+            <div
+              class="TabbedNavigationView__menu__item"
+              [ngClass]="{
+                'TabbedNavigationView__menu__item--active':
+                  currentView === 'going'
+              }"
+              (click)="filterItems('going')"
+            >
+              GOING ({{ goingCount }})
+            </div>
+            <div
+              class="TabbedNavigationView__menu__item"
+              [ngClass]="{
+                'TabbedNavigationView__menu__item--active':
+                  currentView === 'notGoing'
+              }"
+              (click)="filterItems('notGoing')"
+            >
+              NOT GOING ({{ notGoingCount }})
+            </div>
+            <div
+              class="TabbedNavigationView__menu__item"
+              [ngClass]="{
+                'TabbedNavigationView__menu__item--active':
+                  currentView === 'noReply'
+              }"
+              (click)="filterItems('noReply')"
+            >
+              NO REPLY ({{ noReplyCount }})
+            </div>
+          </div>
+          <div class="TabbedNavigationView__content">
+            <div class="text-center" *ngIf="loading">
+              <loaders-css
+                [loader]="'ball-pulse'"
+                [loaderClass]="'rc-loader-assertive'"
+              ></loaders-css>
+            </div>
+            <div class="UserList" *ngIf="!loading">
+              <div class="UserList__item" *ngFor="let attendee of visibleItems">
+                <div class="UserList__item_detail">
+                  <div class="UserList__item__avatar">
+                    <span
+                      class="image-wrapper image--border image--shadow image--round"
+                      [rcBackgroundImage]="attendee.user?.profilePicture"
+                    >
+                    </span>
+                    <span
+                      class="InviteStatusLabel InviteStatusLabel__going"
+                      *ngIf="attendee.status === RCEventAttendeeStatus.ACCEPTED"
+                    >
+                      <i class="fa fa-check"></i>
+                    </span>
+                    <span
+                      class="InviteStatusLabel"
+                      *ngIf="attendee.status === RCEventAttendeeStatus.PENDING"
+                    >
+                      <i>?</i>
+                    </span>
+                    <span
+                      class="InviteStatusLabel InviteStatusLabel--rejected"
+                      *ngIf="attendee.status === RCEventAttendeeStatus.REJECTED"
+                    >
+                      <i class="fa fa-times"></i>
+                    </span>
+                  </div>
+                  <div class="UserList__item__text">
+                    {{ attendee.user?.firstName }} {{ attendee.user?.lastName }}
+                  </div>
+                </div>
+                <div
+                  class="UserList__item__detail_btn"
+                  (click)="playerInfoModal.showModal(attendee.user.id)"
+                >
+                  <i class="fa fa-info-circle"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<rc-player-season-info-modal [event]="event" #playerInfoModal="modal">
+</rc-player-season-info-modal>

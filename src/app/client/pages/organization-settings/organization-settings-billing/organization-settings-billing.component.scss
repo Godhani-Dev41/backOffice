@@ -1,0 +1,92 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.brain-tree-btn {
+  img {
+    width: 200px;
+  }
+}
+
+.BraintreeStatusBox {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  height: 60px;
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    width: 100px;
+  }
+
+  .status-label {
+    color: $brand-accent;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  &.BraintreeStatusBox--connected {
+    .status-label {
+      color: $brand-success;
+    }
+  }
+
+  &.BraintreeStatusBox--pending {
+    opacity: 0.7;
+
+    .status-label {
+      color: #bbbdbf;
+    }
+  }
+}
+
+.DisabledClickArea {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.RegistrationOptionsBox {
+  margin-bottom: 20px;
+
+  &.RegistrationOptionsBox--disabled {
+    .RegistrationOptionsBox__options-area {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  h5 {
+    font-weight: bold;
+    color: $brand-accent;
+    margin-top: 0;
+  }
+
+  .input-group {
+    display: inline-block;
+    width: 55px;
+    margin-bottom: 0;
+
+    input {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.payment-settings {
+  .form__section__header {
+    margin-bottom: 14px;
+  }
+
+  .rc-radio {
+    margin-bottom: 35px;
+
+    label {
+      font-weight: bold;
+    }
+  }
+}
+
+.rc-toggle-wrapper.disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
+

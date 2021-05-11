@@ -1,0 +1,63 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.box-title {
+  min-height: 17px;
+}
+
+.stat-item {
+  height: 110px;
+  padding-bottom: 0;
+
+  .stat-title {
+    color: $brand-dark-grey;
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  &.stat-item--small {
+    .stat-top {
+      font-size: 18px;
+      line-height: 57px;
+    }
+  }
+
+  .stat-top {
+    font-family: $font-brand;
+    font-size: 40px;
+    font-weight: 900;
+    color: $brand-dark-grey;
+    margin-bottom: 12px;
+  }
+
+  .stat--text-shadow {
+    text-shadow: 2px 3px rgba(173, 179, 171, 0.3);
+  }
+}
+
+::ng-deep .page-content-wrapper {
+  .container-fluid {
+    overflow-y: auto !important;
+  }
+}
+
+::ng-deep .fc-event {
+  height: auto !important;
+}
+
+.not-platform-user-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.card {
+  height: auto;
+  width: 80%;
+  max-width: 600px;
+  min-width: 300px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}

@@ -1,0 +1,37 @@
+<div ng2FileDrop [ngClass]="{'BoxedDropZone--dashed': mainImageDropzoneHover}"
+     (click)="imageUploader.click()"
+     (fileOver)="fileOverPhotoDrag($event)"
+     [uploader]="uploader"
+     class="BoxedDropZone BoxedDropZone--shadow">
+  <div class="BoxedDropZone__inner" *ngIf="!image; else previewView">
+    <div class="BoxedDropZone__top">
+      {{text}}
+    </div>
+    <div class="BoxedDropZone__bottom">
+      <div class="BoxedDropZone__bottom__side">
+        <i class="icon-rc-drag-and-drop"></i>
+        DRAG AND DROP
+      </div>
+      <div class="BoxedDropZone__bottom__side">
+        <i class="icon-rc-upload"></i>
+        UPLOAD
+      </div>
+    </div>
+  </div>
+  <ng-template #previewView>
+    <div class="BoxedDropZone__preview" [rcBackgroundImage]="image">
+      <div class="BoxedDropZone__preview__action">
+        <span class="pull-left" style="">
+          {{imageTitle}}
+        </span>
+        <i class="fa fa-camera"></i>
+      </div>
+    </div>
+  </ng-template>
+
+  <input type="file"
+         ng2FileSelect
+         [uploader]="uploader"
+         #imageUploader
+         style="display:none" />
+</div>

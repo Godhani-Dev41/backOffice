@@ -1,0 +1,119 @@
+<nz-layout>
+  <nz-row nzType="flex">
+    <nz-col nzSpan="24">
+      <nz-form-label nzFor="days-hours-picker">{{ labelString }}</nz-form-label>
+      <p>
+        Pick the sessions/events from the schedule you created and then allocate the spaces you want to block on the
+        calendar for them. When done, click add to finish and/or add another allocation.
+      </p>
+      <nz-layout>
+        <nz-row *ngIf="!disabled">
+          <nz-card>
+            <nz-layout>
+              <nz-row nzType="flex" nzAlign="middle" nzJustify="space-between" nzGutter="16">
+                <nz-col nzSpan="7">
+                  <span class="bold-text">Session</span>
+                  <nz-select
+                    style="width: 100%;"
+                    id="prg-alloc-session-select"
+                    nzShowSearch
+                    nzAllowClear
+                    nzPlaceHolder="Select a session..."
+                    [(ngModel)]="selectedSession"
+                    (ngModelChange)="onSessionChange()"
+                  >
+                    <nz-option
+                      *ngFor="let session of displaySessions"
+                      [nzLabel]="session.name"
+                      [nzValue]="session.id || session.index"
+                    >
+                    </nz-option>
+                  </nz-select>
+                </nz-col>
+                <i nz-icon nzType="arrow-right" nzTheme="outline" class="gap-arrow"></i>
+                <nz-col nzSpan="7">
+                  <span class="bold-text">Facility</span>
+                  <nz-select
+                    style="width: 100%;"
+                    id="prg-alloc-venue-select"
+                    nzShowSearch
+                    nzAllowClear
+                    nzPlaceHolder="Which facility?"
+                    [disabled]="disableVenue"
+                    [(ngModel)]="selectedVenue"
+                    (ngModelChange)="onVenueChange()"
+                  >
+                    <nz-option *ngFor="let venue of venues" [nzLabel]="venue.name" [nzValue]="venue.id"></nz-option>
+                  </nz-select>
+                </nz-col>
+                <i nz-icon nzType="arrow-right" nzTheme="outline" class="gap-arrow"></i>
+                <nz-col nzSpan="7">
+                  <span class="bold-text">Space</span>
+                  <nz-select
+                    style="width: 100%;"
+                    id="prg-alloc-space-select"
+                    nzShowSearch
+                    nzAllowClear
+                    nzPlaceHolder="Which space?"
+                    [disabled]="disableSpace"
+                    [(ngModel)]="selectedSpace"
+                    (ngModelChange)="onSpaceChange()"
+                  >
+                    <nz-option *ngFor="let space of spaces" [nzLabel]="space.name" [nzValue]="space.id"></nz-option>
+                  </nz-select>
+                </nz-col>
+              </nz-row>
+              <nz-row nzType="flex" nzAlign="middle" *ngIf="addError">
+                <!-- Error message -->
+                <span class="error-message">{{ addError }}</span>
+              </nz-row>
+              <nz-row nzType="flex" nzAlign="middle" nzJustify="end" class="button-row">
+                <!-- Button to add allocation -->
+                <button *ngIf="!this.allocToEdit.editing" nz-button nzType="primary" (click)="addAllocBtn()">
+                  <i nz-icon nzType="plus" nzTheme="outline"></i>{{ "Add" | uppercase }}
+                </button>
+              </nz-row>
+            </nz-layout>
+          </nz-card>
+        </nz-row>
+        <nz-row class="button-row" *ngFor="let alloc of allocs; let i = index">
+          <nz-card>
+            <nz-layout>
+              <nz-row nzType="flex" nzAlign="middle" nzJustify="space-between" nzGutter="8">
+                <nz-row nzType="flex" nzAlign="middle" nzGutter="8" class="full-width">
+                  <nz-col nzSpan="12">
+                    <nz-row nzType="flex" nzAlign="middle">
+                      <nz-col>
+                        <span class="bold-text">Session</span>
+                        <div>{{ alloc.description | titlecase }}</div>
+                      </nz-col>
+                    </nz-row>
+                  </nz-col>
+                  <nz-col nzSpan="10">
+                    <nz-row nzType="flex" nzAlign="middle">
+                      <nz-col>
+                        <span class="bold-text">Space(s)</span>
+                        <div>{{ getSpacesDisplay(alloc) | titlecase }}</div>
+                      </nz-col>
+                    </nz-row>
+                  </nz-col>
+                  <button
+                    *ngIf="!disabled"
+                    nz-button
+                    nz-popconfirm
+                    nzShape="circle"
+                    nzType="default"
+                    nzTitle="Are you sure delete this product?"
+                    (nzOnConfirm)="deleteAlloc(i)"
+                  >
+                    <i nz-icon nzType="delete" nzTheme="outline" style="color: red;"></i>
+                  </button>
+                </nz-row>
+              </nz-row>
+            </nz-layout>
+          </nz-card>
+        </nz-row>
+      </nz-layout>
+    </nz-col>
+  </nz-row>
+</nz-layout>

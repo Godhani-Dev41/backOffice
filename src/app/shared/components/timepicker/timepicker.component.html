@@ -1,0 +1,17 @@
+<div class="rc-date-input-wrapper" *ngIf="!inline">
+  <input type="text" readonly (click)="togglePicker()" [required]="required" [name]="name"
+    [value]="selectedTime | date:'hh:mm a'" [placeholder]="placeholder" class="input">
+
+  <div class="timepicker-wrapper" style="position: absolute; z-index:10;" *ngIf="showDatePicker">
+    <timepicker [mousewheel]="true" [minuteStep]="1" (change)="changeTriggered($event)" [(ngModel)]="selectedTime"
+      (ngModelChange)="onSelect($event)">
+    </timepicker>
+  </div>
+</div>
+<div class="rc-date-input-wrapper" *ngIf="inline">
+  <div class="timepicker-wrapper timepicker-wrapper--inline">
+    <timepicker (change)="changeTriggered($event)" [mousewheel]="true" [minuteStep]="1" [(ngModel)]="selectedTime"
+      (ngModelChange)="onSelect($event)">
+    </timepicker>
+  </div>
+</div>

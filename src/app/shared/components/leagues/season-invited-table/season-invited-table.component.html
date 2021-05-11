@@ -1,0 +1,64 @@
+<table class="table table--has-checkbox">
+  <thead>
+  <tr>
+    <td></td>
+    <td>
+      Name
+    </td>
+    <td>
+      Email/Phone
+    </td>
+    <td class="color-brand-accent action-column">
+      <a href=""
+         (click)="onSendMultipleInvites.emit(true); $event.preventDefault()"
+         *ngIf="showSendAllInvitesBtn"><i class="fa fa-envelope"></i>
+        resend all
+      </a>
+      <a href=""
+         (click)="onSendMultipleInvites.emit(); $event.preventDefault()"
+         *ngIf="!showSendAllInvitesBtn"><i class="fa fa-envelope"></i>
+        send selected
+      </a>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let invitee of invitedList">
+    <td>
+      <div class="checkbox">
+        <input type="checkbox" class="styled-checkbox"
+               [(ngModel)]="invitee.selected"
+               (click)="inviteeSelected($event)"/>
+        <label></label>
+      </div>
+    </td>
+    <td class="bold">
+      {{invitee.name}}
+    </td>
+    <td>
+      {{invitee.email || invitee.phone}}
+    </td>
+    <td class="action-column">
+      <div *ngIf="!invitee.isInviteResent">
+        <a href=""
+           *ngIf="invitee.id"
+           (click)="removeInvite(invitee.id); $event.preventDefault()" placement="right"
+           style="font-size: 16px; display: inline-block; margin-right: 10px;"
+           container="body"
+           tooltip="Remove invite">
+          <i class="fa fa-times-circle"></i>
+        </a>
+        <a href="" (click)="onPlayerCardResendInvite.emit(invitee); $event.preventDefault()" placement="right"
+           container="body"
+           style="font-size: 16px;"
+           tooltip="Resend invite">
+          <i class="fa fa-share" ></i>
+        </a>
+      </div>
+      <div *ngIf="invitee.isInviteResent" class="color-brand-success">
+        <i class="fa fa-check-circle"></i> invite sent
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>

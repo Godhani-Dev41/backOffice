@@ -1,0 +1,9 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.timezone-label {
+  .timezone-top {
+    margin-top: 22px;
+    font-weight: bold;
+    color: $brand-accent;
+  }
+}

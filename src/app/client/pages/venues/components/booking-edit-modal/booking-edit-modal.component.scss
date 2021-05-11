@@ -1,0 +1,24 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.InfoRow {
+  color: $brand-black;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-top: 12px;
+
+  span {
+    display: inline-block;
+    color: $brand-dark-grey;
+    margin-right: 10px;
+  }
+}
+
+.match-cancel {
+  color: $brand-red;
+  font-size: 14px;
+  font-family: $font-default;
+
+  i {
+    margin-right: 5px;
+  }
+}

@@ -1,0 +1,86 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.PricingWidget {
+  position: relative;
+  height: 90px;
+  border: solid 1px #d5d5d5;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .check-label {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    background: $brand-accent;
+    color: white;
+    font-size: 8px;
+    text-align: center;
+    line-height: 16px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: -8px;
+  }
+
+  &.PricingWidget--active {
+    border: solid 0.5px #f2f2f2;
+    box-shadow: 0 6px 11px 0 rgba(255, 163, 29, 0.34);
+
+    .PricingWidget__top {
+      i {
+        color: $brand-accent;
+      }
+    }
+
+    .PricingWidget__bottom {
+      color: $brand-accent;
+    }
+  }
+
+  .PricingWidget__top {
+    height: 60px;
+    padding-top: 23px;
+    text-align: center;
+
+    i {
+      color: $brand-dark;
+      font-size: 26px;
+    }
+
+    input {
+      max-width: 70px;
+      height: 35px;
+      border-radius: 2px;
+      border: 1px solid $brand-grey;
+      position: relative;
+      top: -7px;
+      margin-left: 5px;
+      text-indent: 15px;
+
+      &:focus {
+        border: 1px solid $brand-accent;
+      }
+    }
+  }
+
+  .PricingWidget__bottom {
+    text-align: center;
+    font-weight: 500;
+    color: $brand-dark;
+    font-size: 11px;
+    padding-top: 7px;
+  }
+}
+
+.PricingWidget-tall {
+  height: 135px;
+}
+
+.PricingWidgetDescription {
+  text-align: center;
+  margin-top: 10px;
+}

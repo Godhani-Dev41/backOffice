@@ -1,0 +1,72 @@
+<div class="league-box box-top-border box-item box--shadow"
+  [ngClass]="{'border-top-border--muted': !league.isPublished}" (click)="goToLeague()">
+  <div class="league-box-top-container">
+    <div class="league-photo">
+      <div class="league-image">
+        <div class="image-wrapper image--round image--shadow image--border"
+          [rcBackgroundImage]="(league.logo || league.mainMedia) | mediaUrl:500">
+        </div>
+      </div>
+      <div class="league-sport-icon">
+        <i [class]="getSportIcon(league.sports, league.sport)">
+          <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+        </i>
+      </div>
+    </div>
+    <div class="league-info">
+      <h3 class="text-uppercase">{{league.name | truncate:42}}</h3>
+      <ul class="list list--icon ">
+        <li class="color-brand-dark-grey truncate-ellipsis" *ngIf="league.address">
+          <i class="icon-rc-location color-brand-accent"></i>
+          {{league.address?.city}}{{league.address?.state ? ', ' + league.address?.state : ''}}
+        </li>
+        <li class="color-brand-dark-grey truncate-ellipsis" *ngIf="getLeagueDates()">
+          <i class="icon-rc-calendar color-brand-accent"></i>
+          {{getLeagueDates()}}
+        </li>
+        <li class="color-brand-dark-grey truncate-ellipsis" *ngIf="league.leagueSeasons">
+          <i class="icon-rc-calendar color-brand-accent"></i>
+          {{league.leagueSeasons?.length}} {{tournament ? 'Events' : 'Seasons'}}
+        </li>
+        <li class="color-brand-dark-grey truncate-ellipsis">
+          <i class="icon-rc-star-selected color-brand-accent"></i>
+          {{getLevelOfPlayTexts()}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="league-stats" *ngIf="type === 0">
+    <div class="stat-item status-item" [ngClass]="{'status-item--active': league.isPublished}">
+      <div class="stat-title">
+        League Status
+      </div>
+      <div class="stat-text">
+        <i></i>{{league.isPublished ? 'Published' : 'Draft'}}
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-title">
+        Registration Open
+      </div>
+      <div class="stat-text">
+        {{getSeasonCountByRegistrationStatus('open')}}
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-title">
+        Now Playing
+      </div>
+      <div class="stat-text">
+        {{getSeasonCountByRegistrationStatus('playing')}}
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-title">
+        Closed
+      </div>
+      <div class="stat-text">
+        {{getSeasonCountByRegistrationStatus('closed')}}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal">
+    <form [formGroup]="publishTopScorerForm" novalidate>
+      <div class="modal-content">
+        <div class="modal-header modal-header--assertive">
+          <button type="button" class="close pull-right" (click)="modal.hide()" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+          <div class="modal-header__content">
+            <i class="icon-rc-games-per-season"></i>
+            <h5>SCORER LEADER</h5>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-5">
+              <label for="">PLAYER NAME</label>
+
+            </div>
+            <div class="col-md-5">
+              <label for="">TEAM</label>
+
+            </div>
+            <div class="col-md-2">
+              <label for="">SCORE</label>
+
+            </div>
+          </div>
+          <div class="row" [formArrayName]="'players'">
+            <div class="col-md-12" *ngFor="let control of playersArray.controls; let i = index;" [formGroup]="control">
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="input-group">
+                    <input type="text" class="input" formControlName="name">
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="input-group">
+                    <ng-select [items]="teamsSelection"
+                               *ngIf="teamsSelection?.length"
+                               formControlName="team"
+                               placeholder="Select team">
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="input-group">
+                    <input type="number" class="input" formControlName="score">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="add-form-btn" (click)="addPlayer(); $event.preventDefault();">
+                <a href="">
+                  <i class="fa fa-plus"></i> ADD A PLAYER
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            class="button button-empty cancel-btn" (click)="modal.hide()">
+            Cancel
+          </button>
+          <rc-loading-btn [text]="'POST TO FEED'"
+                          [disabled]="!publishTopScorerForm.valid"
+                          (onClick)="submit(publishTopScorerForm.value)"
+                          [loading]="loading"
+                          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

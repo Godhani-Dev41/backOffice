@@ -1,0 +1,284 @@
+<nz-layout class="full-height">
+  <nz-page-header nzTitle="Season pricing">
+    <nz-breadcrumb nz-page-header-breadcrumb nzSeparator=">">
+      <nz-breadcrumb-item>
+        <a [routerLink]="'/client/activities'">Programs</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a [routerLink]="'/client/programs/' + programsService.getProgramTypeParam()">{{
+          programsService.getProgramTypeParam() | uppercase
+        }}</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item
+        ><a
+          [routerLink]="'/client/programs/' + programsService.getProgramTypeParam() + '/' + programsService.getPrgId()"
+        ></a
+        >{{ programName | uppercase }}</nz-breadcrumb-item
+      >
+      <nz-breadcrumb-item
+        ><a>{{ seasonName | uppercase }}</a></nz-breadcrumb-item
+      >
+    </nz-breadcrumb>
+  </nz-page-header>
+  <nz-layout class="stepper-header">
+    <div class="season-steps">
+      <nz-steps [nzCurrent]="2" nzSize="small">
+        <nz-step nzTitle="Basic Info"></nz-step>
+        <nz-step nzTitle="Schedule"></nz-step>
+        <nz-step nzTitle="Pricing"></nz-step>
+        <nz-step nzTitle="Add-ons"></nz-step>
+        <nz-step nzTitle="Space Allocation"></nz-step>
+      </nz-steps>
+    </div>
+  </nz-layout>
+  <nz-content class="full-height">
+    <nz-layout class="body-padding full-height">
+      <nz-row nzType="flex" nzGutter="24" class="full-height">
+        <nz-col nzMd="10" nzLg="6" class="full-height">
+          <nz-layout class="full-height">
+            <nz-card style="height: 100%; overflow-y: auto;">
+              <nz-list
+                style="height: 100%;"
+                [nzDataSource]="displayList"
+                [nzRenderItem]="item"
+                [nzItemLayout]="'horizontal'"
+                [nzLoading]="loading"
+                [nzNoResult]="noData"
+              >
+                <ng-template #item let-item let-i="index">
+                  <nz-list-item
+                    [nzActions]="
+                      i === 0 ? [!updateMode ? editAction : null] : !updateMode ? [editAction, deleteAction] : []
+                    "
+                  >
+                    <ng-template #editAction
+                      ><a (click)="updateProduct(item, i)"><i nz-icon nzType="edit" nzTheme="outline"></i></a
+                    ></ng-template>
+                    <ng-template #deleteAction
+                      ><a nz-popconfirm nzTitle="Are you sure delete this product?" (nzOnConfirm)="deleteProduct(i)"
+                        ><i nz-icon nzType="delete" nzTheme="outline" style="color: red;"></i></a
+                    ></ng-template>
+                    <nz-list-item-meta
+                      [nzTitle]="priceTitle"
+                      [nzDescription]="
+                        ' $' +
+                        item.prices[0].price +
+                        ' | ' +
+                        (subSeasonLength === item.quantity
+                          ? 'Full season'
+                          : item.quantity === 0
+                          ? 'Per event'
+                          : item.quantity.toString() + ' sessions ')
+                      "
+                    >
+                      <ng-template #priceTitle>
+                        <span class="bold-text">{{ item.name | titlecase }}</span>
+                      </ng-template>
+                    </nz-list-item-meta>
+                  </nz-list-item>
+                </ng-template>
+              </nz-list>
+            </nz-card>
+            <nz-row nzType="flex" nzAlign="middle" nzJustify="center" style="margin-top: 16px; margin-bottom: 16px;">
+              <button
+                nz-button
+                nzType="primary"
+                [disabled]="editProduct || newProduct || updateMode"
+                (click)="addNewProduct()"
+              >
+                <i nz-icon nzType="plus" nzTheme="outline"></i>{{ "Add package" | uppercase }}
+              </button>
+            </nz-row>
+          </nz-layout>
+        </nz-col>
+        <nz-col nzSpan="18" class="full-height" style="overflow-y: auto;">
+          <form nz-form nzLayout="vertical" *ngIf="editProduct || newProduct" [formGroup]="productObj">
+            <nz-row nzType="flex" nzGutter="24">
+              <nz-col nzLg="24" nzXl="12">
+                <nz-form-item>
+                  <nz-form-control class="colored-input">
+                    <nz-row>
+                      <nz-col>
+                        <nz-form-label>Package details</nz-form-label>
+                        <p>
+                          Select the name of the package and the session/event amount to begin.
+                        </p>
+                        <nz-card>
+                          <nz-row nzType="flex" nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
+                            <label class="half-row-button" for="program-price-qty-select">
+                              <span class="bold-text">Product quantity</span>
+                            </label>
+                            <nz-select
+                              id="program-price-qty-select"
+                              nzShowSearch
+                              nzAllowClear
+                              nzPlaceHolder="How many sessions in this package?"
+                              formControlName="quantity"
+                            >
+                              <nz-option
+                                *ngFor="let option of productObjQtyOptions"
+                                [nzLabel]="option.description"
+                                [nzValue]="option.quantity"
+                              ></nz-option>
+                            </nz-select>
+                          </nz-row>
+                          <nz-row nzType="flex" nzJustify="space-between" nzAlign="middle" style="margin-bottom: 16px;">
+                            <label class="half-row-button" for="program-price-name-input">
+                              <span class="bold-text">Product name</span>
+                            </label>
+                            <input
+                              id="program-price-name-input"
+                              class="half-row-button"
+                              nz-input
+                              *ngIf="newProduct || editProduct"
+                              formControlName="name"
+                            />
+                          </nz-row>
+                          <nz-row
+                            nzType="flex"
+                            nzJustify="space-between"
+                            nzAlign="middle"
+                            style="margin-bottom: 16px; width: 100%;"
+                          >
+                            <span class="bold-text">Product description</span>
+                            <nz-form-control class="colored-input" style="width: 100%;">
+                              <textarea
+                                nz-input
+                                [nzAutosize]="{ minRows: 4, maxRows: 12 }"
+                                nzSize="large"
+                                name="desc"
+                                type="text"
+                                id="desc"
+                                formControlName="description"
+                                placeholder="Enter your season description here"
+                              ></textarea>
+                            </nz-form-control>
+                          </nz-row>
+                        </nz-card>
+                      </nz-col>
+                    </nz-row>
+                  </nz-form-control>
+                </nz-form-item>
+              </nz-col>
+              <nz-col nzLg="24" nzXl="12">
+                <nz-form-item>
+                  <nz-form-control class="colored-input">
+                    <rc-price-input-row
+                      labelString="Session pricing"
+                      subLabelString="You can choose to set a price per each segment, or skip and create just a seasonal price."
+                      priceName="Price"
+                      [numValue]="defaultPriceObj.price"
+                      [switchValue]="true"
+                      [showSwitch]="false"
+                      (onChange)="onBasePriceChange($event)"
+                    ></rc-price-input-row>
+                    <nz-row>
+                      <button nz-button nzType="primary" (click)="displayDiscount()" style="margin: 8px 0 8px 0;">
+                        <i nz-icon nzType="dollar" nzTheme="outline"></i>Manage discounts
+                      </button>
+                    </nz-row>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item style="margin-bottom: 16px;">
+                  <nz-form-control class="colored-input">
+                    <rc-price-input-row
+                      labelString=""
+                      subLabelString=""
+                      priceName="Minimum deposit price"
+                      [numValue]="downpaymentObj.price"
+                      [switchValue]="downpaymentObj.active"
+                      (onChange)="onDepositPriceChange($event)"
+                    ></rc-price-input-row>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-control class="colored-input">
+                    <rc-price-input-row
+                      labelString="Date discounts"
+                      subLabelString="You can choose to set discounts for customers who will register early or have paid for memberships."
+                      priceName="Early bird price"
+                      [numValue]="earlyPriceObj.price"
+                      basePrice="true"
+                      showDateRange="true"
+                      [switchValue]="earlyPriceObj.active"
+                      [basePrice]="defaultPriceObj.price"
+                      (onChange)="onEarlyPriceChange($event)"
+                    ></rc-price-input-row>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-control class="colored-input">
+                    <rc-price-input-row
+                      labelString=""
+                      subLabelString=""
+                      priceName="Late registration price"
+                      [numValue]="latePriceObj.price"
+                      basePrice="true"
+                      showDateRange="true"
+                      [basePrice]="defaultPriceObj.price"
+                      [switchValue]="latePriceObj.active"
+                      (onChange)="onLatePriceChange($event)"
+                    ></rc-price-input-row>
+                  </nz-form-control>
+                </nz-form-item>
+              </nz-col>
+            </nz-row>
+          </form>
+          <nz-row
+            nzType="flex"
+            nzAlign="middle"
+            nzJustify="center"
+            nzGutter="16"
+            *ngIf="editProduct || newProduct"
+            style="margin-top: 16px; margin-bottom: 16px;"
+          >
+            <nz-col>
+              <button nz-button nzType="danger" (click)="cancelProduct()" [disabled]="!displayList.length">
+                <i nz-icon nzType="close-circle" nzTheme="outline"></i>{{ "Cancel" | uppercase }}
+              </button>
+            </nz-col>
+            <nz-col>
+              <button nz-button nzType="primary" (click)="saveProduct()">
+                <i nz-icon nzType="save" nzTheme="outline"></i>{{ "Save package" | uppercase }}
+              </button>
+            </nz-col>
+          </nz-row>
+        </nz-col>
+      </nz-row>
+    </nz-layout>
+  </nz-content>
+  <nz-footer>
+    <div class="footer-button-layout">
+      <button nz-button nzType="link" nzGhost class="back-ghost-btn" (click)="navBack()">
+        <i nz-icon nzType="arrow-left" nzTheme="outline"></i>
+        {{ "Back" | uppercase }}
+      </button>
+      <button
+        nz-button
+        nzType="info"
+        (click)="navNext()"
+        [disabled]="!this.products.length || editProduct || newProduct"
+      >
+        {{ "Continue" | uppercase }}
+      </button>
+    </div>
+  </nz-footer>
+</nz-layout>
+
+<ng-template #noData>
+  <nz-empty [nzNotFoundContent]="contentEmpty" [nzNotFoundFooter]="footerEmpty">
+    <ng-template #contentEmpty>
+      <span class="bold-text">Please add your first package to continue</span>
+    </ng-template>
+    <ng-template #footerEmpty>
+      <span>This is your default package for this season. You may edit, but not delete this package.</span>
+    </ng-template>
+  </nz-empty>
+</ng-template>
+
+<discount-v2
+  *ngIf="showingDiscounts"
+  [totalAmount]="defaultPriceObj.price"
+  (onClose)="closeDiscounts()"
+  (onSave)="saveEntitlements($event)"
+></discount-v2>

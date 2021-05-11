@@ -1,0 +1,66 @@
+<div class="inner_page inner_page__form" *ngIf="organization">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav" style="height: 100%">
+    <div class="col-md-12">
+      <div class="WizardForm">
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner">
+            <div class="form">
+
+              <form action="" [formGroup]="orgSettingsForm">
+                <div class="form__section payment-settings">
+                  <div class="form__section__helper">
+                    Default booking settings (this will be the default setting for all your spaces. You will be able to
+                    apply specific behavior for each facility and space under each facilities settings)
+                  </div>
+                  <div>
+                    <div class="rc-radio" style="margin-bottom: 15px;"
+                      [ngClass]="{'DisabledClickArea': organization.stripeAccount !== RCLinkedAccountStatus.ACTIVE}">
+                      <input id="recCenterMethod" formControlName="currentBillingSetting"
+                        [value]="BillingSettingVMEnum.DIRECT_BOOKING" type="radio">
+                      <label for="recCenterMethod" class="radio-label">INSTANT CONFIRMATION</label>
+                      <p>
+                        The quickest way for your customers to book your spaces. As long as the calendar shows
+                        availability, customers can book spaces and recieve instant confirmation
+                      </p>
+                    </div>
+                    <div class="rc-radio" style="margin-bottom: 15px;"
+                      [ngClass]="{'DisabledClickArea': organization.stripeAccount !== RCLinkedAccountStatus.ACTIVE}">
+                      <input id="requestAllCustomerMode" formControlName="currentBillingSetting"
+                        [value]="BillingSettingVMEnum.BOOKING_REQUEST_ALL_CUSTOMERS" type="radio">
+                      <label for="requestAllCustomerMode" class="radio-label">REQUEST & APPROVAL WORKFLOW</label>
+                      <p>
+                        All customers can see and request the booking slots available on the calendar but will have to
+                        await for your response and approval to confirm the booking.
+                      </p>
+                    </div>
+                    <div class="rc-radio" style="margin-bottom: 15px;"
+                      [ngClass]="{'DisabledClickArea': organization.stripeAccount !== RCLinkedAccountStatus.ACTIVE}">
+                      <input id="vettedCustomerMode" formControlName="currentBillingSetting"
+                        [value]="BillingSettingVMEnum.VETTED_CUSTOMER_DIRECT_BOOKING" type="radio">
+                      <label for="vettedCustomerMode" class="radio-label">VETTED CUSTOMERS WORKFLOW</label>
+                      <p>
+                        You will be able to mark specific customers to have an instant booking flow. All other customers
+                        will have a request workflow.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row bottom-nav-bar" *ngIf="orgSettingsForm.dirty">
+        <div class="bottom-nav-bar__inner" style="margin-left: 0">
+          <div class="bottom-nav-bar__inner__content">
+            <rc-loading-btn [loading]="loading" [text]="'SAVE'" [disabled]="!orgSettingsForm.valid"
+              (onClick)="submit(orgSettingsForm.value)"
+              [classes]="['button-next', 'button', 'button-dark', 'pull-right']">
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

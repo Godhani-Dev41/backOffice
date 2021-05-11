@@ -1,0 +1,91 @@
+<div
+  class="row padding-top-20"
+  style="">
+  <div class="col-md-12" style="position: static;">
+    <form class="form" [formGroup]="customerForm" novalidate (ngSubmit)="onSubmit(customerForm.value)">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="input-group">
+            <label for="">Name</label>
+            <input type="text" class="input" formControlName="name"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
+            <label for="">
+              Email
+            </label>
+            <input type="text" class="input" formControlName="email"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
+            <label for="">
+              Phone Number
+            </label>
+            <input type="text" class="input" formControlName="phoneNumber"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
+            <div class="checkbox">
+              <input type="checkbox"
+                     formControlName="vetted"
+                     [value]="true"
+                     class="styled-checkbox"/>
+              <label class="SelectableFormRow__label">
+                Vetted customer (for direct booking)
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="input-group">
+            <label for="">
+              ADDRESS
+            </label>
+            <input type="text" class="input" formControlName="street"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
+            <label for="">
+              CITY
+            </label>
+            <input type="text" class="input" formControlName="city"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
+            <label for="">
+              STATE
+            </label>
+            <input type="text" class="input" formControlName="state"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
+            <label for="">
+              ZIPCODE
+            </label>
+            <input type="text" class="input" formControlName="zip"/>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <rc-loading-btn
+      [text]="'SAVE CHANGES'"
+      [disabled]="!customerForm.valid"
+      (onClick)="onSubmit(customerForm.value);"
+      [loading]="loading"
+      [classes]="['pull-right','button', 'button-assertive', 'button-padded', 'submit-btn']">
+    </rc-loading-btn>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<div class="text-center"  *ngIf="initialLoading" >
+  <loaders-css [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+</div>
+<div class="inner_page inner_page__form" *ngIf="!initialLoading">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav">
+    <div class="col-md-12">
+      <div class="WizardForm">
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner" style="max-width: 800px">
+            <div class="form">
+              <form action="" [formGroup]="notificationsForm">
+                <div class="form__section">
+                  <div class="form__section__header">
+                    NOTIFICATION SETTINGS
+                  </div>
+                  <div class="form__section__helper">
+                    Setup your organization notification settings.
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12" formArrayName="notificationSettings">
+                      <div class="NotificationSettingRow" *ngFor="let setting of notificationsForm.get('notificationSettings').controls; let i = index;" [formGroup]="setting">
+                          <div class="row">
+                            <div class="col-md-3">
+                              <div class="input-group">
+                                <label for="">
+                                  Type
+                                </label>
+                                <div class="input-wrapper">
+                                  <select formControlName="notificationType" class="input select">
+                                    <option [value]="'booking_confirmed_stuff'">Booking confirmed</option>
+                                    <option [value]="'booking_changed_stuff'">Booking changed</option>
+                                    <option [value]="'booking_deleted_stuff'">Booking deleted</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="input-group">
+                                <label for="">
+                                  Facility
+                                </label>
+                                <div class="input-wrapper">
+                                  <select formControlName="venueId" class="input select">
+                                    <option [value]="venue.id" *ngFor="let venue of venues">{{venue.name}}</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-5">
+                              <div style="display: flex;">
+                                <div class="input-group">
+                                  <label for="">
+                                    Email
+                                  </label>
+                                  <div class="input-wrapper">
+                                    <input type="text" class="input" formControlName="email">
+                                  </div>
+                                </div>
+                                <button type="button" style="margin-left: 10px" class="close pull-right" (click)="removeRow(i)" aria-label="Close">
+                                  <i class="fa fa-times"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="NotificationSettings__add-btn ">
+                      <a href="" (click)="addSetting(); $event.preventDefault()">
+                        <i class="fa fa-plus"></i> ADD ANOTHER EMAIL
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row bottom-nav-bar" *ngIf="notificationsForm.dirty">
+        <div class="bottom-nav-bar__inner" style="margin-left: 0">
+          <div class="bottom-nav-bar__inner__content">
+            <rc-loading-btn
+              [loading]="loading"
+              [text]="'SAVE'"
+              [disabled]="!notificationsForm.valid"
+              (onClick)="submit(notificationsForm.value)"
+              [classes]="['button-next', 'button', 'button-dark', 'pull-right']">
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

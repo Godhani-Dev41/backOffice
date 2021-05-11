@@ -1,0 +1,60 @@
+<div class="inner_page inner_page__form">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav" style="height: 100%">
+    <div class="col-md-12">
+      <div class="WizardForm">
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner">
+            <div class="form">
+              <div class="form__section">
+
+                <div class="form__section__helper">
+                  Create questionnaires the players will answer when they register as members to your organization
+                  and/or as players in your teams
+                </div>
+              </div>
+              <div class="form__section">
+                <div class="form__section__header">
+                  GENERAL WAIVER FORM
+                </div>
+                <div class="form__section__helper">
+                  <div class="pull-right">
+                    <a *ngIf="organization?.questionnaireId" style="margin-top: 20px; font-weight: bold;"
+                      class="league-site-url" [href]="getWaiverUrl()" target="_blank"><i class="icon-rc-home"></i> WEB
+                      PAGE</a>
+                  </div>
+                  Pick the form to use for your general waiver
+                </div>
+                <div *ngIf="!orgQuestionnaires?.length">
+                  <button class="button button-empty button-bold button-assertive--inverted pull-right"
+                    [routerLink]="['/client/organization/questionnaire/questions-edit']"
+                    [queryParams]="{isCreate:true, organizationId: organization.id}">
+                    CREATE HERE YOUR FIRST FORM
+                  </button>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="QuestionnaireBox">
+                      <div [formGroup]="orgSettingsForm">
+                        <div class="col-md-9" *ngIf="orgQuestionnaires?.length">
+                          <div class="input-wrapper">
+                            <div class="input-group">
+                              <select name="" formControlName="questionnaireId" class="select">
+                                <option value="">Select a questionnaire</option>
+                                <option value="{{questionnaire.id}}" *ngFor="let questionnaire of orgQuestionnaires">
+                                  {{questionnaire.title}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

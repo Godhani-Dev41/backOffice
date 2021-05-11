@@ -1,0 +1,180 @@
+@import "~@rcenter/core/scss/variables/index";
+
+::ng-deep .ResourceTimeLine {
+  height: 100px;
+  background: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
+
+  .ResourceTimeLine__inner {
+    padding: 10px;
+  }
+
+  h1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(255,191,0);
+    font-size: 14px;
+    font-weight: bold;
+    font-family: $font-brand;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    line-height: 18px;
+  }
+
+  .ResourceTimeLine__sports {
+    display: inline-block;
+
+    i {
+      font-size: 35px;
+      color: rgb(255,191,0);
+    }
+  }
+}
+
+::ng-deep .fc-rows td.fc-widget-content > div {
+  background: white;
+  height: 100px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+::ng-deep .fc-nonbusiness.fc-bgevent {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-image: repeating-linear-gradient(125deg, white, white 9px, rgba(164, 51, 197, 0.2) 14px, rgba(164, 51, 197, 0.2) 10px);
+}
+
+::ng-deep {
+  .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 32px;
+    margin-top: 8px;
+  }
+
+  .fc-slats .fc-widget-content {
+    &:hover {
+      background: blue !important;
+    }
+  }
+  .fc-timeline .fc-divider {
+    width: 0px;
+  }
+
+  .fc-resource-area .fc-widget-header .fc-cell-content {
+    display: none;
+  }
+
+  .fc-view-container td.fc-resource-area.fc-widget-header .fc-content > table > tbody > tr > th {
+    border-color: transparent;
+  }
+  .fc-unthemed .fc-content,
+  .fc-unthemed .fc-divider,
+  .fc-unthemed .fc-list-heading td,
+  .fc-unthemed .fc-list-view,
+  .fc-unthemed .fc-popover,
+  .fc-unthemed .fc-row,
+  .fc-unthemed tbody,
+  .fc-widget-header,
+  .fc-unthemed thead {
+    border-color: transparent !important;
+  }
+
+  .fc-resource-area {
+    border-color: transparent !important;
+
+    td {
+      border-color: transparent;
+    }
+  }
+
+  .fc-time-area.fc-widget-header table {
+    th {
+      .fc-cell-text {
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+    }
+    th:nth-child(odd) {
+      .fc-cell-text {
+        color: rgb(255,191,0);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+    }
+
+    th:nth-child(odd) {
+
+    }
+  }
+
+  .fc-widget-content {
+    border-bottom-color: transparent !important;
+  }
+
+  .fc-time-area .fc-slats .fc-major {
+    border-style: inset;
+    border-color: rgb(255,191,0) !important;
+    border-width: 0 1px;
+    margin-top: 10px;
+  }
+
+  .fc-timeline .fc-head .fc-cell-content {
+
+    text-align: center;
+  }
+  .fc button {
+    background-color: transparent;
+    background-image: none;
+  }
+
+  .fc button.fc-today-button, .fc button.fc-list-button, .fc button.fc-timeline-button {
+    height: 30px;
+    border-radius: 2px;
+    border: solid 1px rgb(255,191,0);
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(255,191,0);
+    font-family: $font-brand;
+    text-transform: uppercase;
+    padding: 0 30px;
+  }
+
+  .fc-toolbar.fc-header-toolbar {
+    .fc-next-button,
+    .fc-prev-button {
+      font-size: 17px !important;
+      position: relative;
+      top: 2px;
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+      color: $brand-accent;
+      line-height: 7px;
+      height: 33px !important;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    h2 {
+      line-height: 35px;
+      font-size: 24px;
+      font-weight: 200;
+      color: $brand-black;
+      margin-left: 0;
+    }
+  }
+
+  .fc-event {
+    line-height: 17px;
+    font-size: 10px;
+    font-weight: bold;
+    border-color: transparent;
+    height: auto !important;
+  }
+}

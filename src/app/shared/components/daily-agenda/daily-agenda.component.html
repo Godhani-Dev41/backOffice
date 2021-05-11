@@ -1,0 +1,50 @@
+<div>
+  <h3 class="sub-title text-uppercase no-mg-top"><i [ngClass]="'fa fa-calendar'"></i> Inbox</h3>
+
+  <div class="row">
+    <div class="col-md-12">
+      <ngx-datatable
+        #table
+        *ngIf="!loading"
+        [sorts]="[
+          { prop: 'startDate', dir: 'asc' },
+          { prop: 'title', dir: 'asc' }
+        ]"
+        class="rc-datatable material"
+        [columnMode]="'force'"
+        [rowHeight]="'auto'"
+        [rows]="reservations"
+      >
+        <ngx-datatable-column [maxWidth]="180" prop="name" [minWidth]="80" name="Reservation Name">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.name }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column minWidth="80" maxWidth="110" prop="price" name="Price">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.price | currency }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="startDate" name="Date & Time">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.startDate | momentDate: "MMM D, YYYY h:mma":"gmt" }} - {{ row.endDate | momentDate: "h:mma":"gmt" }}
+          </ng-template>
+        </ngx-datatable-column>
+        <!--      <ngx-datatable-column name="Venue" prop="venueName">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.venueName | truncate:30}}
+                </ng-template>
+              </ngx-datatable-column>-->
+        <ngx-datatable-column [minWidth]="165" [width]="165" [cellClass]="'actions-column'">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <a href="" tabindex="-1" [routerLink]="['/client/orders/' + row.orderId]" class="btn btn-empty">
+              <i class="icon-rc-edit-2"></i>
+              View
+            </a>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal">
+    <form [formGroup]="memberTransferForm" novalidate>
+      <div class="modal-content">
+        <div class="modal-header modal-header--assertive">
+          <button type="button" class="close pull-right" (click)="reset(true)" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+          <div class="modal-header__content">
+            <i class="icon-rc-teams-icon"></i>
+            <h5>TRANSFER MEMBER</h5>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="input-group" [ngClass]="{'has-error': !memberTransferForm.get('selectedTeam').valid && memberTransferForm.get('selectedTeam').touched}">
+                <label for="">TRANSFER TO:</label>
+                <ng-select [items]="teamsSelection"
+                           formControlName="selectedTeam"
+                           [required]="true"
+                           placeholder="Select team">
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            class="button button-empty cancel-btn"
+            (click)="reset(true)">
+            Cancel
+          </button>
+          <rc-loading-btn [text]="'TRANSFER'"
+                          (onClick)="submit(memberTransferForm.value)"
+                          [loading]="loading"
+                          [disabled]="!memberTransferForm.valid"
+                          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

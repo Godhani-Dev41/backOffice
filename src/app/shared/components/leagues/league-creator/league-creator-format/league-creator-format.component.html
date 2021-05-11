@@ -1,0 +1,231 @@
+<div class="row" [formGroup]="form">
+  <div class="col-md-12" [formGroupName]="groupName">
+    <div class="form__section">
+      <div class="form__section__header">
+        THE HIGHLIGHT BAR
+      </div>
+      <div class="form__section__helper">
+        The highlight bar makes it easy for players to find the most important information. Age, gender, and level is required, but we included a couple others we know players are look for. If one is not relevant for your league you can always hide it and add custom fields.
+      </div>
+
+      <div class="input-group">
+        <label for="">
+          <i class="icon-rc-person-icon"></i> AGE & GENDER
+        </label>
+
+        <div class="input-wrapper">
+          <div class="row">
+            <div class="col-md-6">
+              <rc-range-picker formControlName="ageRange" [min]="1"></rc-range-picker>
+            </div>
+            <div class="col-md-6">
+              <rc-gender-picker formControlName="gender"></rc-gender-picker>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="">
+          <i class="icon-rc-star-icon"></i> LEVEL OF PLAY
+        </label>
+
+        <div class="input-wrapper">
+          <rc-level-of-play-selector formControlName="levelOfPlay"></rc-level-of-play-selector>
+        </div>
+      </div>
+
+      <div [formArrayName]="'formats'" [dragula]='"formats-bag"' [dragulaModel]='formatArray.controls'>
+        <div class="DraggableCheckableInfoBox"
+             *ngFor="let format of formatArray.controls; let i = index;"
+             [formGroup]="format"
+              [ngClass]="{'DraggableCheckableInfoBox--disabled no-drag': !format.get('active').value }">
+            <span class="rc-tooltip"
+                  *ngIf="RCLeagueDetailTypeEnum.OTHER === format.get('type').value"
+                  placement="right"
+                  container="body"
+                  tooltip="We know that leagues are like snowflakes. Add your own custom fields to highlight what makes your league unique. You run a moonshoes required, glow-in-the-dark league with off the charts fun factor? You be you!">
+            <i class="fa fa-info"></i>
+          </span>
+          <div class="DraggableCheckableInfoBox__left-handle">
+            <i class="icon-rc-drag-points"></i>
+          </div>
+          <div class="DraggableCheckableInfoBox__content">
+            <div class="DraggableCheckableInfoBox__content__top">
+              <div class="rc-toggle-wrapper" *ngIf="!format.get('mandatory').value || (format.get('mandatory').value && !format.get('active').value)">
+                <input type="checkbox" [id]="'toggleItem' + i" class="rc-toggle rc-toggle-light" formControlName="active">
+                <label [for]="'toggleItem' + i" class="rc-toggle-btn"></label>
+              </div>
+              <h5 [ngSwitch]="format.get('type').value">
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.GAMESSEASON">
+                  GAMES PER SEASON
+                </ng-template>
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.MINWEEK">
+                  MINUTES OF GAMEPLAY PER WEEK
+                </ng-template>
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.FORMAT">
+                  FORMAT
+                </ng-template>
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.PLAYERSPERTEAM">
+                  PLAYERS PER TEAM
+                </ng-template>
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.SURFACE">
+                  SURFACE
+                </ng-template>
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.MATCHLENGTH">
+                  GAME DURATION
+                </ng-template>
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.OTHER">
+                  CUSTOM HIGHLIGHT
+                </ng-template>
+              </h5>
+            </div>
+            <div class="DraggableCheckableInfoBox__content__bottom"
+                 [ngClass]="{
+                  'DraggableCheckableInfoBox__content__bottom--small-input': (format.get('type').value === RCLeagueDetailTypeEnum.GAMESSEASON || format.get('type').value === RCLeagueDetailTypeEnum.MINWEEK || format.get('type').value === RCLeagueDetailTypeEnum.MATCHLENGTH)
+                 }">
+              <div [ngSwitch]="format.get('type').value">
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.GAMESSEASON">
+                  <div class="input-group">
+                    <input type="number" class="input" min="1" max="999" formControlName="value">
+                    <label for="">Games/Season</label>
+                  </div>
+                </ng-template>
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.MINWEEK">
+                  <div class="input-group">
+                    <input type="number" class="input" min="1" max="999" formControlName="value">
+                    <label for="">Min/Week</label>
+                  </div>
+                </ng-template>
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.MATCHLENGTH">
+                  <div class="input-group">
+                    <input type="number" class="input" min="1" max="999" formControlName="value">
+                    <label for="">Minutes</label>
+                  </div>
+                </ng-template>
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.FORMAT">
+                  <div class="row">
+                    <div class="col-md-5">
+                      <div class="input-group">
+                        <label for=""></label>
+                        <select name="" class="input select" formControlName="value">
+                          <option></option>
+                          <option value="1">1 vs 1</option>
+                          <option value="2">2 vs 2</option>
+                          <option value="3">3 vs 3</option>
+                          <option value="4">4 vs 4</option>
+                          <option value="5">5 vs 5</option>
+                          <option value="6">6 vs 6</option>
+                          <option value="7">7 vs 7</option>
+                          <option value="8">8 vs 8</option>
+                          <option value="9">9 vs 9</option>
+                          <option value="10">10 vs 10</option>
+                          <option value="11">11 vs 11</option>
+                          <option value="12">12 vs 12</option>
+                          <option value="13">13 vs 13</option>
+                          <option value="14">14 vs 14</option>
+                          <option value="15">15 vs 15</option>
+                          <option value="16">16 vs 16</option>
+                          <option value="17">17 vs 17</option>
+                          <option value="18">18 vs 18</option>
+                          <option value="19">19 vs 19</option>
+                          <option value="20">20 vs 20</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-1 or-divider">
+                      <span>OR</span>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group">
+                        <label for="">Custom format</label>
+                        <input type="text" maxlength="15" class="input" formControlName="customValue">
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.PLAYERSPERTEAM">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="input-group">
+                        <select name="" class="input select" formControlName="value">
+                          <option></option>
+                          <option *ngFor="let item of createRange(50)" [value]="item">{{item}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-1 text-center">
+                      <span style="position: relative; top: 10px;">TO</span>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="input-group">
+                        <select name="" class="input select" formControlName="secondValue">
+                          <option></option>
+                          <option *ngFor="let item of createRange(50)" [value]="item">{{item}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.SURFACE">
+                  <div class="row">
+                    <div class="col-md-7">
+                      <div class="input-group">
+                        <label for="">Select all surfaces that apply</label>
+                        <select name="" class="input select" formControlName="value">
+                          <option></option>
+                          <option value="hardwood">Hardwood</option>
+                          <option value="grass">Grass</option>
+                          <option value="turf">Turf</option>
+                          <option value="asphalt">Asphalt</option>
+                          <option value="sand">Sand</option>
+                          <option value="fieldTurf">Field Turf</option>
+                          <option value="astroTurf">Astro Turf</option>
+                          <option value="sportCourt">Sport Court</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-1 or-divider">
+                      <span class="">OR</span>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group">
+                        <label for="">Custom surface</label>
+                        <input type="text" maxlength="15" class="input" formControlName="customValue">
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.OTHER">
+                  <div class="row">
+                    <div class="col-md-6" style="padding-right: 5px;">
+                      <div class="input-group">
+                        <label for="">
+                          Title
+                        </label>
+                        <input type="text" class="input" maxlength="15" formControlName="title" autofocus>
+                      </div>
+                    </div>
+                    <div class="col-md-6" style="padding-left: 5px;">
+                      <div class="input-group">
+                        <label for="">
+                          Content
+                        </label>
+                        <input type="text" class="input" maxlength="15" formControlName="value">
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="add-activity-venue-btn mg-bottom-20">
+          <a href="" (click)="addCustomHighlight(); $event.preventDefault();">
+            <i class="fa fa-plus"></i> ADD CUSTOM HIGHLIGHT <span class="pull-right">(You can add up to 5 highlights)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

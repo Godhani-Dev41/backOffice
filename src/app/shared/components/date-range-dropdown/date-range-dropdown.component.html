@@ -1,0 +1,13 @@
+<nz-layout>
+  <nz-row [className]="dangerousUpdateCss ? 'dangerous-edit' : ''">
+    <nz-form-label *ngIf="labelString" nzFor="dateRange">{{ labelString }}</nz-form-label>
+    <nz-range-picker
+      nzSize="size ? size : 'default'"
+      id="dateRange"
+      [(ngModel)]="dateRange"
+      (ngModelChange)="onChange($event)"
+      [nzFormat]="'MM/dd/yyyy'"
+      [nzDisabled]="disabled"
+    ></nz-range-picker>
+  </nz-row>
+</nz-layout>

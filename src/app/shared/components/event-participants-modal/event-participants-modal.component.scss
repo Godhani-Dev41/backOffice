@@ -1,0 +1,102 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.TabbedNavigationView {
+  .TabbedNavigationView__menu {
+    display: flex;
+    background-color: #ededed;
+
+    .TabbedNavigationView__menu__item {
+      font-size: 11px;
+      color: $brand-dark-grey;
+      font-weight: 600;
+      flex: 1;
+      line-height: 40px;
+      border-bottom: 2px solid transparent;
+      text-align: center;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.TabbedNavigationView__menu__item--active {
+        color: $brand-black;
+        border-bottom: 2px solid $brand-accent;
+      }
+    }
+  }
+
+  .TabbedNavigationView__content {
+    padding: 15px;
+  }
+}
+
+.UserList__item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+
+  .UserList__item_detail {
+    display: flex;
+    flex-direction: row;
+
+    .UserList__item__avatar {
+      position: relative;
+
+      .image-wrapper {
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+        border: solid 3px #ffffff;
+        width: 35px;
+        height: 35px;
+      }
+    }
+
+    .UserList__item__text {
+      padding-left: 15px;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      color: $brand-black;
+      font-size: 12px;
+    }
+
+    .InviteStatusLabel {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      border-radius: 100%;
+      background: $brand-dark-grey;
+      text-align: center;
+      position: absolute;
+      right: -11px;
+      top: 13px;
+
+      i {
+        position: relative;
+        top: -2px;
+        font-size: 11px;
+        color: white;
+        font-style: normal;
+      }
+
+      &.InviteStatusLabel__going {
+        background: $brand-accent;
+      }
+
+      &.InviteStatusLabel__rejected {
+        background: $brand-danger;
+      }
+
+      &.InviteStatusLabel__no-reply {
+        i {
+          font-size: 9px;
+        }
+      }
+    }
+  }
+
+  .UserList__item__detail_btn {
+    font-size: 18px;
+  }
+}

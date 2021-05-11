@@ -1,0 +1,61 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.ProgramItem {
+  height: 175px;
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  img {
+    min-height: 64px;
+    width: auto;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-size: 16px;
+    font-weight: 900;
+    text-align: center;
+    color: $brand-primary;
+    margin-bottom: 6px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  i {
+    color: $brand-dark;
+    font-size: 54px;
+  }
+
+  span {
+    text-transform: uppercase;
+    display: block;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    color: $brand-primary;
+  }
+
+  .description {
+    font-size: 14px;
+    text-align: center;
+    color: $brand-primary;
+  }
+}
+
+.modal-dialog {
+  width: 875px;
+}
+
+.modal-body {
+  height: 550px;
+}
+
+.row-spacing {
+  margin-bottom: 45px;
+}

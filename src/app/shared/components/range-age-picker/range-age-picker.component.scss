@@ -1,0 +1,71 @@
+.age-picker-container {
+  display: flex;
+  align-items: center;
+}
+
+.age-picker-select {
+  height: 100%;
+  select {
+    border: none;
+    outline: none;
+    background-color: #f3f7fa;
+    margin: 0;
+    font-family: Montserrat;
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #0d4774;
+    text-align: center;
+    padding: 1rem;
+  }
+}
+
+.age-picker-age {
+  margin-left: 15px;
+  display: flex;
+  input {
+    width: 70px;
+    border: none;
+    outline: none;
+    background-color: #f3f7fa;
+    margin: 0;
+    font-family: Montserrat;
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #0d4774;
+    text-align: center;
+    padding: 1rem;
+    &::-webkit-outer-spin-button {
+      /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none;
+      margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+    &::-webkit-inner-spin-button {
+      /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none;
+      margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+  }
+  button {
+    height: initial;
+    padding: 0 1rem;
+    border: none;
+    outline: none;
+    font-size: 1.6rem;
+    font-weight: bold;
+    height: auto;
+    border-radius: 2px;
+    background-color: rgba(13, 71, 116, 0.37);
+    color: white;
+    &:disabled {
+      background: #e8e8e8;
+    }
+  }
+}

@@ -1,0 +1,76 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.WizardForm__navigation {
+  height: auto;
+}
+
+.bottom-nav-bar__inner {
+  margin-left: 180px;
+
+  .bottom-nav-bar__inner__content {
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 8px 0;
+
+    button {
+      height: 35px;
+      width: 77px;
+
+      i {
+        font-size: 18px;
+        position: relative;
+        top: 2px;
+        right: -5px;
+      }
+
+      &.button-back {
+        i {
+          left: -5px;
+        }
+      }
+    }
+  }
+}
+
+.ColorPickerWidget {
+  position: relative;
+  top: -4px;
+}
+
+
+.plus-btn {
+  font-size: 17px;
+}
+
+
+form {
+  height: 100%;
+
+  .WizardForm {
+    overflow: hidden;
+
+    .WizardForm__content {
+      overflow: auto;
+    }
+  }
+}
+.web-banner-wrapper {
+  ::ng-deep {
+    .BoxedDropZone__preview {
+      height: 95px;
+    }
+    .BoxedDropZone__inner {
+      display: flex;
+
+      .BoxedDropZone__top {
+        flex: 1;
+        padding-top: 20px;
+      }
+
+      .BoxedDropZone__bottom {
+        padding-top: 0;
+        flex: 1;
+      }
+    }
+  }
+}

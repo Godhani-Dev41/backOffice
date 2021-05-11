@@ -1,0 +1,49 @@
+<div class="leagues-page-wrapper inner-page scrollable">
+  <div class="page-header bottom-divider">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="bottom-wrapper">
+          <h3 class="pull-left" style="font-size: 14px;">ADD-ONS</h3>
+          <a href=""
+             (click)="packageCreatorModal.showModal(); $event.preventDefault()"
+             class="button button-assertive--inverted button-bold pull-right">
+            CREATE ADD-ON
+          </a>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-content inner-page__content">
+    <div class="row" *ngIf="!addons?.length && venue && !loading">
+      <div class="col-md-12">
+        <div class="PageEmptyState">
+          <h5>
+            Add Your First Add-on
+          </h5>
+          <p>
+            Creating add-ons will make booking your spaces fast and easy,
+            you’ll be able to add your packages to any of your spaces.
+          </p>
+          <a href="" class="button button-assertive" (click)="packageCreatorModal.showModal(); $event.preventDefault()">
+            CREATE ADD-ON
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-3" *ngFor="let package of addons" (click)="packageCreatorModal.showModal(package)">
+        <rc-package-item-card [package]="package"></rc-package-item-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<rc-package-creator-modal
+  [isAddon]="true"
+  (onUpdated)="loadAddons()"
+  *ngIf="venue"
+  [venue]="venue"
+  [spaces]="spaces"
+  #packageCreatorModal="modal">
+</rc-package-creator-modal>

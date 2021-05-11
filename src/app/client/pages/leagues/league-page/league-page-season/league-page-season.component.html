@@ -1,0 +1,172 @@
+<div class="page-sub-navigation">
+  <div class="page-sub-navigation__menu">
+    <ul class="pull-left">
+      <li>
+        <a href="" [routerLink]="['dashboard']" [routerLinkActive]="['active']">DASHBOARD</a>
+      </li>
+      <li>
+        <a href="" [routerLink]="['teams']" [routerLinkActive]="['active']">TEAMS</a>
+      </li>
+      <li>
+        <a href="" [routerLink]="['matches']" [routerLinkActive]="['active']">SCHEDULE</a>
+      </li>
+      <li>
+        <a href="" [routerLink]="['reports']" [routerLinkActive]="['active']">REPORTS</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="pull-right status-wrapper">
+    <div *ngIf="season" >
+      <div class="pull-right">
+        <div style="margin-right: 10px;">
+          <div class="season-status-label" style="position: relative; top: 12px; line-height: 15px">
+            MATCH INVITES
+            <span
+              *ngIf="!publishingProccessing"
+              [ngClass]="{
+                'color-success': season?.inviteSendDate,
+                'color-draft': !season?.inviteSendDate
+              }">
+                <i></i>
+                <ng-template [ngIf]="!season?.inviteSendDate">
+                   <div class="draft-btn"
+                        [ngClass]="{ 'draft-btn--clickable': canSendInvites }"
+                        [tooltip]="canSendInvites ? 'Click to send invites' : 'You must publish roster and schedule before sending invites'"
+                        (click)="sendInvites();">
+                     SEND
+                   </div>
+                </ng-template>
+                <ng-template [ngIf]="season?.inviteSendDate">
+                  SENT
+                </ng-template>
+              </span>
+
+            <loaders-css *ngIf="publishingProccessing" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+          </div>
+        </div>
+      </div>
+
+      <div class="pull-right season-status-btn-wrapper">
+        <div class="season-status-label">
+          SCHEDULE
+          <span *ngIf="!publishingProccessing"
+                [ngClass]="{
+                  'color-success': season?.scheduleStatus === RCSeasonScheduleStatusEnum.PUBLISHED,
+                  'color-draft': season?.scheduleStatus === RCSeasonScheduleStatusEnum.DRAFT
+                }">
+              <i></i>
+              <ng-template [ngIf]="season?.scheduleStatus === RCSeasonScheduleStatusEnum.DRAFT">
+                 <div class="draft-btn"
+                      [ngClass]="{ 'draft-btn--clickable': canPublishSchedule }"
+                      [tooltip]="canPublishSchedule ? 'Click to publish' : 'To publish schedule you must publish roster first'"
+                      (click)="publishScheduleConfirm.showModal();">
+                     DRAFT
+                  </div>
+              </ng-template>
+              <ng-template [ngIf]="season?.scheduleStatus === RCSeasonScheduleStatusEnum.PUBLISHED">
+                PUBLISHED
+              </ng-template>
+            </span>
+
+          <loaders-css *ngIf="publishingProccessing" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+
+        </div>
+      </div>
+
+      <div class="pull-right season-status-btn-wrapper">
+        <div class="season-status-label">
+          ROSTERS
+          <span
+            *ngIf="!publishingProccessing"
+            [ngClass]="{
+            'color-success': season?.rosterStatus === RCSeasonRosterStatusEnum.PUBLISHED,
+            'color-draft': season?.rosterStatus === RCSeasonRosterStatusEnum.DRAFT
+            }">
+              <i></i>
+              <ng-template [ngIf]="season?.rosterStatus === RCSeasonRosterStatusEnum.DRAFT">
+                <div class="draft-btn"
+                     [ngClass]="{ 'draft-btn--clickable': canPublishRoster }"
+                     [tooltip]="canPublishRoster? 'Click to publish' : 'You must publish season before publishing rosters'"
+                     (click)="publishRostersConfirm.showModal();">
+                   DRAFT
+                </div>
+              </ng-template>
+              <ng-template [ngIf]="season?.rosterStatus === RCSeasonRosterStatusEnum.PUBLISHED">
+                PUBLISHED
+              </ng-template>
+            </span>
+          <loaders-css *ngIf="publishingProccessing" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+        </div>
+      </div>
+      <div class="pull-right">
+        <div style="margin-right: 10px;">
+          <div class="season-status-label" style="position: relative; top: 12px; line-height: 15px">
+            SEASON
+            <span
+              *ngIf="!publishingProccessing"
+              [ngClass]="{
+                'color-success': season?.status === 2,
+                'color-draft': season?.status === 1
+              }">
+                <i></i>
+                <ng-template [ngIf]="season?.status === 1">
+                   <div class="draft-btn"
+                        [ngClass]="{ 'draft-btn--clickable': canPublishSeason }"
+                        [tooltip]="canPublishSeason ? 'Click to publish' : 'You must publish league before publishing season'"
+                        (click)="publishSeason();">
+                     DRAFT
+                   </div>
+                </ng-template>
+                <ng-template [ngIf]="season?.status === 2">
+                  PUBLISHED
+                </ng-template>
+                <ng-template [ngIf]="season?.status === 3">
+                  CLOSED
+                </ng-template>
+                <ng-template [ngIf]="season?.status === 4">
+                  CANCELED
+                </ng-template>
+              </span>
+
+            <loaders-css *ngIf="publishingProccessing" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="row inner-page__content inner-page__content__sub-navigation inner-page__content--background padding-top-20" style="">
+  <loaders-css *ngIf="loading" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+
+  <div class="col-md-12" style="position: static;">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<rc-confirmation-modal
+  [title]="'PUBLISH SCHEDULE'"
+  [content]="'Are you sure you want to publish the seasons’ schedule?'"
+  [confirmText]="'YES, PUBLISH SCHEDULE'"
+  (onConfirm)="publishSchedule()"
+  #publishScheduleConfirm="modal">
+</rc-confirmation-modal>
+
+
+<rc-confirmation-modal
+  [title]="'PUBLISH ROSTERS'"
+  [content]="'Are you sure you want to publish the seasons’ rosters? Players assigned to teams will get notified via mobile app and email.'"
+  [confirmText]="'YES, PUBLISH ROSTERS'"
+  (onConfirm)="publishRoster()"
+  #publishRostersConfirm="modal">
+</rc-confirmation-modal>
+
+
+<rc-confirmation-modal
+  [title]="'SEND MATCH INVITES'"
+  [content]="'You published the roster but players won\'t be invited to matches yet. Do you want to send matches invites right now ? '"
+  [confirmText]="'YES, SEND INVITES'"
+  (onConfirm)="sendInvites()"
+  #sendInvitesConfirm="modal">
+</rc-confirmation-modal>

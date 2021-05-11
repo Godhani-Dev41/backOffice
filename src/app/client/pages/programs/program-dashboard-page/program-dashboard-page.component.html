@@ -1,0 +1,158 @@
+<nz-layout class="full-height">
+  <nz-page-header [nzTitle]="program?.name" class="text-uppercase elevation--2"></nz-page-header>
+  <nz-page-header-extra style="top: 8px;">
+    <nz-row nzType="flex" nzAlign="middle">
+      <nz-col style="margin-right: 45px;">
+        <a style="margin-top: 20px; font-weight: bold;" class="league-site-url" [href]="publicSiteUrl" target="_blank"
+          ><i class="icon-rc-home"></i> WEB PAGE</a
+        >
+      </nz-col>
+      <nz-col>
+        <div class="settings-header">
+          <div class="season-status-btn-wrapper">
+            <div class="season-status-label">
+              PROGRAM STATUS
+              <span [ngClass]="{ 'color-success': program?.status === 2 }">
+                <i></i> {{ statusMap[program?.status] }}
+              </span>
+            </div>
+          </div>
+          <button
+            *ngIf="program?.status === 1"
+            nz-button
+            nzType="primary"
+            class="bold-text text-uppercase"
+            (click)="changeProgramStatus(2)"
+            style="background-color: #24c875; border-color: #24c875;"
+          >
+            publish program
+          </button>
+        </div>
+      </nz-col>
+    </nz-row>
+  </nz-page-header-extra>
+  <nz-layout class="season-steps">
+    <span class="bold-text text-uppercase settings-header">About the {{ programsService.getProgramType() }}</span>
+    <nz-col nzSpan="12" class="settings-header">
+      <span class="bold-text text-uppercase">{{ programsService.getProgramType() }} settings</span>
+      <div class="settings-header">
+        <button
+          nz-button
+          nzType="outline"
+          style="margin-right: 8px;"
+          class="button button-assertive--inverted button-bold bold-text text-uppercase"
+          (click)="navToPrgEdit(this.programsService.getPrgId())"
+        >
+          Edit {{ programsService.getProgramType() }}
+        </button>
+        <button
+          nz-button
+          nzType="outline"
+          (click)="navToCreateSeason(this.programsService.getSeasonId())"
+          class="button button-assertive--inverted button-bold bold-text text-uppercase"
+        >
+          {{ "add a new SEASON" }}
+        </button>
+      </div>
+    </nz-col>
+  </nz-layout>
+  <nz-content class="body-scroll elevation--2">
+    <!-- loading spinner -->
+    <nz-layout *ngIf="loading">
+      <nz-row nzType="flex" nzAlign="middle" nzJustify="center" style="height: 75vh;">
+        <nz-spin nzSimple></nz-spin>
+      </nz-row>
+    </nz-layout>
+    <nz-layout *ngIf="!loading" class="body-padding">
+      <nz-row nzType="flex" nzGutter="24" nzAlign="top">
+        <nz-col nzSpan="12">
+          <nz-row nzGutter="24" nzAlign="middle" style="margin-bottom: 44px;" nzJustify="center">
+            <rc-entity-round-image [image]="program?.mainMedia" [sport]="program?.sport"></rc-entity-round-image>
+          </nz-row>
+          <nz-row nzGutter="24">
+            <div class="box-item box--border-light box--shadow box--padding mg-bottom-20 data-display">
+              <h4 class="box-title box--title-icon"><i class="icon-rc-long-des"></i> DESCRIPTION</h4>
+              <p class="box-text text-show-newline data-display" [innerHTML]="program?.description"></p>
+            </div>
+          </nz-row>
+        </nz-col>
+        <nz-col nzSpan="12">
+          <nz-row nzType="flex" nzGutter="24">
+            <nz-col nzSpan="6">
+              <h6 class="box-title box--title-icon"><i class="icon-rc-person-icon"></i> GENDER</h6>
+              <div class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item data-display">
+                <div *ngIf="program?.gender === RCGenderEnum.MALE" class="stat-top text-center stat--text-shadow">
+                  <img class="setting-display" src="assets/img/profile_pic_male.png" alt="" />
+                  <div class="stat-title text-uppercase text-center">MALE</div>
+                </div>
+
+                <div *ngIf="program?.gender === RCGenderEnum.FEMALE" class="stat-top text-center stat--text-shadow">
+                  <img class="setting-display" src="assets/img/profile_pic_female.png" alt="" />
+                  <div class="stat-title text-uppercase text-center">FEMALE</div>
+                </div>
+
+                <div *ngIf="program?.gender === RCGenderEnum.OTHER" class="stat-top text-center stat--text-shadow">
+                  <img class="setting-display" src="assets/img/profile_pic_female.png" alt="" />
+                  <img class="setting-display" src="assets/img/profile_pic_male.png" alt="" />
+                  <div class="stat-title text-uppercase text-center">CO-ED</div>
+                </div>
+              </div>
+            </nz-col>
+            <nz-col nzSpan="6">
+              <h6 class="box-title box--title-icon"><i class="icon-rc-person-icon"></i> AGES</h6>
+              <div class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item data-display">
+                <div class="stat-top text-center stat--text-shadow text-uppercase bold-text setting-display">
+                  {{ program?.minAge | ageString }}-{{ program?.maxAge | ageString }}
+                </div>
+                <div class="stat-title text-uppercase text-center">
+                  {{ program?.minAge.charAt(program?.minAge.length - 1) === "y" ? "YEARS" : "MONTHS" }}
+                </div>
+              </div>
+            </nz-col>
+            <nz-col nzSpan="6" *ngFor="let level of program?.level">
+              <h6 class="box-title box--title-icon"><i class="icon-rc-star-icon"></i> LEVEL OF PLAY</h6>
+              <div class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item data-display">
+                <div class="stat-top text-center stat--text-shadow text-uppercase bold-text setting-display">
+                  <i class="setting-display" [ngClass]="levelsMap[level].icon"> </i>
+                </div>
+                <div class="stat-title text-uppercase text-center">{{ levelsMap[level].title }}</div>
+              </div>
+            </nz-col>
+          </nz-row>
+          <nz-row>
+            <nz-row nzType="flex" nzAlign="middle" nzGutter="16px">
+              <nz-divider></nz-divider>
+              <nz-col nzSpan="4">
+                <span class="bold-text text-uppercase" style="color: #f7c500;">Seasons</span>
+              </nz-col>
+              <nz-col nzSpan="20" nzType="flex" nzAlign="left">
+                <nz-radio-group [(ngModel)]="currentSeasonFilter">
+                  <label nz-radio-button nzValue="all" (click)="filterSeason()">ALL</label>
+                  <label nz-radio-button nzValue="future" (click)="filterSeason()">UPCOMING</label>
+                  <label nz-radio-button nzValue="running" (click)="filterSeason()">RUNNING</label>
+                  <label nz-radio-button nzValue="past" (click)="filterSeason()">PAST</label>
+                </nz-radio-group>
+              </nz-col>
+            </nz-row>
+            <nz-row>
+              <nz-row>
+                <i *ngIf="!filteredSeasons || !filteredSeasons.length">No seasons to display</i>
+              </nz-row>
+              <nz-col nzSpan="24">
+                <nz-list>
+                  <nz-list-item
+                    *ngFor="let season of filteredSeasons"
+                    class="data-display"
+                    style="margin: 10px 0px; padding-left: 10px; border-left: #f7c500 3px solid;"
+                  >
+                    <span (click)="navToSeason(season.id)" class="bold-text text-uppercase">{{ season.name }}</span>
+                  </nz-list-item>
+                </nz-list>
+              </nz-col>
+            </nz-row>
+          </nz-row>
+        </nz-col>
+      </nz-row>
+    </nz-layout>
+  </nz-content>
+</nz-layout>

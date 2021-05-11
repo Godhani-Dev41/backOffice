@@ -1,0 +1,120 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.rc-date-input-wrapper {
+  position: relative;
+
+  input {
+    font-weight: 300;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .chevron-down {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    color: $brand-grey;
+  }
+
+  .well {
+    border-radius: 2px;
+    background: white;
+    box-shadow: none;
+    border: 1px solid $brand-light-grey;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      border-style: solid;
+      border-color: $brand-light-grey transparent;
+      display: block;
+      width: 0;
+      top: -10px;
+      bottom: auto;
+      border-width: 0 10px 9px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      border-style: solid;
+      border-color: #fff transparent;
+      display: block;
+      width: 0;
+      top: -9px;
+      bottom: auto;
+      border-width: 0 10px 10px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+  }
+
+  table {
+    .btn {
+      border-radius: 0;
+      outline: none;
+      border: none;
+
+      &:focus,
+      &:active {
+        outline: none;
+      }
+    }
+
+    .btn:active,
+    .btn.active {
+      box-shadow: none;
+      background: $brand-accent;
+
+      span {
+        color: white;
+      }
+    }
+
+    thead {
+      tr:first-child > th {
+        padding-bottom: 10px;
+      }
+
+      th {
+        .btn {
+          color: $brand-dark;
+
+          i.glyphicon {
+            color: $brand-accent;
+          }
+        }
+      }
+    }
+
+    tbody {
+      td {
+        .text-muted {
+          color: $brand-light-grey;
+        }
+      }
+    }
+  }
+
+  monthpicker,
+  yearpicker {
+    table tbody {
+      padding: 0 2px;
+    }
+
+    tbody {
+      .btn {
+        font-size: 12px;
+      }
+    }
+  }
+}

@@ -1,0 +1,349 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.sidemenu-wrapper {
+  height: 100%;
+  width: 230px;
+  background: $brand-blue;
+  display: flex;
+  flex-direction: column;
+
+  .menu-items-wrapper {
+    flex-grow: 1;
+  }
+
+  .menu-bottom-wrapper {
+    min-height: 75px;
+  }
+
+  .logo-wrapper {
+    text-align: center;
+    padding-top: 25px;
+    //padding-bottom: 25px;
+
+    img {
+      //max-width: 120px;
+    }
+
+    i {
+      font-size: 41px;
+      color: white;
+    }
+  }
+
+  .brand-details-wrapper {
+    text-align: center;
+    color: white;
+    margin: 10px 10px 0 10px;
+    border-bottom: 1px solid $brand-dark-grey;
+
+    .brand-logo {
+      text-align: center;
+
+      .logo-image {
+        margin: 0 auto;
+        background-size: cover;
+        background-position: center;
+        width: 122px;
+        height: 122px;
+        border-radius: 100%;
+        border: white 1px solid;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      }
+    }
+
+    .brand-details {
+      letter-spacing: 2px;
+      padding-top: 15px;
+      padding-bottom: 25px;
+
+      h1 {
+        line-height: 24px;
+        font-size: 24px;
+        font-family: $font-brand;
+        font-weight: bold;
+        letter-spacing: 2px;
+        color: $brand-extra-light-grey;
+      }
+
+      .brand-email {
+        color: $brand-accent;
+        font-size: 10px;
+      }
+
+      i {
+        right: 5px;
+        position: relative;
+        top: 3px;
+        font-size: 16px;
+      }
+
+      .brand-address {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .menu-items-wrapper {
+    padding: 10px;
+    display: flex;
+    flex-direction: inherit;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  .menu-list {
+    padding: 10px;
+    margin-top: -15px;
+    overflow: auto;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        font-size: 14px;
+        font-family: $font-brand;
+        font-weight: bold;
+        text-align: left;
+        position: relative;
+
+        a {
+          display: inline-block;
+          padding: 15px 30px;
+          color: $brand-grey;
+          transition: all 0.3s;
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          &:hover {
+            border: none;
+            color: $brand-accent;
+            text-decoration: none;
+          }
+        }
+
+        a.active {
+          color: $brand-accent !important;
+        }
+      }
+    }
+
+    .menu-list--secondary {
+      li.nav-inner-item {
+        a {
+          text-transform: capitalize;
+          color: white;
+          font-size: 12px;
+          padding-top: 5px;
+          padding-bottom: 5px;
+          line-height: 26px;
+        }
+      }
+
+      li.back-btn {
+        position: relative;
+
+        a::before {
+          content: "\f053";
+          font-family: FontAwesome, sans-serif;
+          padding-left: 5px;
+          font-size: 10px;
+          color: white;
+          position: absolute;
+          width: 19px;
+          height: 19px;
+          border-radius: 2px;
+          line-height: 19px;
+          display: inline-block;
+          left: -5px;
+          top: 15px;
+          background: $brand-accent;
+        }
+      }
+    }
+
+    .menu-list__inner {
+      padding-left: 15px;
+
+      li {
+        a {
+          font-weight: 400;
+        }
+
+        &.menu-list__inner-item--muted {
+          a {
+            color: $brand-dark-grey;
+          }
+        }
+      }
+    }
+  }
+
+  .global-menu-wrapper {
+    border-top: 1px solid $brand-dark-grey;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+
+      li {
+        a {
+          //letter-spacing: 1px;
+          display: inline-block;
+          width: 100%;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          color: $brand-grey;
+          transition: all 0.3s;
+          font-weight: 300;
+
+          &:hover,
+          &.active {
+            text-decoration: none;
+            color: $brand-accent;
+          }
+        }
+
+        i {
+          position: relative;
+          top: 3px;
+          font-size: 20px;
+          display: inline-block;
+          width: 25px;
+        }
+      }
+    }
+  }
+
+  .menu-bottom-wrapper {
+    border-top: 1px solid $brand-dark-grey;
+
+    a {
+      padding-top: 21px;
+      text-align: left;
+      width: 100%;
+      display: inline-block;
+      color: white;
+      font-size: 14px;
+      padding-left: 20px;
+      transition: all 0.3s;
+
+      &:hover {
+        border: none;
+        color: $brand-accent;
+        text-decoration: none;
+      }
+
+      i {
+        position: relative;
+        top: 3px;
+        font-size: 24px;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  @media screen and (max-height: 800px) {
+    .brand-details-wrapper {
+      .brand-logo {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (max-height: 650px) {
+    .brand-details-wrapper {
+      .brand-email,
+      .brand-address {
+        display: none;
+      }
+
+      .brand-details {
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .sidemenu-wrapper {
+    display: none;
+  }
+}
+
+.OrganizationSelectButton {
+  outline: none;
+
+  .btn {
+    background: transparent;
+    border: none;
+    font-size: 12px;
+    margin-top: 5px;
+    color: white !important;
+    border-radius: 0;
+    padding: 5px 0 0 0;
+    font-weight: 200;
+
+    &:active,
+    &:hover {
+      box-shadow: none;
+      color: white !important;
+    }
+  }
+
+  .dropdown-menu {
+    left: -20px;
+
+    li {
+      a {
+        letter-spacing: 0;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.has-secondary-menu {
+  .menu-list__inner {
+    .disabled {
+      pointer-events: none;
+      color: gray;
+      opacity: 0.5;
+    }
+
+    li a {
+      color: white !important;
+      font-size: 12px;
+      font-weight: bold !important;
+      padding-top: 5px;
+      padding-bottom: 5px;
+
+      &.active {
+        color: $brand-accent !important;
+      }
+    }
+  }
+}
+
+::ng-deep .tooltip-inner {
+  background: white !important;
+  width: auto;
+  color: black !important;
+  font-size: 14px;
+  padding: 5px 10px;
+  font-family: $font-default;
+  opacity: 1 !important;
+}
+
+.menu-icon {
+  padding-left: 6px;
+  padding-right: 16px;
+}
+
+.static-menu {
+  margin-top: 20px;
+}

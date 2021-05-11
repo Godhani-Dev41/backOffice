@@ -1,0 +1,43 @@
+<div class="league-page-wrapper inner-page">
+  <div class="page-header bottom-divider page-header--no-margin">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-wrapper">
+          <rc-back-btn></rc-back-btn>
+        </div>
+        <div class="bottom-wrapper">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="pull-left text-uppercase">
+                {{customer?.name}}
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-sub-navigation">
+    <div class="page-sub-navigation__menu">
+      <ul class="pull-left">
+        <li>
+          <a href="" [routerLink]="['details']" [routerLinkActive]="['active']">DETAILS</a>
+        </li>
+        <li>
+          <a href="" [routerLink]="['reservations']" [routerLinkActive]="['active']">RESERVATIONS</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row inner-page__content inner-page__content__sub-navigation padding-top-20" style="">
+    <loaders-css *ngIf="loading" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+
+    <div class="col-md-12" style="position: static;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>

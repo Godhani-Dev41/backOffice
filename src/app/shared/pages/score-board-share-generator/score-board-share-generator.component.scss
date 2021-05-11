@@ -1,0 +1,67 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.GeneratorWrapper {
+  min-width: 800px;
+  max-width: 1200px;
+  padding: 10px;
+  min-height: 640px;
+  border: 1px solid #ececec;
+  margin: 0 auto;
+
+}
+
+.LabeledFeedWidget {
+  zoom: 1.5;
+  max-width: 500px;
+  margin: 0 auto;
+  border: 1px solid #cccccc;
+}
+
+.LabeledFeedWidget--leaderboard {
+  .LabeledFeedWidget--leaderboard__avatar {
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    background-size: cover;
+    border-radius: 100%;
+    bottom: 44px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 0;
+  }
+
+  .LabeledFeedWidget__top {
+    position: relative;
+
+    .LabeledFeedWidget__image {
+      width: 270px;
+      height: 175px;
+      background-repeat: no-repeat;
+      z-index: 1;
+      position: relative;
+    }
+  }
+
+  .LabeledFeedWidget--leaderboard__rank {
+    z-index: 1;
+    font-family: $font-brand;
+    font-size: 30px;
+    font-weight: 900;
+    text-align: center;
+    color: #ffffff;
+    position: absolute;
+    bottom: 6px;
+    left: 0;
+    right: 0;
+  }
+
+  .LabeledFeedWidget--leaderboard__sub-title {
+    text-align: center;
+    font-family: $font-brand;
+    color: $brand-blue;
+    font-weight: 900;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+}

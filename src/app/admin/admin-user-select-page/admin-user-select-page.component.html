@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3" style="margin-top: 100px;">
+      <div class="text-center" *ngIf="loading">
+        <loaders-css [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+      </div>
+      <div class="input-group" *ngIf="!loading" >
+        <label for="">SELECT A USER:</label>
+        <ng-select [items]="users"
+                   (selected)="userSelected($event)"
+                   placeholder="Select user">
+        </ng-select>
+      </div>
+    </div>
+  </div>
+</div>

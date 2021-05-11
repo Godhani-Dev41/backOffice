@@ -1,0 +1,31 @@
+<div class="PoolTeamCard">
+  <div class="PoolTeamCard__top">
+
+  </div>
+  <div class="PoolTeamCard__content">
+    <div class="ProfilePhotoStack ProfilePhotoStack--large">
+      <ul class="list">
+        <li class="label-counter" *ngIf="moreCount">
+          +{{moreCount}} Players
+        </li>
+        <li *ngFor="let member of visibleMembers">
+          <div class="image-wrapper image--round image--border" [rcBackgroundImage]="member.user.profilePicture"></div>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <h5>{{team?.name}}</h5>
+    <rc-loading-btn [classes]="['button', 'button-assertive']"
+                    *ngIf="!restoreToPoolMode"
+                    (onClick)="assignTeam()"
+                    [text]="'ASSIGN TEAM'"
+                    [loading]="loading">
+    </rc-loading-btn>
+    <rc-loading-btn [classes]="['button', 'button-assertive']"
+                    *ngIf="restoreToPoolMode"
+                    (onClick)="restoreTeam()"
+                    [text]="'RESTORE TEAM'"
+                    [loading]="loading">
+    </rc-loading-btn>
+  </div>
+</div>

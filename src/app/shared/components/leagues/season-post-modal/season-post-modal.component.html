@@ -1,0 +1,48 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal">
+    <form class="form" [formGroup]="roundPostForm" novalidate>
+      <div class="modal-content">
+        <div class="modal-header modal-header--assertive">
+          <button type="button" class="close pull-right" (click)="modal.hide()" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+          <div class="modal-header__content">
+            <i class="icon-rc-nav-feed"></i>
+            <h5>{{getHeaderText()}}</h5>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                  <textarea name=""
+                            class="input input--borderless feed-text"
+                            formControlName="content"
+                            cols="30"
+                            rows="4"
+                            placeholder="{{getPlaceHolderText()}}"></textarea>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+              <rc-round-results-widget *ngIf="shareType === 'roundResults'" [round]="round"></rc-round-results-widget>
+              <rc-season-standings-widget *ngIf="shareType === 'seasonResults'" [league]="league" [standings]="standings"></rc-season-standings-widget>
+              <rc-match-result-widget *ngIf="shareType === 'matchResults'" [match]="match"></rc-match-result-widget>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="button button-empty cancel-btn" (click)="modal.hide()">
+            Cancel
+          </button>
+          <rc-loading-btn [text]="'POST TO FEED'"
+                          [disabled]="!roundPostForm.valid"
+                          [loading]="loading"
+                          (click)="submit(roundPostForm.value)"
+                          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

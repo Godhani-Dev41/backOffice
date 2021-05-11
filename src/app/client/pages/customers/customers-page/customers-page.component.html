@@ -1,0 +1,119 @@
+<div class="inner-page scrollable">
+  <div class="page-header bottom-divider">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-wrapper">
+
+        </div>
+        <div class="bottom-wrapper">
+          <h3 class="pull-left">{{'Customers' | uppercase}}</h3>
+          <!--   <a href=""
+             class="button button-assertive&#45;&#45;inverted button-bold pull-right"
+             [routerLink]="['../venue-creator']">
+            CREATE NEW VENUE
+          </a>-->
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-content inner-page__content">
+    <div class="row">
+        <div class="col-md-3 col-sm-4 col-xs-5">
+          <div class="input-group">
+            <label for="nameFilter">SEARCH</label>
+            <input id="nameFilter" type="text" (keyup)="changeNameFilter($event)" class="input" placeholder="Search by name" />
+          </div>
+        </div>
+      <div class="col-md-3 col-sm-4 col-xs-5">
+        <div class="DropdownSelectWrapper input-group" dropdown>
+          <label for="typeDropdown">
+            CUSTOMER TYPE
+          </label>
+          <button dropdownToggle type="button" class="DropdownSelect" id="typeDropdown">
+            {{custTypeFilter | titlecase}} <span class="fa fa-angle-down"></span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem">
+              <a class="dropdown-item" href="#" (click)="$event.preventDefault(); typeFilter('all');">
+                <i class="fa fa-users"></i> All
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="#" (click)="$event.preventDefault(); typeFilter('user');">
+                <i class="fa fa-user-circle-o"></i> User
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" href="#" (click)="$event.preventDefault(); typeFilter('organization');">
+                <i class="fa fa-building"></i> Organization
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-md-12" *ngIf="loading">
+        <loaders-css [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+      </div>
+      <div class="col-md-12" *ngIf="!loading && !customers?.length">
+        <div class="PageEmptyState">
+          <h5>
+            No customers yet
+          </h5>
+          <p>
+            Customers will be added automatically when your facility is booked.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-12" *ngIf="!loading && customers?.length" style="overflow: hidden">
+        <ngx-datatable style="height: 100%" #table [loadingIndicator]="loading" [trackByProp]="'id'" [rowHeight]="50"
+          [scrollbarV]="true" [sorts]="[{prop: 'name', dir: 'asc'}]" class="rc-datatable material"
+          [columnMode]="'force'" [rows]="customers">
+          <ngx-datatable-column name="ID" prop="id" [maxWidth]="50">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.id}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Name" prop="name">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{(row.name ? row.name : (row.firstName + ' ' + row.lastName)) | truncate:30}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Email" prop="email">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.email}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Phone Number" prop="phoneNumber">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.phoneNumber}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Address" prop="phoneNumber">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.address?.city}}{{row.address?.state ? ', ' + row.address?.state : ''}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Type" prop="customerType">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.entityType ? (row.entityType | titlecase) : ('User' | titlecase)}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column [minWidth]="165" [width]="165" [cellClass]="'actions-column'">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <a href="" tabindex="-1" [routerLink]="['/client/customers/' + row.id]" class="button button-view-customer button-bold pull-right">
+                <div>
+                  <i class="fa fa-user-circle-o view-icon"></i>
+                  View
+                </div>
+              </a>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+    </div>
+  </div>
+</div>
+
+<rc-customer-edit-modal (onUpdated)="loadCustomers()" #customerEditModal="modal"></rc-customer-edit-modal>

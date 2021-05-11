@@ -1,0 +1,46 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.league-date-games {
+  min-height: 150px;
+
+  .league-date-games__header {
+    height: 50px;
+    background: $brand-black;
+
+    h5 {
+      margin: 0;
+      color: white;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 50px;
+    }
+  }
+
+  .league-date-games__body__title {
+    text-align: center;
+    font-size: 10px;
+    color: $brand-dark-grey;
+  }
+
+  .schedule-list {
+    margin-top: 10px;
+
+    li {
+      i {
+        display: inline-block;
+        width: 30px;
+        text-align: center;
+      }
+
+      span {
+        font-weight: normal;
+      }
+
+      &.title {
+        border-bottom: 1px solid $brand-light-grey;
+      }
+    }
+  }
+}

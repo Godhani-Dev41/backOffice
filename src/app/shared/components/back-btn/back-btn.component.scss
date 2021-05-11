@@ -1,0 +1,15 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.back-btn {
+  color: $brand-dark-grey;
+  font-weight: bold;
+  font-family: $font-brand;
+  transition: all 0.3s;
+
+  i {
+    margin-right: 7px;
+    position: relative;
+    top: 4px;
+    font-size: 28px;
+  }
+}

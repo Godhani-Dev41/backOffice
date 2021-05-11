@@ -1,0 +1,98 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.TopScorerWidget {
+  zoom: 2.5;
+
+  .show-all-players-btn {
+    font-size: 10px;
+    font-weight: bold;
+    color: $brand-accent;
+    text-align: center;
+    padding: 10px;
+    display: block;
+  }
+
+  .TopScorerWidget__title {
+    line-height: 37px;
+    text-align: center;
+    background: $brand-accent;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    font-family: $font-brand;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .TopScorerWidget__content {
+    padding: 10px;
+  }
+
+  .TopScorerTable {
+    width: 100%;
+  }
+
+  .TopScorerTable__header {
+    th {
+      font-size: 8px;
+      color: $brand-accent;
+      font-weight: bold;
+      font-family: $font-brand;
+    }
+  }
+
+  .TopScorerTable__body {
+    td {
+      line-height: 33px;
+    }
+
+    .TopScorerTable__row--accent {
+      background: #ffefd7;
+    }
+    .TopScorerTable__row__rank {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 900;
+      font-family: $font-brand;
+      width: 25px;
+      color: $brand-accent;
+    }
+
+    .TopScorerTable__row__logo {
+      width: 60px;
+    }
+
+    .TopScorerTable__row__name {
+      text-align: left;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: $brand-black;
+    }
+
+    .TopScorerTable__row__points {
+      color: $brand-accent;
+      font-size: 16px;
+      font-weight: 900;
+      font-family: $font-brand;
+      text-align: center;
+      width: 50px;
+    }
+
+    .TopScorerTable__row__logo {
+      ::ng-deep .participant-logo,
+      ::ng-deep .avatar {
+        width: 25px;
+        height: 25px;
+        line-height: 0;
+        position: relative;
+        top: -2px;
+
+        span {
+          position: relative;
+          top: -2px;
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}

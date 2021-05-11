@@ -1,0 +1,92 @@
+<div class="inner_page">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav">
+    <div class="col-md-12">
+      <div class="WizardForm">
+        <div class="WizardForm__navigation">
+          <div class="WizardForm__navigation__header">
+            <h3>
+              CREATE NEW
+              TOURNAMENT
+              EVENT
+            </h3>
+          </div>
+
+          <div class="WizardForm__navigation__slide-info">
+            <p>
+              Tournament event will create the instance of a tournament
+            </p>
+          </div>
+        </div>
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner">
+            <div class="form">
+              <div>
+                <form action="" [formGroup]="tournamentEventForm" novalidate>
+                  <rc-tournament-event-edit-page [tournamentEvent]="tournamentEvent" [form]="tournamentEventForm"></rc-tournament-event-edit-page>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row bottom-nav-bar">
+        <div class="bottom-nav-bar__inner">
+          <div class="bottom-nav-bar__inner__content">
+            <rc-loading-btn
+              *ngIf="tournamentEvent?.status === 1"
+              (onClick)="deleteConfirmModal.showModal()"
+              [loading]="processingUnpublish"
+              [text]="'DELETE'"
+              [classes]="[ 'button', 'button-danger', 'button-unpublish']">
+            </rc-loading-btn>
+
+            <rc-loading-btn
+              *ngIf="tournamentEvent?.status === 2"
+              (onClick)="cancelConfirmModal.showModal()"
+              [loading]="processingUnpublish"
+              [text]="'UNPUBLISH'"
+              [classes]="[ 'button', 'button-danger', 'button-unpublish']">
+            </rc-loading-btn>
+
+            <rc-loading-btn
+              [loading]="loading"
+              (onClick)="submitData(tournamentEventForm.value)"
+              [disabled]="!tournamentEventForm.valid"
+              [text]="updateMode ? 'UPDATE TOURNAMENT EVENT' : 'CREATE TOURNAMENT EVENT'"
+              [classes]="['button-next', 'button', 'button-assertive', 'pull-right']">
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<rc-action-success-modal
+  (onCancelClick)="goToNewSeason()"
+  (onSuccessClick)="publishTournamentEvent()"
+  #actionSuccessModal="modal"
+  [successBtnText]="'PUBLISH IT! I WANT TO START REGISTRATION'"
+  [cancelText]="'THAT\'S IT FOR NOW, KEEP IT AS DRAFT'"
+  [subTitleText]="'You\'ve successfully created a tournament event, What\’s next?'">
+</rc-action-success-modal>
+
+
+<rc-confirmation-modal
+  [type]="'danger'"
+  [title]="'UNPUBLISH TOURNAMENT EVENT'"
+  [content]="'Are you sure you want to unpublish this tournament event?'"
+  [confirmText]="'YES, UNPUBLISH'"
+  (onConfirm)="unpublish()"
+  #cancelConfirmModal="modal">
+</rc-confirmation-modal>
+
+<rc-confirmation-modal
+  [type]="'danger'"
+  [title]="'DELETE TOURNAMENT EVENT'"
+  [content]="'Are you sure you want to delete this tournament event?'"
+  [confirmText]="'YES, DELETE'"
+  (onConfirm)="delete()"
+  #deleteConfirmModal="modal">
+</rc-confirmation-modal>

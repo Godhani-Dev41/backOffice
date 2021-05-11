@@ -1,0 +1,41 @@
+<div class="inner_page inner_page__form">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav" style="height: 100%">
+    <div class="col-md-12">
+      <div class="WizardForm">
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner">
+            <div class="form">
+              <div class="form__section">
+                <div class="form__section__header">
+                  GENERAL FACILITY QUESTIONNAIRES
+                </div>
+                <div class="form__section__helper">
+                  Create an application form for your customers to fill when they book any space in this facility.
+                </div>
+                <div class="row">
+                  <div class="row" [formGroup]="facilitySettingForm">
+                    <div class="col-md-12">
+                      <div class="QuestionnaireBox">
+                        <div class="col-md-6" *ngIf="orgQuestionnaires?.length">
+                          <div class="input-wrapper">
+                            <div class="input-group">
+                              <select name="" formControlName="questionnaireId" class="select">
+                                <option value="">Select a questionnaire</option>
+                                <option value="{{questionnaire.id}}" *ngFor="let questionnaire of orgQuestionnaires">
+                                  {{questionnaire.title}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

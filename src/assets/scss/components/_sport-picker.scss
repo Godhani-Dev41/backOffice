@@ -1,0 +1,87 @@
+.SportPicker {
+  .col-md-2,
+  .col-sm-2,
+  .col-xs-4 {
+    padding: 0;
+  }
+
+  .SportPicker__item {
+    height: 90px;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    a {
+      display: block;
+    }
+
+    i {
+      font-size: 54px;
+    }
+
+    span {
+      text-transform: uppercase;
+      display: block;
+      text-align: center;
+      font-size: 10px;
+      font-weight: 500;
+      color: $brand-grey;
+    }
+
+    &.SportPicker__item--active {
+      //background: $brand-accent;
+      color: white;
+
+      span {
+        color: white;
+      }
+
+
+      &:after {
+        opacity: 1;
+        transform: scale(10, 10);
+      }
+    }
+
+    &.SportPicker__item--see-all {
+      .circles-wrapper {
+        padding-top: 20px;
+        padding-bottom: 15px;
+      }
+
+      i {
+        color: $brand-dark-grey;
+        font-size: 13px;
+      }
+
+      span {
+        color: $brand-accent;
+        font-size: 12px;
+      }
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, $brand-accent 50%, transparent 50%);
+      background-repeat: no-repeat;
+      background-position: 50%;
+      transform: scale(0, 0);
+      opacity: 0.4;
+      transition: transform 1s, opacity 1.1s;
+      z-index: -1;
+    }
+  }
+}

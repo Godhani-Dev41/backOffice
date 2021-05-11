@@ -1,0 +1,39 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.SchedulerInfoBoxesStack {
+  .InfoBoxesStack__item {
+    font-family: $font-brand;
+    background-color: rgba(214, 214, 214, 0.5);
+    text-align: left;
+    height: 80px;
+    padding: 7px 4px;
+    margin-bottom: 15px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &.InfoBoxesStack__item--large {
+      height: 120px;
+    }
+
+    &.InfoBoxesStack__item--disabled {
+      .InfoBoxesStack__item__content {
+        color: $brand-dark-grey;
+      }
+    }
+
+    .InfoBoxesStack__item__title {
+      font-size: 16px;
+      font-weight: bold;
+      color: $brand-accent;
+    }
+
+    .InfoBoxesStack__item__content {
+      line-height: 52px;
+      font-size: 52px;
+      color: $brand-dark;
+      font-weight: normal;
+      margin-top: auto;
+    }
+  }
+}

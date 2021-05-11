@@ -1,0 +1,98 @@
+<nz-layout>
+  <nz-row nzType="flex">
+    <nz-col nzMd="24" nzLg="10" style="align-self: center;">
+      <div class="avatar-container">
+        <nz-avatar
+          class="program-avatar elevation--4"
+          [nzSize]="160"
+          nzSrc="https://res.cloudinary.com/rcenter/image/upload/v1592195519/xduk4pjajqulni98wcfm.jpg"
+        >
+        </nz-avatar>
+        <nz-avatar
+          class="program-avatar elevation--6"
+          [nzSize]="64"
+          style="top: -32px; background: #FFFF"
+          nzSrc="assets/img/sports/icn-sport-basketball.svg"
+        >
+        </nz-avatar>
+      </div>
+    </nz-col>
+    <nz-col nzMd="24" nzLg="14">
+      <nz-card class="card-spacing">
+        <nz-card-meta
+          nzTitle="Location"
+          [nzAvatar]="locationTemplate"
+          [nzDescription]="locationDescTemplate"
+        >
+        </nz-card-meta>
+      </nz-card>
+      <nz-card class="card-spacing">
+        <nz-card-meta
+          nzTitle="Short description"
+          [nzAvatar]="shortTemplate"
+          [nzDescription]="shortDescTemplate"
+        >
+        </nz-card-meta>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+  <nz-row>
+    <nz-card class="">
+      <nz-card-meta
+        nzTitle="Long description"
+        [nzAvatar]="longTemplate"
+        [nzDescription]="longDescTemplate"
+      >
+      </nz-card-meta>
+    </nz-card>
+  </nz-row>
+</nz-layout>
+
+<!-- Location card templates -->
+<ng-template #locationTemplate>
+  <i
+    nz-icon
+    nzType="environment"
+    nzTheme="twotone"
+    style="font-size: 1.6rem;"
+  ></i
+></ng-template>
+
+<ng-template #locationDescTemplate>
+  277 Madison Avenue, New York, NY
+  <br />
+  Time zone | America/New York
+</ng-template>
+
+<!-- Short desc card templates -->
+<ng-template #shortTemplate>
+  <i nz-icon nzType="message" nzTheme="twotone" style="font-size: 1.6rem;"></i
+></ng-template>
+
+<ng-template #shortDescTemplate>
+  <p>
+    We believe players of all ages and abilities should enjoy everything sports
+    have to offer! Your source for great tennis, basketball, and more!
+  </p>
+</ng-template>
+
+<!-- Long desc card templates -->
+<ng-template #longTemplate>
+  <i nz-icon nzType="container" nzTheme="twotone" style="font-size: 1.6rem;"></i
+></ng-template>
+
+<ng-template #longDescTemplate>
+  <p>
+    We believe players of all ages and abilities should enjoy everything sports
+    have to offer! We believe players of all ages and abilities should enjoy
+    everything sports have to offer! Your source for great tennis, basketball,
+    and more!We believe players of all ages and abilities should enjoy
+    everything sports have to offer! We believe players of all ages and
+    abilities should enjoy everything sports have to offer! Your source for
+    great tennis, basketball, and more!We believe players of all ages and
+    abilities should enjoy everything sports have to offer! We believe players
+    of all ages and abilities should enjoy everything sports have to offer! Your
+    source for great tennis, basketball, and more!We believe players of all ages
+    and abilities should enjoy everything sports have to offer!
+  </p>
+</ng-template>

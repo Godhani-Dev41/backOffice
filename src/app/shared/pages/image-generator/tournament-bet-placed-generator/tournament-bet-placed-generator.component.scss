@@ -1,0 +1,197 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.BetPlacedFeedWidget {
+  padding: 14px;
+  zoom: 2;
+
+  &.BetPlacedFeedWidget--tournament {
+    .BetPlacedFeedWidget__title.BetPlacedFeedWidget__title--large {
+      font-size: 24px;
+    }
+  }
+
+  .BetPlacedFeedWidget__title {
+    font-family: $font-brand;
+    font-size: 16px;
+    font-weight: bold;
+    color: $brand-accent;
+    margin-bottom: 12px;
+
+    &.BetPlacedFeedWidget__title--blue {
+      color: $brand-blue;
+    }
+
+    &.BetPlacedFeedWidget__title--no-margin {
+      margin-bottom: 5px;
+    }
+
+    &.BetPlacedFeedWidget__title--hand-write {
+      font-family: 'Daniel';
+      font-size: 16px;
+      color: $brand-black;
+      text-transform: none;
+    }
+  }
+}
+
+.YakitoriIcon {
+  float: right;
+  width: 76px;
+  height: 76px;
+  background: $brand-blue;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -45px;
+  z-index: 1;
+  position: relative;
+  margin-right: 30px;
+  box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.23);
+
+  i {
+    color: white;
+    font-size: 42px;
+  }
+
+  &.YakitoriIcon--small {
+    margin-right: 0;
+    width: 45px;
+    height: 45px;
+    margin-top: 0px;
+    i {
+      font-size: 30px;
+    }
+  }
+
+  &.YakitoriIcon--inverted {
+    background: $brand-black;
+  }
+}
+
+.BetPlacedTicket {
+  position: relative;
+  overflow: hidden;
+  height: 118px;
+  padding: 10px;
+  margin-bottom: 12px;
+  background-color: $brand-light-grey;
+  box-shadow: 1px 6.5px 13px 0 $brand-grey;
+  display: flex;
+
+  .PriceRow {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 80px;
+    max-width: 120px;
+
+    rc-sport-float-icon {
+      position: absolute;
+      top: -50px;
+      left: -26px;
+      opacity: 0.3;
+
+      i {
+        font-size: 95px;
+      }
+    }
+    .divider {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .divider:after {
+      transform: rotate(90deg);
+      text-indent: -23px;
+      white-space: nowrap;
+      width: 100%;
+      position: absolute;
+      color: lighten($brand-grey, 5);
+      font-size: 21px;
+      content:"● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●";
+      letter-spacing: 1px;
+    }
+
+    .PriceRow__price {
+      display: inline-block;
+      transform: rotate(90deg);
+      color: $brand-accent;
+      font-size: 38px;
+      font-family: $font-brand;
+      font-weight: bold;
+    }
+  }
+
+  .ParticipantsRow {
+    padding: 0 5px;
+    border-right: 1px solid $brand-grey;
+    max-width: 120px;
+    min-width: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &.ParticipantsRow--full {
+      padding: 10px 13px;
+      align-items: left;
+      justify-content: left;
+      max-width: none;
+      min-width: auto;
+      border-right: none;
+    }
+
+    .ParticipantsRow__hand-title {
+      text-align: left;
+      font-family: 'Daniel';
+      color: $brand-blue;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .ParticipantsRow__title {
+      text-align: left;
+      color: $brand-black;
+      font-size: 17px;
+      font-weight: 900;
+      font-family: $font-brand;
+      margin-bottom: 5px;
+    }
+
+    .ParticipantsRow__content {
+      text-transform: uppercase;
+      text-align: left;
+      font-size: 11px;
+      font-family: $font-brand;
+      color: $brand-black;
+      font-weight: 900;
+
+    }
+
+    div {
+      line-height: 14px;
+      font-weight: bold;
+      color: $brand-blue;
+      text-align: center;
+
+      span {
+        display: inline-block;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-size: 14px;
+        color: $brand-black;
+      }
+    }
+  }
+
+  .TimeRow {
+    max-width: 90px;
+    padding-left: 10px;
+    color: $brand-dark;
+    font-size: 11px;
+    font-weight: bold;
+    padding-top: 5px;
+  }
+}

@@ -1,0 +1,291 @@
+<div class="inner_page">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav">
+    <div class="col-md-12">
+      <div class="WizardForm WizardForm__has-bottom-nav WizardForm__left-fix">
+        <div class="WizardForm__navigation">
+          <div class="WizardForm__navigation__header">
+            <h3>
+              CREATE NEW FACILITY
+            </h3>
+          </div>
+          <div class="WizardForm__navigation__slide-info">
+            <p>
+              Create your facility and you will be to manage your facility booking, payments, availability, customer
+              list. After creating your facility you'll add your specific spaces to manage them specifically
+            </p>
+          </div>
+        </div>
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner">
+            <div class="form">
+              <form action="" [formGroup]="venueForm" novalidate>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form__section">
+                      <div class="form__section__header">
+                        ABOUT
+                      </div>
+                      <div class="form__section__helper">
+                        Customize your facility information
+                      </div>
+                      <div class="input-group">
+                        <label for="">
+                          <i class="icon-rc-calendar"></i> FACILITY NAME
+                          <span class="pull-right">{{ venueForm.get("name").value?.length }}/60</span>
+                        </label>
+
+                        <div class="input-wrapper">
+                          <input type="text" class="input" formControlName="name" maxlength="60" />
+                        </div>
+                      </div>
+
+                      <div class="input-group">
+                        <label for="">
+                          <i class="icon-rc-long-des"></i> SHORT DESCRIPTION
+                          <span class="pull-right">{{ shortDescription_length }}/2000</span>
+                        </label>
+                        <div class="input-wrapper">
+                          <rc-rich-text-wrapper
+                            *ngIf="!loading"
+                            [initialValue]="venueForm.get('shortDescription').value || ''"
+                            max="2000"
+                            (handleChange)="shortDescInputChanged($event)"
+                            (setDescLength)="shortDescInputLengthChanged($event)"
+                          ></rc-rich-text-wrapper>
+                        </div>
+                      </div>
+
+                      <div class="input-group">
+                        <label for="">
+                          <i class="icon-rc-long-des"></i> LONG DESCRIPTION
+                          <span class="pull-right">{{ description_length }}/2000</span>
+                        </label>
+                        <div class="input-wrapper">
+                          <rc-rich-text-wrapper
+                            *ngIf="!loading"
+                            [initialValue]="venueForm.get('description').value || ''"
+                            max="2000"
+                            (handleChange)="descInputChanged($event)"
+                            (setDescLength)="descInputLengthChanged($event)"
+                          ></rc-rich-text-wrapper>
+                        </div>
+                      </div>
+
+                      <div class="input-group">
+                        <label for="">
+                          SPORTS OFFERED
+                        </label>
+                        <span
+                          class="rc-tooltip"
+                          placement="right"
+                          container="body"
+                          tooltip="Choose all the sports you offer throughout the year. This will help connect players who are interested in getting involved in those particular sports."
+                        >
+                          <i class="fa fa-info"></i>
+                        </span>
+                        <rc-quick-sport-picker (onChange)="sportsChanged($event)" [selectedSports]="venue?.sports">
+                        </rc-quick-sport-picker>
+                      </div>
+
+                      <div class="input-group">
+                        <label for=""> <i class="icon-rc-location"></i> LOCATION </label>
+
+                        <div class="input-wrapper">
+                          <rc-location-search-input
+                            (onTimezoneChange)="timezoneChanged($event)"
+                            [timezone]="venueForm.get('timezone').value"
+                            [timeZoneSelector]="true"
+                            formControlName="addressString"
+                            (onSelected)="onAddressSelect($event)"
+                            [placeholder]="'Enter city, neighborhood, borough or full address'"
+                          >
+                          </rc-location-search-input>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <label for="">
+                      AMENITIES
+                    </label>
+                    <div class="row">
+                      <div class="col-md-4" *ngFor="let item of amenitiesList" [formGroup]="venueForm.get('amenities')">
+                        <div class="checkbox">
+                          <input type="checkbox" class="styled-checkbox" formControlName="{{ item }}" />
+                          <label>{{ item.replace("_", " ") | uppercase }}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form__section">
+                      <div class="form__section__header">
+                        FACILITY OPENING TIMES
+                      </div>
+                      <div class="form__section__helper">
+                        Days and times your facility is available to book.
+                      </div>
+                    </div>
+
+                    <div [formArrayName]="'activityTimes'">
+                      <div *ngFor="let activity of activitiesArray.controls; let i = index">
+                        <div [formGroup]="activity">
+                          <div class="ActivityTimeWidget">
+                            <div class="ActivityTimeWidget__times-wrapper" [formArrayName]="'activityDates'">
+                              <div
+                                class="ActivityTimeWidget__times-wrapper__item"
+                                *ngFor="let date of activityDatesArray(activity).controls; let dateIndex = index"
+                                [formGroupName]="dateIndex"
+                              >
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <ul class="list no-style days-select">
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="monday" />
+                                          <label>MON</label>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="tuesday" />
+                                          <label>TUE</label>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="wednesday" />
+                                          <label>WED</label>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="thursday" />
+                                          <label>THU</label>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="friday" />
+                                          <label>FRI</label>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="saturday" />
+                                          <label>SAT</label>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="sunday" />
+                                          <label>SUN</label>
+                                        </div>
+                                      </li>
+                                    </ul>
+
+                                    <div class="time-row">
+                                      <div class="time-item-row">
+                                        <label for="fromTime">From</label>
+                                        <div id="fromTime">
+                                          <rc-timepicker formControlName="startTime" [inline]="true"> </rc-timepicker>
+                                        </div>
+                                      </div>
+                                      <div class="time-item-row">
+                                        <label for="toTime">To</label>
+                                        <div id="toTime">
+                                          <rc-timepicker
+                                            formControlName="endTime"
+                                            [inline]="true"
+                                            [minTime]="
+                                              venueForm.get('activityTimes').value[i].activityDates[dateIndex].startTime
+                                            "
+                                          >
+                                          </rc-timepicker>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="ActivityTimeWidget__add-btn">
+                                <a href="" (click)="addTimeSlot(activity); $event.preventDefault()">
+                                  <i class="fa fa-plus"></i> ADD ANOTHER TIME SLOT TO THIS FACILITY
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form__section">
+                      <div class="form__section__header">
+                        FACILITY MAIN IMAGE
+                      </div>
+                      <div class="row mg-bottom-20">
+                        <div class="col-md-8 col-md-offset-2">
+                          <rc-image-uploader
+                            [imageTitle]="'MAIN IMAGE'"
+                            (onFileAdded)="imageChanged($event)"
+                            [image]="venue?.mainMedia"
+                            [text]="
+                              'Upload an image that will be used as the main image for your facility page. Image should be at least 350x230px and 1MB max size.'
+                            "
+                          ></rc-image-uploader>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <label for=""> <i class="icon-rc-long-des"></i> RULES </label>
+                      <div class="input-wrapper">
+                        <textarea maxlength="2000" rows="6" class="input" formControlName="rules"> </textarea>
+                      </div>
+                    </div>
+
+                    <div class="input-group">
+                      <label for=""> <i class="icon-rc-long-des"></i> INFO </label>
+                      <div class="input-wrapper">
+                        <textarea maxlength="2000" rows="6" class="input" formControlName="info"> </textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row bottom-nav-bar">
+        <div class="bottom-nav-bar__inner">
+          <div class="bottom-nav-bar__inner__content">
+            <rc-loading-btn
+              [loading]="loading"
+              (onClick)="submitData(venueForm.value)"
+              [disabled]="!venueForm.valid"
+              [text]="updateMode ? 'UPDATE FACILITY' : 'CREATE FACILITY'"
+              [classes]="['button-next', 'button', 'button-assertive', 'pull-right']"
+            >
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<rc-action-success-modal
+  (onCancelClick)="goToVenuePage()"
+  (onSuccessClick)="goToCreateCourt()"
+  #actionSuccessModal="modal"
+  [successBtnText]="'I WANT TO ADD SPACES TO MY FACILITY'"
+  [cancelText]="'THATS IT FOR NOW'"
+  [subTitleText]="'You\'ve successfully created a new facility, What\’s next?'"
+>
+</rc-action-success-modal>

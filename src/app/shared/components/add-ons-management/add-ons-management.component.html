@@ -1,0 +1,104 @@
+<nz-layout>
+  <nz-row nzType="flex">
+    <nz-col nzSpan="24">
+      <nz-form-label nzFor="days-hours-picker">{{ labelString }}</nz-form-label>
+      <p>
+        You can choose add ons from your list of products to offer as part of the season registration
+      </p>
+      <nz-layout>
+        <nz-card>
+          <nz-layout>
+            <nz-row
+              *ngFor="let addOn of addOns; let i = index"
+              nzType="flex"
+              nzAlign="middle"
+              nzJustify="space-between"
+              nzGutter="8"
+            >
+              <!-- Not edit mode -->
+              <nz-row nzType="flex" nzAlign="middle" nzGutter="8" class="full-width" *ngIf="!addOn.editing || disabled">
+                <nz-col nzSpan="12">
+                  <nz-row nzType="flex" nzAlign="middle" nzGutter="8" class="bold-text">
+                    <!--<nz-switch nzSize="small" [(ngModel)]="addOn.active" (ngModelChange)="onActiveChange()"></nz-switch>-->
+                    {{ addOn.name | titlecase }}
+                  </nz-row>
+                </nz-col>
+                <nz-col nzSpan="10">
+                  <nz-row nzType="flex" nzAlign="middle">
+                    {{ addOn.price | currency }}
+                  </nz-row>
+                </nz-col>
+                <nz-col nzSpan="1" *ngIf="!addOnToEdit.editing && !disabled">
+                  <button nz-button nzShape="circle" nzType="default" (click)="editAddOn(i)">
+                    <i nz-icon nzType="edit" nzTheme="outline"></i></button
+                ></nz-col>
+              </nz-row>
+              <!-- Edit mode -->
+              <nz-row
+                *ngIf="addOn.editing && !disabled"
+                nzType="flex"
+                nzAlign="middle"
+                nzJustify="space-between"
+                nzGutter="8"
+                class="full-width"
+              >
+                <nz-col>
+                  <label for="prgAddOnNameInput" class="half-row-button">
+                    Add on name
+                  </label>
+                  <input
+                    id="prgAddOnNameInput"
+                    class="half-row-button"
+                    nz-input
+                    *ngIf="addOnToEdit.editing"
+                    [(ngModel)]="nameEditField"
+                    (ngModelChange)="onNameChange($event)"
+                  />
+                </nz-col>
+                <nz-col nzSpan="6">
+                  <label for="prgAddOnPriceInput" class="half-row-button">
+                    Add on price
+                  </label>
+                  <nz-input-number
+                    id="prgAddOnPriceInput"
+                    nzSize="large"
+                    [(ngModel)]="addOn.price"
+                    (ngModelChange)="priceChanged($event)"
+                    [nzMin]="0"
+                    [nzStep]="1"
+                    [nzDisabled]="!addOn.active"
+                  ></nz-input-number>
+                </nz-col>
+                <button
+                  nz-button
+                  nz-popconfirm
+                  nzShape="circle"
+                  nzType="default"
+                  nzTitle="Are you sure delete this add on?"
+                  (nzOnConfirm)="deleteAddOn(i)"
+                >
+                  <i nz-icon nzType="delete" nzTheme="outline" style="color: red;"></i>
+                </button>
+              </nz-row>
+              <nz-divider></nz-divider>
+            </nz-row>
+            <nz-row nzType="flex" nzAlign="middle" nzJustify="end" class="button-row">
+              <!-- Button to add addOn -->
+              <button *ngIf="!addOnToEdit.editing && !disabled" nz-button nzType="primary" (click)="addAddOnBtn()">
+                <i nz-icon nzType="plus" nzTheme="outline"></i>{{ "New Add On" | uppercase }}
+              </button>
+              <!-- Buttons for edit/add addOn -->
+              <nz-button-group *ngIf="addOnToEdit.editing">
+                <button nz-button nzType="danger" (click)="cancelEdit(addOnToEdit.index)">
+                  <i nz-icon nzType="close-circle" nzTheme="outline"></i>{{ "Cancel" | uppercase }}</button
+                ><button nz-button nzType="primary" class="success-button" (click)="doneEditing()">
+                  <i nz-icon nzType="check-circle" nzTheme="outline"></i>{{ "Done" | uppercase }}
+                </button>
+              </nz-button-group>
+            </nz-row>
+          </nz-layout>
+        </nz-card>
+      </nz-layout>
+    </nz-col>
+  </nz-row>
+</nz-layout>

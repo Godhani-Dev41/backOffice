@@ -1,0 +1,51 @@
+<div class="round-standings-wrapper" [ngClass]="{'round-standings-wrapper--border': border, 'round-standings-wrapper--zoom': zoom}">
+  <div class="round-standings-header">
+		<span>
+			 {{round?.name}}
+		</span>
+  </div>
+
+  <div class="round-standings-content">
+    <div class="round-match-item" *ngFor="let roundMatch of round?.matches" [ngClass]="{'round-match-item--server': serverGenerated}">
+      <div class="teams-logo">
+        <rc-team-logo-avatar
+          [logo]="roundMatch.match?.participants[0]?.entity?.logo"
+          teamName="{{roundMatch.match?.participants[0]?.entity?.name}}"
+          teamType="a">
+        </rc-team-logo-avatar>
+        <rc-team-logo-avatar
+          [logo]="roundMatch.match?.participants[1]?.entity?.logo"
+          teamName="{{roundMatch.match?.participants[1]?.entity?.name}}"
+          teamType="b">
+        </rc-team-logo-avatar>
+      </div>
+      <div class="teams-names">
+				<span class="wrapper">
+					{{roundMatch.match?.participants[0]?.entity?.name}}
+					<span class="success">VS.</span><br *ngIf="!serverGenerated">
+					{{roundMatch.match?.participants[1]?.entity?.name}}
+				</span>
+      </div>
+      <div class="match-score"
+           *ngIf="roundMatch.match.participants[0].score !== null && roundMatch.match.participants[1].score !== null">
+        <div class="score-item" [ngClass]="{
+          'score-item--danger': roundMatch.match.participants[0].score < roundMatch.match.participants[1].score,
+          'score-item--success': roundMatch.match.participants[0].score > roundMatch.match.participants[1].score || roundMatch.match.participants[0].score === roundMatch.match.participants[1].score
+        }">
+          {{roundMatch.match?.participants[0]?.score}}
+        </div>
+        <span>:</span>
+        <div class="score-item" [ngClass]="{
+          'score-item--danger': roundMatch.match.participants[0].score > roundMatch.match.participants[1].score,
+          'score-item--success': roundMatch.match.participants[0].score < roundMatch.match.participants[1].score || roundMatch.match.participants[0].score === roundMatch.match.participants[1].score
+        }">
+          {{roundMatch.match?.participants[1]?.score}}
+        </div>
+      </div>
+      <div class="match-score match-score--tbd text-center"
+           *ngIf="roundMatch.match.participants[0].score === null || roundMatch.match.participants[1].score === null">
+        {{roundMatch.startDate | date:'EEE, d MMM'}}
+      </div>
+    </div>
+  </div>
+</div>

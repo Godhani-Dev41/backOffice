@@ -1,0 +1,139 @@
+<div class="season-schedule box-item box--shadow">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <ul
+          class="list schedule-list"
+          *ngIf="
+            season?.priceEarlyGroup !== null ||
+            season?.priceEarlySingle !== null ||
+            season?.priceEarlyTeam !== null ||
+            season?.priceEarlyTeamMember !== null ||
+            (dates?.earlyStart && dates?.earlyEnd)
+          "
+        >
+          <li class="bold title">
+            EARLY BIRD
+            <span class="pull-right"
+              >{{ datesStrings.earlyStart }}
+              -
+              {{ datesStrings.earlyEnd }}</span
+            >
+          </li>
+          <li class="bold" *ngIf="season?.priceEarlySingle !== null">
+            <i class="icon-rc-payment-individual color-brand-accent"></i>
+            <span>INDIVIDUAL</span>
+            <span class="pull-right">${{ season?.priceEarlySingle }}</span>
+          </li>
+          <li class="bold" *ngIf="season?.priceEarlyTeam !== null">
+            <i class="icon-rc-payment-team color-brand-accent"></i>
+            <span>TEAM</span>
+            <span class="pull-right">${{ season?.priceEarlyTeam }}</span>
+          </li>
+          <li class="bold" *ngIf="season?.priceEarlyGroup !== null">
+            <i class="icon-rc-teams-icon color-brand-accent"></i>
+            <span>GROUP</span>
+            <span class="pull-right">${{ season?.priceEarlyGroup }}</span>
+          </li>
+          <li class="bold" *ngIf="season?.priceEarlyTeamMember !== null">
+            <i class="icon-rc-teams-icon color-brand-accent"></i>
+            <span>TEAM (PER PLAYER)</span>
+            <span class="pull-right">${{ season?.priceEarlyTeamMember }}</span>
+          </li>
+          <li class="bold" *ngIf="prices.early !== null">
+            <i class="icon-rc-payment-individual color-brand-accent"></i>
+            <span class="pull-right">${{ prices.early }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <ul
+          class="list schedule-list"
+          *ngIf="
+            season?.priceRegularGroup !== null ||
+            season?.priceRegularTeam !== null ||
+            season?.priceRegularSingle !== null ||
+            season?.priceRegularTeamMember ||
+            (dates?.regularStart && dates?.regularEnd)
+          "
+        >
+          <li class="bold title">
+            REGULAR<span class="pull-right"
+              >{{ datesStrings.regularStart }}
+              -
+              {{ datesStrings.regularEnd }}</span
+            >
+          </li>
+          <li class="bold" *ngIf="season?.priceRegularSingle !== null">
+            <i class="icon-rc-payment-individual color-brand-accent"></i>
+            <span>INDIVIDUAL</span>
+            <span class="pull-right">${{ season?.priceRegularSingle }}</span>
+          </li>
+          <li class="bold" *ngIf="season?.priceRegularTeam !== null">
+            <i class="icon-rc-payment-team color-brand-accent"></i>
+            <span>TEAM</span>
+            <span class="pull-right">${{ season?.priceRegularTeam }}</span>
+          </li>
+          <li class="bold" *ngIf="season?.priceRegularGroup !== null">
+            <i class="icon-rc-teams-icon color-brand-accent"></i>
+            <span>GROUP</span>
+            <span class="pull-right">${{ season?.priceRegularGroup }}</span>
+          </li>
+          <li class="bold" *ngIf="season?.priceRegularTeamMember !== null">
+            <i class="icon-rc-teams-icon color-brand-accent"></i>
+            <span>TEAM (PER PLAYER)</span>
+            <span class="pull-right">${{ season?.priceRegularTeamMember }}</span>
+          </li>
+          <li class="bold" *ngIf="prices.regular !== null">
+            <i class="icon-rc-payment-individual color-brand-accent"></i>
+            <span class="pull-right">${{ prices.regular }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <ul
+          class="list schedule-list"
+          *ngIf="
+            season?.priceLateGroup !== null ||
+            season?.priceLateTeam !== null ||
+            season?.priceLateSingle !== null ||
+            season?.priceLateTeamMember !== null ||
+            (dates?.lateStart && dates?.lateEnd)
+          "
+        >
+          <li class="bold title">
+            LATE<span class="pull-right">
+              {{ datesStrings.lateStart }}
+              -
+              {{ datesStrings.lateEnd }}
+            </span>
+          </li>
+          <li class="bold" *ngIf="season?.priceLateSingle !== null">
+            <i class="icon-rc-payment-individual color-brand-accent"></i>
+            <span>INDIVIDUAL</span>
+            <span class="pull-right">${{ season?.priceLateSingle }}</span>
+          </li>
+          <li class="bold" *ngIf="season?.priceLateTeam !== null">
+            <i class="icon-rc-payment-team color-brand-accent"></i>
+            <span>TEAM</span>
+            <span class="pull-right">${{ season?.priceLateTeam }}</span>
+          </li>
+          <li class="bold" *ngIf="season?.priceLateGroup !== null">
+            <i class="icon-rc-teams-icon color-brand-accent"></i>
+            <span>GROUP</span>
+            <span class="pull-right">${{ season?.priceLateGroup }}</span>
+          </li>
+          <li class="bold" *ngIf="season?.priceLateTeamMember !== null">
+            <i class="icon-rc-teams-icon color-brand-accent"></i>
+            <span>TEAM (PER PLAYER)</span>
+            <span class="pull-right">${{ season?.priceLateTeamMember }}</span>
+          </li>
+          <li class="bold" *ngIf="prices.late !== null">
+            <i class="icon-rc-payment-individual color-brand-accent"></i>
+            <span class="pull-right">${{ prices.late }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

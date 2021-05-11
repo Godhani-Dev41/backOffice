@@ -1,0 +1,34 @@
+.inner_page{
+  height: calc(100% - 12px);
+}
+
+.inner-page__content {
+  height: calc(100% - 40px) !important;
+}
+
+
+.WizardForm__navigation__slide-info {
+  margin-top: 15px;
+}
+
+.bottom-nav-bar__inner {
+  margin-left: 180px;
+
+  .bottom-nav-bar__inner__content {
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 8px 0;
+
+    ::ng-deep button {
+      height: 35px;
+      min-width: 77px;
+
+      i {
+        font-size: 18px;
+        position: relative;
+        top: 2px;
+        right: -5px;
+      }
+    }
+  }
+}

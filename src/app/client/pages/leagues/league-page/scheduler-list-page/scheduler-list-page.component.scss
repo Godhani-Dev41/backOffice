@@ -1,0 +1,159 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.SchedulerInfoBoxesStack {
+  margin-top: 12px;
+
+  .InfoBoxesStack__item {
+    font-family: $font-brand;
+    background-color: rgba(214, 214, 214, 0.5);
+    text-align: left;
+    height: 140px;
+    padding: 7px 4px;
+    margin-bottom: 15px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &.InfoBoxesStack__item--white {
+      background: white;
+      border: 2px solid $brand-accent;
+    }
+
+    &.InfoBoxesStack__item--disabled {
+      .InfoBoxesStack__item__content {
+        color: $brand-dark-grey;
+      }
+    }
+
+    .InfoBoxesStack__item__title {
+      font-size: 16px;
+      font-weight: bold;
+      color: $brand-accent;
+    }
+
+    .InfoBoxesStack__item__content {
+      line-height: 52px;
+      font-size: 52px;
+      color: $brand-dark;
+      font-weight: normal;
+      margin-top: auto;
+
+      button {
+        font-size: 12px;
+        line-height: 16px;
+      }
+    }
+  }
+}
+
+
+.EventsTableReview {
+  .EventsTableReview__title {
+    padding: 7px 10px;
+    height: 50px;
+    background: white;
+    border-top: solid 2px $brand-accent;
+    border-bottom: solid 2px $brand-accent;
+    line-height: 35px;
+    font-size: 16px;
+    color: $brand-accent;
+    font-weight: bold;
+  }
+
+  table {
+    width: 100%;
+
+    tbody {
+      tr {
+        background-color: #ffffff;
+
+        td {
+          padding: 7px 10px;
+
+          &.spacer {
+            width: 30px;
+          }
+        }
+
+        &.holiday-row {
+          border-top: solid 2px #bbbdbf;
+          border-bottom: solid 2px #bbbdbf;
+          background-color: white !important;
+
+          .title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #bbbdbf;
+          }
+        }
+      }
+      tr:nth-child(odd) {
+        background-color: #ededed;
+      }
+
+      .notes-column {
+        display: flex;
+        align-items: center;
+        min-height: 50px;
+      }
+    }
+  }
+}
+
+.WarningLabel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 7px;
+  font-size: 10px;
+  color: white;
+  background: $brand-danger;
+  border-radius: 2px;
+  max-width: 314px;
+
+  i {
+    font-size: 16px;
+    display: inline-block;
+    margin-right: 8px;
+  }
+}
+
+
+
+
+
+
+.header-row {
+  td {
+    padding: 0 !important;
+  }
+}
+
+.DivisionButtonBlock {
+  line-height: 30px;
+  display: inline-block;
+  text-align: center;
+  padding: 0 10px;
+  box-shadow: 0 1px 4px 0 $brand-grey;
+  border-radius: 4px;
+  font-weight: bold;
+  color: white;
+  margin-right: 10px;
+  font-size: 12px;
+
+  &.DivisionButtonBlock__inactive {
+    background: transparent !important;
+    box-shadow: none;
+  }
+}
+
+.DivisionLabelBlock {
+  text-transform: uppercase;
+  border-radius: 2px;
+  color: white;
+  line-height: 17px;
+  overflow: hidden;
+  width: 110px;
+  font-size: 10px;
+  text-align: center;
+}

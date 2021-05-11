@@ -1,0 +1,157 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal">
+    <form class="form" novalidate [formGroup]="teamConstraintsForm">
+      <div class="modal-content">
+        <div class="modal-header modal-header--assertive">
+          <button type="button" class="close pull-right" (click)="modal.hide()" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+          <div class="modal-header__content">
+            <i class="icon-rc-teams-icon"></i>
+            <h5>TEAM REQUESTS</h5>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="constraint-type-title text-uppercase input-group input-group--inline">
+                {{seasonTeam?.team?.name}} TEAM
+                <select class="input select" formControlName="constraintType" name="" style="display: inline-block; width: auto;" >
+                  <option value="doesntWant">Doesn't Want</option>
+                  <option value="want">Want</option>
+                </select>
+                 TO PLAY ON
+              </div>
+            </div>
+          </div>
+          <div class="row" [formArrayName]="'constraints'">
+            <div class="col-md-12" *ngFor="let control of constraintsArray.controls; let i = index;" [formGroup]="control">
+              <div class="CustomConstraintWidget">
+                <div class="CustomConstraintWidget__content">
+                  <div class="row-title">
+                    Select Days <a href="" class="pull-right" (click)="removeConstraint(i); $event.preventDefault()"><i class="fa fa-times"></i></a>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 inline-checkboxes inline-checkboxes--small-margin" formGroupName="days">
+                      <div class="checkbox">
+                        <input type="checkbox"
+                               formControlName="mon"
+                               class="styled-checkbox"/>
+                        <label>
+                          MON
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox"
+                               formControlName="tue"
+                               class="styled-checkbox"/>
+                        <label>
+                          TUE
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox"
+                               formControlName="wed"
+                               class="styled-checkbox"/>
+                        <label>
+                          WED
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox"
+                               formControlName="thu"
+                               class="styled-checkbox"/>
+                        <label>
+                          THU
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox"
+                               formControlName="fri"
+                               class="styled-checkbox"/>
+                        <label>
+                          FRI
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox"
+                               formControlName="sat"
+                               class="styled-checkbox"/>
+                        <label>
+                          SAT
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <input type="checkbox"
+                               formControlName="sun"
+                               class="styled-checkbox"/>
+                        <label>
+                          SUN
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 inline-checkboxes">
+                      <div class="row-title">
+                        Select Time
+                      </div>
+                      <div class="checkbox" (click)="selectContraintType('fullDay', control, $event); $event.stopPropagation()">
+                        <input type="checkbox"
+                               [checked]="control.get('constraintDuration').value === 'fullDay'"
+                               class="styled-checkbox"/>
+                        <label>
+                          FULL DAY
+                        </label>
+                      </div>
+                      <div class="checkbox" (click)="selectContraintType('hours', control, $event); $event.stopPropagation()">
+                        <input type="checkbox"
+                               [checked]="control.get('constraintDuration').value === 'hours'"
+                               class="styled-checkbox"/>
+                        <label>
+                          BETWEEN THE HOURS
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="control.get('constraintDuration').value === 'hours'">
+                      <div class="col-md-5">
+                        <div class="input-group">
+                          <label for="">From</label>
+                          <rc-timepicker [formControlName]="'startTime'" (onChange)="timeChanged(control, $event)"></rc-timepicker>
+                      </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="input-group">
+                          <label for="">To</label>
+                          <rc-timepicker [formControlName]="'endTime'" [minTime]="control.get('startTime').value"></rc-timepicker>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="add-custom-constraint-btn" (click)="addCustomConstraint()">
+                <i class="fa fa-plus"></i> ADD CUSTOM CONSTRAINT
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="button button-empty cancel-btn" (click)="modal.hide()">
+            Cancel
+          </button>
+          <rc-loading-btn [text]="'UPDATE REQUESTS'"
+                          (onClick)="onSubmit(teamConstraintsForm.value);"
+                          [loading]="loading"
+                          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

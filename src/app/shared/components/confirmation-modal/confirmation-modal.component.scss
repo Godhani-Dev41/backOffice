@@ -1,0 +1,73 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.rc-modal {
+  .modal-body {
+    height: auto;
+    min-height: 120px;
+    padding: 18px 31px;
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .modal-dialog {
+    width: 550px;
+  }
+
+  .modal-footer {
+    box-shadow: 0 6px 11px 0 rgba(74, 74, 74, 0.5);
+  }
+
+  .modal-header {
+    padding: 0;
+    display: flex;
+    background: rgba(36, 200, 117, 0.2);
+
+    .header-icon {
+      width: 101px;
+      height: 100%;
+      background: $brand-success;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      i {
+        color: white;
+        font-size: 30px;
+      }
+    }
+
+    .header-content {
+      padding: 25px 25px;
+
+      h5 {
+        font-size: 16px;
+        font-family: $font-brand;
+        color: $brand-success;
+        font-weight: bold;
+      }
+    }
+  }
+
+  &.RCConfirmationModal--danger {
+    .modal-header {
+      background: rgba(243, 90, 56, 0.2);
+
+      .header-icon {
+        background: #f35a38;
+      }
+
+      .header-content {
+        h5 {
+          color: $brand-danger;
+        }
+      }
+    }
+
+    ::ng-deep .button-success {
+      background: $brand-danger;
+    }
+  }
+}

@@ -1,0 +1,70 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal">
+    <form [formGroup]="inviteForm" novalidate (ngSubmit)="submit(inviteForm.value)">
+      <div class="modal-content">
+        <div class="modal-header modal-header--assertive">
+          <button type="button" class="close pull-right" (click)="modal.hide()" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+          <div class="modal-header__content">
+            <i class="icon-rc-teams-icon"></i>
+            <h5>INVITE TO TEAM</h5>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <label for="">FIRST NAME</label>
+                    <input type="text" class="input" formControlName="firstName">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <label for="">LAST NAME</label>
+                    <input type="text" class="input" formControlName="lastName">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group" [ngClass]="{'has-error': !inviteForm.get('email').valid && inviteForm.get('email').touched}">
+                    <label for="">EMAIL ADDRESS</label>
+                    <input type="email" class="input" formControlName="email">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group" [ngClass]="{'has-error': !inviteForm.get('phoneNumber').valid && inviteForm.get('phoneNumber').touched}">
+                    <label for="">PHONE NUMBER</label>
+                    <input type="tel" class="input" formControlName="phoneNumber">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <div class="checkbox">
+                      <input type="checkbox" class="styled-checkbox" formControlName="asCaptain" />
+                      <label>Invite as captain (Only one allowed)</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            class="button button-empty cancel-btn" (click)="modal.hide()">
+            Cancel
+          </button>
+          <rc-loading-btn [text]="'INVITE TO TEAM'"
+                          [disabled]="!inviteForm.valid"
+                          (onClick)="submit(inviteForm.value)"
+                          [loading]="loading"
+                          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

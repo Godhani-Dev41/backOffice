@@ -1,0 +1,130 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.match-score {
+  min-width: 70px;
+  width: 70px;
+  flex: 1;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  &.match-score--tbd {
+    font-size: 12px;
+    color: $brand-dark-grey;
+    text-align: right;
+  }
+
+  .score-item {
+    display: inline-block;
+    text-align: center;
+    width: 29.1px;
+    height: 30px;
+    border-radius: 1px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-family: $font-brand;
+    color: $brand-black;
+    font-weight: bold;
+    line-height: 28px;
+
+    &.score-item--success {
+      border-top: 1px solid $brand-success;
+    }
+    &.score-item--danger {
+      border-top: 1px solid $brand-danger;
+    }
+  }
+}
+
+.YakitoriIcon {
+  float: right;
+  width: 40px;
+  height: 40px;
+  background: $brand-blue;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  position: relative;
+  margin-right: 30px;
+  box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.23);
+
+  i {
+    color: white;
+    font-size: 25px;
+  }
+}
+
+.BetWinnerItem {
+  zoom: 2.5;
+
+  .BetWinnerItem__image {
+    justify-content: center;
+    display: flex;
+    text-align: center;
+
+    .BetWinnerItem__image__wrapper {
+      position: relative;
+    }
+
+    img {
+      width: 165px;
+    }
+
+    .label-item {
+      top: 75px;
+      position: absolute;
+      color: $brand-blue;
+      font-size: 22px;
+      font-family: $font-brand;
+      font-weight: 900;
+
+      &.label-item--right {
+        right: -55px;
+      }
+
+      &.label-item--left {
+        left: -60px;
+
+      }
+    }
+  }
+
+  .BetWinnerItem__info__top {
+    display: flex;
+
+    .YakitoriIcon {
+      float: none;
+      margin-right: 12px;
+    }
+  }
+
+  .season-name {
+    padding-top: 8px;
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1.32;
+    color: $brand-dark-grey;
+
+    span {
+      //color: $brand-blue;
+    }
+
+    .winner {
+      color: $brand-blue;
+    }
+  }
+
+  .BetWinnerItem__info {
+    padding: 10px;
+    background-color: rgba(74, 144, 226, 0.12);
+
+    .round-match-item {
+      padding: 0;
+      margin-left: auto;
+    }
+  }
+}

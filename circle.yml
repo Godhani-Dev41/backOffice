@@ -1,0 +1,58 @@
+machine:
+  services:
+    - docker
+  node:
+    version: 7.6.0
+  environment:
+      REPO: reccenter/rec-web
+      TAG: $(sed 's/master/latest/;s/\//\-/' <<<$CIRCLE_BRANCH)
+
+general:
+  artifacts:
+    - "coverage" # relative to the build directory
+
+# Dependencies
+dependencies:
+  pre:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS -e $DOCKER_EMAIL
+  #- sh ./deployment/automationCI/testing_enviroment_setup.sh
+  #- webdriver-manager update
+  - npm install
+  #- npm-run-all -p -n start:remote:
+  #      background: true
+  # - sleep 20
+  # - npm run webdriver:
+  #    background: true
+  #- sleep 20
+# Test Commands
+test:
+  override:
+    # - sh ./deployment/automationCI/e2e_tests_bo.sh
+    - npm run lint
+  post:
+    - openssl req -x509 -nodes -newkey rsa:2048 -keyout ~/reccenter.key -out ~/reccenter.me.chain.crt -subj "/C=NL/ST=Zuid Holland/L=Rotterdam/O=Sparkling Network/OU=IT Department/CN=betaapp.reccenter.me"
+
+deployment:
+  production:
+    tag: /v[0-9]+(\.[0-9]+)*/
+    commands:
+      - npm run build:
+        timeout: 120000
+      - docker build --rm=false -t $REPO:prod -f ./deployment/production/Dockerfile .
+      - docker run -d -i -v ~/:/etc/nginx/certs -p 80:80 -p 443:443 $REPO:prod
+      - curl --retry 10 --retry-delay 5 -k -v https://localhost | grep '<rc-root>'
+      - docker tag $REPO:prod $REPO:$CIRCLE_TAG
+      - docker push $REPO:prod
+      - docker push $REPO:$CIRCLE_TAG
+      - sh ./deployment/production/deploy.sh
+  staging:
+    branch: "staging"
+    commands:
+      - npm run build:staging:
+          timeout: 12000
+      - docker build --rm=false -t $REPO:staging -f ./deployment/staging/Dockerfile .
+      - docker run -d -i -v ~/:/etc/nginx/certs -p 80:80 -p 443:443 $REPO:staging; sleep 10
+      - curl --retry 10 --retry-delay 5 -v -k http://localhost | grep '<rc-root>'
+      - docker push $REPO:staging
+      - sh ./deployment/staging/deploy.sh
+

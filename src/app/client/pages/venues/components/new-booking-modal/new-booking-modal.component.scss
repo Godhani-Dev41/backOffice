@@ -1,0 +1,256 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.CourtSizeBoxes {
+  display: flex;
+  justify-content: space-between;
+
+  .CourtSizeBoxes__item {
+    flex: 1;
+    border-radius: 2px;
+    border: solid 1px #d5d5d5;
+    line-height: 35px;
+    font-size: 12px;
+    color: $brand-black;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    margin: 0 5px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.CourtSizeBoxes__item--active {
+      background-color: rgb(255,191,0);
+      box-shadow: 0 5px 11px 0 rgba(74, 74, 74, 0.17);
+      color: white;
+    }
+  }
+}
+
+.downpayment-rental {
+  margin: 1rem;
+}
+
+.CustomerTypeTabs {
+  display: flex;
+  margin-top: 5px;
+
+  .CustomerTypeTabs__item {
+    width: 120px;
+    border-radius: 2px;
+    border: solid 1px #d5d5d5;
+    line-height: 35px;
+    font-size: 12px;
+    color: $brand-black;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.CustomerTypeTabs__item--active {
+      background-color: rgb(255,191,0);
+      box-shadow: 0 5px 11px 0 rgba(74, 74, 74, 0.17);
+      color: white;
+    }
+  }
+}
+
+.CustomerCreateForm {
+  margin-top: 20px;
+}
+
+.ReservationOverviewBox {
+  display: flex;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
+  min-height: 90px;
+  margin-bottom: 10px;
+
+  .ReservationOverviewBox__error {
+    background: rgba(243, 90, 56, 0.2);
+    text-align: center;
+    width: 140px;
+    margin-left: auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    p {
+      font-size: 10px;
+      line-height: 15px;
+      text-align: center;
+      color: #f35a38;
+    }
+
+    a {
+      font-size: 10px;
+      font-weight: normal;
+      font-style: normal;
+      line-height: 15px;
+      color: #f35a38;
+      text-decoration: underline;
+    }
+  }
+  .ReservationOverviewBox__content {
+    padding: 20px;
+
+    .ReservationOverviewBox__title {
+      font-weight: bold;
+      font-size: 12px;
+      color: rgb(255,191,0);
+    }
+  }
+}
+
+.ToggleBookingBoxes {
+  display: flex;
+  width: 100%;
+  margin-top: 25px;
+
+  .ToggleBookingBoxes__box {
+    position: relative;
+    text-align: center;
+    flex: 1;
+    margin-right: 15px;
+    height: 120px;
+    border-radius: 2px;
+    border: solid 1px rgb(255,191,0);
+    padding: 15px 0;
+
+    &.input-group--disabled {
+      border: solid 1px $brand-dark-grey;
+
+      .ToggleBookingBoxes__box__title {
+        color: $brand-dark-grey;
+      }
+    }
+
+    .ToggleBookingBoxes__box__sub-title {
+      color: rgb(255,191,0);
+      font-size: 12px;
+    }
+
+    &.ToggleBookingBoxes__box--centered {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .NumberPicker__box {
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+      }
+    }
+
+    &.ToggleBookingBoxes__box--active {
+      background: rgb(255,191,0);
+
+      .ToggleBookingBoxes__box__title {
+        color: white;
+      }
+
+      .ToggleBookingBoxes__box__sub-title,
+      .ToggleBookingBoxes__box__price {
+        color: white;
+      }
+
+      .ToggleBookingBoxes__box__checked {
+        display: inline-block;
+      }
+
+      .NumberPicker__btn {
+        background: white !important;
+        color: rgb(255,191,0) !important;
+
+        i {
+          color: rgb(255,191,0) !important;
+        }
+      }
+
+      .NumberPicker__box {
+        background: rgb(255,191,0) !important;
+
+        input {
+          background: rgb(255,191,0) !important;
+          color: white !important;
+        }
+
+        i {
+          color: white !important;
+        }
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .ToggleBookingBoxes__box__price {
+      .NumberPicker__box {
+        height: 50px;
+        box-shadow: none;
+        border: none;
+
+        input {
+          color: rgb(255,191,0);
+        }
+
+        i {
+          color: rgb(255,191,0);
+          top: 5px;
+          font-style: normal;
+        }
+      }
+
+      .NumberPicker__btn {
+        background: rgb(255,191,0);
+      }
+    }
+  }
+
+  .ToggleBookingBoxes__box__title {
+    font-size: 14px;
+    line-height: 24px;
+    color: rgb(255,191,0);
+  }
+
+  .ToggleBookingBoxes__box__price {
+    margin-top: 10px;
+    font-size: 32px;
+    color: rgb(255,191,0);
+  }
+
+  .ToggleBookingBoxes__box__checked {
+    display: none;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border-radius: 100%;
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
+    top: -10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+
+    i {
+      position: relative;
+      top: 2px;
+      color: rgb(255,191,0);
+    }
+  }
+}
+
+
+.input-group--disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}

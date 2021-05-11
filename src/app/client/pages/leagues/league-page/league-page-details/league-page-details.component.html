@@ -1,0 +1,31 @@
+<div class="row inner-page__content inner-page__content--background padding-top-20" *ngIf="league">
+  <div class="col-md-6">
+    <rc-league-details [league]="league"></rc-league-details>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="sub-title sub-title--assertive no-mg-top pull-left">
+          LEAGUE SETTINGS
+        </h3>
+
+        <a href="" class="button button-assertive--inverted button-bold pull-right"
+           style="margin-left: 5px; position:relative; top: -5px;"
+           [routerLink]="['../season-creator']"
+           [routerLinkActive]="['hidden']">
+          CREATE NEW SEASON
+        </a>
+        <a href="" class="button button-assertive--inverted button-bold pull-right"
+           style="position: relative; top: -5px;"
+           *ngIf="league"
+           [routerLink]="['../../../league-creator/' + league?.id]"
+           [routerLinkActive]="['hidden']">
+          EDIT LEAGUE
+        </a>
+      </div>
+      <div class="col-md-12">
+        <rc-league-detail-stats [leagueDetails]="league?.leagueDetails"></rc-league-detail-stats>
+      </div>
+    </div>
+  </div>
+</div>

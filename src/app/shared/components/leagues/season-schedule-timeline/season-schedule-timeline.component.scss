@@ -1,0 +1,26 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.season-schedule {
+  min-height: 150px;
+  padding-top: 23px;
+}
+
+.schedule-list {
+  margin-top: 10px;
+
+  li {
+    i {
+      display: inline-block;
+      width: 30px;
+      text-align: center;
+    }
+
+    span {
+      font-weight: normal;
+    }
+
+    &.title {
+      border-bottom: 1px solid $brand-light-grey;
+    }
+  }
+}

@@ -1,0 +1,72 @@
+<div class="inner_page inner_page__form">
+  <div class="row inner-page__content" style="height: 100%;">
+    <div class="col-md-12">
+      <div class="text-center" *ngIf="!loading && !rounds?.length">
+        <a href="" [routerLink]="['../generate-schedule']" class="button button-assertive at-generateBrackets" style="margin-top: 1px; display: inline-block; font-size: 12px;">
+          GENERATE TOURNAMENT SCHEDULE
+        </a>
+      </div>
+      <!--<div class="row"
+           style="margin-bottom: 15px;"
+           *ngIf="!loading && rounds?.length && season?.scheduleStatus === 'draft'">
+        <div class="col-md-12">
+          <a href=""
+             *ngIf="!season?.playoffType"
+             (click)="removeScheduleConfirmModal.showModal(); $event.preventDefault()"
+             class="button button-assertive&#45;&#45;inverted pull-right" style="margin-top: 1px; display: inline-block; font-size: 12px;">
+            REMOVE SCHEDULE
+          </a>
+          <a href=""
+             *ngIf="!season?.playoffType"
+             [routerLink]="['../generate-schedule']"
+             class="button button-assertive pull-right" style="margin-right: 10px; margin-top: 1px; display: inline-block; font-size: 12px;">
+            RE-GENERATE SCHEDULE
+          </a>
+          <a href=""
+             *ngIf="season?.playoffType"
+             [routerLink]="['/client/leagues/view/' + season?.leagueId + '/playoff-team-assign/' + season?.id]"
+             class="button button-assertive pull-right" style="margin-right: 10px; margin-top: 1px; display: inline-block; font-size: 12px;">
+            ASSIGN TEAMS
+          </a>
+        </div>
+      </div>-->
+
+      <loaders-css *ngIf="loading" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+
+      <div style="height: calc(100% - 50px); overflow: auto" *ngIf="!loading">
+        <rc-tournament-brackets
+          *ngIf="rounds?.length"
+          [rounds]="rounds"
+          [switchTeams]="switchTeams"
+          [parentSeasonDivisions]="parentSeasonDivisions"
+          (onTouched)="bracketsAssignmentChanged($event)"
+          (onUpdate)="getTournamentEvent()">
+        </rc-tournament-brackets>
+      </div>
+
+
+      <div class="row bottom-nav-bar" *ngIf="bracketsChanged">
+        <div class="bottom-nav-bar__inner" style="margin-left: 0">
+          <div class="bottom-nav-bar__inner__content">
+            <rc-loading-btn
+              [loading]="saveLoading"
+              [text]="'SAVE'"
+              (onClick)="submitBracketsChanges($event)"
+              [classes]="['button-next', 'button', 'button-dark', 'pull-right']">
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<rc-confirmation-modal
+  [type]="'danger'"
+  [title]="'REMOVE SCHEDULE'"
+  [content]="'Are you sure you want to remove the schedule ?'"
+  [confirmText]="'YES, REMOVE SCHEDULE'"
+  (onConfirm)="removeSchedule()"
+  #removeScheduleConfirmModal="modal">
+</rc-confirmation-modal>

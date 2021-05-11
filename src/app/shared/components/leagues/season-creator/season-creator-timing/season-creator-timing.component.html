@@ -1,0 +1,27 @@
+<div [formGroup]="form">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form__section">
+        <div class="form__section__header">
+          SEASON GAME DAYS AND TIMES
+        </div>
+        <div class="form__section__helper">
+          Custom your season information
+        </div>
+      </div>
+
+      <div [formArrayName]="'activityTimes'">
+        <div *ngFor="let activity of activitiesArray.controls; let i = index;">
+          <rc-activity-time-box-widget [orgVenues]="orgVenues" [arrayName]="'activityTimes'" [form]="form"
+            [arrayGroup]="activity" [groupName]="i">
+          </rc-activity-time-box-widget>
+        </div>
+      </div>
+      <div class="add-activity-venue-btn">
+        <a href="" (click)="addActivitiyItem(); $event.preventDefault();">
+          <i class="fa fa-plus"></i> ADD ANOTHER FACILITY
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

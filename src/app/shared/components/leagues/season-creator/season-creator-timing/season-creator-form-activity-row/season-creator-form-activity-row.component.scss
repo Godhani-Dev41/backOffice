@@ -1,0 +1,64 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.SeasonGamesTimeRow {
+  .box-content {
+    .input-group {
+      width: auto;
+      margin-bottom: 0;
+    }
+
+    label {
+      line-height: 32px;
+      font-weight: 100;
+      font-size: 12px;
+      color: #4a4a4a;
+    }
+  }
+
+  .SeasonGamesTimeRow__time-entry-row {
+    display: flex;
+
+    &.SeasonGamesTimeRow__time-entry-row--right {
+      justify-content: flex-end;
+    }
+
+    ::ng-deep tbody tr.text-center {
+      display: none;
+    }
+
+    button.button-clear {
+      padding: 0 3px;
+
+      i {
+        font-size: 13px;
+        color: $brand-grey;
+      }
+    }
+  }
+
+  .SeasonGamesTimeRow__bottom-entry-btn {
+    background: $brand-accent;
+    height: 40px;
+    margin: 13px -13px -13px -13px;
+
+    line-height: 40px;
+    color: white;
+    font-size: 12px;
+    padding-left: 30px;
+
+    i {
+      display: inline-block;
+      margin-right: 5px;
+      font-size: 11px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.dangerous-edit {
+  border: red 2px solid;
+  border-radius: 3px;
+}

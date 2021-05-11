@@ -1,0 +1,61 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.RoundBox {
+  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.1);
+  background: white;
+  height: 70px;
+  padding: 10px 8px;
+  display: flex;
+  margin-bottom: 10px;
+
+  .RoundBox__label {
+    min-width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $brand-accent;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .RoundBox__content {
+    width: 100%;
+
+    .input-group {
+      padding-right: 25px;
+
+      label {
+        margin-bottom: 2px;
+      }
+    }
+  }
+}
+
+.remove-btn {
+  position: absolute;
+  right: 7px;
+  top: 25px;
+  background: none;
+  color: $brand-accent;
+  font-size: 22px;
+}
+
+.add-new-round-btn {
+  margin-top: 6px;
+  display: block;
+  height: 40px;
+  border-radius: 2px;
+  background-color: $brand-accent;
+  line-height: 40px;
+  font-weight: bold;
+  color: white;
+  font-size: 12px;
+  padding: 0 15px;
+}
+
+.DivisionColorBlock {
+  margin-top: 23px;
+  height: 32px;
+  width: 32px;
+  border-radius: 2px;
+}

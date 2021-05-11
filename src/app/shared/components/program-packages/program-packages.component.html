@@ -1,0 +1,34 @@
+<nz-layout>
+  <nz-row>
+    <nz-col>
+      <nz-form-label *ngIf="labelString">{{ labelString }}</nz-form-label>
+      <p *ngIf="subLabelString">
+        {{ subLabelString }}
+      </p>
+      <nz-card>
+        <!-- Read only mode -->
+        <nz-row
+          nzType="flex"
+          nzJustify="space-between"
+          nzAlign="middle"
+          style="margin-bottom: 8px;"
+        >
+          <label class="half-row-button">
+            <input
+                    class="half-row-button"
+                    nz-input
+                    *ngIf="newPackage"
+                    placeholder="Product name"
+                    [(ngModel)]="package.get('name').value"
+                    (ngModelChange)="onNameChange($event)"
+            />
+          </label>
+        </nz-row>
+        <!-- Add mode -->
+        <nz-row nzType="flex" nzJustify="space-between" nzAlign="middle" style="margin-bottom: 8px;" *ngIf="addPackage">
+
+        </nz-row>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+</nz-layout>

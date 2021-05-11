@@ -1,0 +1,27 @@
+.button-view-customer {
+  //border: solid 1px rgba(0, 0, 0, 0.80);
+  color: rgba(0, 0, 0, 0.75);
+
+  &:hover {
+    color: rgba(0, 0, 0,1);
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+
+    &:hover {
+      color: rgba(0, 0, 0, 1);
+    }
+  }
+
+  .view-icon {
+    font-size: 18px;
+    padding-inline-end: 8px;
+    color: rgba(0, 0, 0, 0.75);
+  }
+}

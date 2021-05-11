@@ -1,0 +1,39 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.nav-header {
+  color: $brand-primary;
+}
+
+nz-steps {
+  width: 100%;
+}
+
+.season-steps {
+  display: flex;
+  width: 100%;
+  height: 70px;
+  align-items: center;
+  background-color: #f3f7fa;
+  padding-left: 2vw;
+  padding-right: 2vw;
+
+}
+
+.input-grouping {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-button-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-ghost-btn {
+  color: $brand-black;
+}
+
+.ant-form-item {
+  margin-bottom: 0;
+}

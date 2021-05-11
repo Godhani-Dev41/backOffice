@@ -1,0 +1,42 @@
+<div class="TopScorerWidget">
+  <div class="TopScorerWidget__title">
+    SCORING LEADERS
+  </div>
+  <div class="TopScorerWidget__content">
+    <table class="TopScorerTable">
+      <thead class="TopScorerTable__header">
+      <tr>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th style="text-align: left">
+          PLAYER
+        </th>
+        <th>
+          GOALS
+        </th>
+      </tr>
+      </thead>
+      <tbody class="TopScorerTable__body">
+      <tr class="TopScorerTable__row" [ngClass]="{'TopScorerTable__row--accent': i === 0}" *ngFor="let player of players; let i = index">
+        <td class="TopScorerTable__row__rank text-center">
+          {{i + 1}}
+        </td>
+        <td class="TopScorerTable__row__logo">
+
+          <rc-team-logo-avatar [teamName]="player.teamName" [logo]="player.teamLogo"></rc-team-logo-avatar>
+        </td>
+        <td class="TopScorerTable__row__name">
+          {{player.name}}
+        </td>
+        <td class="TopScorerTable__row__points">
+          {{player.score}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

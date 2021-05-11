@@ -1,0 +1,298 @@
+<div class="leagues-page-wrapper inner-page">
+  <div class="page-header page-header--no-margin page-header--no-border" *ngIf="!isSeason">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-wrapper"></div>
+        <div class="bottom-wrapper">
+          <h3 class="pull-left">EVENTS</h3>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row inner-page__content--background" [ngClass]="isSeason?'':'inner-page__content'">
+    <div class="col-md-12">
+      <div class="events-page-wrapper">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-6" *ngIf="!isSeason">
+            <button class="button button-empty button-bold button-assertive--inverted pull-right"
+              [routerLink]="['/client/events/event-creator']">
+              CREATE EVENT
+            </button>
+          </div>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2 col-sm-3 col-xs-4" *ngIf="!isSeason">
+                <div class="DropdownSelectWrapper input-group" dropdown>
+                  <label for="">
+                    BULK ACTION
+                  </label>
+                  <button dropdownToggle type="button" class="DropdownSelect">
+                    Select bulk action <span class="fa fa-angle-down"></span>
+                  </button>
+                  <ul *dropdownMenu class="dropdown-menu" role="menu">
+                    <li role="menuitem">
+                      <a class="dropdown-item" href="#" (click)="
+                          publishConfirmModal.showModal();
+                          $event.preventDefault()
+                        ">
+                        <i class="icon-rc-flag"></i> Publish Events
+                      </a>
+                    </li>
+                    <li role="menuitem">
+                      <a class="dropdown-item" href="#" (click)="
+                          venueSelectModal.showModal(); $event.preventDefault()
+                        ">
+                        <i class="icon-rc-nav-venues"></i> Change facility
+                      </a>
+                    </li>
+                    <li role="menuitem">
+                      <a class="dropdown-item" href="#" (click)="
+                                              promptToCancelEvents(); $event.preventDefault()
+                                            ">
+                        <i class="fa fa-times-circle"></i> Cancel Events
+                      </a>
+                    </li>
+                    <li role="menuitem">
+                      <a class="dropdown-item" href="#" (click)="
+                          promptToDeleteEvents(); $event.preventDefault()
+                        ">
+                        <i class="fa fa-trash"></i> Delete Events
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-2 col-sm-3 col-xs-4">
+                <div class="input-group">
+                  <label for="">SEARCH</label>
+                  <input type="text" (keyup)="changeTextFilter($event)" class="input" placeholder="Event name" />
+                </div>
+              </div>
+              <div class="col-md-2 col-sm-3 col-xs-4">
+                <div class="DropdownSelectWrapper input-group" dropdown>
+                  <label for="">
+                    EVENT STATUS
+                  </label>
+                  <button dropdownToggle type="button" class="DropdownSelect">
+                    {{ statusFilterText }}
+                    <span class="fa fa-angle-down"></span>
+                  </button>
+                  <ul *dropdownMenu class="dropdown-menu" role="menu">
+                    <li role="menuitem">
+                      <a class="dropdown-item" href="#" (click)="
+                          $event.preventDefault(); changeStatusFilter('')
+                        ">
+                        <i class="fa fa-calendar-check-o"></i> All events
+                      </a>
+                    </li>
+                    <li role="menuitem">
+                      <a class="dropdown-item" href="#" (click)="
+                          $event.preventDefault();
+                          changeStatusFilter('finished')
+                        ">
+                        <i class="fa fa-check-circle"></i> Finished events
+                      </a>
+                    </li>
+                    <li role="menuitem">
+                      <a class="dropdown-item" href="#" (click)="
+                          $event.preventDefault(); changeStatusFilter('future')
+                        ">
+                        <i class="fa fa-hourglass"></i> Future events
+                      </a>
+                    </li>
+                    <li role="menuitem">
+                      <a class="dropdown-item" href="#" (click)="
+                          $event.preventDefault();
+                          changeStatusFilter('canceled')
+                        ">
+                        <i class="fa fa-times-circle"></i> Canceled events
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-2 col-sm-3 col-xs-4">
+                <div class="DropdownSelectWrapper input-group" dropdown>
+                  <label for="">
+                    PUBLISHED STATUS
+                  </label>
+                  <button dropdownToggle type="button" class="DropdownSelect">
+                    {{ publishedFilterText }}
+                    <span class="fa fa-angle-down"></span>
+                  </button>
+                  <ul *dropdownMenu class="dropdown-menu" role="menu">
+                    <li role="menuitem">
+                      <a class="dropdown-item" href="#" (click)="
+                          $event.preventDefault(); changePublishedFilter('')
+                        ">
+                        <i class="fa fa-calendar-check-o"></i> All events
+                      </a>
+                    </li>
+                    <li role="menuitem">
+                      <a class="dropdown-item" href="#" (click)="
+                          $event.preventDefault();
+                          changePublishedFilter('published')
+                        ">
+                        <i class="fa fa-check-circle"></i> Published events
+                      </a>
+                    </li>
+                    <li role="menuitem">
+                      <a class="dropdown-item" href="#" (click)="
+                          $event.preventDefault();
+                          changePublishedFilter('draft')
+                        ">
+                        <i class="fa fa-hourglass"></i> Draft events
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 text-center" *ngIf="loading">
+            <loaders-css [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+          </div>
+          <div class="col-md-12" *ngIf="!loading">
+            <ngx-datatable #table [sorts]="[
+                { prop: 'startDate', dir: 'asc' },
+                { prop: 'title', dir: 'asc' }
+              ]" class="rc-datatable material" [columnMode]="'force'" [rowHeight]="'auto'" [selected]="selectedEvents"
+              [selectionType]="'checkbox'" (select)="onEventSelect($event)" [rows]="events">
+              <ngx-datatable-column *ngIf="!isSeason" tabindex="-1" [headerClass]="'checkbox-cell'"
+                [cellClass]="'checkbox-cell'" [width]="25" [sortable]="false" [canAutoResize]="false"
+                [draggable]="false" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
+              </ngx-datatable-column>
+              <ngx-datatable-column [maxWidth]="180" prop="title" [minWidth]="80" name="Event Name">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row.title }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [width]="60" minWidth="50" prop="status" [cellClass]="" name="Status">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <span tooltip="Finished event" container="body" class="status-checkmark status-checkmark--success"
+                    *ngIf="row.isPastMatch && row.status !== 4">
+                    <i class="icon-rc-circle-check"></i>
+                  </span>
+                  <span tooltip="Future event" container="body" class="status-checkmark"
+                    *ngIf="!row.isPastMatch && row.status !== 4">
+                    <i class="icon-rc-circle-empty"></i>
+                  </span>
+
+                  <span tooltip="Event Canceled" container="body" class="status-checkmark status-checkmark--danger"
+                    *ngIf="row.status === 4">
+                    <i class="icon-rc-circle-close"></i>
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column minWidth="80" maxWidth="110" prop="sports" name="Sport Type">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ getSportName(row.sports) }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column prop="startDate" name="Date & Time">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row.startDate | momentDate: "MMM D, YYYY h:mma": row.timezone || "gmt" }} -
+                  {{ row.endDate | momentDate: "h:mma": row.timezone || "gmt" }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Venue" prop="venueName">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row.venueName | truncate: 30 }}
+                </ng-template>
+              </ngx-datatable-column>
+              <!--
+              <ngx-datatable-column name="Invitations" prop="allInvitedCount">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <ng-template #popTemplate>
+                    <ul class="AttendanceWidget">
+                      <li class="AttendanceWidget__going">
+                        <i class="icon-rc-circle-check"></i>
+                        {{ row.invitedGoingCount || 0 }} Going
+                      </li>
+                      <li class="AttendanceWidget__not-going">
+                        <i class="icon-rc-circle-close"></i>
+                        {{ row.invitedNotGoingCount || 0 }} Not Going
+                      </li>
+                      <li class="AttendanceWidget__no-reply">
+                        <i class="icon-rc-circle-question"></i>
+                        {{ row.invitedNotRespondedCount || 0 }} No Reply
+                      </li>
+                    </ul>
+                  </ng-template>
+                  <span *ngIf="row.allInvitedCount" container="body" [tooltip]="popTemplate">
+                    {{ row.allInvitedCount }} Invited
+                  </span>
+                  <span *ngIf="!row.allInvitedCount" style="color: #f35a38;">
+                    <i class="icon-rc-circle-exclamation"></i> No Invites
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+              -->
+              <ngx-datatable-column name="Attendance" prop="allInvitedCount">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <span *ngIf="row.eventAttendeesCount || (row.eventAttendees && row.eventAttendees.length)"
+                    (click)="participantsModal.showModal(row.id)">
+                    {{ row.eventAttendeesCount ? row.eventAttendeesCount : row.eventAttendees.length }} Going
+                  </span>
+                  <span *ngIf="!row.eventAttendeesCount && (!row.eventAttendees || !row.eventAttendees.length)">
+                    0 Attendance
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [minWidth]="110" [maxWidth]="120" name="Published" prop="status">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <span *ngIf="row.status === 2" class="EntityPublishLabel EntityPublishLabel--draft">
+                    <i></i> Draft
+                  </span>
+                  <span *ngIf="row.status !== 2" class="EntityPublishLabel EntityPublishLabel--published">
+                    <i></i> Published
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [minWidth]="260" [width]="260" [cellClass]="'actions-column'">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <!-- <a href="" tabindex="-1"
+                     class="table-action-button btn btn-empty color-brand-accent"
+                     [routerLink]="['/client/events/view/' + row.id + '/invite']">
+                    <i class="icon-rc-email-sending" style="font-size: 18px; position: relative; top: 4px; line-height: 8px;"></i>
+                    Invite
+                  </a> -->
+                  <a href="" tabindex="-1" *ngIf="!isSeason && row.status === 2"
+                    (click)="publishEvent(row); $event.preventDefault()"
+                    class="table-action-button btn btn-empty color-brand-success">
+                    <i class="icon-rc-wand"></i>
+                    Publish
+                  </a>
+                  <span href="" tabindex="-1" class="table-action-button btn btn-empty" (click)="editEvent(row)">
+                    <i class="icon-rc-edit-2"></i>
+                    Edit
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<rc-confirmation-modal [type]="'danger'" [title]="'CANCEL EVENTS'" [content]="
+    'Are you sure you want to cancel the selected events? Players participating will get notified via mobile app.'
+  " [confirmText]="'YES, CANCEL EVENTS'" (onConfirm)="cancelSelectedEvents()" #cancelConfirmModal="modal">
+</rc-confirmation-modal>
+
+<rc-confirmation-modal [type]="'danger'" [title]="'DELETE EVENTS'" [content]="
+    'Are you sure you want to delete the selected events? Players participating will get notified via mobile app.'
+  " [confirmText]="'YES, DELETE EVENTS'" (onConfirm)="deleteSelectedEvents()" #deleteConfirmModal="modal">
+</rc-confirmation-modal>
+
+<rc-venue-select-modal (onSubmit)="changeEventsVenue($event)" #venueSelectModal="modal"></rc-venue-select-modal>
+
+<rc-confirmation-modal [title]="'PUBLISH MATCHES'" [content]="
+    'Are you sure you want to publish the selected matches? Players in participating teams will get notified via mobile app and email.'
+  " [confirmText]="'YES, PUBLISH MATCHES'" (onConfirm)="publishSelectedEvents()" #publishConfirmModal="modal">
+</rc-confirmation-modal>
+
+<rc-event-participants-modal #participantsModal="modal"></rc-event-participants-modal>

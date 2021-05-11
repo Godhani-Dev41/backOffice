@@ -1,0 +1,36 @@
+<div class="text-center" style="zoom: 1.9">
+  <div style="min-width: 330px; display: inline-block; border: 1px solid #f2f2f2; padding: 15px;">
+    <div class="reachout-widget-wrapper team-friendly-match-cta" *ngIf="feed">
+  <div class="reachout-widget-wrapper__top">
+    <div class="reachout-widget-wrapper__image" style="background-image: url('assets/img/Looking_for_match.png');">
+      <rc-team-logo-avatar [teamName]="feed?.creator.name" [logo]="feed?.creator.mainMedia"></rc-team-logo-avatar>
+    </div>
+  </div>
+  <div class="reachout-widget-wrapper__content">
+    <h5>IS LOOKING FOR A GAME</h5>
+    <div class="rechout-info-box-wrapper">
+      <div class="rechout-info-box" *ngIf="feed?.feedMetadata?.reachOut.levelOfPlay">
+        <h6>Level of Play</h6>
+        <p>
+          {{getLevelOfPlayText(feed?.feedMetadata?.reachOut?.levelOfPlay)}}
+        </p>
+      </div>
+      <div class="rechout-info-box" *ngIf="feed?.feedMetadata?.reachOut?.addressObject">
+        <h6>Location</h6>
+        <p>
+          {{feed?.feedMetadata?.reachOut?.addressObject.city}},
+          <span class="text-uppercase">{{feed?.feedMetadata?.reachOut?.addressObject.state}}</span>
+        </p>
+      </div>
+      <div class="rechout-info-box time-box" *ngIf="feed?.feedMetadata?.reachOut?.startDate">
+        <h6>Time</h6>
+        <p>
+          {{feed?.feedMetadata?.reachOut?.startDate | date:'EEE, d MMM h:mma'}} - {{feed?.feedMetadata?.reachOut?.endDate | date:'h:mma'}}
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+  </div>
+</div>

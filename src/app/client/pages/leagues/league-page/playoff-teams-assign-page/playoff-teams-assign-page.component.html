@@ -1,0 +1,118 @@
+<div class="inner_page inner_page__form">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav">
+    <div class="col-md-12">
+      <div class="WizardForm">
+        <div class="WizardForm__navigation">
+          <div class="WizardForm__navigation__header">
+            <h3>
+              ASSIGN TEAMS TO PLAYOFFS
+            </h3>
+          </div>
+
+          <div class="WizardForm__navigation__slide-info">
+            <p>
+              Here you can select what teams will be assigned to the empty brackets you have created earlier
+            </p>
+          </div>
+        </div>
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner">
+
+            <div class="form">
+                <div class="top-form-label text-uppercase mg-top-20">
+                  YOU'RE SELECTING TEAMS TO PLAT AT "{{season?.name}}"
+                </div>
+                <div class="form__section">
+                  <div class="form__section__header">
+                    THESE ARE THE TOP {{teamCountNeeded}} TEAMS ON YOUR SEASON'S STANDINGS
+                  </div>
+                  <div class="form__section__helper">
+                    You can continue and assign these team to your playoffs brackets or change the selection
+                  </div>
+
+                  <loaders-css *ngIf="pageLoading" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+
+                  <h5 class="text-center" *ngIf="!pageLoading && !standings?.length">
+                    No teams available to assign
+                  </h5>
+                  <div class="league-standings-wrapper" *ngIf="!pageLoading && standings?.length">
+                    <div class="league-standings-content">
+                      <table>
+                        <thead>
+                        <tr>
+                          <td class="checkbox-column">
+
+                          </td>
+                          <td class="standing-position">
+
+                          </td>
+                          <td class="standing-team-name">
+
+                          </td>
+                          <td class="standing-score">GP</td>
+                          <td class="standing-score">W</td>
+                          <td class="standing-score">L</td>
+                          <td class="standing-score">D</td>
+                          <td class="standing-score standing-score--success">PCT</td>
+                          <td class="standing-score">PD</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let team of standings" [ngClass]="{'selected-row' : team.selected}">
+                          <td class="checkbox-column">
+                            <div class="checkbox">
+                              <input type="checkbox" [(ngModel)]="team.selected" class="styled-checkbox"/>
+                              <label></label>
+                            </div>
+                          </td>
+                          <td class="standing-position"># {{team.standingPosition}}</td>
+                          <td class="standing-team-name">
+                            <rc-team-logo-avatar
+                              style="position: absolute; left: 0; top: 8px"
+                              [teamName]="team.team?.name" [logo]="team.team?.logo">
+                            </rc-team-logo-avatar>
+                            {{team.team?.name}}
+                          </td>
+                          <td class="standing-score">
+                            {{team.statistics?.gamesPlayed  || 0}}
+                          </td>
+                          <td class="standing-score">
+                            {{team.statistics?.wins  || 0}}
+                          </td>
+                          <td class="standing-score">
+                            {{team.statistics?.loses || 0}}
+                          </td>
+                          <td class="standing-score">
+                            {{team.statistics?.ties || 0}}
+                          </td>
+                          <td class="standing-score standing-score--success">
+                            {{team.statistics?.winPercentage.toFixed(3) || 0}}
+                          </td>
+                          <td class="standing-score">
+                            {{team.statistics?.forTeam || 0}}:{{team.statistics?.againstTeam || 0}}
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row bottom-nav-bar">
+        <div class="bottom-nav-bar__inner">
+          <div class="bottom-nav-bar__inner__content">
+            <rc-loading-btn
+              [loading]="loading"
+              (onClick)="assignSelectedTeams()"
+              [text]="'ASSIGN TEAMS'"
+              [classes]="['button-next', 'button', 'button-assertive', 'pull-right']">
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

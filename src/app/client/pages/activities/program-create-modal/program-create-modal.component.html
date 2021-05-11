@@ -1,0 +1,72 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal rc-modal--small-header">
+    <div class="modal-content">
+      <div style="height: 12px;" class="modal-header modal-header--purple"></div>
+      <div style="border: 0;" class="modal-header">
+        <button type="button" style="font-size: 0;" class="close pull-right" (click)="cancel()" aria-label="Close">
+          <img src="assets/img/closeIcon.svg" alt="close icon" />
+        </button>
+      </div>
+      <div style="width: 100%; padding-top: 0;" class="modal-body BookingModal">
+        <nz-row class="row-spacing" nzType="flex" nzJustify="center" nzAlign="middle">
+          <div class="section-header">
+            WHAT ARE YOU CREATING TODAY?
+          </div>
+        </nz-row>
+        <nz-row class="row-spacing" nzType="flex" nzJustify="center" nzAlign="middle" nzGutter="24">
+          <nz-col nzSpan="5">
+            <div class="ProgramItem" (click)="click(league)">
+              <img [src]="league.icon" alt="league icon" />
+              <span class="title">{{ league.title }}</span>
+              <p class="description">{{ league.description }}</p>
+            </div>
+          </nz-col>
+          <nz-col nzSpan="5">
+            <div class="ProgramItem" (click)="click(tournament)">
+              <img [src]="tournament.icon" alt="tournament icon" />
+              <span class="title">{{ tournament.title }}</span>
+              <p class="description">{{ tournament.description }}</p>
+            </div>
+          </nz-col>
+          <nz-col nzSpan="5">
+            <div class="ProgramItem" (click)="click(camp)">
+              <img [src]="camp.icon" alt="camp icon" />
+              <span class="title">{{ camp.title }}</span>
+              <p class="description">{{ camp.description }}</p>
+            </div>
+          </nz-col>
+        </nz-row>
+        <nz-row nzType="flex" nzJustify="center" nzAlign="middle" nzGutter="24">
+          <nz-col nzSpan="5">
+            <div class="ProgramItem" (click)="click(clinic)">
+              <img [src]="clinic.icon" alt="clinic icon" />
+              <span class="title">{{ clinic.title }}</span>
+              <p class="description">{{ clinic.description }}</p>
+            </div>
+          </nz-col>
+          <nz-col nzSpan="5">
+            <div class="ProgramItem" (click)="click(class)">
+              <img [src]="class.icon" alt="class icon" />
+              <span class="title">{{ class.title }}</span>
+              <p class="description">{{ class.description }}</p>
+            </div>
+          </nz-col>
+          <nz-col nzSpan="5">
+            <div class="ProgramItem" (click)="click(club)">
+              <img [src]="club.icon" alt="club icon" />
+              <span class="title">{{ club.title }}</span>
+              <p class="description">{{ club.description }}</p>
+            </div>
+          </nz-col>
+          <nz-col nzSpan="5">
+            <div class="ProgramItem" (click)="click(lesson)">
+              <img [src]="lesson.icon" alt="lesson icon" />
+              <span class="title">{{ lesson.title }}</span>
+              <p class="description">{{ lesson.description }}</p>
+            </div>
+          </nz-col>
+        </nz-row>
+      </div>
+    </div>
+  </div>
+</div>

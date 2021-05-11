@@ -1,0 +1,86 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.page-sub-navigation {
+  display: flex;
+  padding-left: 2vw;
+  padding-right: 2vw;
+
+  .page-sub-navigation__menu {
+    overflow: auto;
+
+    ul {
+      display: flex;
+    }
+  }
+
+  .status-wrapper {
+    margin-left: auto;
+    min-width: 405px;
+  }
+}
+
+.VenuesBookingInfoStats {
+  background: white;
+  display: flex;
+
+  h5 {
+    font-family: $font-brand;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    color: $brand-black;
+    margin-bottom: 5px;
+  }
+
+  .VenuesBookingInfoStats__totals {
+    display: flex;
+    // border-right: 1px solid rgb(151, 151, 151);
+    max-width: 360px;
+
+    > div {
+      min-width: 115px;
+    }
+
+    .VenuesBookingInfoStats__totals__label {
+      font-size: 22px;
+      font-weight: 300;
+      line-height: 24px;
+      text-align: center;
+      color: rgb(164, 51, 197);
+    }
+  }
+
+  .VenuesBookingInfoStats__filters {
+    padding: 0 20px;
+
+    > div {
+      display: flex;
+    }
+
+    .VenuesBookingInfoStats__filters__item {
+      margin-right: 20px;
+    }
+
+    h5 {
+      text-align: left;
+    }
+
+    .checkbox input + label::before {
+      margin-right: 4px;
+      border-radius: 100%;
+      margin-top: 1px;
+    }
+
+    label {
+      text-transform: capitalize;
+      font-weight: 500;
+      font-family: $font-brand;
+      color: $brand-black;
+      font-size: 14px;
+    }
+  }
+}
+
+.page-header {
+  padding-top: 10px;
+}

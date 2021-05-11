@@ -1,0 +1,121 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.inner_page {
+  height: 100%;
+}
+
+.inner-page__content {
+  height: 100%;
+}
+
+.WizardForm__navigation__slide-info {
+  margin-top: 15px;
+}
+
+.WizardForm__left-fix {
+  margin-left: -10px;
+}
+
+.bottom-nav-bar__inner {
+  margin-left: 180px;
+
+  .bottom-nav-bar__inner__content {
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 8px 0;
+
+    ::ng-deep button {
+      height: 35px;
+      min-width: 77px;
+
+      i {
+        font-size: 18px;
+        position: relative;
+        top: 2px;
+        right: -5px;
+      }
+
+      &.button-back {
+        i {
+          left: -5px;
+        }
+      }
+
+      &.button-dark {
+        width: auto;
+        background: #4a4a4a;
+        padding: 5px 15px;
+      }
+    }
+  }
+}
+
+.ActivityTimeWidget {
+  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.1);
+  padding: 14px 12px;
+  margin-bottom: 15px;
+  overflow: hidden;
+
+  .ActivityTimeWidget__add-btn {
+    a {
+      color: $brand-accent;
+      font-weight: bold;
+      font-size: 10px;
+
+      i {
+        font-size: 8px;
+      }
+    }
+  }
+
+  .ActivityTimeWidget__times-wrapper__item {
+    margin-bottom: 20px;
+  }
+}
+
+.days-select {
+  p {
+    color: $brand-black;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: 5px;
+
+    label {
+      font-weight: bold;
+      color: #4a4a4a;
+    }
+  }
+}
+
+.checkbox input + label::before {
+  margin-right: 6px;
+}
+
+::ng-deep .timepicker-wrapper {
+  padding-left: 0 !important;
+}
+
+.time-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-block-start: 16px;
+  margin-block-end: 8px;
+}
+
+.time-item-row {
+  display: flex;
+  align-items: center;
+  margin-inline-end: 16px;
+  label {
+    font-weight: 200;
+    margin-bottom: 0;
+    margin-inline-end: 8px;
+  }
+}
+
+::ng-deep tbody tr.text-center {
+  display: none;
+}

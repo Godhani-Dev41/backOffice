@@ -1,0 +1,44 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.ReportRowBox {
+  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  padding: 15px 20px;
+  background: white;
+
+  .ReportRowBox__content {
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    i {
+      display: inline-block;
+      margin-right: 10px;
+      position: relative;
+      font-size: 26px;
+    }
+
+    a {
+      color: white;
+      margin-left: auto;
+
+       i {
+         font-size: 14px;
+       }
+    }
+  }
+}
+
+.ComingSoonBox {
+  text-align: center;
+  max-width: 260px;
+  color: $brand-grey;
+  margin: 0 auto;
+  margin-top: 50px;
+
+  i {
+    font-size: 80px;
+  }
+}

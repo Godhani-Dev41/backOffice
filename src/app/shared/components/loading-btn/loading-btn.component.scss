@@ -1,0 +1,26 @@
+:host ::ng-deep .loader-inner {
+  position: relative;
+  top: 2px;
+
+  div {
+    width: 7px;
+    height: 7px;
+  }
+}
+
+.button {
+  transition: all 0.3s;
+
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+.footer-button {
+  height: 35px !important;
+  padding: 5px 15px !important;
+
+  .fa {
+    padding-right: 8px;
+  }
+}

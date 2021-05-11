@@ -1,0 +1,46 @@
+/****************************************
+*
+*        recCenter Global styles
+*
+*****************************************/
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import "~eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css";
+@import "~ion-rangeslider/css/ion.rangeSlider.css";
+@import "~@swimlane/ngx-datatable/release/index.css";
+@import "~@swimlane/ngx-datatable/release/themes/material.css";
+@import "~@swimlane/ngx-datatable/release/assets/icons.css";
+@import "~fullcalendar/dist/fullcalendar.min.css";
+@import "~fullcalendar-scheduler/dist/scheduler.css";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~ngx-toastr/toastr.css";
+@import "~@rcenter/core/scss/index";
+@import "~tooltipster/dist/css/tooltipster.bundle.min.css";
+@import "components/sport-picker";
+@import "components/reachouts";
+@import "components/_forms";
+@import "components/slider";
+@import "components/score-box";
+@import "components/schedule-date";
+@import "components/empty-state";
+@import "shared/global";
+
+.input-group {
+  &.input-group--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  select {
+    line-height: 35px;
+  }
+}
+
+.rc-modal .modal-body {
+  height: 450px;
+}
+
+.rc-date-input-wrapper {
+  .form-control.bs-timepicker-field {
+    min-width: 42px;
+  }
+}

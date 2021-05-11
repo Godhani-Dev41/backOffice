@@ -1,0 +1,32 @@
+<!--
+  This booking info stats has been moved to the ts file.
+  Uses document.innerhtml to render on the venue-page.component.html
+-->
+<div *ngIf="!loading">
+<div class="row" *ngIf="!spaces?.length && venue">
+  <div class="col-md-12">
+    <div class="PageEmptyState">
+      <h5>
+        Add Your First Space
+      </h5>
+      <p>
+        No spaces found for you venue, add your first space to see its schedule
+      </p>
+      <a href="" class="button button-assertive"
+        [routerLink]="['/client/facilities/venue-creator/' + venue?.id + '/court']">
+        ADD NEW SPACE
+      </a>
+    </div>
+  </div>
+</div>
+
+<rc-venue-scheduler-calendar #schedulerCalendar="schedulerCalendar" (onEventClick)="bookingEditModal.showModal($event);"
+  (onEmptySlotClick)="addBookingItem($event)" (onDayChange)="dayChanged($event)" *ngIf="venue && spaces?.length"
+  [spaces]="spaces" [venue]="venue">
+</rc-venue-scheduler-calendar>
+
+<rc-booking-edit-modal (onUpdate)="updateItems()" [venue]="venue" [spaces]="spaces" #bookingEditModal="modal"></rc-booking-edit-modal>
+
+<rc-new-booking-modal (onSavedBooking)="updateItems()" [venue]="venue" [spaces]="spaces" #newBookingModal="modal">
+</rc-new-booking-modal>
+</div>

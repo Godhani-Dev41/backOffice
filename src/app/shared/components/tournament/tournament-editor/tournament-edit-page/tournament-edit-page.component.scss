@@ -1,0 +1,17 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.game-duration-input {
+  color: #4a4a4a;
+
+  input {
+    width: 80px;
+  }
+}
+
+.timezone-label {
+  .timezone-top {
+    margin-top: 22px;
+    font-weight: bold;
+    color: $brand-accent;
+  }
+}

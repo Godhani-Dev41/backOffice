@@ -1,0 +1,54 @@
+<div class="inner_page inner_page__form" *ngIf="organization">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav" style="height: 100%">
+    <div class="col-md-12">
+      <div class="WizardForm">
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner" style="max-width: 800px">
+            <div class="form">
+              <div class="leagues-page-wrapper inner-page">
+                <div class="col-md-6 col-md-offset-6">
+                  <button class="button button-empty button-bold button-assertive--inverted pull-right"
+                    [routerLink]="['/client/organization/questionnaire/questions-edit']"
+                    [queryParams]="{isCreate:true, organizationId: organization.id}">
+                    CREATE QUESTIONNAIRE
+                  </button>
+                </div>
+                <div class="col-md-12 text-center" *ngIf="loading">
+                  <loaders-css [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+                </div>
+                <div class="col-md-12" *ngIf="!loading">
+                  <ngx-datatable #table [sorts]="[{ prop: 'title', dir: 'asc' }]" class="rc-datatable material"
+                    [columnMode]="'force'" [rowHeight]="'auto'" [rows]="orgQuestionnaires">
+                    <ngx-datatable-column [maxWidth]="140" [minWidth]="140" prop="id" [width]="140"
+                      name="Questionnaire ID">
+                      <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{ row.id }}
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [maxWidth]="540" prop="title" [minWidth]="540" [width]="540"
+                      name="Questionnaire Title">
+                      <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{ row.title }}
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [maxWidth]="120" [minWidth]="120" [width]="120"
+                      [cellClass]="'actions-column'">
+                      <ng-template let-row="row" ngx-datatable-cell-template>
+                        <a href="" tabindex="-1" class="table-action-button btn btn-empty"
+                          [routerLink]="['/client/organization/questionnaire/questions-edit']"
+                          [queryParams]="{isCreate:false, organizationId: organization.id , questionnaireId: row.id  }">
+                          <i class="icon-rc-edit-2"></i>
+                          Edit
+                        </a>
+                      </ng-template>
+                    </ngx-datatable-column>
+                  </ngx-datatable>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+// @import "scss/variables/main";
+
+.team-friendly-match-cta .rechout-info-box {
+  max-width: 124px;
+  width: auto;
+  margin-right: 10px;
+  min-height: 59px;
+  height: auto;
+  float: left;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &.time-box {
+    p {
+      font-size: 10px;
+      line-height: 12px;
+    }
+  }
+}
+
+.team-friendly-match-cta {
+  .avatar {
+    top: 0px !important;
+    right: 20px;
+  }
+}
+.rechout-info-box-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep .avatar,
+::ng-deep .participant-logo {
+  height: 115px !important;
+  width: 115px !important;
+  position: relative;
+  top: 21px !important;
+}

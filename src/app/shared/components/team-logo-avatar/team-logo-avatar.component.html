@@ -1,0 +1,10 @@
+<div class="team-logo-avatar-wrapper">
+  <div class="participant-logo">
+    <div class="avatar image-wrapper image--round" [ngStyle]="{'background-image': 'url(' + ((logo | mediaUrl:500) || 'assets/img/team_avatar_' + teamType + '.png') + ')'}">
+      <span *ngIf="!logo || logo.isDefault" class="text-uppercase">
+        {{getTeamInitials(teamName)}}
+      </span>
+    </div>
+  </div>
+</div>
+

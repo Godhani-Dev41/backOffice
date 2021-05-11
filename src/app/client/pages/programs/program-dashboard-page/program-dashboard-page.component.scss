@@ -1,0 +1,121 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.nav-header {
+  color: $brand-primary;
+}
+
+nz-steps {
+  width: 100%;
+}
+
+.season-steps {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-height: 70px;
+  height: 70px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f3f7fa;
+  padding-left: 2vw;
+  padding-right: 2vw;
+}
+
+.input-grouping {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-button-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-ghost-btn {
+  color: $brand-black;
+}
+
+.ant-form-item {
+  margin-bottom: 0;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: $brand-primary;
+}
+
+.setting-display {
+  font-size: 40px;
+  height: 50px;
+  margin: 3px;
+}
+
+.data-display {
+  font-size: 11px;
+  background-color: #f3f7fa;
+  color:$brand-primary;
+}
+
+h6, h4 {
+    color: $brand-primary;
+}
+
+.level-flex {
+  display: flex;
+  justify-content: center;
+}
+
+.season-status-label {
+  display: inline-block;
+  font-size: 10px;
+  font-family: $font-brand;
+  color: $brand-primary;
+  font-weight: 900;
+  text-align: center;
+  padding-top: 4px;
+  margin-right: 10px;
+  min-width: 80px;
+
+  span {
+    text-align: center;
+    display: block;
+    padding-left: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    color: $brand-primary;
+    margin-top: 3px;
+    line-height: 13px;
+
+    i {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: $brand-dark;
+      border-radius: 100%;
+      position: relative;
+      left: -4px;
+      top: -1px;
+    }
+
+    &.color-success {
+      i {
+        background: $brand-success;
+      }
+    }
+
+    &.color-draft {
+      i {
+        background: $brand-accent;
+      }
+    }
+  }
+}

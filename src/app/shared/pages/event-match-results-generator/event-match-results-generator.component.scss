@@ -1,0 +1,32 @@
+::ng-deep .match-results-wrapper {
+  zoom: 2.5;
+
+  .header-side {
+    min-width: 0;
+  }
+
+  .header-side.header-side-center {
+    max-width: 100px;
+    max-width: 140px !important;
+    width: 140px !important;
+    min-width: 140px !important;
+  }
+
+  .match-results-content {
+    padding: 14px;
+
+    .result-board {
+      .match-result {
+        width: 100% !important;
+        margin-right: -20px;
+      }
+      .match-result.match-result--divider {
+        max-width: 140px !important;
+        width: 140px !important;
+        min-width: 140px !important;
+      }
+    }
+  }
+}
+
+

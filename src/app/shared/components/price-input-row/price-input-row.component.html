@@ -1,0 +1,30 @@
+<nz-layout>
+  <nz-row>
+    <nz-col>
+      <nz-form-label *ngIf="labelString">{{ labelString }}</nz-form-label>
+      <p *ngIf="subLabelString">
+        {{ subLabelString }}
+      </p>
+      <nz-card>
+        <nz-row nzType="flex" nzJustify="space-between" nzAlign="middle" style="margin-bottom: 8px;">
+          <nz-col>
+            <nz-switch *ngIf="showSwitch" [(ngModel)]="switchValue" class="switch-padding"
+              (ngModelChange)="onSwitchChange()"></nz-switch>
+            <span class="bold-text">{{ priceName }}</span>
+          </nz-col>
+          <div *ngIf="switchValue">
+            {{ discountPercent > 0 ? "(-" + discountPercent.toFixed(0) + "%)" : null }}
+            <nz-col style="margin-left: 8px;">
+              <nz-input-number class="switch-padding" nzSize="large" [(ngModel)]="numValue" [nzMin]="min" [nzMax]="max"
+                [nzStep]="1" [nzDisabled]="!switchValue" (ngModelChange)="onChangePrice()"></nz-input-number>
+            </nz-col>
+          </div>
+        </nz-row>
+        <nz-row *ngIf="showDateRange && switchValue" nzType="flex" nzJustify="space-between" nzAlign="middle">
+          <rc-date-range-dropdown [labelString]="priceName + ' date range'" [startDate]="startDate" [endDate]="endDate"
+            (onSelectChange)="onChangeDate($event)"></rc-date-range-dropdown>
+        </nz-row>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+</nz-layout>

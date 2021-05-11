@@ -1,0 +1,76 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.CustomConstraintWidget {
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 11px 0 rgba(255, 163, 29, 0.34);
+  border: solid 0.5px #f2f2f2;
+  padding: 18px;
+
+  .CustomConstraintWidget__title {
+    margin-bottom: 10px;
+
+    label {
+      font-weight: bold;
+    }
+  }
+
+  .CustomConstraintWidget__content {
+    .input-group {
+      label {
+        display: inline-block;
+        margin-right: 10px;
+        font-weight: normal;
+      }
+
+      ::ng-deep .rc-date-input-wrapper {
+        max-width: 133px;
+        display: inline-block;
+      }
+    }
+
+    .row-title {
+      margin-bottom: 5px;
+    }
+
+    .inline-checkboxes {
+      margin-bottom: 15px;
+
+      .checkbox {
+        display: inline-block;
+        margin-right: 20px;
+
+        label {
+          font-weight: bold;
+        }
+      }
+
+      &.inline-checkboxes--small-margin {
+        .checkbox {
+          margin-right: 10px;
+        }
+      }
+
+    }
+  }
+}
+
+.constraint-type-title {
+  color: $brand-black;
+  font-weight: bold;
+
+  select {
+    font-weight: normal;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+
+.add-custom-constraint-btn {
+  color: $brand-accent;
+  font-weight: bold;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

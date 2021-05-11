@@ -1,0 +1,6 @@
+<div class="GeneratorWrapper">
+  <rc-event-bet-placed-generator [feedId]="feedId" *ngIf="widgetType === 'eventBetPlaceShare'"></rc-event-bet-placed-generator>
+  <rc-bet-winner-generator [feedId]="feedId" *ngIf="widgetType === 'betWinner'"></rc-bet-winner-generator>
+  <rc-tournament-bet-placed-generator [feedId]="feedId" *ngIf="widgetType === 'tournamentBetPlaced'"></rc-tournament-bet-placed-generator>
+  <rc-top-scorer-generator [feedId]="feedId" *ngIf="widgetType === 'topScorer'"></rc-top-scorer-generator>
+</div>

@@ -1,0 +1,12 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.rc-modal .modal-body {
+  height: auto;
+}
+
+.default-logo-text {
+  color: $brand-black;
+  font-size: 36px;
+  position: relative;
+  top: -24px;
+}

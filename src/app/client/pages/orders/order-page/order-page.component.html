@@ -1,0 +1,104 @@
+<div class="league-page-wrapper inner-page">
+  <div class="page-header bottom-divider page-header--no-margin">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-wrapper">
+          <rc-back-btn></rc-back-btn>
+        </div>
+        <div class="bottom-wrapper">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="pull-left text-uppercase">
+                {{order?.name}}
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-sub-navigation">
+    <div class="page-sub-navigation__menu">
+      <ul class="pull-left">
+        <li>
+          <a href="" [routerLink]="['details']" [routerLinkActive]="['active']">DETAILS</a>
+        </li>
+        <li>
+          <a href="" [routerLink]="['answers']" [routerLinkActive]="['active']">ANSWERS</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row inner-page__content inner-page__content__sub-navigation padding-top-20 inner-page__content--has-bottom-nav" style="">
+    <loaders-css *ngIf="loading" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+
+    <div class="col-md-12" style="position: static;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<!--
+
+
+<div class="league-page-wrapper inner-page">
+  <div class="page-header bottom-divider page-header&#45;&#45;no-margin">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-wrapper">
+          <rc-back-btn></rc-back-btn>
+        </div>
+        <div class="bottom-wrapper">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="pull-left text-uppercase">
+                {{order?.name}}
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="InfoRow">
+            <span>NAME</span> {{order?.customer?.name}}
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="InfoRow">
+                <span>EMAIL</span> {{order?.customer?.email}}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="InfoRow">
+                <span>PHONE NO.</span> {{order?.customer?.phoneNumber}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+
+    </div>
+    <div class="col-md-6">
+
+    </div>
+    <div class="col-md-6">
+
+    </div>
+  </div>
+  <div class="row">
+
+  </div>
+
+</div>
+-->

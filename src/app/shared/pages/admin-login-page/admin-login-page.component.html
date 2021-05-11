@@ -1,0 +1,60 @@
+<div class="login-wrapper-page">
+  <div class="wrapper-side left">
+    <div class="logo-wrapper">
+      <a href="/"><img src="/assets/img/logo_large.png" alt="recCenter logo"></a>
+    </div>
+
+    <div class="login-form form-wrapper login-wrapper">
+      <h1>RECCENTER LOGIN</h1>
+      <form novalidate [formGroup]="loginForm" >
+        <div class="input inline-input input-icon" [ngClass]="{'has-error': !loginForm.get('email').valid && loginForm.get('email').touched}">
+          <i class="icon-rc-person-icon"></i>
+          <i class="fa fa-exclamation-triangle error-icon"></i>
+          <input type="email" placeholder="EMAIL" formControlName="email" name="email" required>
+        </div>
+        <div class="input inline-input input-icon" [ngClass]="{'has-error': !loginForm.get('password').valid && loginForm.get('password').touched}">
+          <i class="icon-rc-private"></i>
+          <i class="fa fa-exclamation-triangle error-icon"></i>
+          <input type="password" class="password" placeholder="PASSWORD" formControlName="password" name="password" required>
+          <div class="error-message">
+            {{errorMessage}}
+          </div>
+        </div>
+        <div class="buttons-row">
+          <div class="row">
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
+              <rc-loading-btn [text]="'LOGIN'"
+                              [disabled]="!loginForm.valid"
+                              (onClick)="onLogin(loginForm.value)"
+                              [loading]="loading"
+                              [classes]="['button', 'button-shadow', 'button-assertive', 'button-full', 'button-loader']">
+              </rc-loading-btn>
+            <!--  <button class="button button-loader button-shadow button-assertive button-full" type="submit">
+                {{loading ? null : 'LOGIN'}}
+                <span>
+                  <loaders-css *ngIf="loading" [loader]="'ball-pulse'" [loaderClass]="'rc-loader'"></loaders-css>
+                </span>
+              </button>-->
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="wrapper-side right">
+    <div class="inner-background" [ngStyle]="{ 'background-image': 'url(assets/img/login/login-bg-1.jpg)' }"></div>
+    <div class="gradient-bg"></div>
+    <div class="content-wrapper">
+      <div class="content-bottom">
+        <div class="text-wrapper">
+          <h1>HEY, <br> GOOD TO SEE YOU TODAY!</h1>
+        </div>
+        <div class="widget-wrapper">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

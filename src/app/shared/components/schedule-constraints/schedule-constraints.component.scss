@@ -1,0 +1,23 @@
+@import "~@rcenter/core/scss/variables/index";
+
+nz-switch {
+  margin-right: 8px;
+}
+
+.half-row-button {
+  width: 100%;
+
+  button {
+    width: 100%;
+  }
+}
+
+.success-button {
+  background-color: $brand-success;
+  border-color: $brand-success;
+}
+
+.dangerous-edit {
+  border: red 2px solid;
+  border-radius: 3px;
+}

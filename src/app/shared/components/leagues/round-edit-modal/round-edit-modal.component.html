@@ -1,0 +1,84 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal">
+    <form class="form" [formGroup]="roundForm" novalidate>
+      <div class="modal-content">
+        <div class="modal-header modal-header--assertive">
+          <button type="button" class="close pull-right" (click)="modal.hide()" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+          <div class="modal-header__content">
+            <i class="icon-rc-flag"></i>
+            <h5>ROUNDS</h5>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row" *ngIf="divisionSelection?.length > 1">
+                <div class="col-sm-6">
+                  <div class="input-group">
+                    <label for="">DIVISION</label>
+                    <ng-select
+                      [active]="[{ id: currentDivision?.id, text: currentDivision?.name }]"
+                      (selected)="divisionSelected($event)"
+                      [items]="divisionSelection"
+                      placeholder="Select division">
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="DivisionColorBlock" [style.backgroundColor]="currentDivision?.color">
+
+                  </div>
+                </div>
+              </div>
+              <div class="row" formArrayName="rounds">
+                <div class="col-md-12" *ngFor="let round of roundsFormArray.controls; let i=index" [formGroupName]="i">
+                  <div class="RoundBox">
+                    <div class="RoundBox__label">
+                      #{{i + 1}}
+                    </div>
+                    <div class="RoundBox__content">
+                      <div class="input-group"
+                           [ngClass]="{'has-error': !round.get('roundName').valid && round.get('roundName').touched}">
+                        <label for="">ROUND TITLE</label>
+                        <input type="text" class="input" formControlName="roundName" required >
+                      </div>
+                      <button
+                        (click)="removeRound(i)"
+                        *ngIf="round.get('isNew').value || round.get('removable').value"
+                        class="button remove-btn">
+                        <i class="fa fa-close"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <a href="" (click)="addNewRound(); $event.preventDefault()">
+                    <div class="add-new-round-btn">
+                      <i class="fa fa-plus"></i> ADD A NEW ROUND
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="button button-empty cancel-btn" (click)="modal.hide()">
+            Cancel
+          </button>
+          <rc-loading-btn [text]="editMode ? 'SAVE CHANGES' : 'UPDATE ROUNDS'"
+                          [disabled]="!roundForm.valid"
+                          (onClick)="onSubmit(roundForm.value);"
+                          [loading]="loading"
+                          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

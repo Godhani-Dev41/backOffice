@@ -1,0 +1,72 @@
+    <div class="box-item box--shadow box-item--empty-results" *ngIf="!standings?.length">
+      <div class="box-item--empty-results__icon">
+        <i class="icon-rc-trophy"></i>
+      </div>
+      <div class="box-item--empty-results__text text-center">
+        update match results to see standings!
+      </div>
+    </div>
+<div class="season-standings-wrapper" *ngIf="standings?.length">
+
+  <div class="SeasonStandingsListItem SeasonStandingsListItem--header">
+    <div class="SeasonStandingsListItem__score">
+
+    </div>
+    <div class="SeasonStandingsListItem__content">
+      <div class="SeasonStandingsListItem__content__section">
+
+      </div>
+      <div class="SeasonStandingsListItem__content__section SeasonStandingsListItem__content__section--points">
+        GP
+      </div>
+      <div class="SeasonStandingsListItem__content__section SeasonStandingsListItem__content__section--points">
+        W
+      </div>
+      <div class="SeasonStandingsListItem__content__section SeasonStandingsListItem__content__section--points">
+        L
+      </div>
+      <div class="SeasonStandingsListItem__content__section SeasonStandingsListItem__content__section--points">
+        D
+      </div>
+      <div
+        class="SeasonStandingsListItem__content__section SeasonStandingsListItem__content__section--points SeasonStandingsListItem__content__section--success">
+        {{percentageOrPoints === 'percentage' ? 'PCT' : 'PTS'}}
+      </div>
+      <div class="SeasonStandingsListItem__content__section SeasonStandingsListItem__content__section--points">
+        PD
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="standings-inner-content">
+    <div class="SeasonStandingsListItem" *ngFor="let standing of standings">
+      <div class="SeasonStandingsListItem__score">
+        # {{standing.standingPosition}}
+      </div>
+      <div class="SeasonStandingsListItem__content">
+        <div class="SeasonStandingsListItem__content__section">
+          {{standing.team?.name}}
+        </div>
+        <div class="SeasonStandingsListItem__content__section SeasonStandingsListItem__content__section--points">
+          {{standing.statistics?.gamesPlayed || 0}}
+        </div>
+        <div class="SeasonStandingsListItem__content__section SeasonStandingsListItem__content__section--points">
+          {{standing.statistics?.wins || 0}}
+        </div>
+        <div class="SeasonStandingsListItem__content__section SeasonStandingsListItem__content__section--points">
+          {{standing.statistics?.loses || 0}}
+        </div>
+        <div class="SeasonStandingsListItem__content__section SeasonStandingsListItem__content__section--points">
+          {{standing.statistics?.ties || 0}}
+        </div>
+        <div class="SeasonStandingsListItem__content__section SeasonStandingsListItem__content__section--points SeasonStandingsListItem__content__section--success">
+          {{percentageOrPoints === 'percentage' ? getPercentage(standing.statistics?.winPercentage) : standing.points}}
+        </div>
+        <div class="SeasonStandingsListItem__content__section SeasonStandingsListItem__content__section--points">
+          {{standing.statistics?.forTeam || 0}}:{{standing.statistics?.againstTeam || 0}}
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

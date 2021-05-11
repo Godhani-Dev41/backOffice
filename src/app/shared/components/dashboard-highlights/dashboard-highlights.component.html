@@ -1,0 +1,19 @@
+<nz-layout>
+  <nz-row nzType="flex" nzAlign="middle" style="margin-bottom: 8px;"
+    ><i
+      nz-icon
+      [nzType]="titleIcon"
+      nzTheme="twotone"
+      style="font-size: 1.6rem; margin-right: 8px;"
+    ></i
+    ><span class="bold-text">{{ title }}</span></nz-row
+  >
+  <nz-card class="card-spacing">
+    <nz-row nzType="flex" nzAlign="middle" nzJustify="center">
+      <span class="bold-text" style="font-size: 2.4rem;">{{ value }}</span>
+    </nz-row>
+    <nz-row nzType="flex" nzAlign="middle" nzJustify="center">
+      <span class="bold-text">{{ desc }}</span>
+    </nz-row>
+  </nz-card>
+</nz-layout>

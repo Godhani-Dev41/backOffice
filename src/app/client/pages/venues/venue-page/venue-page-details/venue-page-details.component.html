@@ -1,0 +1,145 @@
+<div class="row inner-page__content inner-page__content--background padding-top-20" *ngIf="venue">
+  <div class="col-md-6">
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="sub-title sub-title--assertive no-mg-top">
+            ABOUT THE FACILITY
+          </h3>
+        </div>
+        <div class="col-md-4">
+          <div class="VenueMapIcon" rcBackgroundImage="{{ venueMapImage | mediaUrl }}"></div>
+        </div>
+        <div class="col-md-8">
+          <div class="box-item box--shadow box--border-light box--padding mg-bottom-20" style="min-height: 110px;">
+            <h4 class="box-title box--title-icon"><i class="icon-rc-location"></i> LOCATION</h4>
+            <p class="box-text text-uppercase">
+              {{ venue?.address?.streetNum }} {{ venue?.address?.street ? venue?.address?.street + "," : "" }}
+              {{ venue?.address?.city }}, {{ venue?.address?.state }}
+            </p>
+            <p class="box-text text-uppercase">TIMEZONE | {{ venue?.timezone }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box-item box--border-light box--shadow box--padding mg-bottom-20">
+            <h4 class="box-title box--title-icon"><i class="icon-rc-long-des"></i> OPENING HOURS</h4>
+            <p class="text-uppercase" *ngFor="let timeSlot of activityTimesVM">
+              {{ timeSlot.days.join(", ") }} {{ timeSlot.hours }}
+            </p>
+          </div>
+        </div>
+        <div class="col-md-12" *ngIf="venue?.description">
+          <div class="box-item box--border-light box--shadow box--padding mg-bottom-20">
+            <h4 class="box-title box--title-icon"><i class="icon-rc-long-des"></i> DESCRIPTION</h4>
+            <p class="box-text text-show-newline text-uppercase" [innerHTML]="venue?.description"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="sub-title sub-title--assertive no-mg-top pull-left">
+          FACILITY SETTINGS
+        </h3>
+
+        <a
+          href=""
+          [routerLink]="'/client/facilities/venue-creator/' + venue?.id + '/court'"
+          class="button button-assertive--inverted button-bold pull-right"
+          style="margin-left: 5px; position: relative; top: -5px;"
+        >
+          ADD A NEW SPACE
+        </a>
+
+        <a
+          href=""
+          [routerLink]="'/client/facilities/venue-creator/' + venue?.id"
+          class="button button-assertive--inverted button-bold pull-right"
+          style="margin-left: 5px; position: relative; top: -5px;"
+        >
+          EDIT FACILITY
+        </a>
+      </div>
+      <div class="col-md-12">
+        <div class="sub-title">
+          SPORTS OFFERED
+        </div>
+        <div
+          class="box-item box--border-light box--shadow box--padding mg-bottom-20"
+          style="padding: 20px; width: auto; display: inline-block;"
+        >
+          <div class="SportIcon" *ngFor="let sport of venue?.sports">
+            <i [class]="getSportIcon(sport)">
+              <span class="path1"></span><span class="path2"></span><span class="path3"></span
+              ><span class="path4"></span>
+            </i>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="sub-title">
+          SPACES
+        </div>
+
+        <div class="row">
+          <div class="col-md-4" *ngFor="let space of venue?.spaces">
+            <div class="no-drag box-title text-uppercase" style="position: relative;">
+              <ng-template #popTemplate>
+                <div class="PopupMenuWrapper">
+                  <ul>
+                    <li>
+                      <a
+                        [routerLink]="'/client/facilities/venue-creator/' + venue?.id + '/court/' + space.id + '/true'"
+                      >
+                        <i class="icon-rc-edit-2"></i> Duplicate Space
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </ng-template>
+
+              <button
+                class="pull-right more-options-button"
+                [popover]="popTemplate"
+                #pop="bs-popover"
+                placement="bottom"
+                container="body"
+              >
+                <i class="icon-rc-nav-more"></i>
+              </button>
+            </div>
+
+            <div
+              class="CourtCard"
+              [routerLink]="'/client/facilities/venue-creator/' + venue?.id + '/court/' + space.id"
+            >
+              <div class="CourtCard__image" [rcBackgroundImage]="space.mainMedia | mediaUrl"></div>
+              <div class="CourtCard__content">
+                <h5 class="text-uppercase">
+                  {{ space.name }}
+                </h5>
+                <p style="text-transform: capitalize;">
+                  {{ space.properties[0] }} <br />
+                  {{ space.surface }}
+                </p>
+                <div class="CourtCard__sports">
+                  <div class="SportIcon" *ngFor="let sport of space.sports.slice(0, 3)">
+                    <i [class]="getSportIcon(sport)">
+                      <span class="path1"></span><span class="path2"></span><span class="path3"></span
+                      ><span class="path4"></span>
+                    </i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

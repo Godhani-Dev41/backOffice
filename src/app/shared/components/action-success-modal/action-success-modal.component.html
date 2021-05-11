@@ -1,0 +1,29 @@
+<div bsModal #modal="bs-modal" class="modal success-modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <img src="assets/img/Foam_success_hand.png" alt="">
+
+        <h1>
+          {{titleText || 'AWESOME!'}}
+        </h1>
+        <p>
+          {{subTitleText}}
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <div class="action-btn" (click)="onCancelClick.emit(); modal.hide(); ">
+          <a href="" (click)="$event.preventDefault();">
+            {{cancelText || 'THAT\'S IT FOR NOW'}}
+          </a>
+        </div>
+        <div class="action-btn action-btn--assertive" (click)="onSuccessClick.emit(); modal.hide();">
+          <a href="" (click)="$event.preventDefault();">
+            {{successBtnText}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

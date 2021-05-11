@@ -1,0 +1,18 @@
+
+<div class="GeneratorWrapper" *ngIf="levelData">
+  <div class="LabeledFeedWidget LabeledFeedWidget--level-up" style="zoom: 2;">
+    <div class="LabeledFeedWidget__top">
+      <div class="LabeledFeedWidget__image" style="background-image: url('assets/img/Level_Up_Post.png');">
+      </div>
+      <div class="LabeledFeedWidget__level-up__rank">
+        {{levelData?.ordinal}}
+      </div>
+      <div class="LabeledFeedWidget__level-up__points">
+        {{levelData?.requiredPoints}} POINTS
+      </div>
+    </div>
+    <div class="LabeledFeedWidget__content">
+      <h5 class="text-uppercase">I'M A {{levelData?.name}} NOW</h5>
+    </div>
+  </div>
+</div>

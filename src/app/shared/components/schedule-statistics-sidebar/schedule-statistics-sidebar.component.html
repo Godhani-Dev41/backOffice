@@ -1,0 +1,53 @@
+<div class="RightSideWidgetSlider" [ngClass]="{'RightSideWidgetSlider--active': scheduleDetailsOpen}">
+  <button class="close-btn" (click)="onScheduleClose.emit()">
+    <i class="fa fa-times"></i>
+  </button>
+  <div class="row">
+    <div class="col-md-12 text-center" *ngIf="loading">
+      <loaders-css [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 scrollable-area" *ngFor="let division of _scheduleData?.seasonDivisions">
+      <h5>
+        {{season?.multipleDivision ? division.name : ''}} OPPONENTS
+      </h5>
+      <table class="opponents-table stats-table">
+        <tbody>
+          <tr *ngFor="let row of division.opponentsTable; let i = index" [ngClass]="{ 'top-header-row': i === 0 }">
+            <td *ngFor="let item of row" [ngClass]="{ 'top-header-cell': i === 0, 'left-header-cell': item.type === 'left-side-header', 'empty-cell': item.type === 'empty-slot' }">
+                    <span *ngIf="item.type === 'top-header'" class="top-header-cell top-header-cell--rotate">
+                      {{item.title}}
+                    </span>
+              <div *ngIf="item.type !== 'top-header'">
+                {{item.title}}
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row" *ngIf="!loading">
+    <div class="col-md-12 scrollable-area">
+      <h5>
+        GAME TIMES
+      </h5>
+      <table class="stats-table game-times">
+        <tbody>
+        <tr *ngFor="let row of gameTimesTable; let i = index;" [ngClass]="{'top-header-row': i === 0}">
+          <!-- If it's a first index meaning this is the top header and we want to ad it special classes -->
+          <td *ngFor="let item of row" [ngClass]="{'top-header-cell': i === 0, 'left-header-cell': item.type === 'left-side-header' }">
+                <span *ngIf="item.type === 'top-header'">
+                  {{item.title}}
+                </span>
+            <div *ngIf="item.type !== 'top-header'">
+              {{item.title}}
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

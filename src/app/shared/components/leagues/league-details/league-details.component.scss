@@ -1,0 +1,29 @@
+@import "~@rcenter/core/scss/variables/index";
+
+:host ::ng-deep .entity-large-photo {
+  .entity-image {
+    .image-wrapper {
+      width: 160px !important;
+      height: 160px !important;
+    }
+  }
+
+  .entity-sport-icon {
+    top: 132px;
+  }
+}
+
+@media screen and (max-width: 1240px) {
+  :host ::ng-deep .entity-large-photo {
+    .entity-image {
+      .image-wrapper {
+        width: 120px !important;
+        height: 120px !important;
+      }
+    }
+
+    .entity-sport-icon {
+      top: 93px;
+    }
+  }
+}

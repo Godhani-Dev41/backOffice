@@ -1,0 +1,71 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.ActivityTimeWidget {
+  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.1);
+  padding: 14px 12px;
+  margin-bottom: 15px;
+  overflow: hidden;
+
+  .ActivityTimeWidget__add-btn {
+    a {
+      color: $brand-accent;
+      font-weight: bold;
+      font-size: 10px;
+
+      i {
+        font-size: 8px;
+      }
+    }
+  }
+
+  .ActivityTimeWidget__times-wrapper__item {
+    margin-bottom: 20px;
+  }
+}
+
+.days-select {
+  p {
+    color: $brand-black;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: 5px;
+
+    label {
+      font-weight: bold;
+      color: #4a4a4a;
+    }
+  }
+}
+
+.checkbox input + label::before {
+  margin-right: 6px;
+}
+
+::ng-deep .timepicker-wrapper {
+  padding-left: 0 !important;
+}
+
+.time-item-row {
+  align-items: center;
+  display: flex;
+
+  label {
+    margin-right: 10px;
+    font-weight: normal;
+    position: relative;
+    top: -7px;
+  }
+}
+
+::ng-deep tbody tr.text-center {
+  display: none;
+}
+
+.time-item-row label {
+  top: -3px !important;
+  font-weight: 200;
+}
+
+

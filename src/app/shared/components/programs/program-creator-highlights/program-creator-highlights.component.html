@@ -1,0 +1,115 @@
+<div class="row" [formGroup]="form">
+  <div class="col-md-12" [formGroupName]="groupName">
+    <div class="form__section">
+      <div class="form__section__header">
+        THE HIGHLIGHT BAR
+      </div>
+      <div class="form__section__helper">
+        The highlight bar makes it easy for players to find the most important
+        information. Age, gender, and level is required, but we included a
+        couple others we know players are look for. If one is not relevant for
+        your league you can always hide it and add custom fields.
+      </div>
+      <div
+        [formArrayName]="'formats'"
+        [dragula]="'formats-bag'"
+        [dragulaModel]="highlightArray.controls"
+      >
+        <div *ngFor="let i = index; let format; of: highlightArray.controls">
+          <div
+            *ngIf="RCLeagueDetailTypeEnum.OTHER === format.get('type').value"
+            class="DraggableCheckableInfoBox"
+            [formGroup]="format"
+            [ngClass]="{
+              'DraggableCheckableInfoBox--disabled no-drag': !format.get(
+                'active'
+              ).value
+            }"
+          >
+            <div class="DraggableCheckableInfoBox__left-handle">
+              <i class="icon-rc-drag-points"></i>
+            </div>
+            <div class="DraggableCheckableInfoBox__content">
+              <div class="DraggableCheckableInfoBox__content__top">
+                <div
+                  class="rc-toggle-wrapper"
+                  *ngIf="
+                    !format.get('mandatory').value ||
+                    (format.get('mandatory').value &&
+                      !format.get('active').value)
+                  "
+                >
+                  <input
+                    type="checkbox"
+                    [id]="'toggleItem' + i"
+                    class="rc-toggle rc-toggle-light"
+                    formControlName="active"
+                  />
+                  <label [for]="'toggleItem' + i" class="rc-toggle-btn"></label>
+                </div>
+                <h5>
+                  <ng-template>
+                    CUSTOM HIGHLIGHT
+                  </ng-template>
+                </h5>
+              </div>
+              <div
+                class="DraggableCheckableInfoBox__content__bottom"
+                [ngClass]="{
+                  'DraggableCheckableInfoBox__content__bottom--small-input':
+                    format.get('type').value ===
+                      RCLeagueDetailTypeEnum.GAMESSEASON ||
+                    format.get('type').value ===
+                      RCLeagueDetailTypeEnum.MINWEEK ||
+                    format.get('type').value ===
+                      RCLeagueDetailTypeEnum.MATCHLENGTH
+                }"
+              >
+                <div [ngSwitch]="format.get('type').value">
+                  <ng-template [ngSwitchCase]="RCLeagueDetailTypeEnum.OTHER">
+                    <div class="row">
+                      <div class="col-md-6" style="padding-right: 5px;">
+                        <div class="input-group">
+                          <label for="">
+                            Title
+                          </label>
+                          <input
+                            type="text"
+                            class="input"
+                            maxlength="15"
+                            formControlName="title"
+                            autofocus
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6" style="padding-left: 5px;">
+                        <div class="input-group">
+                          <label for="">
+                            Content
+                          </label>
+                          <input
+                            type="text"
+                            class="input"
+                            maxlength="15"
+                            formControlName="value"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="add-activity-venue-btn mg-bottom-20">
+          <a href="" (click)="addCustomHighlight(); $event.preventDefault()">
+            <i class="fa fa-plus"></i> ADD CUSTOM HIGHLIGHT
+            <span class="pull-right">(You can add up to 5 highlights)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

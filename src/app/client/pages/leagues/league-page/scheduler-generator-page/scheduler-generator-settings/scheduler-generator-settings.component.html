@@ -1,0 +1,244 @@
+<div class="row" [formGroup]="form">
+  <div class="col-md-12">
+    <div class="form__section">
+      <div class="form__section__header">
+        SCHEDULER SETTINGS
+      </div>
+      <div class="form__section__helper">
+        Set the parameters you know in order to generate the best schedule for your needs,
+        after the schedule is generated we will help you make changes if necessary
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="SchedulerSettingBox">
+            <div class="SchedulerSettingBox__header">
+              <i class="icon-rc-teams-icon"></i>
+              <div class="SchedulerSettingBox__header__title">
+                NO. OF TEAMS
+              </div>
+            </div>
+            <div class="SchedulerSettingBox__description">
+              The default is the number of teams in your season’s rosters
+              or you can generate according to any other number
+            </div>
+            <div class="SchedulerSettingBox__input teams-selection-wrapper">
+              <div class="row">
+                <div class="col-md-6" style="border-right: 1px solid #989898;">
+                  <div class="checkbox">
+                    <input type="checkbox" formControlName="useSeasonTeams" class="styled-checkbox" />
+                    <label></label>
+                  </div>
+                  <div>
+                    Use my teams
+                  </div>
+                </div>
+                <div class="col-md-6" [ngClass]="season?.seasonTeams?.length ? 'col-md-6' : 'col-md-12'">
+                  <div class="input-group"
+                    [ngClass]="{'has-error': !form.get('teamsNumber').valid && !form.get('useSeasonTeams').value}">
+                    <input class="input" formControlName="teamsNumber" min="1" type="number">
+                    <div class="error-message"
+                      *ngIf="!form.get('teamsNumber').valid && !form.get('useSeasonTeams').value">
+                      2-32 teams allowed
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="SchedulerSettingBox">
+            <div class="SchedulerSettingBox__header">
+              <i class="icon-rc-teams-icon"></i>
+              <div class="SchedulerSettingBox__header__title">
+                NO. OF ROUNDS
+              </div>
+            </div>
+            <div class="SchedulerSettingBox__description">
+              Number of times you want each team to play against another.
+            </div>
+            <div class="SchedulerSettingBox__input">
+              <div class="input-group" [ngClass]="{'has-error': !form.get('roundNumber').valid}">
+                <input class="input" formControlName="roundNumber" min="1" type="number">
+                <div class="error-message" *ngIf="!form.get('roundNumber').valid">
+                  Round number must be between 1 and 10
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12" *ngIf="form.get('useSeasonTeams').value" style="margin-bottom: 30px">
+          <div class="TeamParticipantsSelector">
+            <div class="row">
+              <div class="col-md-12">
+                <h5 class="label-title">PARTICIPATING TEAMS ({{selectedTeams.length}})</h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3 cold-md-3" *ngFor="let seasonTeam of season?.seasonTeams">
+                <div class="box-item box--shadow team-box-item box-top-border box-top-border--small"
+                  (click)="toggleTeamSelection(seasonTeam, $event); $event.stopPropagation()">
+                  <div class="team-box-item__header">
+                    <div class="checkbox">
+                      <input type="checkbox" class="styled-checkbox" [checked]="seasonTeam.active"
+                        [disabled]="seasonTeam.disabled" />
+                      <label for="" style="font-size: 10px;">{{!seasonTeam?.divisionId ? 'No division' : ''}}</label>
+                    </div>
+                    <h3 class="text-center">{{seasonTeam?.team?.name}}</h3>
+                    <div class="team-box-item__header__label">
+                      {{seasonTeam.team?.teamMembers?.length || 0}} athletes
+                    </div>
+                  </div>
+                  <div class="team-box-item__details">
+                    <div class="member-data" *ngIf="seasonTeam.captain">
+                      <div class="member-image">
+                        <div class="image-wrapper image--round image--border image--shadow"
+                          [rcBackgroundImage]="seasonTeam.captain?.profilePicture"></div>
+                      </div>
+                      <div class="member-info text-uppercase">
+                        {{seasonTeam.captain?.firstName}} {{seasonTeam.captain?.lastName}}
+                      </div>
+                    </div>
+                    <div class="member-status" *ngIf="seasonTeam.captain">
+                      <i class="icon-rc-star-icon"></i> team captain
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="SchedulerSettingBox">
+            <div class="SchedulerSettingBox__header">
+              <i class="icon-rc-min-per-week"></i>
+              <div class="SchedulerSettingBox__header__title">
+                GAME SETTINGS
+              </div>
+            </div>
+            <div class="SchedulerSettingBox__description">
+              Put in the actual game minutes and break between the games if needed
+            </div>
+            <div class="SchedulerSettingBox__input SchedulerSettingBox__input--multi">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="top-label">
+                    GAME MINUTES
+                  </div>
+                  <div class="input-group inline-label" [ngClass]="{'has-error': !form.get('gameMinutes').valid}">
+                    <input class="input" formControlName="gameMinutes" min="1" minlength="1" type="number">
+                    <label for="">
+                      Min
+                    </label>
+                    <div class="error-message" *ngIf="form.get('gameMinutes').touched && !form.get('gameMinutes').valid"
+                      style="width: 230px;">
+                      Game minutes must be between 1 and 200
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="top-label">
+                    BREAK
+                  </div>
+                  <div class="input-group inline-label">
+                    <input class="input" formControlName="breakMinutes" min="0" type="number">
+                    <label for="">
+                      Min
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="SchedulerSettingBox">
+            <div class="SchedulerSettingBox__header">
+              <i class="icon-rc-games-per-season"></i>
+              <div class="SchedulerSettingBox__header__title">
+                PLAYOFFS
+              </div>
+            </div>
+            <div class="SchedulerSettingBox__description">
+              If you wish to reserve time from your season period for playoffs enter the no. of weeks you need
+            </div>
+            <div class="SchedulerSettingBox__input">
+              <div class="input-group inline-label" [ngClass]="{'has-error': !form.get('playOfWeeks').valid}">
+                <input class="input" formControlName="playOfWeeks" min="0" type="number">
+                <label for="">
+                  Weeks
+                </label>
+                <div class="error-message" *ngIf="!form.get('playOfWeeks').valid">
+                  Minimum value can't be under 0
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--
+        <div class="col-md-12">
+          <div class="SchedulerSettingBox SchedulerSettingBox&#45;&#45;auto-height">
+            <div class="SchedulerSettingBox__header">
+              <i class="icon-rc-teams-icon"></i>
+              <div class="SchedulerSettingBox__header__title">
+                WHEN & WHERE
+              </div>
+            </div>
+
+            <div class="WhenWhereTable">
+              <table>
+                <thead>
+                  <tr>
+                    <td>
+                      VENUE
+                    </td>
+                    <td>
+                      DAY
+                    </td>
+                    <td>
+                      TIMES
+                    </td>
+                    <td>
+                      SIMULTANEOUS <br> MATCHES
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let window of season?.seasonWindows">
+                    <td>
+                      <b>{{window.venueName}}</b>
+                    </td>
+                    <td>
+                      {{getDayOfWeek(window.activityTime.dayOfWeek)}}
+                    </td>
+                    <td>
+                      {{getTimeRange(window.activityTime)}}
+                    </td>
+                    <td>
+                      {{window.concurrent}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>-->
+
+        <div class="col-md-12">
+          <div [formArrayName]="'activityTimes'">
+            <div *ngFor="let activity of activitiesArray.controls; let i = index;">
+              <rc-activity-time-box-widget [arrayName]="'activityTimes'" [form]="form" [arrayGroup]="activity"
+                [groupName]="i">
+              </rc-activity-time-box-widget>
+            </div>
+          </div>
+          <a href="" class="add-activity-venue-btn" (click)="addActivityTime(); $event.preventDefault()">
+            <i class="fa fa-plus"></i> ADD ANOTHER FACILITY
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

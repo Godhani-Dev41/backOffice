@@ -1,0 +1,69 @@
+<div class="row" style="height: 100%">
+  <div class="col-md-2" style="height: 100%;">
+    <div class="SummaryWrapper" *ngIf="space">
+      <h5>
+        {{space?.name}}
+      </h5>
+      <div class="SummaryWrapper__props" style="text-transform: capitalize;">
+        {{space?.properties[0]}} <br>
+        {{space?.surface}}
+      </div>
+      <div class="SummaryWrapper__sports">
+        <div class="SportItem" *ngFor="let sport of space?.sports">
+          <i class="{{getSportIcon(sport)}}"></i>
+        </div>
+      </div>
+
+      <div class="SummaryWrapper__packages">
+        <h6>
+          PACKAGES
+        </h6>
+        <div class="text-center mg-top-20" *ngIf="!space?.packages">
+          No packages assigned to this space
+        </div>
+        <div class="PackageItem" *ngFor="let package of space?.packages">
+          <h5>
+            {{package.package?.name}}
+          </h5>
+          <p>
+            {{getPackageHours(package.package?.duration)}} / {{getPackageSize(package.package?.percentage)}} <br>
+          </p>
+          <div class="PackageItem__price">
+            ${{package.package?.price}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3" style="height: 100%;">
+    <div class="AgendaWidget">
+      <h5>
+        TODAY'S AGENDA
+      </h5>
+      <div class="text-center mg-top-20" *ngIf="!todaysEvents?.length">
+        No events found for today
+      </div>
+      <div class="AgendaItem" *ngFor="let event of todaysEvents">
+        <div class="AgendaItem__text">
+          {{event.start | momentDate:'hh:mma'}} — {{event.end | momentDate:'hh:mma'}}
+        </div>
+        <h5>
+          {{event.title}}
+        </h5>
+        <div class="AgendaItem__text">
+          Booked by <br>
+          {{event.reservation?.customer?.name}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7" style="height: 100%;">
+    <div class="rc-calendar">
+      <rc-angular2-fullcalendar #fullCalendar="fullCalendar" [options]="calendarOptions"></rc-angular2-fullcalendar>
+    </div>
+  </div>
+</div>
+
+<rc-booking-edit-modal (onUpdate)="updateItems()" [venue]="venue" [spaces]="spaces" #bookingEditModal="modal"></rc-booking-edit-modal>
+<rc-new-booking-modal (onSavedBooking)="updateItems()" [venue]="venue" [spaces]="spaces" #newBookingModal="modal">
+</rc-new-booking-modal>

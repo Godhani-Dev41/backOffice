@@ -1,0 +1,268 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal rc-modal--small-header">
+    <form class="form" [formGroup]="packageForm" novalidate (ngSubmit)="onSubmit(packageForm.value)">
+      <div class="modal-content">
+        <div class="modal-header modal-header--purple">
+          <button type="button" class="close pull-right" (click)="cancel()" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+          <div class="modal-header__content">
+            <h5 *ngIf="!isAddon">{{editMode ? 'PACKAGE EDIT' : 'NEW PACKAGE'}}</h5>
+            <h5 *ngIf="isAddon">{{editMode ? 'ADD-ON EDIT' : 'NEW ADD-ON'}}</h5>
+
+          </div>
+        </div>
+        <div class="modal-body" #scrollArea>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="input-group">
+                <label>
+                  {{isAddon ? 'ADD-ON NAME' : 'PACKAGE NAME'}}
+                </label>
+                <input type="text" formControlName="name" class="input" />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="input-group">
+                <label>
+                  DURATION
+                </label>
+
+                <div class="checkbox" *ngIf="!isAddon">
+                  <input type="checkbox" class="styled-checkbox" formControlName="isFlexible" />
+                  <label>Allow customers to book parts of the duration and not only entire blocks of it</label>
+                </div>
+
+                <div class="DurationBoxes">
+                  <div class="DurationBoxes__item"
+                    [ngClass]="{'DurationBoxes__item--active': packageForm.get('duration').value === 30}"
+                    (click)="selectDuration(30)">
+                    1/2 HR
+                  </div>
+                  <div class="DurationBoxes__item"
+                    [ngClass]="{'DurationBoxes__item--active': packageForm.get('duration').value === 60}"
+                    (click)="selectDuration(60)">
+                    1 HR
+                  </div>
+                  <div class="DurationBoxes__item"
+                    [ngClass]="{'DurationBoxes__item--active': packageForm.get('duration').value === 90}"
+                    (click)="selectDuration(90)">
+                    1.5 HRS
+                  </div>
+                  <div class="DurationBoxes__item"
+                    [ngClass]="{'DurationBoxes__item--active': packageForm.get('duration').value === 120}"
+                    (click)="selectDuration(120)">
+                    2 HRS
+                  </div>
+                  <div class="DurationBoxes__item"
+                    [ngClass]="{'DurationBoxes__item--active': packageForm.get('duration').value === 1440}"
+                    (click)="selectDuration(1440)">
+                    WHOLE DAY
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <a href="" (click)="$event.preventDefault(); packageForm.get('customDuration').setValue(true)"
+                  class="custom-duration-btn" *ngIf="!packageForm.get('customDuration').value">
+                  <i class="fa fa-plus"></i> CUSTOM DURATION
+                </a>
+              </div>
+              <div class="col-md-6" *ngIf="packageForm.get('customDuration').value">
+                <div class="input-group">
+                  <label for="">Custom duration (minutes)</label>
+                  <input class="input" type="number" formControlName="duration" />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="form__section">
+                <div>
+                  {{isAddon ? 'ADD-ON' : 'PACKAGE'}} APPLIES ON DAYS AND TIME
+                </div>
+              </div>
+
+              <div [formArrayName]="'activityDates'">
+                <div *ngFor="let activity of activitiesArray.controls; let i = index;">
+                  <div [formGroup]="activity">
+                    <div class="ActivityTimeWidget">
+                      <div class="ActivityTimeWidget__times-wrapper" [formArrayName]="'activityDates'">
+                        <div class="ActivityTimeWidget__times-wrapper__item"
+                          *ngFor="let date of activityDatesArray(activity).controls; let dateIndex = index"
+                          [formGroupName]="dateIndex">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <ul class="list no-style days-select">
+                                <li>
+                                  <div class="checkbox">
+                                    <input type="checkbox" class="styled-checkbox" formControlName="monday" />
+                                    <label>MON</label>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="checkbox">
+                                    <input type="checkbox" class="styled-checkbox" formControlName="tuesday" />
+                                    <label>TUE</label>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="checkbox">
+                                    <input type="checkbox" class="styled-checkbox" formControlName="wednesday" />
+                                    <label>WED</label>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="checkbox">
+                                    <input type="checkbox" class="styled-checkbox" formControlName="thursday" />
+                                    <label>THU</label>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="checkbox">
+                                    <input type="checkbox" class="styled-checkbox" formControlName="friday" />
+                                    <label>FRI</label>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="checkbox">
+                                    <input type="checkbox" class="styled-checkbox" formControlName="saturday" />
+                                    <label>SAT</label>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="checkbox">
+                                    <input type="checkbox" class="styled-checkbox" formControlName="sunday" />
+                                    <label>SUN</label>
+                                  </div>
+                                </li>
+                              </ul>
+                              <div class="row" style="margin-top: 10px;">
+                                <div class="col-md-6 time-item-row">
+                                  <label for="">From</label>
+                                  <div class="input-group">
+                                    <rc-timepicker formControlName="startTime" [inline]="true">
+                                    </rc-timepicker>
+                                  </div>
+                                </div>
+                                <div class="col-md-6 time-item-row">
+                                  <label for="">To</label>
+                                  <div class="input-group">
+                                    <rc-timepicker formControlName="endTime" [inline]="true"
+                                      [minTime]="packageForm.get('activityDates').value[i].activityDates[dateIndex].startTime">
+                                    </rc-timepicker>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--     <div class="ActivityTimeWidget__add-btn">
+                          <a href="" (click)="addTimeSlot(activity); $event.preventDefault()">
+                            <i class="fa fa-plus"></i> ADD ANOTHER DAY AND TIME
+                          </a>
+                        </div>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="input-group">
+                <label for="">
+                  {{isAddon ? 'ADD-ON' : 'PACKAGE'}} PRICE
+                </label>
+              </div>
+              <div class="NumberPicker NumberPicker--currency">
+                <a class="NumberPicker__btn NumberPicker__btn--left" (click)="decrementPrice()">
+                  <i class="fa fa-minus"></i>
+                </a>
+                <div class="NumberPicker__box">
+                  <div>
+                    <i [ngClass]="'currency-digit-' + packageForm.get('price').value?.toString().length">$</i>
+                    <input type="number" formControlName="price">
+                  </div>
+                </div>
+                <a class="NumberPicker__btn NumberPicker__btn--right" (click)="incrementPrice()">
+                  <i class="fa fa-plus"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="col-md-12 inline-checkboxes" style="margin-top: 20px;">
+              <div class="input-group">
+                <label style="margin-bottom: 5px;">
+                  <b>{{isAddon ? 'PACKAGE' : 'ADD-ON'}} APPLIES ON SPACES</b>
+                </label>
+              </div>
+              <div class="checkbox" *ngFor="let space of _spaces">
+                <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="space.selected"
+                  class="styled-checkbox" id="spaceItem{{space.id}}" />
+                <label class="SelectableFormRow__label" for="spaceItem{{space.id}}">
+                  {{space.name}}
+                </label>
+              </div>
+
+            </div>
+            <div class="col-md-12 inline-checkboxes" style="margin-top: 20px;" *ngIf="isAddon">
+              <div class="input-group">
+                <label style="margin-bottom: 5px;">
+                  <b>Mandatory addon</b>
+                </label>
+              </div>
+              <div class="checkbox">
+                <input type="checkbox" formControlName="isMandatory" id="isMandatory" />
+                <label class="SelectableFormRow__label" for="isMandatory">
+                  Is mandatory
+                </label>
+              </div>
+            </div>
+          </div>
+          &nbsp;
+
+          <div *ngIf="!isAddon" class="input-group">
+            <label> PACKAGE DESCRIPTION SETTINGS </label>
+            <label style="font-weight: normal;"> Add a short description that will be displayed to the customers before
+              paying by this pricing package. </label>
+            <div class="col-md-6">
+              <div class="input-group">
+                <label> DESCRIPTION TITLE </label>
+                <input type="text" formControlName="tooltipTitle" class="input" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <label> DESCRIPTION SUBTITLE </label>
+                <input type="text" formControlName="tooltipSubtitle" class="input" />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="input-group">
+                <label> DESCRIPTION TEXT </label>
+                <input type="text" formControlName="tooltipBody" class="input" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="button button-empty cancel-btn" (click)="cancel()">
+            Cancel
+          </button>
+
+          <rc-loading-btn *ngIf="!isAddon" [text]="editMode ? 'UPDATE PACKAGE' : 'CREATE PACKAGE'"
+            [disabled]="!packageForm.valid" (onClick)="onSubmit(packageForm.value);" [loading]="loading"
+            [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+
+          <rc-loading-btn *ngIf="isAddon" [text]="editMode ? 'UPDATE ADD-ON' : 'CREATE ADD-ON'"
+            [disabled]="!packageForm.valid" (onClick)="onSubmit(packageForm.value);" [loading]="loading"
+            [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

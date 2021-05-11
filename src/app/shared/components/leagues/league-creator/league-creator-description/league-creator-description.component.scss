@@ -1,0 +1,29 @@
+.default-text-toggle {
+  display: flex;
+  line-height: 24px;
+  font-weight: 500;
+  color: #4a4a4a;
+  margin-bottom: 10px;
+
+  .rc-toggle-wrapper {
+    margin: 0 5px;
+
+    label {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.payment-settings {
+  .form__section__header {
+    margin-bottom: 14px;
+  }
+
+  .rc-radio {
+    margin-bottom: 35px;
+
+    label {
+      font-weight: bold;
+    }
+  }
+}

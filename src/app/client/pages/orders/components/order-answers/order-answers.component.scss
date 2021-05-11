@@ -1,0 +1,10 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.brand-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(255, 191, 0);
+  font-family: $font-brand;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}

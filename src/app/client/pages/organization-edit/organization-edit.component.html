@@ -1,0 +1,316 @@
+  <div class="row inner-page__content inner-page__content--has-bottom-nav" style="height: 100%;">
+    <div class="col-md-12">
+      <form [formGroup]="organizationForm" novalidate>
+        <div class="WizardForm WizardForm__left-fix">
+          <div class="WizardForm__navigation">
+            <div class="WizardForm__navigation__slide-info WizardForm__navigation__slide-info--accent no-mg-top padding-15">
+              <i class="icon-rc-business color-brand-accent"></i>
+              <h5 class="color-brand-accent">{{signupMode ? 'SET UP ACCOUNT' : 'ABOUT YOUR ORGANIZATION'}}</h5>
+              <p>
+                Here you can update your organization’s details, preferences, merchant account, and add imagery and messaging to represent your brand.
+              </p>
+            </div>
+          </div>
+
+          <div class="WizardForm__content">
+            <div class="WizardForm__content__inner">
+              <div class="form">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form__section">
+                      <div class="form__section__header">
+                        ABOUT
+                      </div>
+                      <div class="form__section__helper">
+                        Make sure to fill out all fields, this is the information that we’ll display on your public pages to your customers
+                      </div>
+
+                      <div class="input-group" [ngClass]="{'has-error': !organizationForm.get('name').valid && organizationForm.get('name').touched}">
+                        <label for="">
+                          <i class="icon-rc-business"></i> ORGANIZATION NAME
+                        </label>
+
+                        <div class="input-wrapper">
+                          <input type="text" class="input" formControlName="name" required>
+                        </div>
+                      </div>
+
+                      <div class="input-group">
+                        <label for="">
+                          <i class="icon-rc-short-des"></i> SHORT DESCRIPTION
+                        </label>
+
+                        <div class="input-wrapper">
+                          <span class="rc-tooltip"
+                                placement="right"
+                                container="body"
+                                tooltip='Your tagline, or a short and sweet message that sums up your brand'>
+                            <i class="fa fa-info"></i>
+                          </span>
+                          <input type="text" class="input"  formControlName="tagline">
+                        </div>
+                      </div>
+                      <div class="input-group" [ngClass]="{'has-error': !organizationForm.get('about').valid && organizationForm.get('about').touched}">
+                        <label for="">
+                          <i class="icon-rc-long-des"></i> LONG DESCRIPTION
+                          <span class="pull-right">{{(organizationForm.get('about').value && organizationForm.get('about').value.length) || 0}}/2000</span>
+                        </label>
+
+                        <div class="input-wrapper">
+                          <span class="rc-tooltip"
+                                placement="right"
+                                container="body"
+                                tooltip='What makes your organization special? What’s your story? Why would people want to get involved? You have 2000 characters, but keep in mind the typical attention span.'>
+                            <i class="fa fa-info"></i>
+                          </span>
+                          <textarea rows="6" class="input" formControlName="about"></textarea>
+                        </div>
+                      </div>
+
+                      <div class="input-group">
+                        <label for="">
+                          SPORTS OFFERED
+                        </label>
+                        <span class="rc-tooltip"
+                              placement="right"
+                              container="body"
+                              tooltip='Choose all the sports you offer throughout the year. This will help connect customers who are interested in getting involved in those particular sports.'>
+                            <i class="fa fa-info"></i>
+                        </span>
+                        <rc-quick-sport-picker (onChange)="sportsChanged($event)" [selectedSports]="organization?.sports"></rc-quick-sport-picker>
+                      </div>
+
+                      <div class="input-group">
+                        <label for="">
+                          <i class="icon-rc-location"></i> LOCATION
+                        </label>
+
+
+                        <div class="input-wrapper">
+                            <span class="rc-tooltip"
+                                  placement="right"
+                                  container="body"
+                                  tooltip='Either the address where people can contact you or the city where you organize events (if it isn’t the same) or the city where you are located'>
+                            <i class="fa fa-info"></i>
+                            </span>
+                          <rc-location-search-input
+                            formControlName="addressString"
+                            (onSelected)="onAddressSelect($event)"
+                            [placeholder]="'Enter city, neighborhood, borough or full address'">
+                          </rc-location-search-input>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="form__section">
+                      <div class="form__section__header">
+                        WEBSITE & SOCIAL LINKS
+                      </div>
+                      <div class="form__section__helper">
+                        Add your website and social links and they will be displayed on your facilities' profile page
+                      </div>
+
+                      <div class="input-group" [ngClass]="{'has-error': !organizationForm.get('email').valid && organizationForm.get('email').touched}">
+                        <label for="">
+                          <i class="icon-rc-mail"></i> EMAIL ADDRESS
+                        </label>
+
+                        <div class="input-wrapper">
+                          <input type="email" class="input"  formControlName="email" required>
+                        </div>
+                      </div>
+
+                      <div class="input-group">
+                        <label for="">
+                          <i class="icon-rc-mobile"></i> PHONE NUMBER
+                        </label>
+
+                        <div class="input-wrapper">
+                          <input type="text" class="input"  formControlName="phoneNumber">
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="input-group" [ngClass]="{'has-error': !organizationForm.get('website').valid && organizationForm.get('website').touched}">
+                            <label for="">
+                              <i class="icon-rc-home"></i> WEBSITE
+                            </label>
+
+                            <div class="input-wrapper">
+                              <input type="text" class="input"  formControlName="website">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group" [ngClass]="{'has-error': !organizationForm.get('facebook').valid && organizationForm.get('facebook').touched}">
+                            <label for="">
+                              <i class="icon-rc-facebook-square"></i> FACEBOOK
+                            </label>
+
+                            <div class="input-wrapper">
+                              <input type="text" class="input"  formControlName="facebook">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group" [ngClass]="{'has-error': !organizationForm.get('instagram').valid && organizationForm.get('instagram').touched}">
+                            <label for="">
+                              <i class="icon-rc-instagram"></i> INSTAGRAM
+                            </label>
+
+                            <div class="input-wrapper">
+                              <input type="text" class="input"  formControlName="instagram">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group" [ngClass]="{'has-error': !organizationForm.get('twitter').valid && organizationForm.get('twitter').touched}">
+                            <label for="">
+                              <i class="icon-rc-twitter"></i> TWITTER
+                            </label>
+
+                            <div class="input-wrapper">
+                              <input type="text" class="input" formControlName="twitter">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group" [ngClass]="{'has-error': !organizationForm.get('blog').valid && organizationForm.get('blog').touched}">
+                            <label for="">
+                              <i class="icon-rc-blog"></i> BLOG
+                            </label>
+
+                            <div class="input-wrapper">
+                              <input type="text" class="input"  formControlName="blog">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form__section">
+                      <div class="form__section__header">
+                        BRAND LOGO
+                      </div>
+
+                      <div class="row mg-bottom-20">
+                        <div class="col-md-8 col-md-offset-2">
+                          <rc-image-uploader
+                            [imageTitle]="'LOGO'"
+                            (onFileAdded)="imageChanged('orgLogo', $event)"
+                            [image]="organization?.logo"
+                            [text]="'Upload your organization’s logo. Image should be at least 200x200px and 1MB max size'">
+                          </rc-image-uploader>
+                        </div>
+                      </div>
+                      <div class="row mg-bottom-20" *ngIf="false">
+                        <div class="col-md-8 col-md-offset-2">
+                          <rc-image-uploader
+                            [imageTitle]="'MAIN IMAGE'"
+                            (onFileAdded)="imageChanged('orgMain', $event)"
+                            [image]="organization?.mainMedia"
+                            [text]="'Upload an image that will be used as the opening image for your organization page in th app, Image should be at least 350x230px and 1MB max size.'"></rc-image-uploader>
+                        </div>
+                      </div>
+                      <div class="row mg-top-20" *ngIf="false">
+                        <div class="col-md-12">
+                          <div class="input-group">
+                            <label for="">
+                              <i class="icon-rc-paint-brush"></i> BRAND COLOR
+                            </label>
+                            <div>
+                            <span class="ColorPickerWidget pull-left" style="margin-right: 8px"
+                                  [colorPicker]="brandColor"
+                                  [cpAlphaChannel]="'disabled'"
+                                  (colorPickerChange)="brandColorChanged($event)"
+                                  [style.background]="organizationForm.get('brandColor').value">
+                              <i class="fa fa-plus" *ngIf="!organizationForm.get('brandColor').value"></i>
+                            </span>
+                              <div class="input-wrapper pull-left" style="width: calc(100% - 50px)">
+                                <input type="text" formControlName="brandColor" class="input" placeholder="enter your brand color in hex format (#000000)">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form__section">
+                      <div class="form__section__header">
+                        WEB PAGE <!-- <a style="text-transform: lowercase" href="https://web.reccenter.me/organization/{{organization?.id}}/profile" target="_blank"> | https://web.reccenter.me/organization/{{organization?.id}}/profile</a> -->
+                      </div>
+                       <div class="form__section__helper">
+                        Add banner that will be displayed on your web page
+                      </div>
+
+                     <div class="row mg-bottom-20">
+                    <!--     <div class="col-md-12">
+                          <div class="input-group" formArrayName="newsTicker">
+                            <label for="">
+                              <i class="icon-rc-ticker"></i> TICKER TEXTS
+                            </label>
+
+                            <div>
+                              <div class="pull-left input-wrapper" style="width: calc(100% - 34px)" >
+                                <input type="text" class="input" #tickerTextInput>
+                              </div>
+                              <button class="button button-clear color-brand-accent pull-left plus-btn" (click)="addTickerText(tickerTextInput.value)">
+                                <i class="fa fa-plus"></i>
+                              </button>
+                            </div>
+
+                            <div *ngFor="let ticker of tickerTexts.controls; let i = index" [formGroupName]="i">
+                              <div class="pull-left input-wrapper" style="width: calc(100% - 34px)">
+                                <input type="text" class="input" formControlName="text">
+                              </div>
+                              <button class="button button-clear color-brand-dark-grey pull-left plus-btn" (click)="removeTickerText(i)">
+                                <i class="fa fa-times"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div> -->
+                        <div class="col-md-12 web-banner-wrapper">
+                          <rc-image-uploader
+                            [imageTitle]="'WEB PAGE BANNER'"
+                            [image]="organization?.webPortal?.bannerImage"
+                            (onFileAdded)="imageChanged('webBanner', $event)"
+                            [text]="'Upload a banner for your webpage, image should be at least 468x80px'">
+                          </rc-image-uploader>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row bottom-nav-bar">
+          <div class="bottom-nav-bar__inner">
+            <div class="bottom-nav-bar__inner__content">
+
+              <rc-loading-btn [text]="'SAVE CHANGES'"
+                              [disabled]="!organizationForm.valid"
+                              (onClick)="submit(organizationForm.value);"
+                              [loading]="loading"
+                              [classes]="['button', 'button-next', 'pull-right', 'button-assertive', 'button-padded', 'submit-btn']">
+              </rc-loading-btn>
+            </div>
+          </div>
+        </div>
+      </form>
+  </div>
+</div>
+
+
+<rc-action-success-modal
+  (onCancelClick)="goToDashboard()"
+  (onSuccessClick)="goToCreateVenue()"
+  #actionSuccessModal="modal"
+  [successBtnText]="'I WANT TO ADD MY FACILITY'"
+  [cancelText]="'THAT\'S IT, TAKE ME TO MY DASHBOARD'"
+  [subTitleText]="'You\'ve successfully created your organization\'s account, What\'s next?'">
+</rc-action-success-modal>
+

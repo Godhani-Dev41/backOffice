@@ -1,0 +1,50 @@
+<div [formGroup]="form">
+  <div formGroupName="activityTime"
+    [ngClass]="{'box--collapsable-active box--shadow': form.get('activityTime').get(groupName + 'Active').value}" class="SeasonGamesTimeRow box-item box-item--form box--padding box--border box--collapsable
+   box--collapsable--checkbox">
+
+    <div class="box-header">
+      <div class="box-title text-uppercase">
+        <div class="checkbox">
+          <input type="checkbox" class="styled-checkbox" [formControlName]="groupName + 'Active'" />
+          <label></label>
+        </div> {{title}}
+      </div>
+    </div>
+    <div class="box-content" [formArrayName]="groupName"
+      *ngIf="form.get('activityTime').get(groupName + 'Active').value">
+      <div class="row" style="margin-bottom: 10px;" *ngFor="let time of formArray.controls; let i = index"
+        [formGroupName]="i">
+        <div class="col-md-6">
+          <div class="SeasonGamesTimeRow__time-entry-row">
+            <label for="">From</label>
+            <div class="input-group">
+              <rc-timepicker formControlName="startTime" [inline]="true">
+              </rc-timepicker>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="SeasonGamesTimeRow__time-entry-row SeasonGamesTimeRow__time-entry-row--right">
+            <label for="">To</label>
+            <div class="input-group">
+              <rc-timepicker formControlName="endTime" [inline]="true"
+                [minTime]="form.get('activityTime').value[i].startTime">
+              </rc-timepicker>
+            </div>
+            <button class="button button-clear" (click)="remove(i)" *ngIf="formArray.controls.length > 1">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" (click)="addSlot()">
+          <div class="SeasonGamesTimeRow__bottom-entry-btn">
+            <i class="fa fa-plus"></i> ADD ANOTHER TIME SLOT TO THIS DAY
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

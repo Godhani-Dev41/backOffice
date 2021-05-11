@@ -1,0 +1,24 @@
+<div class="col-md-12">
+  <div class="SportPicker">
+    <div class="row">
+      <div class="col-sm-2 col-xs-4" *ngFor="let sport of visibleSports" (click)="sportClicked(sport)">
+        <div class="SportPicker__item" [ngClass]="{'SportPicker__item--active': sport.active}">
+          <i [ngClass]="sport.icon"></i>
+          <span>{{sport.name}}</span>
+        </div>
+      </div>
+      <div class="col-sm-2 col-xs-4">
+        <div class="SportPicker__item SportPicker__item--see-all" (click)="sportPickerModal.showModal()">
+          <div class="circles-wrapper">
+            <i class="fa fa-circle"></i>
+            <i class="fa fa-circle"></i>
+            <i class="fa fa-circle"></i>
+          </div>
+          <span>See All</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<rc-sport-picker-modal [singleSelect]="singleSelect" [sports]="sports" #sportPickerModal="modal" (onSelect)="sportsSelected($event)"></rc-sport-picker-modal>

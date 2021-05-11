@@ -1,0 +1,102 @@
+<div class="row" [formGroup]="form">
+  <div class="col-md-12" [formGroupName]="groupName">
+    <div class="form__section">
+      <div class="form__section__header">
+        ABOUT
+      </div>
+      <div class="form__section__helper">
+        Make sure to fill out all fields, this is the information that we’ll display on your league page.
+      </div>
+
+      <div class="input-group">
+        <label for="">
+          <i class="icon-rc-nav-leagues"></i> LEAGUE NAME
+          <span class="pull-right">{{ form.get(groupName).get("name").value?.length }}/60</span>
+        </label>
+
+        <div class="input-wrapper">
+          <span
+            class="rc-tooltip"
+            placement="right"
+            container="body"
+            tooltip="Leagues are implied to be coed if no gender is named in title. Women's and Men's leagues may want to include their respective genders in the league title. League titles should not include sport name. Titles should be fewer than 25 characters."
+          >
+            <i class="fa fa-info"></i>
+          </span>
+          <input type="text" class="input" formControlName="name" maxlength="60" />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="">
+          SPORT TYPE
+        </label>
+
+        <div class="input-wrapper">
+          <rc-quick-sport-picker formControlName="sport" [singleSelect]="true"></rc-quick-sport-picker>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for=""> <i class="icon-rc-location"></i> LOCATION </label>
+
+        <div class="input-wrapper">
+          <rc-location-search-input
+            [timeZoneSelector]="true"
+            [timezone]="form.get(groupName).get('timezone').value"
+            (onSelected)="venueSelected($event)"
+            formControlName="venueAddress"
+            [placeholder]="'Enter city, neighborhood, borough or full address.'"
+          >
+          </rc-location-search-input>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for=""> {{ "Select Gl Code *" | uppercase }} </label>
+      <div class="input-wrapper">
+        <div class="input-group">
+          <select name="" formControlName="GL" class="select">
+            <option value="">Select a GL</option>
+            <option value="{{ GL.code }}" *ngFor="let GL of GlCodes"> {{ GL.code }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for=""> {{ "Select required membership to register" | uppercase }} </label>
+      <div class="input-wrapper">
+        <div class="input-group">
+          <nz-select
+            nzSize="large"
+            style="width: 100%;"
+            formControlName="memberships"
+            nzMode="multiple"
+            (ngModelChange)="onMembershipChange()"
+          >
+            <nz-option *ngFor="let option of memberships" [nzLabel]="option.name" [nzValue]="option.id"> </nz-option>
+          </nz-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form__section">
+      <div class="form__section__header">
+        LEAGUE COVER IMAGE
+      </div>
+      <div class="row mg-top-20">
+        <div class="col-md-8 col-md-offset-2 mg-bottom-20">
+          <rc-image-uploader
+            [image]="league?.mainMedia"
+            (onFileAdded)="mainImageAdded($event)"
+            [text]="
+              'Upload an image that will be used as the opening image for your league page, Image should be at least 350x230px and 1MB max size'
+            "
+          >
+          </rc-image-uploader>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

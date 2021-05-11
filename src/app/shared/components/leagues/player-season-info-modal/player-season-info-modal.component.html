@@ -1,0 +1,204 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+  (onHide)="closeChargeDialog()">
+  <div class="modal-dialog rc-modal">
+    <form class="form" novalidate>
+      <div class="modal-content">
+        <!-- Header -->
+        <div class="modal-header modal-header--assertive">
+          <button type="button" class="close pull-right" (click)="modal.hide()" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+          <div class="modal-header__content">
+            <div class="PlayerModalHeader" *ngIf="!loading">
+              <div class="PlayerModalHeader__image">
+                <div class="image-wrapper image--border image--round image--shadow"
+                  [rcBackgroundImage]="user?.profilePicture?.url | mediaUrl: 500" [rcBackgroundDefaultType]="'user'">
+                </div>
+              </div>
+              <div class="PlayerModalHeader__info">
+                <h5 class="text-uppercase">{{ user?.firstName }} {{ user?.lastName }}</h5>
+                <p><b>AGE</b> {{ userAge }} | <b>GENDER</b> {{ userGender }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Loading body -->
+        <div class="modal-body" *ngIf="loading">
+          <loaders-css *ngIf="loading" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+        </div>
+        <!-- Body content -->
+        <div class="modal-body no-padding" *ngIf="!loading">
+          <div *ngIf="openChargeRemaining">
+            <nz-row nzType="flex" nzAlign="middle" nzJustify="start" class="pay-balance-row">
+              <nz-col>
+                <h3 class="half-row-button">
+                  Balance remaining: <span style="color: red;">{{ amountRemaining | currency }}</span>
+                </h3>
+              </nz-col>
+            </nz-row>
+            <nz-row nzType="flex" nzAlign="middle" nzJustify="start">
+              <nz-col>
+                <label for="amtToCharge" class="half-row-button"> Amount to charge customer </label>
+                <input nz-input id="amtToCharge" class="half-row-button" type="number" [max]="amountRemaining"
+                  [(ngModel)]="amountToCharge" [ngModelOptions]="{ standalone: true }" />
+              </nz-col>
+              <p class="error-text" *ngIf="showDepositError">
+                Amount must be greater than 0 and no more than the balance remaining
+              </p>
+            </nz-row>
+          </div>
+          <div *ngIf="!openChargeRemaining">
+            <!-- SubSeason info -->
+            <div class="PlayerInfoBox">
+              <div class="PlayerInfoBox__label PlayerInfoBox__label--active">
+                <span>
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+              <div *ngIf="!event && data?.segments">
+                <div class="PlayerInfoBox__info-row">
+                  <b>{{ "Program sessions" | uppercase }}</b>
+                </div>
+                <div *ngFor="let segment of data?.segments; let idx = index">
+                  <div class="PlayerInfoBox__info-row">
+                    <b>{{ segment.name | uppercase }}</b>
+                    {{ segment.startDate | momentDate: "MMM DD, YYYY":season?.seasonLeague?.timezone }} -
+                    {{ segment.endDate | momentDate: "MMM DD, YYYY":season?.seasonLeague?.timezone }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Payment info -->
+            <div class="PlayerInfoBox">
+              <div class="PlayerInfoBox__label" [ngClass]="{
+                  'PlayerInfoBox__label--active': data?.paymentStatus === RCPaymentStatus.ACCEPTED,
+                  'PlayerInfoBox__label--in-active':
+                    data?.paymentStatus === RCPaymentStatus.PENDING ||
+                    data?.paymentStatus === RCPaymentStatus.FRAUD ||
+                    data?.notRegistered
+                }">
+                <span>
+                  <i class="fa fa-usd"></i>
+                </span>
+              </div>
+              <div class="row" *ngIf="!event">
+                <div class="col-md-6">
+                  <div class="PlayerInfoBox__title">
+                    REGISTRATION FEE
+                  </div>
+                </div>
+                <div class="col-md-6" *ngIf="data?.paymentMethod === 3 && !data?.notRegistered">
+                  <div class="checkbox">
+                    <input type="checkbox" (change)="settledStatusChanged($event)"
+                      [ngModelOptions]="{ standalone: true }" [(ngModel)]="paymentSettled" class="styled-checkbox" />
+                    <label><b>MARK PAYMENT AS SETTLED</b></label>
+                  </div>
+                </div>
+              </div>
+              <div class="PlayerInfoBox__info-row" *ngIf="!data?.notRegistered && !event">
+                <b>PAYMENT METHOD</b> {{ paymentMethod }}
+              </div>
+              <div class="PlayerInfoBox__info-row" *ngIf="!data?.notRegistered && !event">
+                <b>PAYMENT AMOUNT</b>
+                {{ data?.paymentAmount ? "$" + data?.paymentAmount : "UNKNOWN" }}
+              </div>
+              <div class="PlayerInfoBox__info-row" *ngIf="!data?.notRegistered && !event">
+                <b>REGISTERED ON</b>
+                {{
+                (data?.registrationDate ? data.registrationDate : data?.seasonPool?.createdAt)
+                | momentDate: "DD MMM, YYYY HH:mm":season?.seasonLeague?.timezone
+                }}
+              </div>
+              <div *ngIf="data?.notRegistered && !event">
+                NOT REGISTERED YET
+              </div>
+              <div class="PlayerInfoBox__info-row" *ngIf="event">
+                <b>{{ "Paid" | uppercase }}</b> {{ hasPaid ? "YES" : "NO" }}
+              </div>
+            </div>
+            <!-- Answers, event -->
+            <div class="PlayerInfoBox PlayerInfoBox--questions" *ngIf="event">
+              <div class="PlayerInfoBox__label">
+                <span>
+                  <i class="fa fa-question"></i>
+                </span>
+              </div>
+              <div class="PlayerInfoBox__title">
+                QUESTIONS
+              </div>
+              <div class="PlayerInfoBox__question-row" *ngFor="let answer of userAnswers">
+                <div class="PlayerInfoBox__question-row__title">
+                  {{ answer?.question?.question }}
+                </div>
+                {{ normalizeAnswer(answer?.answerValue, answer?.question?.questionType) }}
+              </div>
+            </div>
+            <!-- Answers, not event -->
+            <div class="PlayerInfoBox PlayerInfoBox--questions" *ngIf="!event">
+              <div class="PlayerInfoBox__label">
+                <span>
+                  <i class="fa fa-question"></i>
+                </span>
+              </div>
+              <div class="PlayerInfoBox__title">
+                QUESTIONS
+              </div>
+              <div class="PlayerInfoBox__question-row" *ngFor="let answer of data?.answers">
+                <div class="PlayerInfoBox__question-row__title">
+                  {{ answer?.question?.question }}
+                </div>
+                {{ normalizeAnswer(answer?.answerValue, answer?.question?.questionType) }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Footer -->
+        <div class="modal-footer" *ngIf="!event">
+          <button class="button button-danger button-empty pull-left left-action-button" *ngIf="
+              ((!loading && data?.canUnassign) || data?.seasonPool?.entityType === 'user') &&
+              data?.seasonPool?.status !== RCSeasonPoolStatusEnum.INACTIVE
+            " (click)="
+              onPlayerRejectClick.emit({
+                user: data.user,
+                seasonTeam: seasonTeam,
+                seasonPool: data.seasonPool
+              });
+              modal.hide()
+            ">
+            <i class="fa fa-times"></i> Remove player from season
+          </button>
+          <button class="button button-danger button-empty pull-left left-action-button"
+            style="color: #24c875 !important;" *ngIf="
+              ((!loading && data?.canUnassign) || data?.seasonPool?.entityType === 'user') &&
+              data.seasonPool?.status === RCSeasonPoolStatusEnum.INACTIVE
+            " (click)="
+              onPlayerRestoreClick.emit({
+                user: data.user,
+                seasonTeam: seasonTeam,
+                seasonPool: data.seasonPool
+              });
+              modal.hide()
+            ">
+            <i class="fa fa-mail-forward"></i> Restore player from archive
+          </button>
+          <button class="button button-empty cancel-btn" (click)="modal.hide()" *ngIf="event">
+            Cancel
+          </button>
+          <rc-loading-btn *ngIf="event" [text]="'SAVE CHANGES'" (onClick)="saveForm()" [loading]="loading"
+            [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+          <rc-loading-btn *ngIf="!paymentSettled && !openChargeRemaining" [text]="'SETTLE BALANCE'" [loading]="loading"
+            [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']" (click)="openChargeDialog()">
+          </rc-loading-btn>
+          <button class="button button-empty cancel-btn" (click)="closeChargeDialog()"
+            *ngIf="!paymentSettled && openChargeRemaining">
+            Cancel
+          </button>
+          <rc-loading-btn *ngIf="!paymentSettled && openChargeRemaining" [text]="'CHARGE CUSTOMER'" [loading]="loading"
+            [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']" (click)="submitRemainCharge()">
+          </rc-loading-btn>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

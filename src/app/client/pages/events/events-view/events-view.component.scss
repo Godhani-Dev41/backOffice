@@ -1,0 +1,122 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.events-page-wrapper {
+  margin-top: 10px;
+}
+
+.rc-datatable {
+  .status-checkmark {
+    i {
+      font-size: 20px;
+      color: #bbbdbf;
+    }
+
+    &.status-checkmark--success i {
+      color: $brand-success;
+    }
+
+    &.status-checkmark--danger i {
+      color: $brand-danger;
+    }
+  }
+
+  ::ng-deep .status-column {
+    i {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 100%;
+      background: $brand-success;
+      position: relative;
+      top: -1px;
+
+      &.draft-mode {
+        background: #f99400;
+      }
+    }
+  }
+
+  ::ng-deep .actions-column {
+    .btn {
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      &.btn--success {
+        color: $brand-success;
+      }
+    }
+  }
+
+  ::ng-deep .datatable-body-row {
+    &:hover {
+      background: black;
+
+      ::ng-deep .actions-column {
+        .btn {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep .tooltip-inner {
+  background: white !important;
+  width: auto;
+  color: $brand-dark-grey;
+  font-size: 11px;
+  padding: 5px 10px;
+  font-family: $font-default;
+}
+
+::ng-deep .tooltip.right .tooltip-arrow,
+::ng-deep .tooltip-arrow {
+  border-right-color: white !important;
+  border-bottom-color: white !important;
+  border-top-color: white !important;
+}
+
+
+.AttendanceWidget {
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+
+  li {
+    font-size: 11px;
+    padding: 2px 0;
+
+    i {
+      display: inline-block;
+      margin-right: 5px;
+      font-size: 13px;
+    }
+  }
+
+  .AttendanceWidget__going {
+    color: $brand-success;
+  }
+
+  .AttendanceWidget__not-going {
+    color: $brand-danger;
+  }
+
+  .AttendanceWidget__no-reply {
+    color: $brand-dark-grey;
+  }
+}
+
+.table-action-button {
+
+  &:hover {
+    color: inherit;
+
+    &.color-brand-accent {
+      color: $brand-accent;
+    }
+
+    &.color-brand-success {
+      color: $brand-success;
+    }
+  }
+}

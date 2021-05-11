@@ -1,0 +1,45 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.entity-large-photo {
+  text-align: center;
+  position: relative;
+}
+
+.entity-sport-icon {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top: 133px;
+
+  i {
+    color: $brand-accent;
+    font-size: 50px;
+    position: relative;
+  }
+
+  .sport-shadow {
+    left: 0;
+    right: 0;
+    top: 65px;
+    filter: blur(2px);
+    margin: 0 auto;
+    position: absolute;
+    display: inline-block;
+    width: 40px;
+    height: 5px;
+    border-radius: 100%;
+    background: black;
+    opacity: 0.35;
+  }
+}
+
+.entity-image {
+  text-align: center;
+
+  .image-wrapper {
+    display: inline-block;
+    width: 160px;
+    height: 160px;
+  }
+}
+

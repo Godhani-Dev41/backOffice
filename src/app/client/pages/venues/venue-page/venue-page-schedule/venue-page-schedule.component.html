@@ -1,0 +1,27 @@
+<div class="page-sub-navigation">
+  <div class="page-sub-navigation__menu">
+    <ul class="pull-left">
+      <li>
+        <a href="" [routerLink]="['../schedule/all']" [routerLinkActive]="['active']">ALL</a>
+      </li>
+      <li *ngFor="let space of venue?.spaces">
+        <div class="truncate-text">
+          <span placement="top"
+                container="body"
+                [tooltip]="space.name.length > 9? (space.name | titlecase) : ''">
+            <a href="" [routerLink]="['../schedule/space/' + space.id]" class="text-uppercase" [routerLinkActive]="['active']">
+              {{space.name}}
+            </a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row inner-page__content inner-page__content__sub-navigation inner-page__content--background padding-top-20" style="">
+  <loaders-css *ngIf="loading" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+
+  <div class="col-md-12" style="position: static;">
+    <router-outlet></router-outlet>
+  </div>
+</div>

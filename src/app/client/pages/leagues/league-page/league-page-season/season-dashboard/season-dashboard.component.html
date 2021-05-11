@@ -1,0 +1,264 @@
+<loaders-css *ngIf="loading && league" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+
+<div class="row" *ngIf="league && season && !loading">
+  <div class="col-md-12">
+
+  </div>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row mg-bottom-20">
+          <div class="col-md-6">
+            <h3 class="sub-title sub-title--assertive no-mg-top text-uppercase">
+              {{season.name}}
+            </h3>
+          </div>
+          <div class="col-md-6">
+            <a href="" class="button button-assertive--inverted button-bold pull-right"
+               *ngIf="!season?.tournamentType && season?.scheduleStatus === 'draft'"
+               [routerLink]="['../../../schedule-creator/' + season?.id]">
+              SCHEDULE GENERATOR
+            </a>
+            <a href="" class="button button-assertive--inverted button-bold pull-right"
+               *ngIf="!season?.tournamentType"
+               style="margin-right: 10px"
+               [routerLink]="['../../../playoff-creator']" [queryParams]="{ connectedSeason: season?.id }">
+              ADD PLAYOFFS
+            </a>
+
+            <a href="" class="button button-assertive--inverted button-bold pull-right"
+               style="margin-right: 10px" *ngIf="!season?.tournamentType"
+               [routerLink]="['../../../season-creator/' + season.id]">
+              EDIT SEASON
+            </a>
+
+            <a href="" class="button button-assertive--inverted button-bold pull-right"
+               *ngIf="season?.tournamentType" [routerLink]="['../../../item-edit/' + season.id]">
+              EDIT
+            </a>
+         <!--   <a href="" class="button button-edit pull-right"
+               *ngIf="season?.tournamentType"
+               [routerLink]="['../../../' + season.id + '/item-edit']">
+              EDIT
+            </a>-->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-4">
+            <rc-league-date-games [activityTimes]="season.activityTimes" [season]="season"></rc-league-date-games>
+          </div>
+          <div class="col-md-6" *ngIf="!season?.playoffType">
+            <rc-season-schedule-timeline [season]="season"></rc-season-schedule-timeline>
+          </div>
+          <div class="col-sm-2" *ngIf="season?.seasonTeams?.length">
+            <div class="add-card"
+                 style="background: #ffb74f; width: auto; min-height: 150px;"
+                 (click)="publishScorerModal.showModal(this.season)">
+              <div class="add-card__text">
+                POST SCORE LEADERS
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" *ngFor="let division of divisions">
+        <div class="DivisionBlock">
+          <div class="DivisionBlock__header" [style.backgroundColor]="division.color" *ngIf="season?.multipleDivision">
+            <b>{{division.name}}</b> | {{division.seasonTeams?.length}} TEAMS
+          </div>
+          <div class="DivisionBlock__content">
+            <div class="row">
+              <div class="col-md-6" [ngClass]="{'col-md-12': season?.tournamentType, 'col-md-6': !season?.tournamentType}">
+                <div class="DashboardWidget">
+                  <div class="DashboardWidget__title sub-title sub-title--icon no-margin mg-top-20 padding-right-20">
+                    <a href="" [routerLink]="['/client/leagues/view', league?.id, 'season', season?.id, 'teams']" *ngIf="!season?.tournamentType">
+                      <i class="icon-rc-teams-icon"></i> TEAMS
+                    </a>
+                    <a href="" [routerLink]="['/client/tournaments/view', league?.id, 'item', season?.id, 'teams']" *ngIf="season?.tournamentType">
+                      <i class="icon-rc-teams-icon"></i> TEAMS
+                    </a>
+                  </div>
+                  <div class="DashboardWidget__content">
+                    <div class="DashboardWidget__content__item">
+                      <div class="box-item box--shadow box-item--empty-results" *ngIf="!division.seasonTeams?.length">
+                        <div class="box-item--empty-results__icon">
+                          <i class="icon-rc-teams-icon"></i>
+                        </div>
+                        <div class="box-item--empty-results__text text-center">
+                          set up awesome teams and <br>get the ball rollin'
+                        </div>
+                      </div>
+                      <rc-league-teams-slider [teams]="division.seasonTeams" *ngIf="division.seasonTeams?.length"></rc-league-teams-slider>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="!season?.tournamentType">
+                <div class="DashboardWidget">
+                  <div class="DashboardWidget__title sub-title sub-title--icon no-margin mg-top-20 padding-right-20">
+                    <i class="icon-rc-trophy"></i> STANDINGS
+                  </div>
+                  <div class="DashboardWidget__content">
+                    <div class="DashboardWidget__content__item DashboardWidget__content__item--actions"
+                         *ngIf="division.standings?.length">
+                    <!--  <div class="add-card add-card&#45;&#45;small"
+                           [style.backgroundImage]="'url(assets/img/login/login-bg-1.jpg)'">
+                        <div class="inner-overlay"></div>
+                        <div class="add-card__text">
+                          MANAGE <br>
+                          STANDINGS
+                        </div>
+                      </div>-->
+                      <div class="add-card add-card--success-bg"
+                           (click)="seasonPostModal.showModal('seasonResults', { standings: division.standings, divisionId: division.id })">
+                        <div class="add-card__text">
+                          SHARE <br> STANDINGS
+                        </div>
+                      </div>
+                    </div>
+                    <div class="DashboardWidget__content__item">
+                      <rc-standings-table-small [league]="league" [standings]="division.standings"></rc-standings-table-small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="DashboardWidget schedule-widget" style="overflow: hidden">
+                  <div class="DashboardWidget__title sub-title sub-title--icon no-margin mg-top-20 padding-right-20">
+                    <i class="icon-rc-games-per-season"></i> {{season?.tournamentType ? 'BRACKETS' : 'SCHEDULE'}}
+                    <div class="round-list-wrapper">
+                      <ul class="list rounds-list">
+                        <li
+                          *ngFor="let round of division.rounds"
+                          [ngClass]="{'active': division.currentRound?.id === round.id}"
+                          (click)="fetchDivisionRound(division, round.id)">
+                          <i class="icon-rc-flag"></i> {{round.name}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="DashboardWidget__content">
+                    <div class="DashboardWidget__content__item DashboardWidget__content__item--actions" *ngIf="division.currentRound?.matches.length">
+                      <div class="add-card add-card--success-bg"
+                           *ngIf="division.currentRound?.matches.length"
+                           (click)="seasonPostModal.showModal('roundResults', { round: division.currentRound })">
+                        <div class="add-card__text" style="font-size: 16px">
+                          SHARE ROUND RESULTS
+                        </div>
+                      </div>
+                    </div>
+                    <div class="DashboardWidget__content__item" [ngClass]="{'DashboardWidget__content__item-data': division.currentRound?.matches.length}">
+                      <div class="box-item box--shadow box-item--empty-results" *ngIf="!division.currentRound?.matches && !division.roundLoading">
+                        <div class="box-item--empty-results__icon">
+                          <i class="icon-rc-double-flag"></i>
+                        </div>
+                        <div class="box-item--empty-results__text text-center">
+                          schedule some games days and <br>let's start playin' <br>
+                          <a href=""
+                             *ngIf="season?.tournamentType"
+                             [routerLink]="['../generate-schedule']"
+                             class="button button-assertive" style="margin-top: 1px; display: inline-block; font-size: 12px;">
+                            GENERATE TOURNAMENT SCHEDULE
+                          </a>
+                        </div>
+                      </div>
+                      <loaders-css *ngIf="division.roundLoading" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+                      <rc-season-round-matches-slider
+                        (onClick)="matchClicked($event, division.id)"
+                        (onShareClick)="seasonPostModal.showModal('matchResults', { match: $event })"
+                        [round]="division.currentRound"
+                        *ngIf="!division.roundLoading && division?.rounds?.length"
+                        [matches]="division.currentRound?.matches">
+                      </rc-season-round-matches-slider>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row sub-seasons-wrapper">
+      <div class="col-md-3" *ngFor="let playoff of season?.subSeasons">
+        <div class="DashboardWidget mg-bottom-20">
+          <div class="DashboardWidget__title sub-title sub-title--icon no-margin mg-top-20">
+            <i class="icon-rc-games-per-season"></i>
+            <span style="position: relative">
+                PLAYOFF
+               <div class="AlertToolTip" *ngIf="playoff?.isAssignTeamsVisible">
+                <div class="AlertToolTip__inner">
+                  IT’S TIME!
+                  ASSIGN YOUR
+                  TEAMS TO THE
+                  PLAYOFFS
+
+                  <button class="button" [routerLink]="['/client/leagues/view/' + league?.id + '/playoff-team-assign/' + playoff?.id]">
+                    LET'S GO
+                  </button>
+                </div>
+              </div>
+            </span>
+            <span
+              *ngIf="playoff?.status === 1"
+              class="EntityPublishLabel EntityPublishLabel--draft EntityPublishLabel--boxed pull-right">
+              <i></i> DRAFT
+            </span>
+            <span
+              *ngIf="playoff?.status === 2"
+              class="EntityPublishLabel EntityPublishLabel--published EntityPublishLabel--boxed pull-right">
+              <i></i> PUBLISHED
+            </span>
+            <span
+              *ngIf="playoff?.status === 3"
+              class="EntityPublishLabel EntityPublishLabel--boxed pull-right">
+              <i></i> CLOSED
+            </span>
+          </div>
+
+          <div class="DashboardWidget__content">
+            <a href="" [routerLink]="['/client/tournaments/view/' + league.id + '/item/' + playoff.id]" style="width: 100%;">
+              <div class="PlayoffCard">
+                <div class="PlayoffCard__icon">
+                <span>
+                  <i class="icon-rc-trophy-unknown"></i>
+                </span>
+                </div>
+                <div class="PlayoffCard__title text-uppercase">
+                  {{playoff?.name}}
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<rc-match-results-modal
+  #matchResultsModal="modal"
+  (onUpdated)="matchResultsUpdate($event)"
+  (onEditClick)="matchEditClick($event)">
+</rc-match-results-modal>
+<rc-match-edit-modal
+  [league]="league"
+  [season]="season"
+  [divisions]="divisions"
+  #matchEditModal="modal"
+  (onMatchUpdated)="matchUpdated($event)"
+  (onMatchRemoved)="removeMatch($event)">
+</rc-match-edit-modal>
+<rc-season-post-modal [league]="league" #seasonPostModal="modal">
+</rc-season-post-modal>
+<rc-top-scorer-modal-post
+  #publishScorerModal="modal">
+</rc-top-scorer-modal-post>

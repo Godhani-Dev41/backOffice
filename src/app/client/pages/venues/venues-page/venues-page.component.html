@@ -1,0 +1,46 @@
+<div class="leagues-page-wrapper inner-page scrollable">
+  <div class="page-header bottom-divider">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-wrapper">
+
+        </div>
+        <div class="bottom-wrapper">
+          <h3 class="pull-left">FACILITIES</h3>
+          <a href=""
+             class="button button-assertive--inverted button-bold pull-right"
+             [routerLink]="['../venue-creator']">
+            CREATE NEW FACILITY
+          </a>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-content inner-page__content">
+    <div class="row">
+      <div class="col-md-12" *ngIf="loading" >
+        <loaders-css [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+      </div>
+      <div class="col-md-12" *ngIf="!loading && !venues?.length">
+        <div class="PageEmptyState">
+          <h5>
+            Add The Facility You Own
+          </h5>
+          <p>
+            Adding the facility you own will enable managing your facility booking, payments, availability, customer list and lots more…
+          <a href="" class="button button-assertive" [routerLink]="['../venue-creator']">
+            ADD NEW FACILITY
+          </a>
+        </div>
+      </div>
+      <div class="col-md-12" *ngIf="!loading && venues?.length" style="overflow: hidden">
+        <div class="row">
+          <div class="col-lg-4 col-md-6" *ngFor="let venue of venues" [routerLink]="['../venue-creator']">
+            <rc-venue-card [venue]="venue"></rc-venue-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

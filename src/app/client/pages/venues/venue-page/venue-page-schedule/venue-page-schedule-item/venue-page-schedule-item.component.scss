@@ -1,0 +1,130 @@
+@import "~@rcenter/core/scss/variables/index";
+
+
+.SummaryWrapper {
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  overflow: auto;
+
+  h5 {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(255,191,0);
+    font-family: $font-brand;
+    margin-bottom: 15px;
+  }
+
+  .SummaryWrapper__props {
+    font-family: $font-brand;
+    color: $brand-black;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .SummaryWrapper__sports {
+    display: flex;
+    position: relative;
+    left: -10px;
+
+    h6 {
+      color: $brand-black;
+      font-weight: bold;
+      font-family: $font-brand;
+    }
+
+    .SportItem {
+      i {
+        color: rgb(255,191,0);
+        font-size: 40px;
+      }
+    }
+  }
+
+  .SummaryWrapper__packages {
+    margin-top: 30px;
+
+    h6 {
+      font-size: 10px;
+      font-family: $font-brand;
+      color: $brand-black;
+      margin-bottom: 15px;
+    }
+
+    .PackageItem {
+      margin-bottom: 40px;
+
+      h5 {
+        color: rgb(255,191,0);
+        font-size: 10px;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      p {
+        color: $brand-black;
+        font-size: 10px;
+        line-height: 14px;
+      }
+
+      .PackageItem__price {
+        color: rgb(255,191,0);
+        font-size: 24px;
+        font-family: $font-brand;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.AgendaWidget {
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  overflow: auto;
+
+  h5 {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(255,191,0);
+    font-family: $font-brand;
+    margin-bottom: 15px;
+  }
+}
+
+.AgendaItem {
+  margin-bottom: 20px;
+
+  h5 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: $brand-black;
+  }
+
+  p {
+    font-size: 10px;
+    font-weight: 200;
+    color: $brand-black;
+    line-height: 14px;
+  }
+}
+
+::ng-deep .rc-calendar .fc-toolbar.fc-header-toolbar {
+  border-top: none;
+}
+
+::ng-deep .fc button.fc-today-button, .fc button.fc-list-button, .fc button.fc-timeline-button {
+  height: 30px;
+  border-radius: 2px;
+  border: solid 1px rgb(255,191,0);
+  line-height: 30px;
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(255,191,0);
+  font-family: $font-brand;
+  text-transform: uppercase;
+  padding: 0 30px;
+}

@@ -1,0 +1,174 @@
+<div class="row" [formGroup]="form">
+  <div class="col-md-12">
+    <div class="form__section">
+      <div class="form__section__header">
+        SCHEDULE RULES
+      </div>
+
+      <div class="ScheduleCheckboxSetting text-uppercase">
+        Schedule matches only within season range <br>
+        (may result in incomplete rounds)
+        <div class="rc-toggle-wrapper pull-right">
+          <input type="checkbox" id="membershipFee" formControlName="matchesWithinSeasonRange"
+            class="rc-toggle rc-toggle-light">
+          <label for="membershipFee" class="rc-toggle-btn"></label>
+        </div>
+      </div>
+      <div class="ScheduleCheckboxSetting text-uppercase">
+        EACH TEAM PLAYS
+        <div class="input-group">
+          <input type="number" formControlName="notMoreThanNAWeek" class="input" />
+        </div>
+        TIMES A WEEK
+      </div>
+    </div>
+
+    <div class="form__section">
+      <div class="form__section__header">
+        SCHEDULE CONSTRAINTS
+      </div>
+      <div class="form__section__helper">
+        Select from list of public holidays in your date range
+        or/and enter dates and times in which you can’t play
+      </div>
+      <div class="row" [formArrayName]="'constraints'">
+        <div class="col-md-12" *ngFor="let control of constraintsArray.controls; let i = index;" [formGroup]="control">
+          <div class="SelectableFormRow" [ngClass]="{'SelectableFormRow--active': control.get('active').value}"
+            *ngIf="control.get('type').value === 'holiday'">
+            <div class="checkbox">
+              <input type="checkbox" formControlName="active" class="styled-checkbox" />
+              <label class="SelectableFormRow__label">
+                {{control.get('title').value}}
+              </label>
+            </div>
+            <span class="SelectableFormRow__side-label text-uppercase">
+              {{control.get('startDate').value | date:'MMM d, y'}}
+            </span>
+          </div>
+
+          <div class="CustomConstraintWidget" *ngIf="control.get('type').value === 'custom'">
+            <div class="CustomConstraintWidget__title">
+              <div class="checkbox">
+                <input type="checkbox" formControlName="active" class="styled-checkbox" />
+                <label>
+                  CAN'T PLAY ON
+                </label>
+              </div>
+            </div>
+
+            <div class="CustomConstraintWidget__content">
+              <div class="row-title">
+                Select Days
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="input-group">
+                    <label for="">From</label>
+                    <rc-datepicker [formControlName]="'startDate'" (onDateSelected)="startDateSelected($event, control)"
+                      [placeholder]="'Select Date'"></rc-datepicker>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="input-group">
+                    <label for="">To</label>
+                    <rc-datepicker [formControlName]="'endDate'" [minDate]="control.get('startDate').value"
+                      [placeholder]="'Select Date'"></rc-datepicker>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 inline-checkboxes">
+                  <div class="row-title">
+                    Select Time
+                  </div>
+                  <div class="checkbox"
+                    (click)="selectContraintType('fullDay', control, $event); $event.stopPropagation()">
+                    <input type="checkbox" [checked]="control.get('constraintDuration').value === 'fullDay'"
+                      class="styled-checkbox" />
+                    <label>
+                      FULL DAY
+                    </label>
+                  </div>
+                  <div class="checkbox"
+                    (click)="selectContraintType('hours', control, $event); $event.stopPropagation()">
+                    <input type="checkbox" [checked]="control.get('constraintDuration').value === 'hours'"
+                      class="styled-checkbox" />
+                    <label>
+                      BETWEEN THE HOURS
+                    </label>
+                  </div>
+                </div>
+                <div class="row" *ngIf="control.get('constraintDuration').value === 'hours'">
+                  <div class="col-md-5">
+                    <div class="input-group">
+                      <label for="">From</label>
+                      <rc-timepicker [formControlName]="'startDate'"></rc-timepicker>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="input-group">
+                      <label for="">To</label>
+                      <rc-timepicker [formControlName]="'endDate'" [minTime]="control.get('startDate')?.value">
+                      </rc-timepicker>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="add-custom-constraint-btn" (click)="addCustomConstraint()">
+            <i class="fa fa-plus"></i> ADD CUSTOM CONSTRAINT
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form__section">
+      <div class="form__section__header">
+        TEAM REQUESTS
+      </div>
+      <div class="form__section__helper">
+        Teams requests that were entered can be applied to your season’s schedule,
+        We’ll try to accommodate them and generate the best schedule for your teams.
+      </div>
+
+      <div class="row" [formArrayName]="'teamConstraints'">
+        <div class="col-md-12" *ngFor="let control of teamConstraintsArray.controls; let i = index;"
+          [formGroup]="control">
+          <div class="SelectableFormRow TeamConstraintsRow"
+            [ngClass]="{'SelectableFormRow--active': control.get('active').value}">
+            <div class="checkbox">
+              <input type="checkbox" formControlName="active" class="styled-checkbox" />
+              <label class="SelectableFormRow__label">
+              </label>
+            </div>
+            <div class="TeamConstraintsRow__content">
+              <div class="label-header">
+                TEAM
+              </div>
+              <div class="label-content text-uppercase">
+                {{control.get('teamName').value}}
+              </div>
+            </div>
+            <div class="SelectableFormRow__side-label text-uppercase text-center">
+              <div class="label-header">
+                {{control.get('constraintType').value === 'can' ? 'CAN PLAY' : 'CAN\'T PLAY'}}
+              </div>
+              <div class="label-content" *ngIf="!control.get('fullDay').value">
+                {{convertDayName(control.get('weekDay').value)}}, {{control.get('startTime').value | date:'h:mma'}} -
+                {{control.get('endTime').value | date:'h:mma'}}
+              </div>
+              <div class="label-content" *ngIf="control.get('fullDay').value">
+                {{convertDayName(control.get('weekDay').value)}}, FULL DAY
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

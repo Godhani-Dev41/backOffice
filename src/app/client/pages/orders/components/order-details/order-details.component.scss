@@ -1,0 +1,53 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.brand-color {
+  color: rgb(255,191,0);
+}
+
+.brand-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(255, 191, 0);
+  font-family: $font-brand;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.SummaryWrapper {
+  height: 100%;
+  overflow: auto;
+
+  h5 {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(255, 191, 0);
+    font-family: $font-brand;
+    margin-bottom: 15px;
+  }
+
+  .SummaryWrapper__props {
+    font-family: $font-brand;
+    color: $brand-black;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .SummaryWrapper__sports {
+    display: flex;
+    position: relative;
+    left: -10px;
+
+    h6 {
+      color: $brand-black;
+      font-weight: bold;
+      font-family: $font-brand;
+    }
+
+    .SportItem {
+      i {
+        color: rgb(255, 191, 0);
+        font-size: 40px;
+      }
+    }
+  }
+}

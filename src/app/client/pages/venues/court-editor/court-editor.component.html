@@ -1,0 +1,374 @@
+<div class="inner_page">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav">
+    <div class="col-md-12">
+      <div class="WizardForm WizardForm__has-bottom-nav WizardForm__left-fix">
+        <div class="WizardForm__navigation">
+          <div class="WizardForm__navigation__header">
+            <h3>
+              CREATE NEW SPACE
+            </h3>
+          </div>
+          <div class="WizardForm__navigation__slide-info">
+            <p>
+              Define your facilities' spaces to better manage them and allow customers who want to book know if they fit
+              their needs
+            </p>
+          </div>
+        </div>
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner">
+            <div class="form">
+              <form action="" [formGroup]="courtForm" novalidate>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form__section">
+                      <div class="form__section__header">
+                        ABOUT
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <label for="">
+                              TYPE
+                            </label>
+                            <select name="" formControlName="spaceType" class="select">
+                              <option value="court">Court</option>
+                              <option value="field">Field</option>
+                              <option value="room">Room</option>
+                              <option value="diamond">Diamond</option>
+                              <option value="rink">Rink</option>
+                              <option value="studio">Studio</option>
+                              <option value="pool">Pool</option>
+                              <option value="batting cage">Batting Cage</option>
+                              <option value="shelter">Shelter</option>
+                              <option value="golf simulator">Golf Simulator</option>
+                            </select>
+                            <span
+                              class="rc-tooltip"
+                              style="top: 35px;"
+                              placement="right"
+                              container="body"
+                              tooltip="Want to add a different type of space for rental? Let us know and we will add it."
+                            >
+                              <i class="fa fa-info"></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                          <div class="input-group">
+                            <label for="">
+                              # IN FACILITY
+                            </label>
+
+                            <div class="input-wrapper">
+                              <input
+                                type="number"
+                                class="input"
+                                formControlName="ordinal"
+                                min="0"
+                                max="999"
+                                style="width: 50%;"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="input-group">
+                        <label for="">
+                          <i class="icon-rc-calendar"></i> SPACE NAME
+                          <span class="pull-right">{{ courtForm.get("name").value?.length }}/60</span>
+                        </label>
+
+                        <div class="input-wrapper">
+                          <input type="text" class="input" formControlName="name" maxlength="60" />
+                        </div>
+                      </div>
+
+                      <div class="input-group">
+                        <label for="">
+                          <i class="icon-rc-long-des"></i> SHORT DESCRIPTION
+                          <span class="pull-right">{{ courtForm.get("description").value.length }}/2000</span>
+                        </label>
+                        <div class="input-wrapper">
+                          <rc-rich-text-wrapper
+                            *ngIf="!loading"
+                            [initialValue]="courtForm.get('description').value || ''"
+                            max="2000"
+                            (handleChange)="shortDescInputChanged($event)"
+                            (setDescLength)="shortDescInputLengthChanged($event)"
+                          ></rc-rich-text-wrapper>
+                        </div>
+                      </div>
+
+                      <div class="input-group">
+                        <label for="">
+                          <i class="icon-rc-long-des"></i> LONG DESCRIPTION
+                          <span class="pull-right">{{ courtForm.get("longDescription").value.length }}/2000</span>
+                        </label>
+                        <div class="input-wrapper">
+                          <rc-rich-text-wrapper
+                            *ngIf="!loading"
+                            [initialValue]="courtForm.get('longDescription').value || ''"
+                            max="2000"
+                            (handleChange)="descInputChanged($event)"
+                            (setDescLength)="descInputLengthChanged($event)"
+                          ></rc-rich-text-wrapper>
+                        </div>
+                      </div>
+
+                      <div class="input-group">
+                        <label for="">
+                          SPORTS OFFERED
+                        </label>
+                        <span
+                          class="rc-tooltip"
+                          placement="right"
+                          container="body"
+                          tooltip="Choose all the sports you offer throughout the year. This will help connect players who are interested in getting involved in those particular sports."
+                        >
+                          <i class="fa fa-info"></i>
+                        </span>
+                        <rc-quick-sport-picker (onChange)="sportsChanged($event)" [selectedSports]="court?.sports">
+                        </rc-quick-sport-picker>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form__section">
+                      <div class="form__section__header">
+                        ACTIVITY HOURS
+                      </div>
+                      <div class="form__section__helper">
+                        If your space’s opening hours are different than your facility enter them here, if not the
+                        space’s opening hours will be set to the ones you entered on your facility
+                      </div>
+                    </div>
+
+                    <div [formArrayName]="'activityTimes'">
+                      <div *ngFor="let activity of activitiesArray.controls; let i = index">
+                        <div [formGroup]="activity">
+                          <div class="ActivityTimeWidget">
+                            <div class="ActivityTimeWidget__times-wrapper" [formArrayName]="'activityDates'">
+                              <div
+                                class="ActivityTimeWidget__times-wrapper__item"
+                                *ngFor="let date of activityDatesArray(activity).controls; let dateIndex = index"
+                                [formGroupName]="dateIndex"
+                              >
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <ul class="list no-style days-select">
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="monday" />
+                                          <label>MON</label>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="tuesday" />
+                                          <label>TUE</label>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="wednesday" />
+                                          <label>WED</label>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="thursday" />
+                                          <label>THU</label>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="friday" />
+                                          <label>FRI</label>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="saturday" />
+                                          <label>SAT</label>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="checkbox">
+                                          <input type="checkbox" class="styled-checkbox" formControlName="sunday" />
+                                          <label>SUN</label>
+                                        </div>
+                                      </li>
+                                    </ul>
+
+                                    <div class="time-row">
+                                      <div class="time-item-row">
+                                        <label for="fromTime">From</label>
+                                        <div id="fromTime">
+                                          <rc-timepicker formControlName="startTime" [inline]="true"> </rc-timepicker>
+                                        </div>
+                                      </div>
+                                      <div class="time-item-row">
+                                        <label for="toTime">To</label>
+                                        <div id="toTime">
+                                          <rc-timepicker
+                                            formControlName="endTime"
+                                            [inline]="true"
+                                            [minTime]="
+                                              courtForm.get('activityTimes').value[i].activityDates[dateIndex].startTime
+                                            "
+                                          >
+                                          </rc-timepicker>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="ActivityTimeWidget__add-btn">
+                                <a href="" (click)="addTimeSlot(activity); $event.preventDefault()">
+                                  <i class="fa fa-plus"></i> ADD ANOTHER TIME SLOT TO THIS FACILITY
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form__section">
+                      <div class="form__section__header">
+                        SPACE PROPERTIES
+                      </div>
+                      <div class="form__section__helper">
+                        Add some info on your space so customers that want to book will know what you’re offering
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <label for="">
+                            SURFACE
+                          </label>
+                          <select name="" formControlName="surface" class="select" id="">
+                            <option value="hardwood">Hardwood</option>
+                            <option value="grass">Grass</option>
+                            <option value="turf">Turf</option>
+                            <option value="asphalt">Asphalt</option>
+                            <option value="sand">Sand</option>
+                            <option value="fieldTurf">Field Turf</option>
+                            <option value="astroTurf">Astro Turf</option>
+                            <option value="sportCourt">Sport Court</option>
+                            <option value="custom">Custom</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6" *ngIf="courtForm.get('surface').value === 'custom'">
+                        <div class="input-group">
+                          <label for="">
+                            Custom surface
+                          </label>
+                          <div class="input-wrapper">
+                            <input type="text" class="input" formControlName="customSurfaceName" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="input-group">
+                          <label for="">
+                            INDOOR/OUTDOOR
+                          </label>
+                          <div class="rc-radio" style="display: inline-block;">
+                            <input id="indoorCourt" formControlName="indoorOutdoor" value="indoor" type="radio" />
+                            <label for="indoorCourt" class="radio-label">Indoor Space</label>
+                          </div>
+                          <div class="rc-radio" style="display: inline-block;">
+                            <input id="outdoorCourt" formControlName="indoorOutdoor" value="outdoor" type="radio" />
+                            <label for="outdoorCourt" class="radio-label">Outdoor Space</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <label for="">
+                        WIDTH
+                      </label>
+                      <div class="input-wrapper">
+                        <input type="number" class="input" formControlName="width" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <label for="">
+                        LENGTH
+                      </label>
+                      <div class="input-wrapper">
+                        <input type="number" class="input" formControlName="length" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <label for="">
+                      AMENITIES
+                    </label>
+                    <div class="row">
+                      <div class="col-md-4" *ngFor="let item of amenitiesList" [formGroup]="courtForm.get('amenities')">
+                        <div class="checkbox">
+                          <input type="checkbox" class="styled-checkbox" formControlName="{{ item }}" />
+                          <label>{{ item.replace("_", " ") | uppercase | uppercase }}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form__section">
+                      <div class="form__section__header">
+                        SPACE MAIN IMAGE
+                      </div>
+                      <div class="row mg-bottom-20">
+                        <div class="col-md-8 col-md-offset-2">
+                          <rc-image-uploader
+                            [imageTitle]="'MAIN IMAGE'"
+                            (onFileAdded)="imageChanged($event)"
+                            [image]="court?.mainMedia"
+                            [text]="
+                              'Upload an image that will be used as the main image for your space page. Image should be at least 350x230px and 1MB max size.'
+                            "
+                          >
+                          </rc-image-uploader>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row bottom-nav-bar">
+        <div class="bottom-nav-bar__inner">
+          <div class="bottom-nav-bar__inner__content">
+            <rc-loading-btn
+              [loading]="loading"
+              (onClick)="submitData(courtForm.value)"
+              [disabled]="!courtForm.valid"
+              [text]="updateMode ? 'UPDATE' : 'CREATE'"
+              [classes]="['button-next', 'button', 'button-assertive', 'pull-right']"
+            >
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

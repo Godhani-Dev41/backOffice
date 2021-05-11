@@ -1,0 +1,21 @@
+<div class="rc-date-input-wrapper" >
+  <input type="text" readonly
+         *ngIf="!hideInput"
+         (click)="togglePicker()"
+         [name]="name"
+         [value]="selectedDate | date:'EEE, d MMMM, y'"
+         [placeholder]="placeholder"
+         [required]="required"
+         class="input">
+  <span class="chevron-down" *ngIf="!hideInput"><i class="fa fa-chevron-down"></i></span>
+  <datepicker [showWeeks]="false"
+              [minDate]="minDate"
+              [maxDate]="maxDate"
+              startingDay="1"
+              [(ngModel)]="selectedDate"
+              class="rc-datepicker"
+              (selectionDone)="onSelected($event)"
+              *ngIf="showDatePicker"
+              style="position: absolute; z-index:10; min-height:290px;">
+  </datepicker>
+</div>

@@ -1,0 +1,26 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.QuestionnaireBox {
+  line-height: 60px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  padding: 0 20px;
+  font-weight: bold;
+  color: $brand-accent;
+
+  i {
+    color: $brand-dark;
+    font-size: 22px;
+    display: inline-block;
+    margin-right: 5px;
+    position: relative;
+    top: 3px;
+  }
+
+  .button {
+    font-weight: bold;
+    color: $brand-dark-grey;
+    font-size: 14px;
+    padding: 0;
+  }
+}

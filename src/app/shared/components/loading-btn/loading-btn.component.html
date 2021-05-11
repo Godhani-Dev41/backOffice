@@ -1,0 +1,8 @@
+
+<button [ngClass]="classes" (click)="clicked()" [disabled]="disabled">
+  {{loading ? null : text}}
+  <span *ngIf="loading">
+    {{loadingText || ''}}
+    <loaders-css [loader]="'ball-pulse'" [loaderClass]="'rc-loader'"></loaders-css>
+  </span>
+</button>

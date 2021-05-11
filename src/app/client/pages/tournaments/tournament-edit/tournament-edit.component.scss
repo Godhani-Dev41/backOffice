@@ -1,0 +1,45 @@
+.inner_page{
+  height: 100%;
+}
+
+.inner-page__content {
+  height: calc(100% - 85px);
+}
+
+.WizardForm__navigation__slide-info {
+  margin-top: 15px;
+}
+
+.bottom-nav-bar__inner {
+  margin-left: 180px;
+
+  .bottom-nav-bar__inner__content {
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 8px 0;
+
+    ::ng-deep button {
+      height: 35px;
+      min-width: 77px;
+
+      i {
+        font-size: 18px;
+        position: relative;
+        top: 2px;
+        right: -5px;
+      }
+
+      &.button-back {
+        i {
+          left: -5px;
+        }
+      }
+
+      &.button-dark {
+        width: auto;
+        background: #4a4a4a;
+        padding: 5px 15px;
+      }
+    }
+  }
+}

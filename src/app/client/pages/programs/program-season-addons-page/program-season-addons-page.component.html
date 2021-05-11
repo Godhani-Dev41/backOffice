@@ -1,0 +1,69 @@
+<nz-layout class="full-height">
+  <nz-page-header nzTitle="Season">
+    <nz-breadcrumb nz-page-header-breadcrumb nzSeparator=">">
+      <nz-breadcrumb-item>
+        <a [href]="'client/activities'">{{ "PROGRAMS" | uppercase }}</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a
+          [routerLink]="
+            '/client/programs/' + this.programsService.getProgramTypeParam() + '/' + this.programsService.getPrgId()
+          "
+          >{{ this.programName || "" | uppercase }}</a
+        >
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>{{
+        this.programsService.getSeasonId() > 0
+          ? programName
+          : ("NEW " + this.programsService.getProgramType() | uppercase)
+      }}</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </nz-page-header>
+  <nz-layout>
+    <div class="season-steps">
+      <nz-steps [nzCurrent]="3" nzSize="small">
+        <nz-step nzTitle="Basic Info"></nz-step>
+        <nz-step nzTitle="Schedule"></nz-step>
+        <nz-step nzTitle="Pricing"></nz-step>
+        <nz-step nzTitle="Add-ons"></nz-step>
+        <nz-step nzTitle="Space Allocation"></nz-step>
+      </nz-steps>
+    </div>
+  </nz-layout>
+  <nz-content class="body-scroll">
+    <!-- loading spinner -->
+    <!--<nz-layout *ngIf="loading">
+      <nz-row nzType="flex" nzAlign="middle" nzJustify="center" style="height: 75vh;">
+        <nz-spin nzSimple></nz-spin>
+      </nz-row>
+    </nz-layout>-->
+    <!-- ngIf was !loading -->
+    <nz-layout class="body-padding" *ngIf="true">
+      <form nz-form nzLayout="vertical" action="" [formGroup]="productsForm">
+        <nz-row nzGutter="24">
+          <nz-col nzMd="24" nzLg="12">
+            <nz-form-item>
+              <rc-add-ons-management
+                labelString="Add ons"
+                [addOns]="addOns"
+                (onAddOnChange)="onAddOnChange($event, false)"
+                [disabled]="updateMode"
+              ></rc-add-ons-management>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+      </form>
+    </nz-layout>
+  </nz-content>
+  <nz-footer>
+    <div class="footer-button-layout">
+      <button nz-button nzType="link" nzGhost class="back-ghost-btn" (click)="navBack()">
+        <i nz-icon nzType="arrow-left" nzTheme="outline"></i>
+        {{ "Back" | uppercase }}
+      </button>
+      <button nz-button nzType="primary" class="accent-button" (click)="navNext()">
+        {{ "Continue" | uppercase }}
+      </button>
+    </div>
+  </nz-footer>
+</nz-layout>

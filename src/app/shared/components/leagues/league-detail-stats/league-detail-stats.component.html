@@ -1,0 +1,23 @@
+<div class="row">
+  <div style="display: inline" *ngFor="let detail of leagueDetailsVM">
+    <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of detail.items">
+      <h4 class="box-title box--title-icon text-uppercase no-mg-top">
+        <ng-template [ngIf]="!item.noTitle">
+          <i [ngClass]="detail.icon"></i> {{detail.title}}
+        </ng-template>
+      </h4>
+
+      <div class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item" [ngClass]="{'stat-item--small': detail?.title?.toLowerCase() === 'surface'}">
+        <div class="stat-top text-center stat--text-shadow text-uppercase">
+          <ng-template [ngIf]="item.type === 'string'">
+            {{item.value}}
+          </ng-template>
+          <i [ngClass]="item.value" *ngIf="item.type === 'icon'"></i>
+        </div>
+        <div class="stat-title text-uppercase text-center">
+          {{item.title}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

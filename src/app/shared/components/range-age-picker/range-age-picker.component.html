@@ -1,0 +1,18 @@
+<div class="age-picker-container">
+  <div class="age-picker-select">
+    <select [value]="isMonth" (change)="onOptionsSelected($event.target.value)">
+      <option [value]="true">Months</option>
+      <option [value]="false">Years</option>
+    </select>
+  </div>
+  <div class="age-picker-age">
+    <button [disabled]="fromNumber <= 1" (click)="decrement()">-</button>
+    <input type="number" [value]="fromNumber" (input)="setMinVal($event.target.value)" />
+    <button [disabled]="toNumber <= fromNumber" (click)="increment()">+</button>
+  </div>
+  <div class="age-picker-age">
+    <button [disabled]="toNumber <= fromNumber" (click)="decrement_max()">-</button>
+    <input type="number" [value]="toNumber" (input)="setMaxVal($event.target.value)" />
+    <button [disabled]="toNumber >= 100" (click)="increment_max()">+</button>
+  </div>
+</div>

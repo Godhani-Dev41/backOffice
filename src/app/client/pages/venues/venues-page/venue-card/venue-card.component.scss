@@ -1,0 +1,108 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.venue-box {
+  height: 176px;
+  transition: all 0.3s;
+  margin-bottom: 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .venue-image {
+    .image-wrapper {
+      width: 120px;
+      height: 120px;
+    }
+  }
+
+  .venue-box-top-container {
+    min-height: 169px;
+    padding: 15px;
+    display: flex;
+
+    .venue-photo {
+      flex: 1;
+      max-width: 120px;
+      position: relative;
+    }
+
+    .venue-sport-icon {
+      position: absolute;
+      text-align: center;
+      width: 100%;
+      top: 93px;
+
+      i {
+        color: $brand-accent;
+        font-size: 50px;
+        position: relative;
+      }
+    }
+
+    .venue-info {
+      flex: 1;
+      padding-left: 15px;
+      min-width: 0;
+
+      h3 {
+        height: 40px;
+        font-size: 14px;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .venue-stats {
+    height: 45px;
+    background: $brand-light-grey;
+    display: flex;
+    flex-basis: auto;
+
+    .stat-item {
+      flex-grow: 1;
+
+      &.status-item {
+        flex: 2;
+        max-width: 140px;
+        min-width: 110px;
+        border-right: 1px solid $brand-grey;
+
+        &.status-item--active {
+          .stat-text {
+            color: $brand-success;
+
+            i {
+              background: $brand-success;
+            }
+          }
+        }
+      }
+    }
+
+    .stat-title {
+      text-align: center;
+      font-size: 9px;
+      color: $brand-dark-grey;
+      padding-top: 8px;
+    }
+
+    .stat-text {
+      padding-top: 2px;
+      text-align: center;
+      color: $brand-dark;
+
+      i {
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        background: $brand-dark;
+        border-radius: 100%;
+        position: relative;
+        top: -2px;
+        left: -5px;
+      }
+    }
+  }
+}

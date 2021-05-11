@@ -1,0 +1,120 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.no-margin.input-group {
+  margin-bottom: 0;
+
+  label {
+    margin-bottom: 0;
+  }
+}
+
+.add-custom-constraint-btn {
+  line-height: 40px;
+  background: $brand-accent;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 0 13px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  i {
+    font-size: 9px;
+  }
+}
+
+.CustomConstraintWidget {
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 11px 0 rgba(255, 163, 29, 0.34);
+  border: solid 0.5px #f2f2f2;
+  padding: 18px;
+
+  .CustomConstraintWidget__title {
+    margin-bottom: 10px;
+
+    label {
+      font-weight: bold;
+    }
+  }
+
+  .CustomConstraintWidget__content {
+    .input-group {
+      label {
+        display: inline-block;
+        margin-right: 10px;
+        font-weight: normal;
+      }
+
+      ::ng-deep .rc-date-input-wrapper {
+        max-width: 133px;
+        display: inline-block;
+      }
+    }
+
+    .row-title {
+      margin-bottom: 5px;
+    }
+
+    .inline-checkboxes {
+      margin-bottom: 15px;
+
+      .checkbox {
+        display: inline-block;
+        margin-right: 20px;
+
+        label {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+.TeamConstraintsRow {
+  display: flex;
+
+  .label-header {
+    display: block;
+    color: $brand-accent;
+  }
+}
+
+.playoff-warn-label {
+  font-size: 11px;
+  color: orange;
+  padding-left: 24px;
+  position: relative;
+  margin-top: -3px;
+}
+
+.ScheduleCheckboxSetting {
+  margin-bottom: 15px;
+  padding: 10px 18px;
+  font-size: 12px;
+  font-weight: bold;
+  color: $brand-black;
+  line-height: 17px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 11px 0 rgba(255, 163, 29, 0.34);
+  border: solid 0.5px #f2f2f2;
+
+  .rc-toggle-wrapper {
+    position: relative;
+    top: -11px;
+  }
+
+  .input-group {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 62px;
+    display: inline-block;
+    margin-bottom: 0;
+
+    input {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<div class="GeneratorWrapper" *ngIf="positionData">
+  <div class="LabeledFeedWidget LabeledFeedWidget--leaderboard" style="zoom: 2;">
+    <div class="LabeledFeedWidget__top">
+      <div class="LabeledFeedWidget__image" style="background-image: url('assets/img/I_Ranked_post.png');">
+      </div>
+      <div class="LabeledFeedWidget--leaderboard__avatar" [rcBackgroundImage]="(user?.profilePicture) | mediaUrl">
+
+      </div>
+      <div class="LabeledFeedWidget--leaderboard__rank">
+        #{{positionData?.rank}}
+      </div>
+    </div>
+    <div class="LabeledFeedWidget--leaderboard__sub-title">
+      WITH {{positionData?.points}} POINTS
+    </div>
+    <div class="LabeledFeedWidget__content">
+    </div>
+  </div>
+</div>

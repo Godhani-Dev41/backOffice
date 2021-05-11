@@ -1,0 +1,113 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog rc-modal">
+    <form [formGroup]="teamEditForm" novalidate>
+      <div class="modal-content">
+        <div class="modal-header modal-header--assertive">
+          <button type="button" class="close pull-right" (click)="reset(true)" aria-label="Close">
+            <i class="fa fa-times"></i>
+          </button>
+          <div class="modal-header__content">
+            <i class="icon-rc-teams-icon"></i>
+            <h5>{{editMode ? 'UPDATE TEAM' : 'ADD NEW TEAM'}}</h5>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="input-group"
+                       [ngClass]="{'has-error': !teamEditForm.get('name').valid && teamEditForm.get('name').touched}">
+                    <label for="">TEAM NAME</label>
+                    <input #teamName type="text" class="input" formControlName="name" autofocus require maxlength="40" />
+                  </div>
+                </div>
+                <div class="col-md-8 mg-bottom-20">
+                  <div ng2FileDrop
+                       [ngClass]="{'BoxedDropZone--dashed': mainImageDropzoneHover}"
+                       (click)="mainImageUploader.click()"
+                       (fileOver)="fileOverMainPhotoDrag($event)"
+                       [uploader]="uploader"
+                       class="BoxedDropZone BoxedDropZone--shadow">
+                    <div class="BoxedDropZone__inner" *ngIf="!mainImage; else previewView">
+                      <div class="BoxedDropZone__top">
+                        Upload an image that will be used as the opening image for your team page,
+                        Image should be at least 375 x 195 px and 1MB max size
+                      </div>
+                      <div class="BoxedDropZone__bottom">
+                        <div class="BoxedDropZone__bottom__side">
+                          <i class="fa fa-picture-o"></i>
+                          DRAG AND DROP
+                        </div>
+                        <div class="BoxedDropZone__bottom__side">
+                          <i class="fa fa-upload"></i>
+                          UPLOAD
+                        </div>
+                      </div>
+                    </div>
+                    <ng-template #previewView>
+                      <div class="BoxedDropZone__preview"
+                           [rcBackgroundImage]="mainImage">
+                        <div class="BoxedDropZone__preview__action">
+                          <i class="fa fa-camera"></i>
+                        </div>
+                      </div>
+                    </ng-template>
+
+                    <input type="file"
+                           ng2FileSelect
+                           [uploader]="uploader"
+                           #mainImageUploader
+                           style="display:none" />
+                  </div>
+                </div>
+                <div class="col-md-4 text-center">
+                  <div class="BoxedDropZone round-image-uploader image-wrapper image--round image--shadow"
+                       [rcBackgroundImage]="logoImage"
+                       (click)="logoImageUploader.click()">
+                    <span *ngIf="!logoImage">ADD TEAM <br> LOGO</span>
+                    <span *ngIf="defaultTeamLogo && team" class="text-uppercase default-logo-text">
+                      {{teamEditForm.get('name').value && teamEditForm.get('name').value[0]}}
+                    </span>
+                    <div class="BoxedDropZone__preview__action" *ngIf="logoImage">
+                      <i class="fa fa-camera"></i>
+                    </div>
+                  </div>
+
+                  <input type="file"
+                         ng2FileSelect
+                         [uploader]="logoUploader"
+                         #logoImageUploader
+                         style="display:none" />
+                </div>
+                <div class="col-md-12">
+                  <div class="input-group"
+                       [ngClass]="{'has-error': !teamEditForm.get('description').valid && teamEditForm.get('description').touched}">
+                    <label for="">
+                      DESCRIPTION
+                      <span class="pull-right">{{teamEditForm.get('description').value?.length || 0}}/255</span>
+                    </label>
+                    <textarea formControlName="description" maxlength="255" class="input" rows="2"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="button button-empty cancel-btn" (click)="reset(true)">
+            Cancel
+          </button>
+          <rc-loading-btn [text]="editMode ? 'UPDATE TEAM' : 'ADD NEW TEAM'"
+                          (onClick)="submit(teamEditForm.value)"
+                          [loading]="loading"
+                          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          </rc-loading-btn>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

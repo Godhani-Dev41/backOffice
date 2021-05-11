@@ -1,0 +1,80 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.PoolTeamCard {
+  background: white;
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+
+  .PoolTeamCard__content {
+    height: 130px;
+    padding: 10px;
+    text-align: center;
+
+    h5 {
+      margin-top: 0;
+      color: $brand-black;
+      font-size: 12px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+  }
+}
+
+
+.ProfilePhotoStack {
+  display: block;
+  text-align: center;
+
+  &.ProfilePhotoStack--large {
+    .image-wrapper {
+      height: 50px;
+      width: 50px;
+    }
+  }
+
+  ul {
+    display: inline-block;
+    text-align: left;
+    list-style: none;
+
+    li {
+      float: right;
+      display: inline-block;
+      width: 35px;
+
+      .image-wrapper {
+        border: solid 4px #ffffff;
+        box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.1);
+      }
+
+
+      &.label-counter {
+        width: 70px;
+        margin-left: 15px;
+        color: $brand-dark-grey;
+        line-height: 53px;
+        text-align: right;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    &.ProfilePhotoStack--large {
+      .image-wrapper {
+        height: 40px;
+        width: 40px;
+      }
+    }
+
+    ul li {
+      width: 17px;
+
+      &.label-counter {
+        line-height: 41px;
+        font-size: 10px;
+        width: 57px;
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+<div>
+  <div class="row" style="margin-top: 30px; padding-left: 2vw; padding-right: 2vw;" *ngIf="platformUser">
+    <div class="col-md-12" *ngIf="stats && platformUser">
+      <div class="row">
+        <div class="col-md-3">
+          <div
+            class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item"
+          >
+            <div class="stat-top text-center stat--text-shadow text-uppercase">
+              {{ stats.usedWeeklyHours }}/{{ stats.totalWeeklyHours }}
+            </div>
+            <div class="stat-title text-uppercase text-center">
+              Weekly hours
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div
+            class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item"
+          >
+            <div class="stat-top text-center stat--text-shadow text-uppercase">
+              {{ stats.usedDailyHours }}/{{ stats.totalDailyHours }}
+            </div>
+            <div class="stat-title text-uppercase text-center">
+              Daily Hours
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div
+            class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item"
+          >
+            <div class="stat-top text-center stat--text-shadow text-uppercase">
+              ${{ stats.weeklyIncome | number: "1.0-2" }}
+            </div>
+            <div class="stat-title text-uppercase text-center">
+              Weekly income
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div
+            class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item"
+          >
+            <div class="stat-top text-center stat--text-shadow text-uppercase">
+              ${{ stats.dailyIncome | number: "1.0-2" }}
+            </div>
+            <div class="stat-title text-uppercase text-center">
+              Daily income
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h3 class="sub-title text-uppercase no-mg-top">
+            <i [ngClass]="'fa fa-calendar'"></i> Daily Schedule
+          </h3>
+          <div class="rc-calendar" *ngIf="calendarIsVisible">
+            <rc-angular2-fullcalendar
+              #fullCalendar="fullCalendar"
+              [options]="calendarStats"
+            ></rc-angular2-fullcalendar>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <rc-daily-agenda></rc-daily-agenda>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!platformUser" class="not-platform-user-div">
+    <div class="card">
+      <h3>
+        {{ msg }}
+      </h3>
+      <br />
+      <button
+        class="button button-shadow button-assertive button-full"
+        (click)="goToPaymentsPage()"
+      >
+        {{ msgBtn }}
+      </button>
+    </div>
+  </div>
+</div>

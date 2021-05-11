@@ -1,0 +1,19 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.team-logo-avatar-wrapper {
+  .participant-logo {
+    display: inline-block;
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      font-size: 37px;
+      font-weight: bold;
+      line-height: 55px;
+      color: $brand-black;
+      font-family: $font-brand;
+      box-shadow: 2px 0 4px 0 rgba(0, 0, 0, 0.5);
+    }
+  }
+}

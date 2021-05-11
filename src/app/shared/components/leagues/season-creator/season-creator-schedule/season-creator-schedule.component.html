@@ -1,0 +1,119 @@
+<div class="row" [formGroup]="form">
+  <div class="col-md-12" formGroupName="creatorSchedule">
+    <div class="form__section">
+      <div class="form__section__header text-uppercase">
+        SEASON DATES
+      </div>
+      <div class="form__section__helper">
+        Custom your season information
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="schedule-item">
+            <div class="item-side number-side">
+              {{ form.get(groupName).get("startDate").value | date: "d" }}
+              <span>
+                {{ form.get(groupName).get("startDate").value | date: "EEE" }}
+              </span>
+            </div>
+            <div
+              class="item-side text-side"
+              (click)="startDatePicker.togglePicker($event); endDatePicker.showDatePicker = false"
+            >
+              <div class="item-top-label">
+                START DATE
+              </div>
+              <div class="item-mid-label text-uppercase">
+                {{ form.get(groupName).get("startDate").value | date: "MMMM" }}
+              </div>
+              <div class="item-bottom-label">
+                {{ form.get(groupName).get("startDate").value | date: "y" }}
+              </div>
+              <div class="date-select-btn">
+                <i class="icon-rc-calendar"></i>
+              </div>
+            </div>
+            <rc-datepicker
+              formControlName="startDate"
+              style="position: relative; left: -157px; top: 74px;"
+              #startDatePicker="picker"
+              [hideInput]="true"
+            ></rc-datepicker>
+            <span class="corner bottom-left"></span>
+            <span class="corner bottom-right"></span>
+            <span class="corner top-left"></span>
+            <span class="corner top-right"></span>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="schedule-item">
+            <div class="item-side number-side">
+              {{ form.get(groupName).get("endDate").value | date: "d" }}
+              <span>
+                {{ form.get(groupName).get("endDate").value | date: "EEE" }}
+              </span>
+            </div>
+            <div
+              class="item-side text-side"
+              (click)="endDatePicker.togglePicker($event); startDatePicker.showDatePicker = false"
+            >
+              <div class="item-top-label">
+                END DATE
+              </div>
+              <div class="item-mid-label text-uppercase">
+                {{ form.get(groupName).get("endDate").value | date: "MMMM" }}
+              </div>
+              <div class="item-bottom-label">
+                {{ form.get(groupName).get("endDate").value | date: "y" }}
+              </div>
+              <div class="date-select-btn">
+                <i class="icon-rc-calendar"></i>
+              </div>
+            </div>
+            <rc-datepicker
+              formControlName="endDate"
+              style="position: relative; left: -157px; top: 74px;"
+              #endDatePicker="picker"
+              [hideInput]="true"
+            ></rc-datepicker>
+            <span class="corner bottom-left"></span>
+            <span class="corner bottom-right"></span>
+            <span class="corner top-left"></span>
+            <span class="corner top-right"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form__section">
+      <div class="form__section__header">
+        REGISTRATION
+      </div>
+      <div class="form__section__helper">
+        Select the registration settings that fit your season needs
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <rc-season-registration-form-widget [form]="form" [groupName]="'earlyBirdRegistration'">
+          </rc-season-registration-form-widget>
+        </div>
+        <div class="col-md-12">
+          <rc-season-registration-form-widget [form]="form" [groupName]="'regularRegistration'">
+          </rc-season-registration-form-widget>
+        </div>
+        <div class="col-md-12">
+          <rc-season-registration-form-widget [form]="form" [groupName]="'lateRegistration'">
+          </rc-season-registration-form-widget>
+        </div>
+
+        <div class="col-md-12">
+          <rc-season-registration-form-widget
+            [form]="form"
+            [groupName]="'downPayment'"
+            [referenceGroupName]="'regularRegistration'"
+          >
+          </rc-season-registration-form-widget>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

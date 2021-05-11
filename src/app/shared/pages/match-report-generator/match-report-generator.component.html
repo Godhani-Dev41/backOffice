@@ -1,0 +1,63 @@
+<div *ngIf="isVisible">
+  <div class="text-center" *ngFor="let event of events">
+    <div class="PageWrapper">
+      <img src="assets/img/match-report-skeleton.png" alt="" style="zoom: 1.2">
+
+      <h1 class="OrgTitle text-uppercase">
+        {{event.creator?.name}}
+      </h1>
+
+      <h3 class="TeamNameHeader TeamNameHeader--a text-uppercase">
+        {{event.teamA.name}}
+      </h3>
+      <h3 class="TeamNameHeader TeamNameHeader--b text-uppercase">
+        {{event.teamB.name}}
+      </h3>
+
+      <h3 class="TeamNameResults TeamNameResults--a text-uppercase">
+        {{event.teamA.name}}
+      </h3>
+      <h3 class="TeamNameResults TeamNameResults--b text-uppercase">
+        {{event.teamB.name}}
+      </h3>
+
+      <p class="EventTime text-uppercase">
+        {{event.startDate | momentDate:'dddd, MMMM Do, YYYY':event.timezone | uppercase}} <span style="position: relative; left: 7px;">{{event.startDate | momentDate:'h:mmA':event.timezone | uppercase}} -  {{event.endDate | momentDate:'h:mmA':event.timezone | uppercase}}</span>
+
+      </p>
+      <p class="EventVenue text-uppercase">
+        {{event.venueName}}
+      </p>
+
+      <div class="PlayersTable PlayersTable--team-a">
+        <div class="PlayerRow" *ngFor="let player of event.teamA.teamMembers">
+          <div class="PlayerRow__name">
+            {{player.user?.fullName}}
+          </div>
+
+          <div class="PlayerRow__email">
+            {{player.user?.email}}
+          </div>
+          <div class="PlayerRow__phone">
+            {{player.user?.phoneNumber}}
+          </div>
+        </div>
+      </div>
+
+      <div class="PlayersTable PlayersTable--team-b">
+        <div class="PlayerRow" *ngFor="let player of event.teamB.teamMembers">
+          <div class="PlayerRow__name">
+            {{player.user?.fullName}}
+          </div>
+
+          <div class="PlayerRow__email">
+            {{player.user?.email}}
+          </div>
+          <div class="PlayerRow__phone">
+            {{player.user?.phoneNumber}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

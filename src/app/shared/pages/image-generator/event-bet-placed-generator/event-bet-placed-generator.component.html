@@ -1,0 +1,35 @@
+<div class="BetPlacedFeedWidget" *ngIf="event && pollData">
+  <div class="BetPlacedFeedWidget__title text-uppercase">
+    {{answerText}}
+  </div>
+  <div class="BetPlacedTicket">
+    <div class="BetPlacedTicket__row PriceRow">
+      <div class="divider"></div>
+      <span class="PriceRow__price text-center" style="line-height: 17px;" ng-if="pollData.userAnswer.coins">
+				{{pollData.userAnswer.coins}} <br><span style="font-size: 18px;">coins</span>
+			</span>
+    </div>
+    <div class="BetPlacedTicket__row ParticipantsRow">
+      <div class="text-uppercase">
+        {{event.match.participants[0].entity.name}}
+      </div>
+      <div>
+        <span><b>VS.</b></span>
+      </div>
+      <div class="text-uppercase">
+        {{event.match.participants[1].entity.name}}
+      </div>
+    </div>
+    <div class="BetPlacedTicket__row TimeRow">
+      {{event.startDate | momentDate:'dddd':event.timezone | uppercase}} <br>
+      {{event.startDate | momentDate:'MMM D, YYYY':event.timezone}}<br>
+      {{event.startDate | momentDate:'h:mmA':event.timezone}}
+    </div>
+  </div>
+  <div class="YakitoriIcon">
+    <i class="icon-rc-victory"></i>
+  </div>
+  <div class="BetPlacedFeedWidget__title BetPlacedFeedWidget__title--blue">
+    GET IN THE GAME TOO
+  </div>
+</div>

@@ -1,0 +1,32 @@
+
+.PageEmptyState {
+  max-width: 580px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 10%;
+
+  h5 {
+    text-align: center;
+    color: $brand-accent;
+    font-size: 24px;
+    font-weight: 200;
+    margin-bottom: 18px;
+  }
+
+  p {
+    text-align: center;
+    font-size: 18px;
+    color: $brand-dark-grey;
+    line-height: 25px;
+  }
+
+  .button {
+    margin-top: 15px;
+    display: inline-block;
+    line-height: 40px;
+    font-size: 20px;
+    font-family: $font-brand;
+    padding: 0 50px;
+    font-weight: bold;
+  }
+}

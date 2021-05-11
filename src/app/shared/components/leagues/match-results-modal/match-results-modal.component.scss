@@ -1,0 +1,97 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.match-participants-header {
+  height: 170px;
+  background-color: $brand-extra-light-grey;
+  display: flex;
+  padding: 35px 35px 25px 35px;
+
+  .match-participant {
+    flex: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &.match-participant--divider {
+      flex: 1;
+      width: 120px;
+
+      i {
+        display: inline-block;
+        margin-top: 15px;
+        font-size: 22px;
+        color: $brand-success;
+      }
+
+      .participant-bottom {
+        font-size: 12px;
+      }
+    }
+
+    .participant-top {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.38;
+      color: $brand-black;
+    }
+    .participant-bottom {
+      font-size: 14px;
+      color: $brand-dark-grey;
+    }
+  }
+}
+
+.match-results-wrapper {
+  display: flex;
+  padding: 30px;
+
+  .match-result {
+    flex: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+
+    &.match-result--divider {
+      flex: 1;
+      max-width: 100px;
+      font-size: 62px;
+      font-family: $font-brand;
+      font-weight: bold;
+    }
+  }
+}
+
+
+.ResultBox {
+  height: 110px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 13px 16px 0 rgba(0, 0, 0, 0.1);
+  font-size: 62px;
+  font-family: $font-brand;
+  color: $brand-black;
+  text-align: center;
+  line-height: 103px;
+  max-width: 139px;
+  width: 100%;
+  font-weight: 500;
+  display: inline-block;
+  margin: 0 auto;
+  border-top: 5px solid transparent;
+
+  &.ResultBox--success-border {
+    border-top: 5px solid $brand-success;
+  }
+
+  &.ResultBox--danger-border {
+    border-top: 5px solid $brand-danger;
+  }
+
+  input {
+    padding-left: 17px;
+    width: 100%;
+    text-align: center;
+    border: none;
+  }
+}

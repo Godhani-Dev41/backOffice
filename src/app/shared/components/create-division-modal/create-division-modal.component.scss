@@ -1,0 +1,15 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.add-division-btn {
+  font-weight: bold;
+  color: $brand-accent;
+}
+
+.remove-btn {
+  font-size: 14px;
+  color: $brand-grey;
+  position: relative;
+  top: -14px;
+  left: 0;
+  padding: 10px;
+}

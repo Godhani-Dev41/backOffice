@@ -1,0 +1,109 @@
+<div class="row" [formGroup]="form">
+  <div class="col-md-12" [formGroupName]="groupName">
+    <div class="form__section">
+      <div class="form__section__header">
+        ABOUT
+      </div>
+      <div class="form__section__helper">
+        Make sure to fill out all fields, this is the information that we’ll display on your league page.
+      </div>
+
+      <div class="input-group">
+        <label for="">
+          <i class="icon-rc-short-des"></i> SHORT DESCRIPTION
+          <span class="pull-right">{{ form.get(groupName).get("shortDescription_length").value?.length }}/250</span>
+        </label>
+
+        <div class="input-wrapper">
+          <span
+            class="rc-tooltip"
+            placement="right"
+            container="body"
+            tooltip="A phrase or a couple words that catches a players attention about a particular league. Pro tip: Since it will show up under the league name in the discovery section make it complementary to the name rather than identical"
+          >
+            <i class="fa fa-info"></i>
+          </span>
+          <rc-rich-text-wrapper
+            [initialValue]="form.get(this.groupName).get('shortDescription').value || ''"
+            max="2000"
+            (handleChange)="descShortInputChanged($event)"
+            (setDescLength)="descShortInputLengthChanged($event)"
+          ></rc-rich-text-wrapper>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="">
+          <i class="icon-rc-long-des"></i> LONG DESCRIPTION
+          <span class="pull-right">{{ form.get(groupName).get("description_length").value?.length }}/2000</span>
+        </label>
+
+        <div class="input-wrapper">
+          <span
+            class="rc-tooltip"
+            placement="right"
+            container="body"
+            tooltip="Your opportunity to tell players what makes this particular league special. This is not the time for modesty! The long description can be seen on the app and the league webpage."
+          >
+            <i class="fa fa-info"></i>
+          </span>
+          <rc-rich-text-wrapper
+            [initialValue]="form.get(this.groupName).get('description').value || ''"
+            max="2000"
+            (handleChange)="descInputChanged($event)"
+            (setDescLength)="descInputLengthChanged($event)"
+          ></rc-rich-text-wrapper>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for=""> <i class="icon-rc-sign"></i> LEAGUE QUESTIONNAIRE </label>
+
+        <div class="row">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="QuestionnaireBox">
+                <div class="col-md-6" *ngIf="orgQuestionnaires?.length">
+                  <div class="input-wrapper">
+                    <div class="input-group">
+                      <select name="" formControlName="questionnaireId" class="select">
+                        <option value="">Select a questionnaire</option>
+                        <option value="{{ questionnaire.id }}" *ngFor="let questionnaire of orgQuestionnaires">
+                          {{ questionnaire.title }}</option
+                        >
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form__section">
+      <div class="form__section__header">
+        LEAGUE STANDINGS TABLE
+      </div>
+      <div class="form__section__helper">
+        Your league standings will show off your team ranking. You can choose to set it according to points or win
+        percentage.
+      </div>
+      <div class="input-group" style="margin-bottom: 0;">
+        <div class="rc-radio" style="display: inline-block;">
+          <input
+            id="percentageSelection"
+            [value]="'percentage'"
+            type="radio"
+            formControlName="standingsPercentagePoints"
+          />
+          <label for="percentageSelection" class="radio-label">Percentage</label>
+        </div>
+        <div class="rc-radio" style="display: inline-block;">
+          <input id="pointsSelection" [value]="'points'" type="radio" formControlName="standingsPercentagePoints" />
+          <label for="pointsSelection" class="radio-label">Points</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

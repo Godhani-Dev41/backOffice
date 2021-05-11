@@ -1,0 +1,123 @@
+<nz-layout>
+  <nz-row nzType="flex">
+    <nz-col nzSpan="24">
+      <nz-form-label>{{ labelString }}</nz-form-label>
+      <nz-layout>
+        <nz-card>
+          <nz-layout>
+            <nz-row
+              *ngFor="let segment of sessions; let i = index"
+              nzType="flex"
+              nzAlign="middle"
+              nzJustify="space-between"
+              nzGutter="8"
+            >
+              <div class="full-width">
+                <nz-layout>
+                  <nz-row class="edit-margins">
+                    <nz-form-label [nzFor]="'segmentName' && 'segmentNameInput'">Session name</nz-form-label>
+                    <nz-row *ngIf="segment.editing" nzType="flex" nzAlign="middle" nzJustify="space-between">
+                      <nz-col nzSpan="20">
+                        <input
+                          id="segmentNameInput"
+                          class="full-row-button"
+                          nz-input
+                          placeholder="e.g.: Summer camp week 1"
+                          [(ngModel)]="nameEditField"
+                          (change)="onNameChange($event)"
+                        />
+                      </nz-col>
+                      <button
+                        nz-button
+                        nz-popconfirm
+                        nzShape="circle"
+                        nzType="default"
+                        nzTitle="Are you sure delete this product?"
+                        (nzOnConfirm)="deleteSegment(i)"
+                      >
+                        <i nz-icon nzType="delete" nzTheme="outline" style="color: red;"></i>
+                      </button>
+                    </nz-row>
+                    <nz-row *ngIf="!segment.editing" nzType="flex" nzAlign="middle" nzJustify="space-between">
+                      <span id="segmentName">{{ segment.name | titlecase }}</span>
+                      <button
+                        nz-button
+                        *ngIf="!seasonToEdit.editing"
+                        nzShape="circle"
+                        nzType="default"
+                        (click)="editSegment(i)"
+                      >
+                        <i nz-icon nzType="edit" nzTheme="outline"></i>
+                      </button>
+                    </nz-row>
+                  </nz-row>
+                  <nz-row class="edit-margins">
+                    <rc-date-range-dropdown
+                      *ngIf="segment.editing"
+                      labelString="Session date range"
+                      size="small"
+                      [startDate]="datePipe.transform(segment.startDate, 'MM/dd/yyyy')"
+                      [endDate]="datePipe.transform(segment.endDate, 'MM/dd/yyyy')"
+                      (onSelectChange)="dateChanged($event)"
+                      [disabled]="disabled"
+                      (click)="onDangerousFieldClick()"
+                    ></rc-date-range-dropdown>
+                    <div *ngIf="!segment.editing">
+                      <nz-form-label nzFor="dateRange">Session date range</nz-form-label>
+                      <span id="dateRange">{{
+                        segment.startDate === segment.endDate
+                          ? datePipe.transform(segment.startDate, "MMM d, y")
+                          : datePipe.transform(segment.startDate, "MMM d, y") +
+                            " - " +
+                            datePipe.transform(segment.endDate, "MMM d, y")
+                      }}</span>
+                    </div>
+                  </nz-row>
+                  <!--<nz-row>
+                    &lt;!&ndash; <nz-switch
+                      *ngIf="!segment.editing || (segment.editing && updateMode)"
+                      [(ngModel)]="segment.useSeasonDayTime"
+                      disabled
+                    ></nz-switch>&ndash;&gt;
+                    <nz-switch *ngIf="segment.editing" [(ngModel)]="segment.useSeasonDayTime"></nz-switch>
+                    Same activity days & hours as season
+                  </nz-row>
+                  <nz-row *ngIf="!segment.useSeasonDayTime && segment.editing">
+                    <rc-week-days-hours-select
+                      id="sessions-act-times"
+                      label=""
+                      [weekData]="segment.activityTimes"
+                      (onChange)="onChange($event, i)"
+                    ></rc-week-days-hours-select>
+                  </nz-row>-->
+                </nz-layout>
+              </div>
+              <nz-divider></nz-divider>
+            </nz-row>
+            <nz-row nzType="flex" nzAlign="middle" nzJustify="end">
+              <!-- Button to add session -->
+              <div
+                *ngIf="!this.seasonToEdit.editing"
+                (click)="onDangerousFieldClick()"
+                [className]="dangerousUpdateCss ? 'dangerous-edit' : ''"
+                style="padding: 5px;"
+              >
+                <button nz-button nzType="primary" (click)="addSeasonSegment()">
+                  <i nz-icon nzType="plus" nzTheme="outline"></i>{{ "Add a session" | uppercase }}
+                </button>
+              </div>
+              <!-- Buttons for edit/add constraint -->
+              <nz-button-group *ngIf="this.seasonToEdit.editing">
+                <button nz-button nzType="danger" (click)="cancelEdit(seasonToEdit.index)">
+                  <i nz-icon nzType="close-circle" nzTheme="outline"></i>{{ "Cancel" | uppercase }}</button
+                ><button nz-button nzType="primary" class="success-button" (click)="doneEditing()">
+                  <i nz-icon nzType="check-circle" nzTheme="outline"></i>{{ "Done" | uppercase }}
+                </button>
+              </nz-button-group>
+            </nz-row>
+          </nz-layout>
+        </nz-card>
+      </nz-layout>
+    </nz-col>
+  </nz-row>
+</nz-layout>

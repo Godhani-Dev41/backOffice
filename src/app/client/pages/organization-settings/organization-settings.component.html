@@ -1,0 +1,55 @@
+<div class="league-page-wrapper inner-page">
+  <div class="page-header bottom-divider page-header--no-margin">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-wrapper">
+          <rc-back-btn></rc-back-btn>
+        </div>
+        <div class="bottom-wrapper">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="pull-left text-uppercase">
+                <i class="fa fa-cogs"></i> ORGANIZATION SETTINGS
+              </h3>
+
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-sub-navigation">
+    <ul>
+      <li>
+        <a href="" [routerLink]="['about']" [routerLinkActive]="['active']">ABOUT</a>
+      </li>
+      <li>
+        <a href="" [routerLink]="['billing']" [routerLinkActive]="['active']">PAYMENTS</a>
+      </li>
+      <li>
+        <a href="" [routerLink]="['facilities']" [routerLinkActive]="['active']">FACILITIES</a>
+      </li>
+      <li>
+        <a href="" [routerLink]="['waiver']" [routerLinkActive]="['active']">WAIVER</a>
+      </li>
+      <li>
+        <a href="" [routerLink]="['notifications']" [routerLinkActive]="['active']">NOTIFICATIONS</a>
+      </li>
+      <li>
+        <a href="" [routerLink]="['forms']" [routerLinkActive]="['active']">FORMS</a>
+      </li>
+    </ul>
+    <div class="clearfix"></div>
+  </div>
+  <div
+    class="row inner-page__content inner-page__content__sub-navigation inner-page__content--background padding-top-20"
+    style="background: white;">
+    <loaders-css *ngIf="loading" [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
+
+    <div class="col-md-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,336 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.gu-mirror {
+  .RoundSeries__matches {
+    display: none;
+  }
+}
+
+.TournamentBrackets {
+  overflow: auto;
+  display: flex;
+  padding-bottom: 160px;
+  padding-left: 20px;
+
+  .TeamAssignScreen__team-row.gu-transit {
+    display: none !important;
+  }
+
+  .TournamentBrackets__round {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-width: 270px;
+    max-width: 350px;
+
+    &.TournamentBrackets__round--winner {
+      min-width: 110px;
+      max-width: 110px;
+
+      ::ng-deep .avatar,
+      ::ng-deep .participant-logo {
+        width: 94px !important;
+        height: 94px !important;
+
+        span {
+          font-size: 43px;
+        }
+      }
+    }
+  }
+
+  .TournamentBrackets__round__title {
+    max-height: 30px;
+    font-family: $font-brand;
+    font-weight: bold;
+    color: $brand-dark;
+    margin-bottom: 15px;
+  }
+
+  .TournamentBrackets__round__content {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .MatchUp {
+    position: relative;
+    padding-right: 55px;
+    flex-grow: 1;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+
+    .connector {
+      position: absolute;
+      height: 50%;
+      width: 27px;
+      top: 25%;
+      right: 24px;
+      border: 1px solid $brand-accent;
+      border-left: none;
+
+      &.connector--single {
+        border: none;
+      }
+
+      &:after {
+        content: '';
+        width: 19px;
+        height: 1px;
+        background: $brand-accent;
+        position: absolute;
+        right: -19px;
+        top: 50%;
+        margin-top: -1px;
+      }
+    }
+  }
+
+  .RoundSeries {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    .RoundSeries__participant-box:first-child {
+      margin-top: 0;
+    }
+    .RoundSeries__participant-box:last-child {
+      margin-bottom: 0;
+    }
+
+    &.RoundSeries--consolation {
+      padding-right: 55px;
+      width: 100%;
+      position: absolute;
+      margin-top: 170px;
+    }
+  }
+
+  .RoundSeries__matches {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .vs-wrapper {
+      color: $brand-success;
+      font-weight: bold;
+      font-size: 11px;
+    }
+
+    ul {
+      li {
+        line-height: 19px;
+        margin-bottom: 0;
+        text-align: right;
+        color: $brand-dark-grey;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .RoundSeries__trophy {
+    text-align: center;
+    width: 94px;
+    height: 94px;
+    background: white;
+    border-radius: 100%;
+    line-height: 123px;
+    box-shadow: 0 3px 3px 0 rgba(100, 100, 100, 0.16);
+
+    i {
+      color: $brand-accent;
+      font-size: 40px;
+    }
+  }
+
+  .ContextMenuDropdown {
+    .list {
+      li.title {
+        color: $brand-accent;
+      }
+    }
+
+    .teams-switch-list {
+      max-height: 300px;
+      overflow: auto;
+
+      li {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 10px;
+      }
+    }
+  }
+}
+
+
+.RoundSeries__participant-box {
+  display: flex;
+  align-items: center;
+  min-height: 35px;
+  border-left: 2px solid $brand-accent;
+  box-shadow: 0 3px 3px 0 rgba(100, 100, 100, 0.16);
+  background: white;
+  margin-bottom: 10px;
+  margin-top: 10px;
+
+  &.RoundSeries__participant-box--unknown {
+    .RoundSeries__participant-box__title {
+      padding-left: 12px;
+    }
+  }
+
+  .RoundSeries__participant-box__score {
+    height: 32px;
+
+    .score-box {
+      line-height: 30px;
+      font-size: 16px;
+      font-weight: 500;
+      color: $brand-black;
+      text-align: center;
+      height: 100%;
+      min-width: 30px;
+      box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.1);
+
+      &.score-box--win {
+        border-top: 2px solid $brand-success;
+      }
+
+      &.score-box--lose {
+        border-top: 2px solid $brand-danger;
+      }
+    }
+  }
+
+}
+
+.RoundSeries__participant-box__logo {
+  margin-right: 10px;
+  margin-left: 5px;
+  ::ng-deep .avatar,
+  ::ng-deep .participant-logo {
+    height: 25px !important;
+    width: 25px !important;
+    line-height: 25px !important;
+    position: relative;
+    top: 1px;
+
+    span {
+      font-size: 12px !important;
+      position: relative;
+      top: -10px;
+    }
+  }
+}
+
+.RoundSeries__participant-box__title {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 11px;
+  flex-grow: 1;
+}
+
+
+.RoundSeries__participant-box-wrapper {
+  overflow: hidden;
+  min-height: 35px;
+
+  &> div:not(.no-drag) {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .RoundSeries__drag-to-drop-box {
+    line-height: 35px;
+    border-radius: 2px;
+    box-shadow: 0 3px 3px 0 rgba(100, 100, 100, 0.16);
+    border: solid 1px $brand-dark-grey;
+    color: $brand-dark-grey;
+    text-align: center;
+    font-weight: bold;
+    font-size: 11px;
+  }
+
+  .RoundSeries__participant-drag-to-drop {
+    .RoundSeries__participant-box {
+      display: none;
+    }
+
+    .RoundSeries__drag-to-drop-box {
+      display: block !important;
+    }
+  }
+}
+
+.TeamAssignScreen {
+  margin-top: -20px;
+  margin-bottom: -20px;
+  display: inline-block;
+  max-width: 464px;
+  min-width: 464px;
+  box-shadow: 3px 0 13px 0 rgba(155, 155, 155, 0.31);
+  padding: 14px 9px;
+  padding-top: 20px;
+
+  .TeamAssignScreen__title {
+    margin-bottom: 20px;
+  }
+
+  .TeamAssignScreen__division-wrapper__title {
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .TeamAssignScreen__title {
+    font-weight: bold;
+    font-size: 12px;
+    color: $brand-accent;
+  }
+
+  .division-icon {
+    margin-left: -22px;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.5);
+    border: solid 1px #ffffff;
+    border-radius: 100%;
+    color: white;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 20px;
+  }
+}
+
+.TeamAssignScreen__team-row {
+  display: flex;
+  align-items: center;
+  min-height: 35px;
+  border-left: 2px solid $brand-accent;
+  box-shadow: 0 3px 3px 0 rgba(100, 100, 100, 0.16);
+  background: white;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .standing-position {
+    margin-left: 11px;
+    font-weight: bold;
+    color: $brand-success;
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+

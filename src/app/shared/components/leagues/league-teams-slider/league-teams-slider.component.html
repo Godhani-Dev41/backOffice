@@ -1,0 +1,30 @@
+<div class="row teams-slider cards-slider">
+  <div class="col-md-12" *ngIf="teams?.length">
+    <div class="slider-area-wrapper">
+      <div class="item" *ngFor="let seasonTeam of teams;">
+        <div class="box-item box--shadow team-box-item box-top-border box-top-border--small">
+          <div class="team-box-item__header">
+            <h3 class="text-center">{{seasonTeam.team?.name | truncate:30}}</h3>
+            <div class="team-box-item__header__label">
+              {{seasonTeam.team?.teamMembers?.length}} athletes
+            </div>
+          </div>
+          <div class="team-box-item__details">
+            <div class="member-data" *ngIf="seasonTeam.captain">
+              <div class="member-image">
+                <div class="image-wrapper image--round image--border image--shadow"
+                     [rcBackgroundImage]="seasonTeam.captain?.profilePicture"></div>
+              </div>
+              <div class="member-info text-uppercase">
+                {{seasonTeam.captain?.firstName}} {{seasonTeam.captain?.lastName}}
+              </div>
+            </div>
+            <div class="member-status" *ngIf="seasonTeam.captain">
+              <i class="icon-rc-star-icon"></i> team captain
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

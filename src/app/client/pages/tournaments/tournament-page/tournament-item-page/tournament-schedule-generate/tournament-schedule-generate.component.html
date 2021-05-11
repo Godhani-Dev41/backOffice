@@ -1,0 +1,46 @@
+<div class="inner_page"
+  style="background: white; margin-top: -20px; margin-left: -10px; margin-right: -10px; margin-bottom: -20px;">
+  <div class="row inner-page__content inner-page__content--has-bottom-nav">
+    <div class="col-md-12">
+      <div class="WizardForm">
+        <div class="WizardForm__navigation">
+          <div class="WizardForm__navigation__header">
+            <h3>
+              GENERATE
+              TOURNAMENT
+              SCHEDULE
+            </h3>
+          </div>
+
+          <div class="WizardForm__navigation__slide-info">
+            <p>
+              Tournament brackets will be scheduled in the times and
+              facilities according to number of teams selected to participate
+            </p>
+          </div>
+        </div>
+        <div class="WizardForm__content">
+          <div class="WizardForm__content__inner">
+            <div class="form">
+              <div>
+                <form action="" [formGroup]="scheduleForm" novalidate>
+                  <rc-tournament-schedule-generator [form]="scheduleForm" [teams]="teams">
+                  </rc-tournament-schedule-generator>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row bottom-nav-bar">
+        <div class="bottom-nav-bar__inner">
+          <div class="bottom-nav-bar__inner__content">
+            <rc-loading-btn [loading]="loading" [disabled]="!scheduleForm.valid" (onClick)="submit(scheduleForm.value)"
+              [text]="'GENERATE SCHEDULE'" [classes]="['button-next', 'button', 'button-assertive', 'pull-right']">
+            </rc-loading-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

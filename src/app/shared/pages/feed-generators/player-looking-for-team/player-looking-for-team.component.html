@@ -1,0 +1,23 @@
+<div class="text-center" style="zoom: 1.9">
+  <div style="min-width: 330px; display: inline-block; border: 1px solid #f2f2f2; padding: 15px;">
+    <div class="reachout-widget-wrapper" *ngIf="feed">
+      <div class="reachout-widget-wrapper__top">
+        <div class="reachout-widget-wrapper__image" style="background-image: url('assets/img/Looking_for_team.png');">
+          <div class="image-wrapper image--round image--border image--shadow avatar border"
+               style="top: 41px !important;"
+               [rcBackgroundImage]="(feed?.creator.mainMedia | mediaUrl:600) || 'assets/img/profile_pic_male.png'">
+          </div>
+        </div>
+      </div>
+      <div class="reachout-widget-wrapper__content">
+        <h5>LOOKING FOR A TEAM</h5>
+        <div class="rechout-info-box" *ngIf="getLevelOfPlayText(feed?.feedMetadata?.reachOut.levelOfPlay)">
+          <h6>Level of Play</h6>
+          <p>
+            {{getLevelOfPlayText(feed?.feedMetadata?.reachOut.levelOfPlay)}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

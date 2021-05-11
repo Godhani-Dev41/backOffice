@@ -1,0 +1,12 @@
+@import "~@rcenter/core/scss/variables/index";
+
+.timezone-label {
+  .timezone-top {
+    font-weight: bold;
+    color: $brand-accent;
+  }
+}
+
+.form-control {
+  font-size: 10px;
+}

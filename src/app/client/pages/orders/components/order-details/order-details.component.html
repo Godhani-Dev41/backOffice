@@ -1,0 +1,141 @@
+<div class="col-md-12" style="position: static;">
+  <div class="row padding-top-20" style="">
+    <div class="col-md-12" style="position: static;">
+      <div class="row">
+        <div class="col-md-12">
+          <h5 class="brand-title">
+            ORDER DETAILS
+          </h5>
+          <div class="row">
+            <div class="col-md-6">
+              <h4 class="box-title box--title-icon">
+                ORDER DESCRIPTION
+              </h4>
+              <p class="box-text text-uppercase">
+                {{reservations[0]?.description}}
+              </p>
+            </div>
+            <div class="col-md-6">
+              <h4 class="box-title box--title-icon text-uppercase">
+                order Status
+              </h4>
+              <div *ngIf="order?.status !== 'active'" class="EntityPublishLabel EntityPublishLabel--draft">
+                <i></i> {{getOrderStatus(order?.orderStatus)}}
+              </div>
+              <div *ngIf="order?.status === 'active'" class="EntityPublishLabel EntityPublishLabel--published">
+                <i></i> {{getOrderStatus(order?.orderStatus)}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h5 class="brand-title">
+            Customer DETAILS
+          </h5>
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="box-title box--title-icon text-uppercase">
+                CUSTOMER NAME
+              </h4>
+              <p class="box-text text-uppercase">
+                {{reservations[0]?.customer?.name}}
+              </p>
+            </div>
+            <div class="col-md-6">
+              <h4 class="box-title box--title-icon text-uppercase">
+                Customer Email
+              </h4>
+              <p class="box-text text-uppercase">
+                {{reservations[0]?.customer?.email}}
+              </p>
+            </div>
+            <div class="col-md-6">
+              <h4 class="box-title box--title-icon text-uppercase">
+                Customer Phone Number
+              </h4>
+              <p class="box-text text-uppercase">
+                {{reservations[0]?.customer?.phone}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h5 class="brand-title">
+            RESERVATIONS
+          </h5>
+          <ngx-datatable #table [sorts]="[{prop: 'startDate', dir: 'asc'}, {prop: 'title', dir: 'asc'}]"
+            class="rc-datatable material" [columnMode]="'force'" [rowHeight]="'auto'" [rows]="reservations">
+            <ngx-datatable-column [maxWidth]="180" prop="name" [minWidth]="80" name="Event Name">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.name}}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column minWidth="80" maxWidth="110" prop="price" name="Price">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.price}}$
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="startDate" name="Date & Time">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.startDate | momentDate:'MMM D, YYYY h:mma':'gmt'}} - {{row.endDate |
+                momentDate:'h:mma':'gmt'}}
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div *ngFor="let space of spaces">
+            <div class="SummaryWrapper">
+              <h5>
+                SPACE - {{space.name}}
+              </h5>
+              <div class="SummaryWrapper__props" style="text-transform: capitalize;">
+                {{space.properties[0]}} <br>
+                {{space.surface}}
+              </div>
+              <div class="SummaryWrapper__sports">
+                <div class="SportItem" *ngFor="let sport of space.sports">
+                  <i class="{{getSportIcon(sport)}}"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h5 class="brand-title">
+            ADDONS
+          </h5>
+          <ngx-datatable #table [sorts]="[{prop: 'startDate', dir: 'asc'}, {prop: 'title', dir: 'asc'}]"
+            class="rc-datatable material" [columnMode]="'force'" [rowHeight]="'auto'" [rows]="addons">
+            <ngx-datatable-column [maxWidth]="180" prop="name" [minWidth]="80" name="Addon Type">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.resourcePackage?.package?.name}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="startDate" name="Date & Time">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.startDate | momentDate:'MMM D, YYYY h:mma':'gmt'}} - {{row.endDate |
+                momentDate:'h:mma':'gmt'}}
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="!order?.status || order?.status === 'waitingAdmin'">
+    <div class="col-md-12"
+      style="margin-top:25px; height: 50px; display: flex; align-content: center; justify-content: space-between;">
+      <button type="button" class="button button-empty pull-left match-cancel" (click)="decline()"
+        style="display: flex;">
+        <i class="fa fa-times"></i> Cancel this order
+      </button>
+      <rc-loading-btn [text]="'APPROVE ORDER'" (onClick)="allow()" [loading]="allowLoading"
+        [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']" style="display: flex;">
+      </rc-loading-btn>
+    </div>
+  </div>
+</div>
