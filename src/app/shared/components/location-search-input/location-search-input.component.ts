@@ -28,7 +28,7 @@ import { TimeService } from "@app/shared/services/utils/time.service";
   ],
 })
 export class LocationSearchInputComponent implements OnInit, ControlValueAccessor {
-  @ViewChild("search") searchElementRef: ElementRef;
+  @ViewChild("search", { static: true }) searchElementRef: ElementRef;
   @Input() placeholder = "";
   @Input() required: boolean;
   @Input() disabled: boolean;

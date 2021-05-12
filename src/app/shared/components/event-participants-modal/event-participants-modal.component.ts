@@ -11,8 +11,8 @@ import { PlayerSeasonInfoModalComponent } from "@app/shared/components/leagues/p
   exportAs: "modal",
 })
 export class ParticipantsModalComponent implements OnInit {
-  @ViewChild("modal") public modal: ModalDirective;
-  @ViewChild("playerInfoModal") playerInfoModal: PlayerSeasonInfoModalComponent;
+  @ViewChild("modal", { static: true }) public modal: ModalDirective;
+  @ViewChild("playerInfoModal", { static: true }) playerInfoModal: PlayerSeasonInfoModalComponent;
 
   invites: RCEventAttendee[] = [];
   visibleItems: RCEventAttendee[] = [];

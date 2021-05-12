@@ -42,7 +42,7 @@ export class SchedulerGeneratorPageComponent implements OnInit, OnDestroy {
     return this.schedulerForm.get('schedulerRules').get('teamConstraints') as FormArray;
   }
 
-  @ViewChild('scrollArea') scrollArea: ElementRef;
+  @ViewChild('scrollArea', { static: true }) scrollArea: ElementRef;
   constructor(
     private router: Router,
     private toastr: ToastrService,

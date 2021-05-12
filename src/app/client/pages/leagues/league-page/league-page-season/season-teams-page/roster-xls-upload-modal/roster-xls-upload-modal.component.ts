@@ -14,7 +14,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 })
 export class RosterXlsUploadModalComponent implements OnInit {
   loading = false;
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: true }) modal: ModalDirective;
   @Output() onUploaded = new EventEmitter();
   @Input() season: RCLeagueSeason;
   uploader: FileUploader;

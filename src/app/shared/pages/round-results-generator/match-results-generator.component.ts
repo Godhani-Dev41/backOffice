@@ -1,10 +1,9 @@
 
 import {map} from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Http } from '@angular/http';
 import { environment } from '../../../../environments/environment';
 import { RCSeasonRound } from '@rcenter/core';
+import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

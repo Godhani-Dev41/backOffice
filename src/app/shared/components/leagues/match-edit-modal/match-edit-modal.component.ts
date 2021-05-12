@@ -34,7 +34,7 @@ const DEFAULT_MATCH = {
 })
 export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
 
-  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
   @Input() league: RCLeague;
   @Input() season: RCLeagueSeason;
   @Input() rounds: RCSeasonRound[];

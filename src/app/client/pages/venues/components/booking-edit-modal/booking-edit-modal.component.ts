@@ -20,7 +20,7 @@ export class BookingEditModalComponent implements OnInit {
   @Input() spaces: any[];
   @Input() venue: RCVenue;
   @Output() onUpdate = new EventEmitter();
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: true }) modal: ModalDirective;
   constructor(
     private toastr: ToastrService,
     private venuesService: VenuesService,

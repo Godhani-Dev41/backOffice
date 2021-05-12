@@ -28,7 +28,7 @@ export interface Entitlements {
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DiscountV2Component implements OnChanges, OnDestroy, AfterViewInit {
-  @ViewChild("reactRoot") containerRef: ElementRef;
+  @ViewChild("reactRoot", { static: true }) containerRef: ElementRef;
   @Input() totalAmount: number;
   @Output() onSave = new EventEmitter<Entitlements[]>();
   @Output() onClose = new EventEmitter<boolean>();

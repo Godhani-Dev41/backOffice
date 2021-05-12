@@ -42,7 +42,7 @@ export class LeagueCreatorPageComponent implements OnInit {
   currentOrganizationId: number;
   organization: RCOrganization;
   league: any;
-  @ViewChild("actionSuccessModal") actionSuccessModal: ActionSuccessModalComponent;
+  @ViewChild("actionSuccessModal", { static: true }) actionSuccessModal: ActionSuccessModalComponent;
   updateMode: boolean;
   processingUnpublish: boolean;
   orgQuestionnaires: RCQuestionnaireObject[];

@@ -30,7 +30,7 @@ interface CustomersProps {
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class CustomersNewPageComponent implements OnChanges, OnDestroy, AfterViewInit {
-  @ViewChild("reactRoot") containerRef: ElementRef;
+  @ViewChild("reactRoot", { static: true }) containerRef: ElementRef;
 
   organization: RCOrganization;
 

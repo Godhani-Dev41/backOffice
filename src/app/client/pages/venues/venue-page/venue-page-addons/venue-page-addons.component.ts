@@ -15,7 +15,7 @@ export class VenuePageAddonsComponent implements OnInit {
   spaces: any[];
   loading = false;
   addons: any[];
-  @ViewChild("packageCreatorModal") packageCreatorModal: PackageCreatorModalComponent;
+  @ViewChild("packageCreatorModal", { static: false }) packageCreatorModal: PackageCreatorModalComponent;
   constructor(private authService: AuthenticationService, private venuesService: VenuesService) {}
 
   ngOnInit() {

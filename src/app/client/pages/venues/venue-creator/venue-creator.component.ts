@@ -32,7 +32,7 @@ export class VenueCreatorComponent implements OnInit {
   amenitiesList: any[] = [];
   description_length: number;
   shortDescription_length: number;
-  @ViewChild("actionSuccessModal") actionSuccessModal: ActionSuccessModalComponent;
+  @ViewChild("actionSuccessModal", { static: true }) actionSuccessModal: ActionSuccessModalComponent;
   constructor(
     private toastr: ToastrService,
     private router: Router,

@@ -20,7 +20,8 @@ import { Router } from "@angular/router";
 export class DashboardComponent implements OnInit {
   @ViewChild("fullCalendar", {
     read: false,
-  })
+    static: false
+})
   fullCalendar: CalendarComponent;
 
   calendarIsVisible = false;

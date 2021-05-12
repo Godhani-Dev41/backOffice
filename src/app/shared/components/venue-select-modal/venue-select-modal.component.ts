@@ -11,7 +11,7 @@ import { RCParsedAddress } from '@app/shared/services/utils/location.service';
   exportAs: 'modal'
 })
 export class VenueSelectModalComponent implements OnInit {
-  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
 
   matchForm: FormGroup;

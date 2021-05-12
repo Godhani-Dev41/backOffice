@@ -17,7 +17,7 @@ import { TranslationEn } from "assets/i18n/en";
   styleUrls: ["sidemenu.component.scss"],
 })
 export class SidemenuComponent implements OnInit, OnDestroy {
-  @ViewChild("rc-tooltip") modal: TooltipModule;
+  @ViewChild("rc-tooltip", { static: false }) modal: TooltipModule;
   organization: RCOrganization;
   currentLeague: RCLeague;
   currentSeason: RCLeagueSeason;

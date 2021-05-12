@@ -1,7 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "downlevelIteration": true,
     "importHelpers": true,
+    "module": "esnext",
     "paths": {
       "@app/*": ["app/*"]
     },
@@ -14,7 +16,7 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "jsx": "react",
-    "target": "es2018",
+    "target": "es2015",
     "types": ["protractor", "google", "mixpanel", "@emotion/core"],
     "typeRoots": ["node_modules/@rcenter", "node_modules/@types"],
     "lib": ["es2018", "dom"]

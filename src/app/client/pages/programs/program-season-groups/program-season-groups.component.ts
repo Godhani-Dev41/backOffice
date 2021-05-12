@@ -69,14 +69,14 @@ export interface ActionPoolItem {
   styleUrls: ["./program-season-groups.component.scss"],
 })
 export class ProgramSeasonGroupsComponent implements OnInit, OnDestroy {
-  @ViewChild("saveModal") saveModal: ConfirmationModalComponent;
-  @ViewChild("teamEditModal") teamEditModal: TeamEditModalComponent;
-  @ViewChild("createDivisionModal") createDivisionModal: CreateDivisionModalComponent;
-  @ViewChild("autoscroll") autoscroll: ElementRef;
-  @ViewChild("playerInfoModal") playerInfoModal: PlayerSeasonInfoModalComponent;
-  @ViewChild("removeTeamConfirmModal")
+  @ViewChild("saveModal", { static: true }) saveModal: ConfirmationModalComponent;
+  @ViewChild("teamEditModal", { static: true }) teamEditModal: TeamEditModalComponent;
+  @ViewChild("createDivisionModal", { static: true }) createDivisionModal: CreateDivisionModalComponent;
+  @ViewChild("autoscroll", { static: false }) autoscroll: ElementRef;
+  @ViewChild("playerInfoModal", { static: true }) playerInfoModal: PlayerSeasonInfoModalComponent;
+  @ViewChild("removeTeamConfirmModal", { static: true })
   removeTeamConfirmModal: ConfirmationModalComponent;
-  @ViewChild("rosterXlsModal") rosterXlsModal: RosterXlsUploadModalComponent;
+  @ViewChild("rosterXlsModal", { static: true }) rosterXlsModal: RosterXlsUploadModalComponent;
   teamsPoolParticipants: RCSeasonPoolParticipant[];
   seasonTeams: any[];
   seasonTeamsVM: any[];

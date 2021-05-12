@@ -31,7 +31,7 @@ export class LeaguePageSeasonComponent implements OnInit, OnDestroy {
   currentPage: string;
   RCSeasonRosterStatusEnum = RCSeasonRosterStatusEnum;
   RCSeasonScheduleStatusEnum = RCSeasonScheduleStatusEnum;
-  @ViewChild('sendInvitesConfirm') sendInvitesConfirm: any;
+  @ViewChild('sendInvitesConfirm', { static: true }) sendInvitesConfirm: any;
   constructor(
     private leaguesService: LeaguesService,
     private route: ActivatedRoute,

@@ -34,7 +34,7 @@ export class SchedulerListPageComponent implements OnInit {
   season: RCLeagueSeason;
   loading: boolean;
   discardLoading: boolean;
-  @ViewChild('publishConfirmModal') publishConfirmModal: ConfirmationModalComponent;
+  @ViewChild('publishConfirmModal', { static: true }) publishConfirmModal: ConfirmationModalComponent;
   activeDivisions: number[];
   constructor(
     private activatedRoute: ActivatedRoute,

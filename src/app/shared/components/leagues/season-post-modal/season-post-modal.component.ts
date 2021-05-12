@@ -16,7 +16,7 @@ type ShareType = 'roundResults' | 'seasonResults' | 'matchResults';
   exportAs: 'modal'
 })
 export class SeasonPostModalComponent implements OnInit {
-  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
   @Input() league: RCLeague;
   roundPostForm: FormGroup;
   round: RCSeasonRound;

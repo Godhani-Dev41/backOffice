@@ -15,7 +15,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 export class ScheduleXlsUploadModalComponent implements OnInit {
 
   loading = false;
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: true }) modal: ModalDirective;
   @Output() onUploaded = new EventEmitter();
   @Input() league: RCLeague;
   @Input() season: RCLeagueSeason;

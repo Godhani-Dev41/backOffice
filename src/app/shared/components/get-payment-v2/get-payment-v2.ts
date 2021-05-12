@@ -23,7 +23,7 @@ import { ChargingModalExample, ISelectedPaymentDetail} from "@app/react/Example/
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class GetPaymentV2Component implements  OnChanges, OnDestroy, AfterViewInit {
-  @ViewChild("reactRoot") containerRef: ElementRef;
+  @ViewChild("reactRoot", { static: true }) containerRef: ElementRef;
 
   @Input() totalAmount: number;
   @Input() userId: number;

@@ -16,7 +16,7 @@ import { TimeService } from '@app/shared/services/utils/time.service';
   styleUrls: ['./playoff-creator.component.scss']
 })
 export class PlayoffCreatorComponent implements OnInit, OnDestroy {
-  @ViewChild('actionSuccessModal') actionSuccessModal: ActionSuccessModalComponent;
+  @ViewChild('actionSuccessModal', { static: true }) actionSuccessModal: ActionSuccessModalComponent;
   loading: boolean;
   updateMode: boolean;
   playoffForm: FormGroup;

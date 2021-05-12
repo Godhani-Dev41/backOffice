@@ -32,11 +32,11 @@ export class VenuePageScheduleAllComponent
   dayInfoWidget: any;
   loading = true;
   destroy = new Subject<true>();
-  @ViewChild("packageCreatorModal")
+  @ViewChild("packageCreatorModal", { static: false })
   packageCreatorModal: PackageCreatorModalComponent;
-  @ViewChild("newBookingModal") newBookingModal: NewBookingModalComponent;
-  @ViewChild("bookingEditModal") bookingEditModal: BookingEditModalComponent;
-  @ViewChild("schedulerCalendar")
+  @ViewChild("newBookingModal", { static: false }) newBookingModal: NewBookingModalComponent;
+  @ViewChild("bookingEditModal", { static: false }) bookingEditModal: BookingEditModalComponent;
+  @ViewChild("schedulerCalendar", { static: false })
   schedulerCalendar: VenueSchedulerCalendarComponent;
   currentDay: moment.Moment;
   constructor(

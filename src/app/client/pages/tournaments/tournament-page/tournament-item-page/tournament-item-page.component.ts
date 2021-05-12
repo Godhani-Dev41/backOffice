@@ -31,9 +31,9 @@ export class TournamentItemPageComponent implements OnInit, OnDestroy {
   currentPage: string;
   RCSeasonRosterStatusEnum = RCSeasonRosterStatusEnum;
   RCSeasonScheduleStatusEnum = RCSeasonScheduleStatusEnum;
-  @ViewChild("publishRostersConfirm") publishRostersConfirm: any;
-  @ViewChild("publishRostersConfirmEmpty") publishRostersConfirmEmpty: any;
-  @ViewChild("sendInvitesConfirm") sendInvitesConfirm: any;
+  @ViewChild("publishRostersConfirm", { static: true }) publishRostersConfirm: any;
+  @ViewChild("publishRostersConfirmEmpty", { static: true }) publishRostersConfirmEmpty: any;
+  @ViewChild("sendInvitesConfirm", { static: true }) sendInvitesConfirm: any;
   constructor(
     private tournamentService: TournamentService,
     private router: Router,

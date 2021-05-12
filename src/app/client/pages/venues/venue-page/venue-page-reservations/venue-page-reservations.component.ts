@@ -28,8 +28,8 @@ export class VenuePageReservationsComponent implements OnInit, OnDestroy {
     orderStatus: "",
   };
 
-  @ViewChild("bookingEditModal") bookingEditModal: BookingEditModalComponent;
-  @ViewChild("customersInput") customersInput: any;
+  @ViewChild("bookingEditModal", { static: true }) bookingEditModal: BookingEditModalComponent;
+  @ViewChild("customersInput", { static: true }) customersInput: any;
 
   constructor(
     private venuesService: VenuesService,

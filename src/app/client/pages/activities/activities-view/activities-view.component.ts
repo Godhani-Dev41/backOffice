@@ -11,7 +11,7 @@ import { ProgramCreateModalComponent } from '../program-create-modal/program-cre
 export class ActivitiesViewComponent implements OnInit {
   activities: RCLeague[];
   loading: boolean;
-  @ViewChild('programCreateModal') programCreateModal: ProgramCreateModalComponent;
+  @ViewChild('programCreateModal', { static: true }) programCreateModal: ProgramCreateModalComponent;
   constructor(
     private analytics: AnalyticsService
   ) { }

@@ -10,7 +10,7 @@ import { RCOrganization } from '@rcenter/core';
   styleUrls: ['./customers-page.component.scss']
 })
 export class CustomersPageComponent implements OnInit {
-  @ViewChild('customerEditModal') customerEditModal: CustomerEditModalComponent;
+  @ViewChild('customerEditModal', { static: true }) customerEditModal: CustomerEditModalComponent;
 
   organization: RCOrganization;
   loading = false;

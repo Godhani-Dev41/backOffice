@@ -19,7 +19,7 @@ import "rxjs";
   styleUrls: ["./tournament-edit.component.scss"],
 })
 export class TournamentEditComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild("actionSuccessModal") actionSuccessModal: ActionSuccessModalComponent;
+  @ViewChild("actionSuccessModal", { static: true }) actionSuccessModal: ActionSuccessModalComponent;
 
   tournamentForm: FormGroup;
   processing: boolean;

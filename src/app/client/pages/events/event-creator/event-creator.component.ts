@@ -23,7 +23,7 @@ declare var tinymce: any;
   styleUrls: ["./event-creator.component.scss"],
 })
 export class EventCreatorComponent implements OnInit, OnDestroy {
-  @ViewChild("actionSuccessModal") actionSuccessModal: ActionSuccessModalComponent;
+  @ViewChild("actionSuccessModal", { static: true }) actionSuccessModal: ActionSuccessModalComponent;
   eventForm: FormGroup;
   updateMode: boolean;
   loading: boolean;

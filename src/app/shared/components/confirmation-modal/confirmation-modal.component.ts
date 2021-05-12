@@ -8,7 +8,7 @@ import { ModalDirective } from 'ngx-bootstrap';
   exportAs: 'modal'
 })
 export class ConfirmationModalComponent implements OnInit {
-  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
   @Input() type: 'success' | 'danger' = 'success';
   @Input() title: string;
   @Input() content: string;

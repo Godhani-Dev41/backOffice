@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angu
 import { ProgramsService, SegmentItem, SubSeason } from "@app/shared/services/programs/programs.service";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-import { RCVenue, RCVenueSpace } from "../../../../../../core/dist";
+import { RCVenue, RCVenueSpace } from "../../../../../core/dist";
 
 export interface SpaceAlloc {
   segmentId: number;

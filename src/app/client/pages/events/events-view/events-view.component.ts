@@ -20,13 +20,13 @@ import { Router } from "@angular/router";
   styleUrls: ["./events-view.component.scss"],
 })
 export class EventsViewComponent implements OnInit, OnDestroy {
-  @ViewChild("cancelConfirmModal")
+  @ViewChild("cancelConfirmModal", { static: true })
   cancelConfirmModal: ConfirmationModalComponent;
-  @ViewChild("deleteConfirmModal")
+  @ViewChild("deleteConfirmModal", { static: true })
   deleteConfirmModal: ConfirmationModalComponent;
-  @ViewChild("venueSelectModal")
+  @ViewChild("venueSelectModal", { static: true })
   venueSelectModal: VenueSelectModalComponent;
-  @ViewChild("table") table: DatatableComponent;
+  @ViewChild("table", { static: false }) table: DatatableComponent;
   organization: RCOrganization;
   @Input() isSeason?: boolean;
   seasonId: number;

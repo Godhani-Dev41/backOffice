@@ -19,7 +19,7 @@ import { RichText } from "@app/react/components/shared/RichText";
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class RichTextWrapperComponent implements OnDestroy, AfterViewInit {
-  @ViewChild("reactRoot") containerRef: ElementRef;
+  @ViewChild("reactRoot", { static: true }) containerRef: ElementRef;
 
   @Input() initialValue: string;
   @Input() max: number;

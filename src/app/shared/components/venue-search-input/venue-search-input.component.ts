@@ -26,7 +26,7 @@ import { Subscription, Subject } from 'rxjs';
   }]
 })
 export class VenueSearchInputComponent implements OnInit, ControlValueAccessor, OnDestroy {
-  @ViewChild('venuesInput') venuesInput: any;
+  @ViewChild('venuesInput', { static: true }) venuesInput: any;
   @Input() seasonVenuesOnly: boolean;
   @Output() onSelect = new EventEmitter<RCVenue>();
   items: SelectItem[];

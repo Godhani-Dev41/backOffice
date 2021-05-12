@@ -18,8 +18,8 @@ import { AnalyticsService } from "@app/shared/services/utils/analytics.service";
   exportAs: "modal",
 })
 export class TeamEditModalComponent implements OnInit {
-  @ViewChild("modal") public modal: ModalDirective;
-  @ViewChild("teamName") public teamName: any;
+  @ViewChild("modal", { static: true }) public modal: ModalDirective;
+  @ViewChild("teamName", { static: true }) public teamName: any;
 
   @Input() leagueId: number;
   @Input() seasonId: number;

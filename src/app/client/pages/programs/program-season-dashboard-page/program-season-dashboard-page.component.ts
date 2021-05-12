@@ -45,7 +45,7 @@ export class ProgramSeasonDashboardPageComponent implements OnInit {
 
   publicSiteUrl: string;
 
-  @ViewChild("sendInvitesConfirm") sendInvitesConfirm: any;
+  @ViewChild("sendInvitesConfirm", { static: true }) sendInvitesConfirm: any;
 
   constructor(
     public programsService: ProgramsService,

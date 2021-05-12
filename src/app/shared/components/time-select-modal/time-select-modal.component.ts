@@ -12,7 +12,7 @@ import * as moment from 'moment-timezone';
   exportAs: 'modal'
 })
 export class BulkChangeTimeModalComponent implements OnInit {
-  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
   @Input() season: RCLeagueSeason;
   matchForm: FormGroup;

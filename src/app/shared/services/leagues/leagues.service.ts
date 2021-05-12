@@ -37,11 +37,11 @@ import { FormBuilder } from "@angular/forms";
 import { RCCreateLeagueData } from "@app/shared/services/tournament/tournament.service";
 import { FileItem } from "ng2-file-upload";
 import { ImagesService } from "@app/shared/services/utils/images.service";
-import { ResponseContentType } from "@angular/http";
 import { RCQuestionObject } from "@rcenter/core/models/Questions";
 import { RCPaymentStatus } from "@rcenter/core/models/Leagues";
 import { SportsService } from "@app/shared/services/utils/sports.service";
 import { HttpClient } from "@angular/common/http";
+
 const moment: any = require("moment-timezone");
 
 export interface RCLeagueDetailVM {

@@ -29,7 +29,7 @@ export class VenueSchedulerCalendarComponent implements OnInit, OnChanges {
   @Output() onEventClick = new EventEmitter();
   @Output() onDayChange = new EventEmitter();
 
-  @ViewChild("fullCalendar") fullCalendar: CalendarComponent;
+  @ViewChild("fullCalendar", { static: true }) fullCalendar: CalendarComponent;
   schedulerOptions: Options;
   selectedDate: moment.Moment;
   initRanOnce: boolean = false;

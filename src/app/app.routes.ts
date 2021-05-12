@@ -26,8 +26,8 @@ import { ImageGeneratorComponent } from '@app/shared/pages/image-generator/image
 
 export const ROUTES: Routes = [
   { path: '', redirectTo: 'client', pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: 'client', loadChildren: './client/client.module#ClientModule', canActivate: [AuthGuard] },
-  { path: 'admin', loadChildren: './admin/admin.module#AdminModule', canActivate: [AdminGuard] },
+  { path: 'client', loadChildren: () => import('./client/client.module').then(m => m.ClientModule), canActivate: [AuthGuard] },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AdminGuard] },
   { path: 'login', component: LoginPageComponent },
   { path: 'standings-generator-route', component: StandingsGeneratorComponent },
   { path: 'match-results-generator-route', component: MatchResultsGeneratorComponent },

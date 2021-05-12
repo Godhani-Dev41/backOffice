@@ -33,8 +33,8 @@ export class NewBookingModalComponent implements OnInit {
   @Input() spaces: any[];
   @Input() venue: RCVenue;
   @Output() onSavedBooking = new EventEmitter();
-  @ViewChild("modal") public modal: ModalDirective;
-  @ViewChild("customersInput") customersInput: any;
+  @ViewChild("modal", { static: true }) public modal: ModalDirective;
+  @ViewChild("customersInput", { static: false }) customersInput: any;
   currentCourt: any;
   calculatedPackage: any;
   currentSessions: any[];

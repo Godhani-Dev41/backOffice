@@ -61,7 +61,7 @@ export class ProgramCreateModalComponent implements OnInit {
     url: "/client/programs/lessons/basic",
   };
 
-  @ViewChild("modal") modal: ModalDirective;
+  @ViewChild("modal", { static: true }) modal: ModalDirective;
   constructor(private router: Router, private toastr: ToastrService) {}
 
   ngOnInit() {}

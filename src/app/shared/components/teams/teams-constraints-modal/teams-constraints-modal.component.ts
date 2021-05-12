@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
   exportAs: 'modal'
 })
 export class TeamsConstraintsModalComponent implements OnInit, OnDestroy {
-  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
   teamConstraintsForm: FormGroup;
   loading: boolean;
   seasonTeam: RCSeasonTeam;

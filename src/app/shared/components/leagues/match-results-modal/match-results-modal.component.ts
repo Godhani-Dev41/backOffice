@@ -13,7 +13,7 @@ import { EventsService, RCRequestUpdateMatch } from '@app/shared/services/events
   exportAs: 'modal'
 })
 export class MatchResultsModalComponent implements OnInit {
-  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
   @Output() onUpdated = new EventEmitter<{ match: RCSeasonRoundMatch, roundId: number, divisionId: number }>();
   @Output() onEditClick = new EventEmitter<{ match: RCSeasonRoundMatch, roundId: number, divisionId: number }>();
   editMode: boolean;

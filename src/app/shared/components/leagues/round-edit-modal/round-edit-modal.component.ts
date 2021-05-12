@@ -28,7 +28,7 @@ export class RoundEditModalComponent implements OnInit {
     });
   }
   @Output() onUpdated = new EventEmitter<RCSeasonRound>();
-  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
   divisionSelection: any[];
   roundForm: FormGroup;
   loading: boolean;

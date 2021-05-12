@@ -13,7 +13,7 @@ import { RCTeam, RCSeasonTeam } from '@rcenter/core';
   exportAs: 'modal'
 })
 export class TeamMemberTransferModalComponent implements OnInit, OnDestroy {
-  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
   loading: boolean;
   seasonId: number;

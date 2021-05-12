@@ -20,9 +20,9 @@ import { Router } from "@angular/router";
   styleUrls: ["./program-season-dashboard.component.scss"],
 })
 export class ProgramSeasonDashboardComponent implements OnInit {
-  @ViewChild("standingsTable") standingsTable: StandingsTableSmallComponent;
-  @ViewChild("matchEditModal") matchEditModal: MatchEditModalComponent;
-  @ViewChild("matchResultsModal") matchResultsModal: MatchResultsModalComponent;
+  @ViewChild("standingsTable", { static: false }) standingsTable: StandingsTableSmallComponent;
+  @ViewChild("matchEditModal", { static: false }) matchEditModal: MatchEditModalComponent;
+  @ViewChild("matchResultsModal", { static: false }) matchResultsModal: MatchResultsModalComponent;
   confirmModal: NzModalRef;
   program: RCProgram;
   season: RCProgramSeason;

@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   exportAs: 'modal'
 })
 export class TopScorerModalPostComponent implements OnInit {
-  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
   publishTopScorerForm: FormGroup;
   loading = false;
   season: RCLeagueSeason;

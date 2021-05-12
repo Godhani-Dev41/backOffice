@@ -9,7 +9,7 @@ import { RCSportItem, SportsService } from '@app/shared/services/utils/sports.se
   exportAs: 'modal'
 })
 export class SportPickerModalComponent implements OnInit {
-  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
   @Output() onSelect = new EventEmitter<RCSportItem[]>();
   @Input() sports: RCSportItem[];
   @Input() singleSelect: boolean;

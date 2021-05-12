@@ -26,7 +26,7 @@ import { takeUntil } from "rxjs/operators";
 })
 export class ProgramCreatorPageComponent implements OnInit {
   private destroy$ = new Subject<true>();
-  @ViewChild("actionSuccessModal")
+  @ViewChild("actionSuccessModal", { static: true })
   loading: boolean = true;
   program: RCProgram;
   currentStep: number;
@@ -34,7 +34,7 @@ export class ProgramCreatorPageComponent implements OnInit {
   currentOrganizationId: number;
   processing: boolean;
   programForm: FormGroup;
-  @ViewChild("actionSuccessModal")
+  @ViewChild("actionSuccessModal", { static: true })
   actionSuccessModal: ActionSuccessModalComponent;
   updateMode: boolean = false;
   processingUnpublished: boolean;

@@ -37,7 +37,7 @@ export class LeaguePageSeasonCreatorComponent implements OnInit, OnDestroy {
   season: LeagueSeason;
   savedSeason: LeagueSeason;
   processingUnpublish: boolean;
-  @ViewChild("actionSuccessModal") actionSuccessModal: ActionSuccessModalComponent;
+  @ViewChild("actionSuccessModal", { static: true }) actionSuccessModal: ActionSuccessModalComponent;
   registrationChangeProccessing: boolean;
   league: RCLeague;
   destroy$ = new Subject<boolean>();

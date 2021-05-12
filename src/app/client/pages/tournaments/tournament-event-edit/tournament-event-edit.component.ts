@@ -17,7 +17,7 @@ import { CustomValidators } from "ng2-validation";
   styleUrls: ["./tournament-event-edit.component.scss"],
 })
 export class TournamentEventEditComponent implements OnInit, OnDestroy {
-  @ViewChild("actionSuccessModal") actionSuccessModal: ActionSuccessModalComponent;
+  @ViewChild("actionSuccessModal", { static: true }) actionSuccessModal: ActionSuccessModalComponent;
 
   tournamentEvent: RCLeagueSeason;
   tournamentId: any;

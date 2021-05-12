@@ -11,7 +11,7 @@ import { ProgramsService } from "@app/shared/services/programs/programs.service"
   styleUrls: ["./program-participant-list.component.scss"],
 })
 export class ProgramParticipantListComponent implements OnInit {
-  @ViewChild("customerEditModal") customerEditModal: CustomerEditModalComponent;
+  @ViewChild("customerEditModal", { static: true }) customerEditModal: CustomerEditModalComponent;
 
   organization: RCOrganization;
   loading = false;

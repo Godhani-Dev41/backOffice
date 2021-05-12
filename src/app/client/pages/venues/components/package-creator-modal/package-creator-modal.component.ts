@@ -30,8 +30,8 @@ export class PackageCreatorModalComponent implements OnInit {
     }
   }
   @Output() onUpdated = new EventEmitter();
-  @ViewChild('modal') public modal: ModalDirective;
-  @ViewChild('scrollArea') scrollArea: any;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
+  @ViewChild('scrollArea', { static: true }) scrollArea: any;
   constructor(
     private authService: AuthenticationService,
     private venuesService: VenuesService,

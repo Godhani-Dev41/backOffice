@@ -80,13 +80,13 @@ export interface ActionPoolItem {
   styleUrls: ["season-teams-page.component.scss"],
 })
 export class SeasonTeamsPageComponent implements OnInit, OnDestroy {
-  @ViewChild("saveModal") saveModal: ConfirmationModalComponent;
-  @ViewChild("teamEditModal") teamEditModal: TeamEditModalComponent;
-  @ViewChild("createDivisionModal") createDivisionModal: CreateDivisionModalComponent;
-  @ViewChild("autoscroll") autoscroll: ElementRef;
-  @ViewChild("playerInfoModal") playerInfoModal: PlayerSeasonInfoModalComponent;
-  @ViewChild("removeTeamConfirmModal") removeTeamConfirmModal: ConfirmationModalComponent;
-  @ViewChild("rosterXlsModal") rosterXlsModal: RosterXlsUploadModalComponent;
+  @ViewChild("saveModal", { static: true }) saveModal: ConfirmationModalComponent;
+  @ViewChild("teamEditModal", { static: true }) teamEditModal: TeamEditModalComponent;
+  @ViewChild("createDivisionModal", { static: true }) createDivisionModal: CreateDivisionModalComponent;
+  @ViewChild("autoscroll", { static: true }) autoscroll: ElementRef;
+  @ViewChild("playerInfoModal", { static: true }) playerInfoModal: PlayerSeasonInfoModalComponent;
+  @ViewChild("removeTeamConfirmModal", { static: true }) removeTeamConfirmModal: ConfirmationModalComponent;
+  @ViewChild("rosterXlsModal", { static: true }) rosterXlsModal: RosterXlsUploadModalComponent;
   teamsPoolParticipants: RCSeasonPoolParticipant[];
   seasonTeams: RCSeasonTeam[];
   seasonTeamsVM: RCSeasonTeamVM[];

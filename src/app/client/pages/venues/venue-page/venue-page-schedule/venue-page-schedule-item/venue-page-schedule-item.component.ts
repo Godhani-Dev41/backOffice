@@ -28,11 +28,11 @@ export class VenuePageScheduleItemComponent implements OnInit, OnDestroy {
   venue: RCVenue;
   spaces: any[];
   todaysEvents: any[];
-  @ViewChild('packageCreatorModal') packageCreatorModal: PackageCreatorModalComponent;
-  @ViewChild('newBookingModal') newBookingModal: NewBookingModalComponent;
-  @ViewChild('bookingEditModal') bookingEditModal: BookingEditModalComponent;
-  @ViewChild('fullCalendar') fullCalendar: CalendarComponent;
-  @ViewChild('schedulerCalendar') schedulerCalendar: VenueSchedulerCalendarComponent;
+  @ViewChild('packageCreatorModal', { static: false }) packageCreatorModal: PackageCreatorModalComponent;
+  @ViewChild('newBookingModal', { static: true }) newBookingModal: NewBookingModalComponent;
+  @ViewChild('bookingEditModal', { static: true }) bookingEditModal: BookingEditModalComponent;
+  @ViewChild('fullCalendar', { static: true }) fullCalendar: CalendarComponent;
+  @ViewChild('schedulerCalendar', { static: false }) schedulerCalendar: VenueSchedulerCalendarComponent;
   calendarOptions: any;
   spaceId: number;
   space: any;

@@ -14,7 +14,7 @@ import { RCSeasonTeam, RCUserInvite } from '@rcenter/core';
   exportAs: 'modal'
 })
 export class TeamPlayerInviteModalComponent implements OnInit, OnDestroy {
-  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
   inviteForm: FormGroup;
   currentTeamId: number;
   teams: RCSeasonTeam[];

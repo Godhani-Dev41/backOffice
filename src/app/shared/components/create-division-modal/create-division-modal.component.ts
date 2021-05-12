@@ -36,8 +36,8 @@ export class CreateDivisionModalComponent implements OnInit {
   @Input() type?: "league" | "program" = "league";
   @Output() onUpdate = new EventEmitter();
 
-  @ViewChild("colorPicker") colorPicker: PresetColorPickerComponent;
-  @ViewChild("modal") modal: ModalDirective;
+  @ViewChild("colorPicker", { static: false }) colorPicker: PresetColorPickerComponent;
+  @ViewChild("modal", { static: true }) modal: ModalDirective;
   divisionsForm: FormGroup;
   loading = false;
   updateMode = false;

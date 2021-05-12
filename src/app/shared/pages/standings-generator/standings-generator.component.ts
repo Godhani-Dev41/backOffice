@@ -2,7 +2,6 @@
 import {map} from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { RCLeague, RCStanding } from '@rcenter/core';
-import { Http } from '@angular/http';
 import { environment } from '../../../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';

@@ -35,7 +35,7 @@ export class PlayerSeasonInfoModalComponent implements OnInit {
   @Output() onChange? = new EventEmitter();
   @Output() onPlayerRejectClick? = new EventEmitter<any>();
   @Output() onPlayerRestoreClick? = new EventEmitter<any>();
-  @ViewChild("modal") public modal: ModalDirective;
+  @ViewChild("modal", { static: true }) public modal: ModalDirective;
   user: RCUser;
   userAnswers: any;
   data: SeasonPlayerResponseObject;

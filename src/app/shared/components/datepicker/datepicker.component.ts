@@ -24,7 +24,7 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
   @Input() minDate: Date;
   @Input() maxDate: Date;
   @Output() onDateSelected = new EventEmitter();
-  @ViewChild(NgModel) model: NgModel;
+  @ViewChild(NgModel, { static: false }) model: NgModel;
 
   showDatePicker: boolean;
   selectedDate: Date;

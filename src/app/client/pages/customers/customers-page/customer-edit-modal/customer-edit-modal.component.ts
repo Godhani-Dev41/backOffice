@@ -13,7 +13,7 @@ import { ModalContainerComponent } from 'ngx-bootstrap/modal';
   exportAs: 'modal'
 })
 export class CustomerEditModalComponent implements OnInit {
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: true }) modal: ModalDirective;
   customerForm: FormGroup;
   loading = false;
   organization: RCOrganization;

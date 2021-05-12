@@ -30,7 +30,7 @@ interface MembershipProps {
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class MembershipPageComponent implements OnChanges, OnDestroy, AfterViewInit {
-  @ViewChild("reactRoot") containerRef: ElementRef;
+  @ViewChild("reactRoot", { static: true }) containerRef: ElementRef;
 
   organization: RCOrganization;
 

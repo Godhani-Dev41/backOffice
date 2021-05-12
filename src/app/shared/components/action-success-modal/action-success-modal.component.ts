@@ -16,7 +16,7 @@ export class ActionSuccessModalComponent implements OnInit {
   @Output() onSuccessClick = new EventEmitter();
   @Output() onCancelClick = new EventEmitter();
 
-  @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('modal', { static: true }) public modal: ModalDirective;
   constructor() { }
 
   showModal() {
