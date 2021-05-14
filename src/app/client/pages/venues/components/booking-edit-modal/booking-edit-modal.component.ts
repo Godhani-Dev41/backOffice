@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { VenuesService } from '@app/shared/services/venues/venues.service';
 import { ToastrService } from 'ngx-toastr';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
 import { TimeService } from '@app/shared/services/utils/time.service';
 

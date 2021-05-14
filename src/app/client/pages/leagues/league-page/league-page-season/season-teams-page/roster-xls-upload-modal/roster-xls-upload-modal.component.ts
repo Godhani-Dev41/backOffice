@@ -4,7 +4,7 @@ import { FileUploaderService } from '@app/shared/services/utils/file-uploader.se
 import { RCLeagueSeason } from '@rcenter/core';
 import { FileItem, FileUploader } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'rc-roster-xls-upload-modal',

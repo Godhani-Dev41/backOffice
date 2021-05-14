@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TimepickerModule } from 'ngx-bootstrap';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 import { TimepickerComponent } from './timepicker.component';
 

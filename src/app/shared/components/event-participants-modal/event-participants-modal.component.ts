@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ModalDirective } from "ngx-bootstrap";
+import { ModalDirective } from "ngx-bootstrap/modal";
 import { EventsService } from "@app/shared/services/events/events.service";
 import { RCEvent, RCEventAttendee, RCEventAttendeeStatus } from "@rcenter/core";
 import { PlayerSeasonInfoModalComponent } from "@app/shared/components/leagues/player-season-info-modal/player-season-info-modal.component";

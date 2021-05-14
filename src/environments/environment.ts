@@ -7,7 +7,12 @@ const CLOUDINARY_BUCKET = "rcenter";
 const API_DOMAIN = "https://dev-api.bondsports.co";
 // const API_DOMAIN = "https://staging-api.bondsports.co";
 
-window["process"] = { env: { NODE_ENV: "production" } };
+const process: any = { env: { NODE_ENV: "production" }};
+window["process"] = process;
+
+// process.env = {
+//   NODE_ENV: "production",
+// };
 
 export const environment = {
   production: false,

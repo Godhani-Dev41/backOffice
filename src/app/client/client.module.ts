@@ -14,12 +14,13 @@ import { SidemenuComponent } from "./pages/layout/sidemenu/sidemenu.component";
 import { TopMenuComponent } from "./pages/layout/top-menu/top-menu.component";
 import { OrganizationEditComponent } from "./pages/organization-edit/organization-edit.component";
 import { ReactiveFormsModule } from "@angular/forms";
-import { TooltipModule } from "ngx-bootstrap";
+import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { ColorPickerModule } from "ngx-color-picker";
 import { DragulaModule } from "ng2-dragula";
 import { OrganizationSettingsComponent } from "./pages/organization-settings/organization-settings.component";
 import { OrganizationSettingsRegistrationPageComponent } from "./pages/organization-settings/organization-settings-registration-page/organization-settings-registration-page.component";
-import { BsDropdownModule, ModalModule } from "ngx-bootstrap";
+import { ModalModule } from "ngx-bootstrap/modal";
+import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { OrganizationSettingsBillingComponent } from "./pages/organization-settings/organization-settings-billing/organization-settings-billing.component";
 import { VenuesComingSoonComponent } from "./pages/venues/venues-coming-soon/venues-coming-soon.component";
 import { WidgetsComingSoonComponent } from "./pages/widgets-coming-soon/widgets-coming-soon.component";
@@ -40,7 +41,9 @@ import { OrganizationSettingsFormsComponent } from "./pages/organization-setting
 import { QuestionnaireEditComponent } from "./pages/organization-settings/settings-pages/questionnaire-edit-page/questionnaire-edit-page.component";
 import { ActivitiesViewComponent } from "./pages/activities/activities-view/activities-view.component";
 import { ProgramCreateModalComponent } from "./pages/activities/program-create-modal/program-create-modal.component";
-import { NgZorroAntdModule } from "ng-zorro-antd";
+import { NzModalModule } from "ng-zorro-antd/modal";
+import { NzGridModule } from "ng-zorro-antd/grid";
+import { NzCardModule } from "ng-zorro-antd/card";
 
 @NgModule({
   imports: [
@@ -55,7 +58,9 @@ import { NgZorroAntdModule } from "ng-zorro-antd";
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    NgZorroAntdModule,
+    NzModalModule,
+    NzGridModule,
+    NzCardModule,
   ],
   providers: [ClientResolve, LeaveCustomerPageGuard, LeaveOrderPageGuard],
   declarations: [
@@ -68,7 +73,7 @@ import { NgZorroAntdModule } from "ng-zorro-antd";
     OrganizationEditComponent,
     OrganizationSettingsComponent,
     OrganizationSettingsRegistrationPageComponent,
-//    OrganizationSettingsMembershipPageComponent,
+    //    OrganizationSettingsMembershipPageComponent,
     OrganizationSettingsBillingComponent,
     OrganizationSettingsFacilitiesComponent,
     OrganizationSettingsFormsComponent,

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, ViewChild, EventEmitter } from "@angular/core";
 import { CreateDivision, ProgramsService, RCProgramSeason } from "@app/shared/services/programs/programs.service";
-import { ModalDirective } from "ngx-bootstrap";
+import { ModalDirective } from "ngx-bootstrap/modal";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { LeaguesService } from "@app/shared/services/leagues/leagues.service";
 import { RCLeagueSeason, RCSeasonDivision } from "@rcenter/core";
@@ -36,7 +36,7 @@ export class CreateDivisionModalComponent implements OnInit {
   @Input() type?: "league" | "program" = "league";
   @Output() onUpdate = new EventEmitter();
 
-  @ViewChild("colorPicker", { static: false }) colorPicker: PresetColorPickerComponent;
+  @ViewChild("colorPicker") colorPicker: PresetColorPickerComponent;
   @ViewChild("modal", { static: true }) modal: ModalDirective;
   divisionsForm: FormGroup;
   loading = false;

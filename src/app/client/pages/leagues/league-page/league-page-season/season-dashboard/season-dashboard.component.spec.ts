@@ -6,7 +6,7 @@ import { APP_PROVIDERS } from '@app/shared/services/main';
 import { TEST_HTTP_MOCK, TEST_PROVIDERS } from '@app/test.utils';
 
 import { SeasonDashboardComponent } from './season-dashboard.component';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedPagesModule } from '@app/shared/shared.pages.module';
 

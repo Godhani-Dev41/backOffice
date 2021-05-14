@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthenticationService } from '@app/shared/services/auth/authentication.service';
 import { RCLinkedAccountStatus, RCLeagueBookingStateEnum, RCPaymentSettingStatus, RCOrganization } from '@rcenter/core';
-import { Subject } from 'rxjs/Subject';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BillingSettingVMEnum, OrgFacilitiesSettingsForm } from './organization-settings-facilities.model';
 import { OrganizationsService } from '@app/shared/services/organization/organizations.service';
 import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'rc-organization-settings-facilities',

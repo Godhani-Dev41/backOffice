@@ -54,7 +54,7 @@ export class CustomersService {
       .pipe(map((response) => response));
   }
 
-  getCustomerById(organizationId: number, customerId: number) {
+  getCustomerById(organizationId: number, customerId: number | string) {
     return this.http
       .get<any>(`${environment.CS_URLS.API_ROOT}/organizations/${organizationId}/customers/${customerId}`)
       .pipe(map((response) => response));

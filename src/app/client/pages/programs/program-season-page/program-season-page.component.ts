@@ -4,8 +4,8 @@ import { ProgramsService } from "@app/shared/services/programs/programs.service"
 import { ProgramsFormService } from "@app/shared/services/programs/programs-form.service";
 import { FormGroup } from "@angular/forms";
 import { AuthenticationService } from "@app/shared/services/auth/authentication.service";
-import moment from "moment";
-import { NzModalRef, NzModalService } from "ng-zorro-antd";
+import * as moment from "moment";
+import { NzModalRef, NzModalService } from "ng-zorro-antd/modal";
 import { ToastrService } from "ngx-toastr";
 import { OrganizationsService } from "@app/shared/services/organization/organizations.service";
 import { RCQuestionnaireObject, RCVenue } from "@rcenter/core";

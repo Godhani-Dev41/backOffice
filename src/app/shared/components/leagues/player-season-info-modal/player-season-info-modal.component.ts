@@ -1,6 +1,6 @@
 import { ProgramsService } from "@app/shared/services/programs/programs.service";
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from "@angular/core";
-import { ModalDirective } from "ngx-bootstrap";
+import { ModalDirective } from "ngx-bootstrap/modal";
 import {
   LeaguesService,
   SeasonPlayerPaymentMethod,
@@ -20,7 +20,7 @@ import {
 import * as moment from "moment";
 import { ToastrService } from "ngx-toastr";
 import { EventsService } from "@app/shared/services/events/events.service";
-import { NzModalService } from "ng-zorro-antd";
+import { NzModalService } from "ng-zorro-antd/modal";
 
 @Component({
   selector: "rc-player-season-info-modal",

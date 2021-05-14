@@ -24,7 +24,6 @@ import { ActionSuccessModalComponent } from "@app/shared/components/action-succe
 import { ActivatedRoute, Router } from "@angular/router";
 import * as _ from "lodash";
 import { PlatformLocation } from "@angular/common";
-import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: "rc-league-creator-page",

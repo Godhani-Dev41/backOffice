@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { RCLeagueSeason, RCSeasonTeam, RCSeasonTeamRequest } from '@rcenter/core';
 import { SeasonSchedulerService } from '@app/shared/services/leagues/season-scheduler.service';

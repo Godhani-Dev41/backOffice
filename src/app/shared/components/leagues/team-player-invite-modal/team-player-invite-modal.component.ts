@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LeaguesService } from '@app/shared/services/leagues/leagues.service';
 import { RCInviteeObject, TeamsService } from '@app/shared/services/teams/teams.service';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { RCSeasonTeam, RCUserInvite } from '@rcenter/core';

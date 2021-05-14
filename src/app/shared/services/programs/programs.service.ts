@@ -57,7 +57,6 @@ import {
 import * as _ from "lodash";
 import { FileItem } from "ng2-file-upload";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
-import "rxjs/add/operator/map";
 import { filter, map, takeUntil, mergeMap } from "rxjs/operators";
 import { environment } from "../../../../environments/environment";
 import { RCServerResponse } from "../main";

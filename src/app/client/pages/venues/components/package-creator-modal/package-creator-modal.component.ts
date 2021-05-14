@@ -5,7 +5,7 @@ import { LeaguesService } from '@app/shared/services/leagues/leagues.service';
 import { OrganizationsService } from '@app/shared/services/organization/organizations.service';
 import { VenuesService } from '@app/shared/services/venues/venues.service';
 import { RCOrganization, RCVenue } from '@rcenter/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'rc-package-creator-modal',

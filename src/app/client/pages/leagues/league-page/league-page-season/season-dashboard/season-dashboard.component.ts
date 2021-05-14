@@ -32,7 +32,7 @@ interface RCDivisionVM extends RCSeasonDivision {
   styleUrls: ["./season-dashboard.component.scss"],
 })
 export class SeasonDashboardComponent implements OnInit, OnDestroy {
-  @ViewChild("standingsTable", { static: false }) standingsTable: StandingsTableSmallComponent;
+  @ViewChild("standingsTable") standingsTable: StandingsTableSmallComponent;
   @ViewChild("matchEditModal", { static: true }) matchEditModal: MatchEditModalComponent;
   @ViewChild("matchResultsModal", { static: true }) matchResultsModal: MatchResultsModalComponent;
   league: RCLeague;

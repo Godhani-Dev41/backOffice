@@ -27,9 +27,9 @@ export class EventInviterPageComponent implements OnInit, OnDestroy {
   seasons: RCLeagueSeason[];
   selectedSeasons: RCLeagueSeason[] = [];
   temp: RCLeagueSeason[];
-  @ViewChild('table', { static: false }) table: DatatableComponent;
+  @ViewChild('table') table: DatatableComponent;
   @ViewChild('actionSuccessModal', { static: true }) actionSuccessModal: ActionSuccessModalComponent;
-  @ViewChild('publishConfirmModal', { static: false }) publishConfirmModal: ConfirmationModalComponent;
+  @ViewChild('publishConfirmModal') publishConfirmModal: ConfirmationModalComponent;
   @ViewChild('sendInvitesConfirmModal', { static: true }) sendInvitesConfirmModal: ConfirmationModalComponent;
 
 

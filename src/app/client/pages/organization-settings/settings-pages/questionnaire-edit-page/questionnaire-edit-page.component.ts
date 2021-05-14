@@ -1,11 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { QuestionsFormService } from '@app/shared/services/organization/quastionnaire.service';
-import { Subject } from 'rxjs/Subject';
 import { RCCustomQuestionType, RCQuestionObject, RCQuestionTypesEnum } from '@rcenter/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'questionnaire-edit-page',

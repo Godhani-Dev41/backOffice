@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, Renderer } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'rc-contextmenu',
@@ -30,12 +30,12 @@ export class ContextmenuComponent {
   context: any = {};
   isVisible = false;
 
-  constructor(private element: ElementRef, private renderer: Renderer) {
+  constructor(private element: ElementRef, private renderer: Renderer2) {
   }
 
   show(x: number, y: number) {
-    this.renderer.setElementStyle(this.element.nativeElement, 'left', `${x - 20}px`);
-    this.renderer.setElementStyle(this.element.nativeElement, 'top', `${y + 15}px`);
+    this.renderer.setStyle(this.element.nativeElement, 'left', `${x - 20}px`);
+    this.renderer.setStyle(this.element.nativeElement, 'top', `${y + 15}px`);
     this.isVisible = true;
   }
 

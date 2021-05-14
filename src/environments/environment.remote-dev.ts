@@ -5,7 +5,8 @@
 const API_DOMAIN = "https://dev-api.bondsports.co";
 const CLOUDINARY_BUCKET = "rcenter";
 
-window["process"] = { env: { NODE_ENV: "development" } };
+const process: any = { env: { NODE_ENV: "development" } }
+window["process"] = process;
 
 export const environment = {
   production: false,

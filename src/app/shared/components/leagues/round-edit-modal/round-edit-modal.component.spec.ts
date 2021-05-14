@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RoundEditModalComponent } from './round-edit-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { RouterTestingModule } from '@angular/router/testing';

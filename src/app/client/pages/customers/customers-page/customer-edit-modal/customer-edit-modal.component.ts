@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 import { AuthenticationService } from '@app/shared/services/auth/authentication.service';
 import { CustomersService } from '@app/shared/services/customers/customers.service';
 import { RCOrganization } from '@rcenter/core';
-import { ModalDirective } from 'ngx-bootstrap';
-import { ModalContainerComponent } from 'ngx-bootstrap/modal';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'rc-customer-edit-modal',

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-import { ModalDirective } from "ngx-bootstrap";
+import { ModalDirective } from "ngx-bootstrap/modal";
 import { ToastrService } from "ngx-toastr";
 
 @Component({

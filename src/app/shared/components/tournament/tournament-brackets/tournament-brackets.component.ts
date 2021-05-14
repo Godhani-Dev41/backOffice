@@ -11,8 +11,6 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import * as _ from 'lodash';
 import { DragulaService } from 'ng2-dragula';
-import { setTime } from 'ngx-bootstrap/timepicker/timepicker.utils';
-import { RCMatchParticipants, RCSeasonDivision } from '@rcenter/core/models/Leagues';
 import { RCStanding } from '@rcenter/core/models/Standings';
 
 interface BracketsRoundSeries {

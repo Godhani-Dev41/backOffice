@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { DatepickerModule } from 'ngx-bootstrap';
+import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { DatepickerComponent } from './datepicker.component';
 

@@ -21,7 +21,7 @@ export class SeasonRoundMatchesSliderComponent implements OnInit {
   @Input() round: RCSeasonRound;
   @Input() tournament: boolean;
   @Input() division: RCSeasonDivision;
-  @ViewChild('modal', { static: false }) modal: MatchEditModalComponent;
+  @ViewChild('modal') modal: MatchEditModalComponent;
   constructor() { }
 
   ngOnInit() {

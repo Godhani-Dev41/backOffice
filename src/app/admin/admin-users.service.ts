@@ -1,12 +1,12 @@
 
-import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AdminAuthService } from '@app/shared/services/auth/admin-auth.service';
 import { AuthenticationService } from '@app/shared/services/auth/authentication.service';
 import { RCServerResponse } from '@app/shared/services/main';
-import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 interface RCGetUsersAdminQuery {
   organizationOnly?: boolean;

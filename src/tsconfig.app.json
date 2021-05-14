@@ -11,15 +11,15 @@
     ],
     "allowSyntheticDefaultImports": true
   },
+  "files": [
+    "main.ts",
+    "polyfills.ts"
+  ],
   "include": [
-    "**/*.ts",
+    "**/*.d.ts",
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
     "images.d.ts"
-  ],
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
   ]
 }

@@ -11,13 +11,16 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
             "stylePreprocessorOptions": {
-              "includePaths": ["src/assets/scss"]
+              "includePaths": [
+                "src/assets/scss"
+              ]
             },
             "assets": [
               "src/app/react",
@@ -39,11 +42,19 @@
               "node_modules/tinymce/skins/ui/oxide/content.min.css",
               "node_modules/tinymce/skins/content/default/content.min.css"
             ],
-
-            "scripts": ["node_modules/tinymce/tinymce.min.js", "node_modules/tinymce/themes/silver/theme.js"]
+            "scripts": [
+              "node_modules/tinymce/tinymce.min.js",
+              "node_modules/tinymce/themes/silver/theme.js"
+            ]
           },
           "configurations": {
             "remote-dev": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -52,6 +63,12 @@
               ]
             },
             "staging-austin": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -60,6 +77,12 @@
               ]
             },
             "staging": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -77,6 +100,12 @@
               ]
             },
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -94,6 +123,12 @@
               ]
             },
             "demo": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -149,14 +184,23 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
-            "styles": ["src/assets/scss/styles.scss"],
-            "assets": ["src/assets", "src/favicon.ico", "src/_redirects"]
+            "styles": [
+              "src/assets/scss/styles.scss"
+            ],
+            "assets": [
+              "src/assets",
+              "src/favicon.ico",
+              "src/_redirects"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
             "exclude": []
           }
         }
@@ -177,7 +221,9 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["e2e/tsconfig.e2e.json"],
+            "tsConfig": [
+              "e2e/tsconfig.e2e.json"
+            ],
             "exclude": []
           }
         }
@@ -188,10 +234,13 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "rc",
-      "styleext": "scss"
+      "style": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "rc"
     }
+  },
+  "cli": {
+    "analytics": "30aebc43-82dc-4bb9-ac5b-037c3a534128"
   }
 }

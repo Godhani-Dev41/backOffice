@@ -164,9 +164,9 @@
               </div>
               <div class="ExistingCustomerPicker" style="padding-top: 25px;"
                 *ngIf="bookingForm.get('customerType').value === 'existing'">
-                <ng-select #customersInput (selected)="customerSelected($event)" (typed)="onCustomerTyped($event)"
+                <!-- <ng-select #customersInput (selected)="customerSelected($event)" (typed)="onCustomerTyped($event)"
                   placeholder="Type existing customer name">
-                </ng-select>
+                </ng-select> -->
               </div>
               <div class="CustomerCreateForm" formGroupName="customer"
                 *ngIf="bookingForm.get('customerType').value === 'new'">

@@ -65,7 +65,7 @@ const tabs = [
 ];
 
 export const FamilyPage = ({ organization, customersService }: IFamilyPage) => {
-  const { id, tab } = useParams<IparamsProps>({ id: "", tab: "" });
+  const { id, tab } = useParams<IparamsProps>();
   const [customerState, setCustomerState] = useState<TCustomer>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
 

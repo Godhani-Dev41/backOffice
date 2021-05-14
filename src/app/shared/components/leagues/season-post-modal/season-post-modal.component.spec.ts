@@ -4,7 +4,7 @@ import { SeasonPostModalComponent } from './season-post-modal.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastModule } from 'ng2-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { APP_PROVIDERS } from '@app/shared/services/main';
 import { TEST_HTTP_MOCK, TEST_PROVIDERS } from '@app/test.utils';

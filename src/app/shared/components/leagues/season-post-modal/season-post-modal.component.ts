@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { RCSeasonRound, IRCFeedPost, RCStanding, RCPostTargetTypeEnum, RCSeasonRoundMatch } from '@rcenter/core';
 import { FeedService } from '@app/shared/services/feed/feed.service';
 import { FormBuilder, FormGroup } from '@angular/forms';

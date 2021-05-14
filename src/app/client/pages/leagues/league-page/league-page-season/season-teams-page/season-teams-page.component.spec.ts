@@ -12,7 +12,7 @@ import { TeamPlayerInviteModalComponent } from '@app/shared/components/leagues/t
 import { APP_PROVIDERS } from '@app/shared/services/main';
 import { TEST_HTTP_MOCK, TEST_PROVIDERS } from '@app/test.utils';
 import * as _ from 'lodash';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { SelectModule } from 'ng2-select';
 
 import { SeasonTeamsPageComponent } from './season-teams-page.component';

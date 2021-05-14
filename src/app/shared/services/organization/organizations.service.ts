@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { ImagesService } from "@app/shared/services/utils/images.service";
 import { RCAddress, RCMembership, RCOrganization } from "@rcenter/core";
 import { FileItem } from "ng2-file-upload";
-import { Observable } from "rxjs/Observable";
 import { environment } from "../../../../environments/environment";
 import { RCServerResponse } from "../main";
 import { RCQuestionnaireObject } from "@rcenter/core";
@@ -11,6 +10,7 @@ import * as moment from "moment";
 import "rxjs/add/operator/map";
 import { mergeMap, map } from "rxjs/operators";
 import { TimeService } from "@app/shared/services/utils/time.service";
+import { Observable } from "rxjs";
 
 export interface RCEventsBulkEditEntity {
   eventId?: number;

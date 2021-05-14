@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RCCustomQuestionType, RCQuestionTypesEnum, RCQuestionObject, RCQuestionnaireObject } from '@rcenter/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RCServerResponse } from '../main';
 
 @Injectable()

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { RCServerResponse } from '@app/shared/services/main';
 import { environment } from '../../../../environments/environment';
 import { FileItem } from 'ng2-file-upload';
 import { ImagesService } from '@app/shared/services/utils/images.service';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface RCCreateProgramData {
   id: number;

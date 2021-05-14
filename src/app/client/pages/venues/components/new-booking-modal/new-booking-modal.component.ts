@@ -8,8 +8,8 @@ import { OrganizationsService } from "@app/shared/services/organization/organiza
 import { TimeService } from "@app/shared/services/utils/time.service";
 import { VenuesService } from "@app/shared/services/venues/venues.service";
 import { RCEvent, RCOrganization, RCVenue } from "@rcenter/core";
-import { StripeCheckoutHandler, StripeCheckoutLoader } from "ng-stripe-checkout";
-import { ModalDirective } from "ngx-bootstrap";
+import { StripeCheckoutHandler, StripeCheckoutLoader } from "ng9-stripe-checkout";
+import { ModalDirective } from "ngx-bootstrap/modal";
 import { ToastrService } from "ngx-toastr";
 import { Subject, Subscription } from "rxjs";
 import * as moment from "moment-timezone";
@@ -34,7 +34,7 @@ export class NewBookingModalComponent implements OnInit {
   @Input() venue: RCVenue;
   @Output() onSavedBooking = new EventEmitter();
   @ViewChild("modal", { static: true }) public modal: ModalDirective;
-  @ViewChild("customersInput", { static: false }) customersInput: any;
+  @ViewChild("customersInput") customersInput: any;
   currentCourt: any;
   calculatedPackage: any;
   currentSessions: any[];

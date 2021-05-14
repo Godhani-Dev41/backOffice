@@ -1,6 +1,4 @@
 import { browser, element, by, protractor } from 'protractor';
-import { params } from '../params.conf.js';
-import {elementAt} from "rxjs/operator/elementAt";
 declare const angular;
 
 describe('create Division', ( ) => {

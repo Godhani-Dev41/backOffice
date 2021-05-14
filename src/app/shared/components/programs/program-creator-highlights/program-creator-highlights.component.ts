@@ -1,10 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormGroup } from "@angular/forms";
 import { RCLeagueDetailTypeEnum } from "@rcenter/core";
-import { LeaguesFormService } from "@app/shared/services/leagues/leagues-form.service";
 import { DragulaService } from "ng2-dragula";
-import { Subscription } from "rxjs/Subscription";
 import { ProgramsFormService } from "@app/shared/services/programs/programs-form.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: " rc-program-creator-highlights",

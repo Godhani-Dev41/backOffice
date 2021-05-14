@@ -10,7 +10,7 @@ import { LeaguesService } from "@app/shared/services/leagues/leagues.service";
 import { TeamsService } from "@app/shared/services/teams/teams.service";
 import { InvitationService } from "@app/shared/services/utils/invitation.service";
 import * as _ from "lodash";
-import { ModalDirective } from "ngx-bootstrap";
+import { ModalDirective } from "ngx-bootstrap/modal";
 import { ToastrService } from "ngx-toastr";
 import {
   RCGenderEnum,
@@ -32,6 +32,7 @@ import * as autoScroll from "dom-autoscroller";
 import { Subject } from "rxjs";
 import { PlayerSeasonInfoModalComponent } from "@app/shared/components/leagues/player-season-info-modal/player-season-info-modal.component";
 import { RCPaymentStatus } from "@rcenter/core/models/Leagues";
+import * as $ from "jquery";
 
 export interface RCSeasonTeamMembersVM {
   notRegistered?: boolean;

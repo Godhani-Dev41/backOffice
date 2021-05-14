@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { DatePipe } from "@angular/common";
-import { getISOWeek } from "ngx-bootstrap/chronos/units/week";
 import en from "@angular/common/locales/en";
-import { en_US, NzI18nService } from "ng-zorro-antd";
+import { en_US, NzI18nService } from "ng-zorro-antd/i18n";
 
 @Component({
   selector: "rc-date-range-dropdown",

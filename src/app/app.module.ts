@@ -1,8 +1,3 @@
-import "rxjs/add/observable/forkJoin";
-import "rxjs/add/operator/toPromise";
-import "rxjs/add/operator/take";
-import "rxjs/add/operator/takeLast";
-
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -20,7 +15,7 @@ import { SharedModule } from "@app/shared.module";
 import { SharedPagesModule } from "@app/shared/shared.pages.module";
 import { ToastrModule } from "ngx-toastr";
 
-import { TooltipModule } from "ngx-bootstrap";
+import { TooltipModule } from "ngx-bootstrap/tooltip";
 
 import { NZ_I18N, en_US } from "ng-zorro-antd/i18n";
 import { registerLocaleData } from "@angular/common";

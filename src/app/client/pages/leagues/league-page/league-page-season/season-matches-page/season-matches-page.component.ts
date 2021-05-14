@@ -31,7 +31,7 @@ export class SeasonMatchesPageComponent implements OnInit {
   roundsVM: { name: string, ordinal: number, removable: boolean, id: number }[];
   @ViewChild('publishConfirmModal', { static: true }) publishConfirmModal: ConfirmationModalComponent;
   @ViewChild('cancelConfirmModal', { static: true }) cancelConfirmModal: ConfirmationModalComponent;
-  @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
+  @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild('matchEditModal', { static: true }) matchEditModal: MatchEditModalComponent;
   @ViewChild('changeTimeModal', { static: true }) changeTimeModal: BulkChangeTimeModalComponent;
   @ViewChild('venueSelectModal', { static: true }) venueSelectModal: VenueSelectModalComponent;

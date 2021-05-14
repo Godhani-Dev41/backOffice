@@ -9,7 +9,7 @@ import { RCParsedAddress } from '@app/shared/services/utils/location.service';
 import * as moment from 'moment-timezone';
 import * as _ from 'lodash';
 import * as FileSaver from 'file-saver';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import {

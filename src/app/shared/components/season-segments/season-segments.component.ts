@@ -3,8 +3,8 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angu
 import { DaysOfWeek } from "@app/shared/components/week-days-hours-select/week-days-hours-select.component";
 import { ProgramsFormService } from "@app/shared/services/programs/programs-form.service";
 import { ProgramsService, SegmentItem, SubSeason } from "@app/shared/services/programs/programs.service";
-import { NzModalRef, NzModalService } from "ng-zorro-antd";
-import { Subject } from "rxjs/Rx";
+import { NzModalRef, NzModalService } from "ng-zorro-antd/modal";
+import { Subject } from "rxjs";
 
 @Component({
   selector: "rc-season-segments",

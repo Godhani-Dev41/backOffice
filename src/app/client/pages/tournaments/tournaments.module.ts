@@ -19,7 +19,7 @@ import {
   TournamentScheduleGenerateComponent
 } from './tournament-page/tournament-item-page/tournament-schedule-generate/tournament-schedule-generate.component';
 import { LeaveGuard } from '@app/client/pages/leagues/leave-guard.guard';
-import { TooltipModule } from 'ngx-bootstrap';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   providers: [LeaveGuard],

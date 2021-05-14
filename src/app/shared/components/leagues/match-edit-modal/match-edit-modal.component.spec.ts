@@ -1,35 +1,37 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { LocationSearchInputComponent } from '@app/shared/components/location-search-input/location-search-input.component';
-import { TimepickerComponent } from '@app/shared/components/timepicker/timepicker.component';
-import { APP_PROVIDERS } from '@app/shared/services/main';
-import { TEST_HTTP_MOCK, TEST_PROVIDERS } from '@app/test.utils';
-import { AgmCoreModule } from 'angular2-google-maps/core';
-import { DatepickerModule, ModalModule, TimepickerModule } from 'ngx-bootstrap';
-import { SelectModule } from 'ng2-select';
-import { environment } from '../../../../../environments/environment';
-import { DatepickerComponent } from '../../datepicker/datepicker.component';
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { By } from "@angular/platform-browser";
+import { ActivatedRoute } from "@angular/router";
+import { RouterTestingModule } from "@angular/router/testing";
+import { LocationSearchInputComponent } from "@app/shared/components/location-search-input/location-search-input.component";
+import { TimepickerComponent } from "@app/shared/components/timepicker/timepicker.component";
+import { APP_PROVIDERS } from "@app/shared/services/main";
+import { TEST_HTTP_MOCK, TEST_PROVIDERS } from "@app/test.utils";
+import { AgmCoreModule } from "angular2-google-maps/core";
+import { DatepickerModule } from "ngx-bootstrap/datepicker";
+import { ModalModule } from "ngx-bootstrap/modal";
+import { TimepickerModule } from "ngx-bootstrap/timepicker";
+import { SelectModule } from "ng2-select";
+import { environment } from "../../../../../environments/environment";
+import { DatepickerComponent } from "../../datepicker/datepicker.component";
 
-import { MatchEditModalComponent } from './match-edit-modal.component';
-import { VenuesService } from '@app/shared/services/venues/venues.service';
-import { VenueSearchInputComponent } from '@app/shared/components/venue-search-input/venue-search-input.component';
+import { MatchEditModalComponent } from "./match-edit-modal.component";
+import { VenuesService } from "@app/shared/services/venues/venues.service";
+import { VenueSearchInputComponent } from "@app/shared/components/venue-search-input/venue-search-input.component";
 
 class MockActiveRoute {
   parent: any;
   constructor() {
     this.parent = {
-        snapshot: { params: {seasonId: 1}},
-        parent: {
-          snapshot: { params: {id: 3}},
-        }
-      };
+      snapshot: { params: { seasonId: 1 } },
+      parent: {
+        snapshot: { params: { id: 3 } },
+      },
+    };
   }
 }
-describe('MatchEditModalComponent', () => {
+describe("MatchEditModalComponent", () => {
   let component: MatchEditModalComponent;
   let fixture: ComponentFixture<MatchEditModalComponent>;
 
@@ -38,7 +40,7 @@ describe('MatchEditModalComponent', () => {
       imports: [
         AgmCoreModule.forRoot({
           apiKey: environment.GOOGLE_API_KEY,
-          libraries: ['places']
+          libraries: ["places"],
         }),
         SelectModule,
         FormsModule,
@@ -46,14 +48,14 @@ describe('MatchEditModalComponent', () => {
         TimepickerModule.forRoot(),
         ReactiveFormsModule,
         ModalModule.forRoot(),
-        RouterTestingModule
+        RouterTestingModule,
       ],
       declarations: [
         LocationSearchInputComponent,
         TimepickerComponent,
         DatepickerComponent,
         MatchEditModalComponent,
-        VenueSearchInputComponent
+        VenueSearchInputComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
@@ -62,11 +64,10 @@ describe('MatchEditModalComponent', () => {
         ...TEST_HTTP_MOCK,
         {
           provide: ActivatedRoute,
-          useClass: MockActiveRoute
-        }
-      ]
-    })
-    .compileComponents();
+          useClass: MockActiveRoute,
+        },
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -75,13 +76,13 @@ describe('MatchEditModalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should show modal when triggered', () => {
-    expect(fixture.debugElement.queryAll(By.css('.modal-backdrop')).length).toBe(0);
-    expect(fixture.debugElement.queryAll(By.css('.rc-modal')).length).toBe(1);
+  it("should show modal when triggered", () => {
+    expect(fixture.debugElement.queryAll(By.css(".modal-backdrop")).length).toBe(0);
+    expect(fixture.debugElement.queryAll(By.css(".rc-modal")).length).toBe(1);
 
     component.showModal(4);
     fixture.detectChanges();
-    expect(fixture.debugElement.queryAll(By.css('.rc-modal')).length).toBe(1);
-    expect(fixture.debugElement.queryAll(By.css('.modal-backdrop')).length).toBe(1);
+    expect(fixture.debugElement.queryAll(By.css(".rc-modal")).length).toBe(1);
+    expect(fixture.debugElement.queryAll(By.css(".modal-backdrop")).length).toBe(1);
   });
 });

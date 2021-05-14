@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FeedService } from '@app/shared/services/feed/feed.service';
 import { LeaguesService } from '@app/shared/services/leagues/leagues.service';
 import { RCLeagueSeason, RCSeasonTeam, IRCFeedPost, RCPostTargetTypeEnum } from '@rcenter/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

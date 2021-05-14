@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnChanges, Renderer, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, SimpleChanges, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[rcImageUploadPreview]'
@@ -6,7 +6,7 @@ import { Directive, ElementRef, Input, OnChanges, Renderer, SimpleChanges } from
 export class ImageUploadPreviewDirective implements OnChanges {
   @Input() image: any;
 
-  constructor(private el: ElementRef, private renderer: Renderer) {
+  constructor(private el: ElementRef, private renderer: Renderer2) {
 
   }
 

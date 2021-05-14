@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RCSeasonRoundMatch } from '@rcenter/core/models/Leagues';
 import { ToastrService } from 'ngx-toastr';

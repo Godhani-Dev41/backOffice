@@ -8,14 +8,17 @@ import { ProgramViewComponent } from "./program-view/program-view.component";
 import { routes } from "./programs.routes";
 import { ReactiveFormsModule } from "@angular/forms";
 import { ProgramCreatorPageComponent } from "./program-creator-page/program-creator-page.component";
-import { BsDropdownModule, TooltipModule } from "ngx-bootstrap";
+import { BsDropdownModule } from "ngx-bootstrap/dropdown";
+import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { PopoverModule } from "ngx-bootstrap/popover";
 import { SharedPagesModule } from "@app/shared/shared.pages.module";
 import { ProgramCreatorHighlights } from "@app/shared/components/programs/program-creator-highlights/program-creator-highlights.component";
 import { DragulaModule } from "ng2-dragula";
 import { SharedModule } from "@app/shared.module";
 import { ProgramSeasonPageComponent } from "./program-season-page/program-season-page.component";
-import { NgZorroAntdModule } from "ng-zorro-antd";
+import { NzModalModule } from "ng-zorro-antd/modal";
+import { NzCardModule } from "ng-zorro-antd/card";
+import { NzGridModule } from "ng-zorro-antd/grid";
 import { ProgramSeasonSchedulePageComponent } from "./program-season-schedule-page/program-season-schedule-page.component";
 import { ProgramSeasonPricingPageComponent } from "./program-season-pricing-page/program-season-pricing-page.component";
 import { ProgramDashboardPageComponent } from "./program-dashboard-page/program-dashboard-page.component";
@@ -42,9 +45,11 @@ import { ProgramSeasonGroupsFreeagentsComponent } from "./program-season-groups/
     PopoverModule.forRoot(),
     SharedPagesModule,
     DragulaModule,
-    NgZorroAntdModule,
+    NzModalModule,
     NgxDatatableModule,
     ClientModule,
+    NzCardModule,
+    NzGridModule,
   ],
   declarations: [
     ProgramCreatorPageComponent,

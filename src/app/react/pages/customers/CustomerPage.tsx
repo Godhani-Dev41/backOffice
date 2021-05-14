@@ -60,7 +60,7 @@ const tabs = [
   },
 ];
 export const CustomerPage = ({ organization, customersService }: Props) => {
-  const { id, tab, objectId } = useParams<paramsProps>({ id: "", tab: "" });
+  const { id, tab } = useParams<paramsProps>();
   const [customerState, setCustomerState] = useState<TCustomer>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
 

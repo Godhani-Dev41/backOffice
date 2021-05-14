@@ -6,7 +6,7 @@ import { TeamEditModalComponent } from "@app/shared/components/leagues/team-edit
 import { TeamsService } from "@app/shared/services/teams/teams.service";
 import { InvitationService } from "@app/shared/services/utils/invitation.service";
 import * as _ from "lodash";
-import { ModalDirective } from "ngx-bootstrap";
+import { ModalDirective } from "ngx-bootstrap/modal";
 import { ToastrService } from "ngx-toastr";
 import {
   RCGenderEnum,
@@ -28,6 +28,7 @@ import { Subject } from "rxjs";
 import { PlayerSeasonInfoModalComponent } from "@app/shared/components/leagues/player-season-info-modal/player-season-info-modal.component";
 import { RCPaymentStatus } from "@rcenter/core/models/Leagues";
 import { Division, ProgramsService, RCProgramSeason, SeasonTeam } from "@app/shared/services/programs/programs.service";
+import * as $ from "jquery";
 
 export interface RCSeasonTeamMembersVM {
   notRegistered?: boolean;
@@ -72,7 +73,7 @@ export class ProgramSeasonGroupsComponent implements OnInit, OnDestroy {
   @ViewChild("saveModal", { static: true }) saveModal: ConfirmationModalComponent;
   @ViewChild("teamEditModal", { static: true }) teamEditModal: TeamEditModalComponent;
   @ViewChild("createDivisionModal", { static: true }) createDivisionModal: CreateDivisionModalComponent;
-  @ViewChild("autoscroll", { static: false }) autoscroll: ElementRef;
+  @ViewChild("autoscroll") autoscroll: ElementRef;
   @ViewChild("playerInfoModal", { static: true }) playerInfoModal: PlayerSeasonInfoModalComponent;
   @ViewChild("removeTeamConfirmModal", { static: true })
   removeTeamConfirmModal: ConfirmationModalComponent;

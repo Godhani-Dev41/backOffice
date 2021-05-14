@@ -6,9 +6,9 @@ import { LeaguesService } from "@app/shared/services/leagues/leagues.service";
 import { VenuesService } from "@app/shared/services/venues/venues.service";
 import { AuthenticationService } from "@app/shared/services/auth/authentication.service";
 import { RCOrganization, RCLeague, RCLeagueSeason, RCVenue } from "@rcenter/core";
-import { Subject } from "rxjs/Subject";
+import { Subject } from "rxjs";
 import { Router } from "@angular/router";
-import { TooltipModule } from "ngx-bootstrap";
+import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { TranslationEn } from "assets/i18n/en";
 
 @Component({
@@ -17,7 +17,7 @@ import { TranslationEn } from "assets/i18n/en";
   styleUrls: ["sidemenu.component.scss"],
 })
 export class SidemenuComponent implements OnInit, OnDestroy {
-  @ViewChild("rc-tooltip", { static: false }) modal: TooltipModule;
+  @ViewChild("rc-tooltip") modal: TooltipModule;
   organization: RCOrganization;
   currentLeague: RCLeague;
   currentSeason: RCLeagueSeason;

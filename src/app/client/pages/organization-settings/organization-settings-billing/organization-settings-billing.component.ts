@@ -3,7 +3,6 @@ import { AnalyticsService } from '@app/shared/services/utils/analytics.service';
 import { PaymentsService } from '@app/shared/services/payments/payments.service';
 import { AuthenticationService } from '@app/shared/services/auth/authentication.service';
 import { RCLinkedAccountStatus, RCLeagueBookingStateEnum, RCPaymentSettingStatus, RCOrganization } from '@rcenter/core';
-import { Subject } from 'rxjs/Subject';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,6 +10,7 @@ import { CustomValidators } from 'ng2-validation';
 import { OrgRegistrationSettingsForm } from './organization-settings-billing.model';
 import { OrganizationsService } from '@app/shared/services/organization/organizations.service';
 import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'rc-organization-settings-billing',

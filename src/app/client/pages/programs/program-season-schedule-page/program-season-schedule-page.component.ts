@@ -7,7 +7,7 @@ import { ProgramsFormService } from "@app/shared/services/programs/programs-form
 import { ConstraintItem } from "@app/shared/components/schedule-constraints/schedule-constraints.component";
 import { ProgramsService, RCProgramSubSeason, SegmentItem } from "@app/shared/services/programs/programs.service";
 import _ from "lodash";
-import { NzModalRef, NzModalService } from "ng-zorro-antd";
+import { NzModalRef, NzModalService } from "ng-zorro-antd/modal";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 

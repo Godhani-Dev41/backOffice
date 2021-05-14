@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { NzModalRef, NzModalService } from "ng-zorro-antd";
+import { NzModalRef, NzModalService } from "ng-zorro-antd/modal";
 
 @Component({
   selector: "rc-dangerous-edit-warning",
@@ -25,6 +25,6 @@ export class DangerousEditWarningComponent implements OnInit {
   }
 
   open() {
-    this.confirmModal.open();
+    this.confirmModal.triggerOk();
   }
 }

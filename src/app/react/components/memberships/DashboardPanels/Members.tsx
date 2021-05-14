@@ -2,7 +2,7 @@
 import { jsx, css } from "@emotion/react";
 import { Card, CardContent } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { DataGrid, ColDef, ValueGetterParams } from "@material-ui/data-grid";
+import { DataGrid, GridColDef, GridValueGetterParams  } from "@material-ui/data-grid";
 import { membershipApi } from "../../../lib/api/membershipApi";
 import { getDateYear, getDayMonth } from "../../../lib/dates";
 import { useParams } from "react-router-dom";
@@ -58,14 +58,14 @@ export default function () {
     currency: "USD",
   });
 
-  const columns: ColDef[] = [
+  const columns: GridColDef[] = [
     { field: "id", headerName: "ID", flex: 0.2 },
     {
       field: "fullName",
       headerName: "Customer Name",
       sortable: false,
       flex: 0.5,
-      valueGetter: (params: ValueGetterParams) =>
+      valueGetter: (params: GridValueGetterParams) =>
         `${params.getValue("firstName") || ""} ${params.getValue("lastName") || ""}`,
     },
     { field: "tel", headerName: "Tel", flex: 0.5 },

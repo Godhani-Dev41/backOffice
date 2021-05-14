@@ -1,4 +1,3 @@
-import { from as observableFrom, Subscription } from "rxjs";
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RCLeagueBookingStateEnum, RCLeagueDetailTypeEnum, RCOrganization, RCLinkedAccountStatus } from "@rcenter/core";
@@ -9,9 +8,9 @@ import { AuthenticationService } from "@app/shared/services/auth/authentication.
 import * as moment from "moment-timezone";
 import { ActionSuccessModalComponent } from "@app/shared/components/action-success-modal/action-success-modal.component";
 import { ActivatedRoute, Route, Router, RouterLink } from "@angular/router";
+import { from as observableFrom, Subscription } from "rxjs";
 
 // tslint:disable-next-line
-import "rxjs";
 
 @Component({
   selector: "rc-tournament-edit",

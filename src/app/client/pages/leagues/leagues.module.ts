@@ -3,7 +3,9 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { LeaveGuard, SeasonLeaveGuard } from "@app/client/pages/leagues/leave-guard.guard";
 import { ContextmenuModule } from "@app/shared/directives/context-menu/contextmenu.module";
-import { NzGridModule, NzLayoutModule, NzSpinModule } from "ng-zorro-antd";
+import { NzGridModule } from "ng-zorro-antd/grid";
+import { NzLayoutModule } from "ng-zorro-antd/layout";
+import { NzSpinModule } from "ng-zorro-antd/spin";
 import { SharedModule } from "../../../shared.module";
 import { SharedPagesModule } from "../../../shared/shared.pages.module";
 import { LeaguePageDetailsComponent } from "./league-page/league-page-details/league-page-details.component";
@@ -14,7 +16,8 @@ import { LeaguesViewComponent } from "./leagues-view/leagues-view.component";
 import { routes } from "./leagues.routes";
 import { ReactiveFormsModule } from "@angular/forms";
 import { LeagueCreatorPageComponent } from "./league-creator-page/league-creator-page.component";
-import { BsDropdownModule, TooltipModule } from "ngx-bootstrap";
+import { TooltipModule } from "ngx-bootstrap/tooltip";
+import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { PlayoffCreatorComponent } from "./league-page/playoff-creator/playoff-creator.component";
 import { PlayoffCreatorFormComponent } from "./league-page/playoff-creator/playoff-creator-form/playoff-creator-form.component";
 import { PlayoffTeamsAssignPageComponent } from "./league-page/playoff-teams-assign-page/playoff-teams-assign-page.component";
@@ -56,6 +59,4 @@ import { PopoverModule } from "ngx-bootstrap/popover";
     SchedulerListPageComponent,
   ],
 })
-export class LeaguesModule {
-  constructor() {}
-}
+export class LeaguesModule {}

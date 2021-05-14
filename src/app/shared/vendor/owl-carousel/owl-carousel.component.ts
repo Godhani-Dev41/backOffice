@@ -21,7 +21,7 @@ import { OwlChildComponent } from './owl-child.component';
 `
 })
 export class OwlCarouselComponent implements DoCheck {
-  @ViewChild('owl', { static: false }) $owlChild: OwlChildComponent;
+  @ViewChild('owl') $owlChild: OwlChildComponent;
   @Input('carouselClasses') carouselClasses: any = '';
   @Input('options') options: any = {};
   private _items: any;

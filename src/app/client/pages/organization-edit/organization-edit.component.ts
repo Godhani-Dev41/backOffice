@@ -27,7 +27,7 @@ export class OrganizationEditComponent implements OnInit, OnDestroy {
   organizationForm: FormGroup;
   loading: boolean;
   signupMode: boolean;
-  @ViewChild('tickerTextInput', { static: false }) tickerTextInput;
+  @ViewChild('tickerTextInput') tickerTextInput;
   @ViewChild('actionSuccessModal', { static: true }) actionSuccessModal: ActionSuccessModalComponent;
   get tickerTexts(): FormArray {
     return this.organizationForm.get('newsTicker') as FormArray;

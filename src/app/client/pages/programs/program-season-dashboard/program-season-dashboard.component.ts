@@ -4,7 +4,8 @@ import { MatchEditModalComponent } from "@app/shared/components/leagues/match-ed
 import { MatchResultsModalComponent } from "@app/shared/components/leagues/match-results-modal/match-results-modal.component";
 import { ProgramsFormService } from "@app/shared/services/programs/programs-form.service";
 import { EventStatus, RCLeagueSeason, RCSeasonRound, RCSeasonRoundMatch, RCSeasonTeam } from "@rcenter/core";
-import { NzModalRef, NzModalService } from "ng-zorro-antd";
+import { NzModalRef } from "ng-zorro-antd/modal";
+import { NzModalService } from "ng-zorro-antd/modal";
 import { ToastrService } from "ngx-toastr";
 import { AnalyticsService } from "@app/shared/services/utils/analytics.service";
 import { map } from "rxjs/operators";
@@ -20,9 +21,9 @@ import { Router } from "@angular/router";
   styleUrls: ["./program-season-dashboard.component.scss"],
 })
 export class ProgramSeasonDashboardComponent implements OnInit {
-  @ViewChild("standingsTable", { static: false }) standingsTable: StandingsTableSmallComponent;
-  @ViewChild("matchEditModal", { static: false }) matchEditModal: MatchEditModalComponent;
-  @ViewChild("matchResultsModal", { static: false }) matchResultsModal: MatchResultsModalComponent;
+  @ViewChild("standingsTable") standingsTable: StandingsTableSmallComponent;
+  @ViewChild("matchEditModal") matchEditModal: MatchEditModalComponent;
+  @ViewChild("matchResultsModal") matchResultsModal: MatchResultsModalComponent;
   confirmModal: NzModalRef;
   program: RCProgram;
   season: RCProgramSeason;

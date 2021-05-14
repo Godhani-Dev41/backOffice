@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { LeaguesService } from "@app/shared/services/leagues/leagues.service";
 import { TeamsService } from "@app/shared/services/teams/teams.service";
 import { ImagesService } from "@app/shared/services/utils/images.service";
-import { ModalDirective } from "ngx-bootstrap";
+import { ModalDirective } from "ngx-bootstrap/modal";
 import { FileItem, FileUploader } from "ng2-file-upload";
 import { ToastrService } from "ngx-toastr";
 import { RCMediaObject, RCTeam, RCSeasonTeam } from "@rcenter/core";

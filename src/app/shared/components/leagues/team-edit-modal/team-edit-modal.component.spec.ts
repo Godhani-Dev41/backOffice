@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { APP_PROVIDERS } from '@app/shared/services/main';
 import { TEST_HTTP_MOCK, TEST_PROVIDERS } from '@app/test.utils';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastModule } from 'ng2-toastr';
 
 import { TeamEditModalComponent } from './team-edit-modal.component';

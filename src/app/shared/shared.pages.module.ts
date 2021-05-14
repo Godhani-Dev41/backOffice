@@ -1,4 +1,4 @@
-import { DiscountV2Component } from './components/discount-v2/discount-v2';
+import { DiscountV2Component } from "./components/discount-v2/discount-v2";
 import { EventsViewComponent } from "./../client/pages/events/events-view/events-view.component";
 import { AgePipe } from "./pipes/age.pipe";
 /* tslint:disable:max-line-length */
@@ -10,9 +10,11 @@ import { CalendarComponent } from "@app/shared/components/fullcalendar/calendar"
 import { ContextmenuModule } from "@app/shared/directives/context-menu/contextmenu.module";
 import { OwlCarouselModule } from "@app/shared/vendor/owl-carousel/owl-carousel.module";
 import { AgmCoreModule } from "@agm/core";
-import { DatepickerModule, ModalModule, TimepickerModule, TooltipModule } from "ngx-bootstrap";
+import { DatepickerModule } from "ngx-bootstrap/datepicker";
+import { ModalModule } from "ngx-bootstrap/modal";
+import { TimepickerModule } from "ngx-bootstrap/timepicker";
+import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { FileUploadModule } from "ng2-file-upload";
-import { SelectModule } from "ng2-select";
 import { environment } from "../../environments/environment";
 import { SharedModule } from "../shared.module";
 import { BackBtnComponent } from "./components/back-btn/back-btn.component";
@@ -96,7 +98,7 @@ import { TeamsConstraintsModalComponent } from "./components/teams/teams-constra
 import { BreadcrumbsComponent } from "./components/breadcrumbs/breadcrumbs.component";
 import { CreateDivisionModalComponent } from "./components/create-division-modal/create-division-modal.component";
 import { PresetColorPickerComponent } from "./components/preset-color-picker/preset-color-picker.component";
-import { BsDropdownModule } from "ngx-bootstrap";
+import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { PlayerSeasonInfoModalComponent } from "./components/leagues/player-season-info-modal/player-season-info-modal.component";
 import { SqDatetimepickerModule } from "ngx-eonasdan-datetimepicker";
 import { SeasonMatchesPageComponent } from "@app/client/pages/leagues/league-page/league-page-season/season-matches-page/season-matches-page.component";
@@ -115,7 +117,6 @@ import { MatchReportGeneratorComponent } from "./pages/match-report-generator/ma
 import { OrgQuestionsEditFormComponent } from "@app/client/pages/organization-settings/settings-pages/org-questions-edit-page/org-questions-edit-form/org-questions-edit-form.component";
 import { DailyAgendaComponent } from "@app/shared/components/daily-agenda/daily-agenda.component";
 import { DateRangeDropdownComponent } from "./components/date-range-dropdown/date-range-dropdown.component";
-import { NgZorroAntdModule } from "ng-zorro-antd";
 import { NumberInputAndSwitchComponent } from "./components/number-input-and-switch/number-input-and-switch.component";
 import { WeekDaysHoursSelectComponent } from "./components/week-days-hours-select/week-days-hours-select.component";
 import { ScheduleConstraintsComponent } from "./components/schedule-constraints/schedule-constraints.component";
@@ -128,9 +129,17 @@ import { DashboardHighlightsComponent } from "./components/dashboard-highlights/
 import { AddOnsManagementComponent } from "./components/add-ons-management/add-ons-management.component";
 import { SpaceAllocationManagementComponent } from "./components/space-allocation-management/space-allocation-management.component";
 import { SeasonReportsPageComponent } from "@app/client/pages/leagues/league-page/league-page-season/season-reports-page/season-reports-page.component";
-import { DangerousEditWarningComponent } from './components/dangerous-edit-warning/dangerous-edit-warning.component';
+import { DangerousEditWarningComponent } from "./components/dangerous-edit-warning/dangerous-edit-warning.component";
 import { GetPaymentV2Component } from "./components/get-payment-v2/get-payment-v2";
-import { RichTextWrapperComponent } from './components/rich-text-wrapper/rich-text-wrapper.component';
+import { RichTextWrapperComponent } from "./components/rich-text-wrapper/rich-text-wrapper.component";
+import { NzLayoutModule } from "ng-zorro-antd/layout";
+import { NzGridModule } from "ng-zorro-antd/grid";
+import { NzCardModule } from "ng-zorro-antd/card";
+import { NzAvatarModule } from "ng-zorro-antd/avatar";
+import { NzInputNumberModule } from "ng-zorro-antd/input-number";
+import { NzTypographyModule } from "ng-zorro-antd/typography";
+import { NzIconModule } from "ng-zorro-antd/icon";
+import { NzDatePickerModule } from "ng-zorro-antd/date-picker";
 
 @NgModule({
   imports: [
@@ -149,13 +158,19 @@ import { RichTextWrapperComponent } from './components/rich-text-wrapper/rich-te
     DatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
-    SelectModule,
     OwlCarouselModule,
     TimepickerModule.forRoot(),
     PopoverModule.forRoot(),
     ContextmenuModule,
     DragulaModule,
-    NgZorroAntdModule,
+    NzLayoutModule,
+    NzGridModule,
+    NzCardModule,
+    NzAvatarModule,
+    NzInputNumberModule,
+    NzTypographyModule,
+    NzIconModule,
+    NzDatePickerModule
   ],
   providers: [MediaUrlPipe],
   declarations: [

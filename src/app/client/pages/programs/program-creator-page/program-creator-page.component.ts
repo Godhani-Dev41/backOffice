@@ -3,7 +3,6 @@ import { FormGroup } from "@angular/forms";
 import { RCLeagueDetailTypeEnum, RCMediaObject, RCMembership } from "@rcenter/core";
 import { AuthenticationService } from "@app/shared/services/auth/authentication.service";
 import { OrganizationsService } from "@app/shared/services/organization/organizations.service";
-import { Observable } from "rxjs/Observable";
 import { ToastrService } from "ngx-toastr";
 import { ActionSuccessModalComponent } from "@app/shared/components/action-success-modal/action-success-modal.component";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -16,7 +15,7 @@ import {
   RCProgram,
   RCUpdateProgramData,
 } from "@app/shared/services/programs/programs.service";
-import { Subject, Subscription } from "rxjs";
+import { forkJoin, Subject, Subscription } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
 @Component({
@@ -244,7 +243,7 @@ export class ProgramCreatorPageComponent implements OnInit {
 
     if (!imagesUploadTasks.length) return this.finishSubmit(programData);
 
-    Observable.forkJoin(imagesUploadTasks)
+    forkJoin(imagesUploadTasks)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         () => {

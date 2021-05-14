@@ -1,4 +1,3 @@
-import { takeUntil } from "rxjs/operators";
 import { VenueSelectModalComponent } from "./../../../../shared/components/venue-select-modal/venue-select-modal.component";
 import { ProgramsService } from "@app/shared/services/programs/programs.service";
 import { Component, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
@@ -26,7 +25,7 @@ export class EventsViewComponent implements OnInit, OnDestroy {
   deleteConfirmModal: ConfirmationModalComponent;
   @ViewChild("venueSelectModal", { static: true })
   venueSelectModal: VenueSelectModalComponent;
-  @ViewChild("table", { static: false }) table: DatatableComponent;
+  @ViewChild("table") table: DatatableComponent;
   organization: RCOrganization;
   @Input() isSeason?: boolean;
   seasonId: number;

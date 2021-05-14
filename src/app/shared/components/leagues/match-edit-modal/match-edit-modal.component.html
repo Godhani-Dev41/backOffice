@@ -19,11 +19,11 @@
                   <div class="input-group">
                     <label for="">DIVISION</label>
                     {{!divisionSelection?.length ? 'No divisions found' : ''}}
-                    <ng-select
+                    <!-- <ng-select
                       *ngIf="divisionSelection?.length"
                       (selected)="divisionSelected($event)"
                       [items]="divisionSelection" placeholder="Select divisions">
-                    </ng-select>
+                    </ng-select> -->
                   </div>
                 </div>
               </div>
@@ -32,11 +32,11 @@
                   <div class="input-group">
                     <label for="">ROUND</label>
                     {{!roundsSelection?.length ? 'No rounds found' : ''}}
-                    <ng-select
+                    <!-- <ng-select
                       *ngIf="roundsSelection?.length"
                       formControlName="roundId"
                       [items]="roundsSelection" placeholder="Select round">
-                    </ng-select>
+                    </ng-select> -->
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -53,26 +53,26 @@
                  <div class="input-group" [ngClass]="{'has-error': !matchForm.get('teamA').valid && matchForm.get('teamA').touched}">
                    <label for="">TEAM A</label>
                    {{teamsSelection?.length ? '' : 'No teams found'}}
-                   <ng-select [items]="teamsSelection"
+                   <!-- <ng-select [items]="teamsSelection"
                               *ngIf="teamsSelection?.length"
                               [disabled]="editMode"
                               formControlName="teamA"
                               [required]="true"
                               placeholder="Select team">
-                   </ng-select>
+                   </ng-select> -->
                  </div>
                </div>
                <div class="col-md-6">
                  <div class="input-group" [ngClass]="{'has-error': !matchForm.get('teamB').valid && matchForm.get('teamB').touched}">
                    <label for="">TEAM B</label>
                    {{teamsSelection?.length ? '' : 'No teams found'}}
-                   <ng-select [items]="teamsSelection"
+                   <!-- <ng-select [items]="teamsSelection"
                               *ngIf="teamsSelection?.length"
                               [disabled]="editMode"
                               formControlName="teamB"
                               [required]="true"
                               placeholder="Select team">
-                   </ng-select>
+                   </ng-select> -->
                  </div>
                </div>
              </div>
