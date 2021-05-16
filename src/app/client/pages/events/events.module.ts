@@ -11,7 +11,7 @@ import { SharedPagesModule } from "@app/shared/shared.pages.module";
 import { ContextmenuModule } from "@app/shared/directives/context-menu/contextmenu.module";
 import { EventCreatorComponent } from "./event-creator/event-creator.component";
 import { EventInviterPageComponent } from "./event-inviter-page/event-inviter-page.component";
-// import { SelectModule } from "ng2-select";
+import { NgSelectModule } from "@ng-select/ng-select";
 
 @NgModule({
   imports: [
@@ -24,7 +24,7 @@ import { EventInviterPageComponent } from "./event-inviter-page/event-inviter-pa
     SharedPagesModule,
     ContextmenuModule,
     RouterModule.forChild(routes),
-    // SelectModule,
+    NgSelectModule,
   ],
   declarations: [EventCreatorComponent, EventInviterPageComponent],
 })

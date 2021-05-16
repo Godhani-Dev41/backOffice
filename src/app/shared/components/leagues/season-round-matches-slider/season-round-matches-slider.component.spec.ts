@@ -15,12 +15,12 @@ import { AgmCoreModule } from "angular2-google-maps/core";
 import { DatepickerModule } from "ngx-bootstrap/datepicker";
 import { TimepickerModule } from "ngx-bootstrap/timepicker";
 import { ModalModule } from "ngx-bootstrap/modal";
-import { SelectModule } from "ng2-select";
 import { ToastModule } from "ng2-toastr";
 import { environment } from "../../../../../environments/environment";
 
 import { SeasonRoundMatchesSliderComponent } from "./season-round-matches-slider.component";
 import { MomentDatePipe } from "@app/shared/pipes/moment-date.pipe";
+import { NgSelectModule } from "@ng-select/ng-select";
 
 describe("SeasonRoundMatchesSliderComponent", () => {
   let component: SeasonRoundMatchesSliderComponent;
@@ -38,7 +38,7 @@ describe("SeasonRoundMatchesSliderComponent", () => {
         RouterTestingModule,
         OwlCarouselModule,
         ModalModule.forRoot(),
-        SelectModule,
+        NgSelectModule,
         FormsModule,
         DatepickerModule.forRoot(),
         TimepickerModule.forRoot(),

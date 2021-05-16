@@ -36,11 +36,9 @@
                 </div>
                 <div class="col-md-5">
                   <div class="input-group">
-                    <!-- <ng-select [items]="teamsSelection"
-                               *ngIf="teamsSelection?.length"
-                               formControlName="team"
-                               placeholder="Select team">
-                    </ng-select> -->
+                    <ng-select *ngIf="teamsSelection?.length" [items]="teamsSelection" formControlName="team"
+                      bindLabel="text" bindValue="id" placeholder="Select team">
+                    </ng-select>
                   </div>
                 </div>
                 <div class="col-md-2">
@@ -63,15 +61,12 @@
         </div>
 
         <div class="modal-footer">
-          <button
-            class="button button-empty cancel-btn" (click)="modal.hide()">
+          <button class="button button-empty cancel-btn" (click)="modal.hide()">
             Cancel
           </button>
-          <rc-loading-btn [text]="'POST TO FEED'"
-                          [disabled]="!publishTopScorerForm.valid"
-                          (onClick)="submit(publishTopScorerForm.value)"
-                          [loading]="loading"
-                          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          <rc-loading-btn [text]="'POST TO FEED'" [disabled]="!publishTopScorerForm.valid"
+            (onClick)="submit(publishTopScorerForm.value)" [loading]="loading"
+            [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
           </rc-loading-btn>
         </div>
       </div>

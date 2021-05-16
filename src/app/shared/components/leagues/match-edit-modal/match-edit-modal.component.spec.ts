@@ -12,13 +12,13 @@ import { AgmCoreModule } from "angular2-google-maps/core";
 import { DatepickerModule } from "ngx-bootstrap/datepicker";
 import { ModalModule } from "ngx-bootstrap/modal";
 import { TimepickerModule } from "ngx-bootstrap/timepicker";
-import { SelectModule } from "ng2-select";
 import { environment } from "../../../../../environments/environment";
 import { DatepickerComponent } from "../../datepicker/datepicker.component";
 
 import { MatchEditModalComponent } from "./match-edit-modal.component";
 import { VenuesService } from "@app/shared/services/venues/venues.service";
 import { VenueSearchInputComponent } from "@app/shared/components/venue-search-input/venue-search-input.component";
+import { NgSelectModule } from "@ng-select/ng-select";
 
 class MockActiveRoute {
   parent: any;
@@ -42,7 +42,7 @@ describe("MatchEditModalComponent", () => {
           apiKey: environment.GOOGLE_API_KEY,
           libraries: ["places"],
         }),
-        SelectModule,
+        NgSelectModule,
         FormsModule,
         DatepickerModule.forRoot(),
         TimepickerModule.forRoot(),

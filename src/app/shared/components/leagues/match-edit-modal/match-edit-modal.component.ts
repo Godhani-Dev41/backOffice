@@ -1,47 +1,59 @@
 import {
-  Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges,
-  ViewChild
-} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { LeaguesService, RCCreateMatchBody } from '@app/shared/services/leagues/leagues.service';
-import { RCParsedAddress } from '@app/shared/services/utils/location.service';
-import * as moment from 'moment-timezone';
-import * as _ from 'lodash';
-import * as FileSaver from 'file-saver';
-import { ModalDirective } from 'ngx-bootstrap/modal';
-import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
+import { LeaguesService, RCCreateMatchBody } from "@app/shared/services/leagues/leagues.service";
+import { RCParsedAddress } from "@app/shared/services/utils/location.service";
+import * as moment from "moment-timezone";
+import * as _ from "lodash";
+import * as FileSaver from "file-saver";
+import { ModalDirective } from "ngx-bootstrap/modal";
+import { ToastrService } from "ngx-toastr";
+import { Subscription } from "rxjs";
 import {
-  EventStatus, RCLeague, RCLeagueSeason, RCSeasonDivision, RCSeasonRound, RCSeasonRoundMatch, RCSeasonTeam,
-  RCVenue
-} from '@rcenter/core';
-import { TimeService } from '@app/shared/services/utils/time.service';
-import { EventsService } from '@app/shared/services/events/events.service';
-import { RCLeagueDetailTypeEnum } from '@rcenter/core';
+  EventStatus,
+  RCLeague,
+  RCLeagueSeason,
+  RCSeasonDivision,
+  RCSeasonRound,
+  RCSeasonRoundMatch,
+  RCSeasonTeam,
+  RCVenue,
+} from "@rcenter/core";
+import { TimeService } from "@app/shared/services/utils/time.service";
+import { EventsService } from "@app/shared/services/events/events.service";
+import { RCLeagueDetailTypeEnum } from "@rcenter/core";
 
-const remainder = 30 - moment().minute() % 30;
+const remainder = 30 - (moment().minute() % 30);
 const DEFAULT_MATCH = {
   startTime: null,
-  endTime:  null
+  endTime: null,
 };
 
 @Component({
-  selector: 'rc-match-edit-modal',
-  templateUrl: './match-edit-modal.component.html',
-  styleUrls: ['./match-edit-modal.component.scss'],
-  exportAs: 'modal'
+  selector: "rc-match-edit-modal",
+  templateUrl: "./match-edit-modal.component.html",
+  styleUrls: ["./match-edit-modal.component.scss"],
+  exportAs: "modal",
 })
 export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
-
-  @ViewChild('modal', { static: true }) public modal: ModalDirective;
+  @ViewChild("modal", { static: true }) public modal: ModalDirective;
   @Input() league: RCLeague;
   @Input() season: RCLeagueSeason;
   @Input() rounds: RCSeasonRound[];
   @Input() divisions: RCSeasonDivision[];
   @Input() publishEvent: boolean;
-  @Output() onMatchAdded = new EventEmitter<{ match: RCSeasonRoundMatch, divisionId?: number }>();
-  @Output() onMatchRemoved = new EventEmitter<{ match: RCSeasonRoundMatch, divisionId?: number }>();
+  @Output() onMatchAdded = new EventEmitter<{ match: RCSeasonRoundMatch; divisionId?: number }>();
+  @Output() onMatchRemoved = new EventEmitter<{ match: RCSeasonRoundMatch; divisionId?: number }>();
   @Output() onMatchUpdated = new EventEmitter();
   items: any[];
   match: RCSeasonRoundMatch;
@@ -67,7 +79,7 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
     private leaguesService: LeaguesService,
     private fb: FormBuilder,
     private activeRoute: ActivatedRoute,
-    private timeService: TimeService
+    private timeService: TimeService,
   ) {
     this.editMode = false;
     this.teams$ = this.leaguesService.currentTeams$.subscribe((teams) => {
@@ -77,9 +89,9 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
     this.roundsSelection = [];
     this.dateTimeOptions = {
       widgetPositioning: {
-        vertical: 'bottom'
+        vertical: "bottom",
       },
-      stepping: 5
+      stepping: 5,
     };
   }
 
@@ -88,7 +100,7 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
       this.roundsSelection = this.rounds.map((i) => {
         return {
           id: i.id,
-          text: i.name
+          text: i.name,
         };
       });
     }
@@ -97,14 +109,14 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
       this.divisionSelection = this.divisions.map((i) => {
         return {
           id: i.id,
-          text: i.name
+          text: i.name,
         };
       });
 
       if (this.divisions.length === 1) {
         this.divisionSelected({
           id: this.divisions[0].id,
-          text: this.divisions[0].name
+          text: this.divisions[0].name,
         });
       }
     }
@@ -113,33 +125,32 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit() {
     this.matchForm = this.fb.group({
       startTime: moment().hour(18).minute(0),
-      endTime: '',
-      teamA: '',
-      teamB: '',
-      address: '',
-      venueName: '',
-      venue: '',
+      endTime: "",
+      teamA: "",
+      teamB: "",
+      address: "",
+      venueName: "",
+      venue: "",
       excludeStandings: false,
-      description: '',
-      roundId: ['', Validators.required],
-      venueId: ''
+      description: "",
+      roundId: ["", Validators.required],
+      venueId: "",
     });
 
-    this.matchForm.get('startTime').valueChanges.subscribe((date) => {
+    this.matchForm.get("startTime").valueChanges.subscribe((date) => {
       let defaultMinutesToAdd = 60;
 
       if (this.leaguesService.currentLeagueObject && this.leaguesService.currentLeagueObject.leagueDetails) {
-        const matchLength = this.leaguesService
-          .currentLeagueObject.leagueDetails
-          .find(i => i.detailType === RCLeagueDetailTypeEnum.MATCHLENGTH);
+        const matchLength = this.leaguesService.currentLeagueObject.leagueDetails.find(
+          (i) => i.detailType === RCLeagueDetailTypeEnum.MATCHLENGTH,
+        );
 
         if (matchLength && matchLength.data) {
           defaultMinutesToAdd = matchLength.data;
         }
       }
 
-      this.matchForm.get('endTime').setValue(moment(date).add(defaultMinutesToAdd, 'minutes'));
-
+      this.matchForm.get("endTime").setValue(moment(date).add(defaultMinutesToAdd, "minutes"));
     });
   }
 
@@ -152,28 +163,33 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
     this.divisionId = divisionId;
     this.modal.show();
 
-    this.seasonId = this.activeRoute.parent.snapshot.params['seasonId'] || this.activeRoute.parent.snapshot.params['itemId'];
-    this.leagueId = this.activeRoute.parent.parent.snapshot.params['id'] || this.activeRoute.parent.parent.snapshot.params['tournamentId'];
+    this.seasonId =
+      this.activeRoute.parent.snapshot.params["seasonId"] || this.activeRoute.parent.snapshot.params["itemId"];
+    this.leagueId =
+      this.activeRoute.parent.parent.snapshot.params["id"] ||
+      this.activeRoute.parent.parent.snapshot.params["tournamentId"];
 
     this.resetForm();
     this.match = seasonMatch;
 
     if (this.match) {
-      this.disableEdit = (this.match.status === EventStatus.CANCELLED);
+      this.disableEdit = this.match.status === EventStatus.CANCELLED;
     }
 
     if (this.currentRoundId && this.divisions) {
-      const foundDivision = this.divisions.find(i => i.id === divisionId);
+      const foundDivision = this.divisions.find((i) => i.id === divisionId);
 
       if (foundDivision) {
         this.divisionSelected({ id: foundDivision.id, text: foundDivision.name });
-        const found = foundDivision.rounds.find(i => i.id === this.currentRoundId);
+        const found = foundDivision.rounds.find((i) => i.id === this.currentRoundId);
 
         if (found) {
-          this.matchForm.get('roundId').setValue([{
-            id: this.currentRoundId,
-            text: found.name
-          }]);
+          this.matchForm.get("roundId").setValue([
+            {
+              id: this.currentRoundId,
+              text: found.name,
+            },
+          ]);
         }
       }
     }
@@ -194,20 +210,20 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
         const momentDay = timeFrame.activityTime.dayOfWeek;
 
         if (isFutureSeason) {
-          const timeElements = timeFrame.activityTime.open.split(':');
+          const timeElements = timeFrame.activityTime.open.split(":");
           const newDate = moment(this.season.startDate)
             .hour(timeElements[0])
             .minute(Number(timeElements) === 24 ? 0 : timeElements[1])
             .day(momentDay);
 
-          if (moment(this.season.startDate).isAfter(newDate)) newDate.add(1, 'week');
-          this.matchForm.get('startTime').setValue(newDate);
+          if (moment(this.season.startDate).isAfter(newDate)) newDate.add(1, "week");
+          this.matchForm.get("startTime").setValue(newDate);
         } else {
           if (timeFrame) {
-            const newDate = moment(timeFrame.activityTime.open, 'HH:mm:ss').day(momentDay);
-            if (moment().isAfter(newDate)) newDate.add(1, 'week');
+            const newDate = moment(timeFrame.activityTime.open, "HH:mm:ss").day(momentDay);
+            if (moment().isAfter(newDate)) newDate.add(1, "week");
 
-            this.matchForm.get('startTime').setValue(newDate);
+            this.matchForm.get("startTime").setValue(newDate);
           }
         }
       }
@@ -225,27 +241,31 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
     const startDate = this.timeService.prepareTZForDisplay(seasonMatch.startDate, seasonMatch.timezone);
     const endDate = this.timeService.prepareTZForDisplay(seasonMatch.endDate, seasonMatch.timezone);
 
-    this.matchForm.get('startTime').setValue(startDate);
-    this.matchForm.get('endTime').setValue(endDate);
-    this.matchForm.get('venueName').setValue(seasonMatch.venueName);
-    this.matchForm.get('address').setValue(seasonMatch.address);
-    this.matchForm.get('description').setValue(seasonMatch.description);
-    this.matchForm.get('venueId').setValue(seasonMatch.venueId);
-    this.matchForm.get('excludeStandings').setValue(seasonMatch.match && seasonMatch.match['excludeStandings']);
+    this.matchForm.get("startTime").setValue(startDate);
+    this.matchForm.get("endTime").setValue(endDate);
+    this.matchForm.get("venueName").setValue(seasonMatch.venueName);
+    this.matchForm.get("address").setValue(seasonMatch.address);
+    this.matchForm.get("description").setValue(seasonMatch.description);
+    this.matchForm.get("venueId").setValue(seasonMatch.venueId);
+    this.matchForm.get("excludeStandings").setValue(seasonMatch.match && seasonMatch.match["excludeStandings"]);
 
     if (seasonMatch.match && seasonMatch.match.participants && seasonMatch.match.participants.length) {
       const teamA = seasonMatch.match.participants[0];
       const teamB = seasonMatch.match.participants[1];
 
-      this.matchForm.get('teamA').setValue([{
-        id: teamA.entity.id,
-        text: teamA.entity.name
-      }]);
+      this.matchForm.get("teamA").setValue([
+        {
+          id: teamA.entity.id,
+          text: teamA.entity.name,
+        },
+      ]);
 
-      this.matchForm.get('teamB').setValue([{
-        id: teamB.entity.id,
-        text: teamB.entity.name
-      }]);
+      this.matchForm.get("teamB").setValue([
+        {
+          id: teamB.entity.id,
+          text: teamB.entity.name,
+        },
+      ]);
     }
   }
 
@@ -256,12 +276,12 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
 
     if (!match) return;
     if (moment(match.startDate).isAfter(match.endDate)) {
-      this.toastr.error('End time cannot be before start time');
+      this.toastr.error("End time cannot be before start time");
       return;
     }
 
     if (!value.roundId || !value.roundId[0] || !value.roundId[0].id) {
-      this.toastr.error('Round must be specified');
+      this.toastr.error("Round must be specified");
       return;
     }
 
@@ -269,17 +289,18 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
     if (this.editMode) return this.updateMatch(match);
 
     this.loading = true;
-    this.leaguesService
-      .createSeasonMatch(this.newRoundId, match)
-      .subscribe((response) => {
+    this.leaguesService.createSeasonMatch(this.newRoundId, match).subscribe(
+      (response) => {
         if (response.data && response.data.id) {
           this.onMatchAdded.emit({ match: response.data, divisionId: this.divisionId });
         }
 
         this.resetModal();
-      }, () => {
+      },
+      () => {
         this.loading = false;
-    });
+      },
+    );
   }
 
   resetModal() {
@@ -294,7 +315,7 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
 
   updateMatch(match: RCCreateMatchBody): void {
     if (!this.seasonId || !this.currentRoundId || !this.leagueId || !this.match) {
-      throw new Error('Season id, round id, league id and match id must be provided');
+      throw new Error("Season id, round id, league id and match id must be provided");
     }
 
     this.loading = true;
@@ -308,14 +329,18 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
         description: match.description,
         address: match.address,
         newRoundId: this.newRoundId,
-        excludeStandings: match.excludeStandings
-    }).subscribe(() => {
-      this.onMatchUpdated.emit(this.divisionId);
-      this.resetModal();
-    }, () => {
-      this.loading = false;
-      this.toastr.error('Error occurred while updating user');
-    });
+        excludeStandings: match.excludeStandings,
+      })
+      .subscribe(
+        () => {
+          this.onMatchUpdated.emit(this.divisionId);
+          this.resetModal();
+        },
+        () => {
+          this.loading = false;
+          this.toastr.error("Error occurred while updating user");
+        },
+      );
   }
 
   prepareMatchObject(formData): RCCreateMatchBody {
@@ -327,7 +352,7 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
       description: formData.description,
       address: formData.address,
       participants: [],
-      excludeStandings: formData.excludeStandings
+      excludeStandings: formData.excludeStandings,
     } as any;
 
     const teamA = this.getTeamsFromSelect(formData.teamA);
@@ -335,36 +360,35 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
 
     if (teamA && teamB) {
       if (teamA.id === teamB.id) {
-        this.toastr.error('You can\'t select identical teams.');
+        this.toastr.error("You can't select identical teams.");
         return;
       }
-      matchObject.title = teamA.name + ' vs ' + teamB.name;
+      matchObject.title = teamA.name + " vs " + teamB.name;
     }
 
     if (teamA) {
       matchObject.participants.push({
         entityId: teamA.id,
-        entityType: 'team'
+        entityType: "team",
       });
     }
-
 
     if (teamB) {
       matchObject.participants.push({
         entityId: teamB.id,
-        entityType: 'team'
+        entityType: "team",
       });
     }
 
     return matchObject;
   }
 
-  getTeamsFromSelect(teamSelection): { name: string, id: number } {
+  getTeamsFromSelect(teamSelection): { name: string; id: number } {
     if (!teamSelection || !teamSelection[0]) return;
 
     return {
       name: teamSelection[0].text,
-      id: teamSelection[0].id
+      id: teamSelection[0].id,
     };
   }
 
@@ -372,16 +396,17 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
     if (this.loading) return;
 
     this.loading = true;
-    this.leaguesService
-      .cancelSeasonMatch(this.currentRoundId, this.match.id)
-      .subscribe(() => {
+    this.leaguesService.cancelSeasonMatch(this.currentRoundId, this.match.id).subscribe(
+      () => {
         this.onMatchRemoved.emit({ match: this.match, divisionId: this.divisionId });
         this.resetModal();
-        this.toastr.success('Match successfully canceled');
-      }, () => {
+        this.toastr.success("Match successfully canceled");
+      },
+      () => {
         this.loading = false;
-        this.toastr.error('Error occurred while canceling the match');
-      });
+        this.toastr.error("Error occurred while canceling the match");
+      },
+    );
   }
 
   cancel() {
@@ -396,21 +421,20 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
    */
   onAddressSelect(address: RCParsedAddress) {
     if (address.poi) {
-      this.matchForm.get('venueName').setValue(address.name);
+      this.matchForm.get("venueName").setValue(address.name);
     }
 
-    this.matchForm.get('address').setValue(address);
-    this.matchForm.get('venueId').setValue(null);
+    this.matchForm.get("address").setValue(address);
+    this.matchForm.get("venueId").setValue(null);
   }
 
   onVenueSelect(venue: RCVenue) {
     if (!venue) return;
 
-    this.matchForm.get('venueName').setValue(venue.name);
-    this.matchForm.get('address').setValue(venue.address);
-    this.matchForm.get('venueId').setValue(venue.id);
+    this.matchForm.get("venueName").setValue(venue.name);
+    this.matchForm.get("address").setValue(venue.address);
+    this.matchForm.get("venueId").setValue(venue.id);
   }
-
 
   /**
    * When time is selected from timepicker it is
@@ -420,84 +444,93 @@ export class MatchEditModalComponent implements OnInit, OnDestroy, OnChanges {
    * @returns { Moment }
    */
   assignTimeToDate(timeObject: Date, date: Date): moment.Moment {
-    const hour = Number(moment(timeObject).format('HH'));
-    const minute = Number(moment(timeObject).format('mm'));
+    const hour = Number(moment(timeObject).format("HH"));
+    const minute = Number(moment(timeObject).format("mm"));
 
     return moment(date).hour(hour).minute(minute);
   }
 
-  timeChanged(data: Date, type: 'start' | 'end') {
-    if (type === 'start') {
-      this.matchForm.get('endTime').setValue(moment(data).add(1, 'hour'));
+  timeChanged(data: Date, type: "start" | "end") {
+    if (type === "start") {
+      this.matchForm.get("endTime").setValue(moment(data).add(1, "hour"));
     }
   }
 
   delete() {
     this.loading = true;
-    this.eventsService.deleteEvent(this.leagueId, this.seasonId, this.currentRoundId, this.match.id).subscribe(() => {
-      this.loading = false;
-      this.onMatchRemoved.emit({ match: this.match, divisionId: this.divisionId });
-      this.resetModal();
-      this.toastr.success('Match successfully removed');
-    }, () => {
-      this.loading = false;
-      this.toastr.error('Error while removing event');
-    });
+    this.eventsService.deleteEvent(this.leagueId, this.seasonId, this.currentRoundId, this.match.id).subscribe(
+      () => {
+        this.loading = false;
+        this.onMatchRemoved.emit({ match: this.match, divisionId: this.divisionId });
+        this.resetModal();
+        this.toastr.success("Match successfully removed");
+      },
+      () => {
+        this.loading = false;
+        this.toastr.error("Error while removing event");
+      },
+    );
   }
 
-  divisionSelected(val: { id: number, text: string }) {
-    const foundDivision = this.divisions.find(i => {
-      return i.id === val.id;
-    });
+  divisionSelected(val: { id: number; text: string }) {
+    if (val) {
+      const foundDivision = this.divisions.find((i) => {
+        return i.id === val.id;
+      });
 
-    if (this.matchForm) {
-      this.matchForm.get('roundId').setValue([]);
-    }
+      if (this.matchForm) {
+        this.matchForm.get("roundId").setValue([]);
+      }
 
-    if (foundDivision) {
-      this.setDivisionTeamOption(val.id);
+      if (foundDivision) {
+        this.setDivisionTeamOption(val.id);
 
-      if (foundDivision.rounds && foundDivision.rounds.length) {
-        this.roundsSelection = foundDivision.rounds.map((i) => {
-          return {
-            id: i.id,
-            text: i.name
-          };
-        });
+        if (foundDivision.rounds && foundDivision.rounds.length) {
+          this.roundsSelection = foundDivision.rounds.map((i) => {
+            return {
+              id: i.id,
+              text: i.name,
+            };
+          });
+        } else {
+          this.roundsSelection = [];
+        }
       } else {
         this.roundsSelection = [];
       }
-    } else {
-      this.roundsSelection = [];
     }
   }
 
   setDivisionTeamOption(divisionId: number) {
     if (!this.teams) return;
 
-    this.teamsSelection = this.teams.filter(i => i.team && i.divisionId === divisionId).map((i) => ({
-      id: i.team.id,
-      text: i.team.name
-    }));
+    this.teamsSelection = this.teams
+      .filter((i) => i.team && i.divisionId === divisionId)
+      .map((i) => ({
+        id: i.team.id,
+        text: i.team.name,
+      }));
   }
 
   get reportPrintVisible() {
     if (!this.league) return;
 
-    const soccer = this.league.sports.find(i => i === 4);
+    const soccer = this.league.sports.find((i) => i === 4);
     return !!soccer && this.editMode;
   }
 
   downloadPrintableReport() {
     this.reportDownloadLoading = true;
 
-    this.eventsService.createMatchReport([this.match.id]).subscribe((response: any) => {
-      this.reportDownloadLoading = false;
-      FileSaver.saveAs(response, `${moment().format('MM-DD-YYYY')}-${this.match.title}-match-report.pdf`);
-
-    }, () => {
-      this.reportDownloadLoading = false;
-      this.toastr.error('Error while generating report');
-    });
+    this.eventsService.createMatchReport([this.match.id]).subscribe(
+      (response: any) => {
+        this.reportDownloadLoading = false;
+        FileSaver.saveAs(response, `${moment().format("MM-DD-YYYY")}-${this.match.title}-match-report.pdf`);
+      },
+      () => {
+        this.reportDownloadLoading = false;
+        this.toastr.error("Error while generating report");
+      },
+    );
   }
 }

@@ -11,7 +11,6 @@ import {
   ViewChild,
 } from "@angular/core";
 import { VenuesService } from "@app/shared/services/venues/venues.service";
-// import { SelectItem } from 'ng2-select';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { RCVenue } from "@rcenter/core";
 import { LeaguesService } from "@app/shared/services/leagues/leagues.service";
@@ -30,7 +29,6 @@ import { Subscription, Subject } from "rxjs";
   ],
 })
 export class VenueSearchInputComponent implements OnInit, ControlValueAccessor, OnDestroy {
-  @ViewChild("venuesInput", { static: true }) venuesInput: any;
   @Input() seasonVenuesOnly: boolean;
   @Output() onSelect = new EventEmitter<RCVenue>();
   items: any[];
@@ -45,8 +43,6 @@ export class VenueSearchInputComponent implements OnInit, ControlValueAccessor, 
   constructor(private zone: NgZone, private leaguesService: LeaguesService, private venuesService: VenuesService) {}
 
   ngOnInit() {
-    this.items = [];
-
     this.loadSeasonVenues();
 
     this.subscriptionObserver = this.typedObservable$
@@ -57,16 +53,14 @@ export class VenueSearchInputComponent implements OnInit, ControlValueAccessor, 
       )
       .subscribe((result) => {
         this.zone.run(() => {
-          this.venuesInput.items = result.data.map((i) => {
+          this.items = result.data.map((i) => {
             return {
               text: i.name,
               id: i.id,
             };
           });
 
-          this.items = this.venuesInput.items;
           this.venues = result.data;
-          this.venuesInput.open();
         });
       });
   }
@@ -86,7 +80,7 @@ export class VenueSearchInputComponent implements OnInit, ControlValueAccessor, 
               id: i.id,
             };
           }) as any;
-          this.venuesInput.items = newVenues;
+          this.items = newVenues;
 
           this.items = newVenues;
           this.venues = response.seasonVenues;
@@ -114,17 +108,19 @@ export class VenueSearchInputComponent implements OnInit, ControlValueAccessor, 
     }
   }
 
-  onTextInput(searchQuery: string) {
+  onTextInput(searchQuery: { term: string; items: any[] }) {
     if (!this.seasonVenuesOnly) {
-      this.typedObservable$.next(searchQuery);
+      this.typedObservable$.next(searchQuery.term);
     }
   }
 
   itemSelected(selectedItem: any) {
-    const venue = this.venues.find((i) => i.id === Number(selectedItem.id));
+    if (selectedItem) {
+      const venue = this.venues.find((i) => i.id === Number(selectedItem.id));
 
-    this.propagateChange(venue);
-    this.onSelect.emit(venue);
+      this.propagateChange(venue);
+      this.onSelect.emit(venue);
+    }
   }
 
   writeValue(value: any): void {

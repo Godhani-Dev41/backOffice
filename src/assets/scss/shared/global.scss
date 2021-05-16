@@ -430,3 +430,15 @@ ul.dropdown-select-menu {
   height: 100vh;
   width: 100%;
 }
+
+.ng-select-container {
+  border-color: #f7c500 !important;
+}
+
+.ng-dropdown-panel {
+  min-width: fit-content;
+}
+
+.input-group {
+  display: block !important;
+}

@@ -34,7 +34,6 @@ export class NewBookingModalComponent implements OnInit {
   @Input() venue: RCVenue;
   @Output() onSavedBooking = new EventEmitter();
   @ViewChild("modal", { static: true }) public modal: ModalDirective;
-  @ViewChild("customersInput") customersInput: any;
   currentCourt: any;
   calculatedPackage: any;
   currentSessions: any[];
@@ -98,7 +97,7 @@ export class NewBookingModalComponent implements OnInit {
       )
       .subscribe((result) => {
         this.zone.run(() => {
-          this.customersInput.items = result.data.map((i) => {
+          this.customers = result.data.map((i) => {
             return {
               text: i.name,
               id: {
@@ -110,9 +109,6 @@ export class NewBookingModalComponent implements OnInit {
               },
             };
           });
-
-          this.customers = this.customersInput.items;
-          this.customersInput.open();
         });
       });
   }
@@ -178,13 +174,15 @@ export class NewBookingModalComponent implements OnInit {
     this.bookingForm.get("customPrice").setValue(this.bookingForm.get("customPrice").value + 1);
   }
 
-  onCustomerTyped(event: string) {
-    this.typedObservable$.next(event);
+  onCustomerTyped(event: { term: string, items: any[] }) {
+    this.typedObservable$.next(event.term);
   }
 
   customerSelected(data) {
-    this.bookingForm.get("customerId").setValue(data.id.id);
-    this.handleCustomerSelected(data);
+    if (data) {
+      this.bookingForm.get("customerId").setValue(data.id.id);
+      this.handleCustomerSelected(data);
+    }
   }
 
   async handleCustomerSelected(data) {

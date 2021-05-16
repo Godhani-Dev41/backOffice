@@ -23,6 +23,7 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 @import "components/schedule-date";
 @import "components/empty-state";
 @import "shared/global";
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 .input-group {
   &.input-group--disabled {

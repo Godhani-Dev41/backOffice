@@ -14,7 +14,7 @@
   </div>
   <div class="page-content inner-page__content">
     <div class="row">
-      <div class="col-md-12" *ngIf="loading" >
+      <div class="col-md-12" *ngIf="loading">
         <loaders-css [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
       </div>
       <div class="col-md-12">
@@ -24,7 +24,8 @@
               <label for="">
                 RESERVATION STATUS
               </label>
-              <select name="" class="select" [(ngModel)]="filters.orderStatus" (change)="selectStatus($event.target.value)">
+              <select name="" class="select" [(ngModel)]="filters.orderStatus"
+                (change)="selectStatus($event.target.value)">
                 <option value="" selected>Show All</option>
                 <option value="active">Active</option>
                 <option value="waitingAdmin">Waiting Admin</option>
@@ -47,13 +48,9 @@
           <div class="col-md-2 col-sm-3 col-xs-6">
             <div class="input-group">
               <label for="">Customer</label>
-              <!-- <ng-select
-                #customersInput
-                (selected)="customerSelected($event)"
-                (typed)="onCustomerTyped($event)"
-                [ngModel]="filters.customerId"
-                placeholder="Type customer name">
-              </ng-select> -->
+              <ng-select class="auto-grow" [items]="customers" [ngModel]="filters.customerId" bindLabel="text" bindValue="id"
+                placeholder="Type customer name" (search)="onCustomerTyped($event)" (change)="customerSelected($event)">
+              </ng-select>
             </div>
           </div>
         </div>
@@ -70,17 +67,9 @@
       </div>
       <div class="col-md-12" *ngIf="!loading && reservations?.length" style="overflow: hidden">
 
-        <ngx-datatable
-          style="height: 100%"
-          #table
-          [loadingIndicator]="loading"
-          [trackByProp]="'id'"
-          [rowHeight]="50"
-          [scrollbarV]="true"
-          [sorts]="[{ prop: 'name', dir: 'asc' }]"
-          class="rc-datatable material"
-          [columnMode]="'force'"
-          [rows]="reservations">
+        <ngx-datatable style="height: 100%" #table [loadingIndicator]="loading" [trackByProp]="'id'" [rowHeight]="50"
+          [scrollbarV]="true" [sorts]="[{ prop: 'name', dir: 'asc' }]" class="rc-datatable material"
+          [columnMode]="'force'" [rows]="reservations">
           <ngx-datatable-column name="ID" prop="id" [maxWidth]="50">
             <ng-template let-row="row" ngx-datatable-cell-template>
               {{row.id}}
@@ -93,7 +82,8 @@
           </ngx-datatable-column>
           <ngx-datatable-column name="Event date" prop="startDate" minWidth="250">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{row.startDate | momentDate:'MMM D, YYYY h:mma': venue.timezone || 'gmt' }} - {{row.endDate | momentDate:'h:mma': venue.timezone || 'gmt'}}
+              {{row.startDate | momentDate:'MMM D, YYYY h:mma': venue.timezone || 'gmt' }} - {{row.endDate |
+              momentDate:'h:mma': venue.timezone || 'gmt'}}
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Customer name" prop="customer.name">
@@ -111,12 +101,10 @@
               {{row.space?.name}}
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column
-            [minWidth]="165"
-            [width]="165"
-            [cellClass]="'actions-column'">
+          <ngx-datatable-column [minWidth]="165" [width]="165" [cellClass]="'actions-column'">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              <a href="" tabindex="-1" [routerLink]="['/client/orders/' + row.orderId + '/details']" class="btn btn-empty">
+              <a href="" tabindex="-1" [routerLink]="['/client/orders/' + row.orderId + '/details']"
+                class="btn btn-empty">
                 <i class="icon-rc-edit-2"></i>
                 Edit
               </a>
@@ -128,5 +116,7 @@
   </div>
 </div>
 
-<rc-booking-edit-modal (onUpdate)="getEvents()" [venue]="venue" [spaces]="spaces" #bookingEditModal="modal"></rc-booking-edit-modal>
-<rc-new-booking-modal (onSavedBooking)="getEvents()" [venue]="venue" [spaces]="spaces" #newBookingModal="modal"></rc-new-booking-modal>
+<rc-booking-edit-modal (onUpdate)="getEvents()" [venue]="venue" [spaces]="spaces" #bookingEditModal="modal">
+</rc-booking-edit-modal>
+<rc-new-booking-modal (onSavedBooking)="getEvents()" [venue]="venue" [spaces]="spaces" #newBookingModal="modal">
+</rc-new-booking-modal>

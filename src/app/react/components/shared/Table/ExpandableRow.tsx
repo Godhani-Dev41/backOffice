@@ -1,20 +1,14 @@
 /** @jsx jsx */
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { jsx, css } from "@emotion/react";
-import moment from "moment";
-import clsx from "clsx";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import IconButton from "@material-ui/core/IconButton";
 import { colors } from "../../../styles/theme";
 import { CustomCheckbox } from "../Checkbox";
 import { CellMapper } from "./Cell";
 import { rowCss, cellCss } from "./styles";
 import { checkboxCss, checkedIconCss, iconCss } from "../../../styles/utils";
-import { ReactSVG } from "react-svg";
 
 // classes: ReturnType<typeof useStyles>;
 interface ExpandableRowProps {

@@ -17,7 +17,8 @@
           </div>
         </div>
         <div class="WizardForm__content">
-          <div class="WizardForm__content__inner" [ngClass]="{'WizardForm__content__inner--full': inviteForm.get('advancedMode').value}">
+          <div class="WizardForm__content__inner"
+            [ngClass]="{'WizardForm__content__inner--full': inviteForm.get('advancedMode').value}">
             <div class="form">
               <form action="" [formGroup]="inviteForm" novalidate>
                 <div *ngIf="!inviteForm.get('advancedMode').value">
@@ -43,12 +44,10 @@
                         </div>
 
                         <div class="SelectableFormRow SelectableFormRow--active"
-                             [ngClass]="{'SelectableFormRow--active': inviteForm.get('invitesOption').value === 'followers'}"
-                             (click)="selectOption('followers'); $event.stopPropagation()">
+                          [ngClass]="{'SelectableFormRow--active': inviteForm.get('invitesOption').value === 'followers'}"
+                          (click)="selectOption('followers'); $event.stopPropagation()">
                           <div class="checkbox">
-                            <input type="checkbox"
-                                   formControlName="followers"
-                                   class="styled-checkbox"/>
+                            <input type="checkbox" formControlName="followers" class="styled-checkbox" />
                             <label class="SelectableFormRow__label">
                               invite all organization followers
                             </label>
@@ -59,11 +58,10 @@
                         </div>
 
                         <div class="SelectableFormRow"
-                             [ngClass]="{'SelectableFormRow--active': inviteForm.get('invitesOption').value === 'activeLeagues'}"
-                             (click)="selectOption('activeLeagues'); $event.stopPropagation()">
+                          [ngClass]="{'SelectableFormRow--active': inviteForm.get('invitesOption').value === 'activeLeagues'}"
+                          (click)="selectOption('activeLeagues'); $event.stopPropagation()">
                           <div class="checkbox">
-                            <input type="checkbox" class="styled-checkbox"
-                                   formControlName="activeLeagues"/>
+                            <input type="checkbox" class="styled-checkbox" formControlName="activeLeagues" />
                             <label class="SelectableFormRow__label">
                               invite all active seasons’ players
                             </label>
@@ -74,13 +72,14 @@
                         </div>
 
                         <div class="SelectableFormRow SelectableFormRow--no-checkbox advanced-options-box"
-                             [ngClass]="{'SelectableFormRow--active': inviteForm.get('invitesOption').value === 'selectedLeagues'}"
-                             (click)="selectOption('advanced'); $event.preventDefault()">
+                          [ngClass]="{'SelectableFormRow--active': inviteForm.get('invitesOption').value === 'selectedLeagues'}"
+                          (click)="selectOption('advanced'); $event.preventDefault()">
                           <div class="SelectableFormRow__label">
                             ADVANCED OPTIONS
                           </div>
-                          <span class="SelectableFormRow__side-label" *ngIf="inviteForm.get('invitesOption').value === 'selectedLeagues' && selectedSeasons.length">
-                              SELECTED {{getSelectedPlayersCount()}} PLAYERS
+                          <span class="SelectableFormRow__side-label"
+                            *ngIf="inviteForm.get('invitesOption').value === 'selectedLeagues' && selectedSeasons.length">
+                            SELECTED {{getSelectedPlayersCount()}} PLAYERS
                           </span>
                         </div>
                       </div>
@@ -94,34 +93,26 @@
                       <div class="col-md-4 col-sm-6 col-xs-6">
                         <div class="input-group">
                           <label for="">LEAGUE</label>
-                          <!-- <ng-select [items]="leagueOptions"
-                                     [allowClear]="true"
-                                     (removed)="clearFilters()"
-                                     (selected)="leagueFilterSelected($event)"
-                                     placeholder="League Name">
-                          </ng-select> -->
+                          <ng-select [items]="leagueOptions" bindLabel="text" bindValue="id" (clear)="clearFilters()"
+                            (change)="leagueFilterSelected($event)" placeholder="League Name">
+                          </ng-select>
                         </div>
                       </div>
                       <div class="col-md-2 col-sm-3 col-xs-6">
                         <div class="input-group">
                           <label for="">STATUS</label>
-                          <!-- <ng-select [items]="[{id: 1, text: 'Now Playing'}, {id: 2, text: 'Registration Ended'}, {id: 3, text: 'Season Ended'}, {id: 4, text: 'Registration Open'}]"
-                                     [allowClear]="true"
-                                     (removed)="clearFilters()"
-                                     (selected)="leagueStatusFilterSelected($event)"
-                                     placeholder="Status">
-                          </ng-select> -->
+                          <ng-select
+                            [items]="[{id: 1, text: 'Now Playing'}, {id: 2, text: 'Registration Ended'}, {id: 3, text: 'Season Ended'}, {id: 4, text: 'Registration Open'}]"
+                            bindLabel="text" bindValue="id" (clear)="clearFilters()"
+                            (change)="leagueStatusFilterSelected($event)" placeholder="Status"></ng-select>
                         </div>
                       </div>
                       <div class="col-md-2 col-sm-3 col-xs-6">
                         <div class="input-group">
                           <label for="">SPORT TYPE</label>
-                          <!-- <ng-select [items]="sportsOptions"
-                                     [allowClear]="true"
-                                     (removed)="clearFilters()"
-                                     (selected)="sportTypeFilterSelected($event)"
-                                     placeholder="Sport Type">
-                          </ng-select> -->
+                          <ng-select class="auto-grow" [items]="sportsOptions" bindLabel="text" bindValue="id"
+                            (clear)="clearFilters()" (change)="sportTypeFilterSelected($event)"
+                            placeholder="Sport Type"></ng-select>
                         </div>
                       </div>
                     </div>
@@ -130,69 +121,40 @@
                     <loaders-css [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
                   </div>
                   <div class="col-md-12" *ngIf="!loading">
-                    <ngx-datatable
-                      #table
-                      [sorts]="[{prop: 'seasonLeague.name', dir: 'asc'}]"
-                      class="rc-datatable material"
-                      [columnMode]="'force'"
-                      [rowHeight]="'auto'"
-                      [selected]="selectedSeasons"
-                      [selectionType]="'checkbox'"
-                      (select)='onSeasonSelect($event)'
+                    <ngx-datatable #table [sorts]="[{prop: 'seasonLeague.name', dir: 'asc'}]"
+                      class="rc-datatable material" [columnMode]="'force'" [rowHeight]="'auto'"
+                      [selected]="selectedSeasons" [selectionType]="'checkbox'" (select)='onSeasonSelect($event)'
                       [rows]="seasons">
-                      <ngx-datatable-column
-                        tabindex="-1"
-                        [headerClass]="'checkbox-cell'"
-                        [cellClass]="'checkbox-cell'"
-                        [width]="25"
-                        [sortable]="false"
-                        [canAutoResize]="false"
-                        [draggable]="false"
-                        [resizeable]="false"
-                        [headerCheckboxable]="true"
-                        [checkboxable]="true">
+                      <ngx-datatable-column tabindex="-1" [headerClass]="'checkbox-cell'" [cellClass]="'checkbox-cell'"
+                        [width]="25" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
+                        [headerCheckboxable]="true" [checkboxable]="true">
                       </ngx-datatable-column>
-                      <ngx-datatable-column
-                        [width]="100"
-                        prop="seasonLeague.name"
-                        [minWidth]="80"
-                        name="League Name">
+                      <ngx-datatable-column [width]="100" prop="seasonLeague.name" [minWidth]="80" name="League Name">
                         <ng-template let-row="row" ngx-datatable-cell-template>
                           {{row.seasonLeague?.name}}
                         </ng-template>
                       </ngx-datatable-column>
-                      <ngx-datatable-column
-                        name="Season Name"
-                        prop="name">
+                      <ngx-datatable-column name="Season Name" prop="name">
                         <ng-template let-row="row" ngx-datatable-cell-template>
                           <b>
                             {{row.name | truncate:30}}
                           </b>
                         </ng-template>
                       </ngx-datatable-column>
-                      <ngx-datatable-column
-                        minWidth="100"
-                        maxWidth="180"
-                        prop="seasonTiming"
-                        name="Status">
+                      <ngx-datatable-column minWidth="100" maxWidth="180" prop="seasonTiming" name="Status">
                         <ng-template let-row="row" ngx-datatable-cell-template>
-                            {{getRegistrationStatusText(row)}}
+                          {{getRegistrationStatusText(row)}}
                         </ng-template>
                       </ngx-datatable-column>
-                      <ngx-datatable-column
-                        minWidth="150"
-                        maxWidth="150"
-                        prop="seasonLeague.sports"
-                        name="Sport Type">
+                      <ngx-datatable-column minWidth="150" maxWidth="150" prop="seasonLeague.sports" name="Sport Type">
                         <ng-template let-row="row" ngx-datatable-cell-template>
                           {{getSportName(row.seasonLeague?.sports)}}
                         </ng-template>
                       </ngx-datatable-column>
-                      <ngx-datatable-column
-                        prop="startDate"
-                        name="Date & Time">
+                      <ngx-datatable-column prop="startDate" name="Date & Time">
                         <ng-template let-row="row" ngx-datatable-cell-template>
-                          {{row.startDate | momentDate:'MMM D, YYYY h:mma':row.seasonLeague?.timezone}} - {{row.endDate | momentDate:'h:mma':row.seasonLeague?.timezone}}
+                          {{row.startDate | momentDate:'MMM D, YYYY h:mma':row.seasonLeague?.timezone}} - {{row.endDate
+                          | momentDate:'h:mma':row.seasonLeague?.timezone}}
                         </ng-template>
                       </ngx-datatable-column>
                     </ngx-datatable>
@@ -205,26 +167,18 @@
       </div>
       <div class="row bottom-nav-bar">
         <div class="bottom-nav-bar__inner">
-          <div class="bottom-nav-bar__inner__content" [ngClass]="{'bottom-nav-bar__inner__content--full': inviteForm.get('advancedMode').value}">
-            <rc-loading-btn
-              *ngIf="!inviteForm.get('advancedMode').value"
-              [loading]="sendLoading"
-              (onClick)="promptSaveInvites()"
-              [disabled]="!inviteForm.valid"
-              [text]="'SEND INVITES'"
+          <div class="bottom-nav-bar__inner__content"
+            [ngClass]="{'bottom-nav-bar__inner__content--full': inviteForm.get('advancedMode').value}">
+            <rc-loading-btn *ngIf="!inviteForm.get('advancedMode').value" [loading]="sendLoading"
+              (onClick)="promptSaveInvites()" [disabled]="!inviteForm.valid" [text]="'SEND INVITES'"
               [classes]="['button-next', 'button', 'button-assertive', 'pull-right']">
             </rc-loading-btn>
 
-            <rc-loading-btn
-              *ngIf="inviteForm.get('advancedMode').value"
-              (onClick)="selectSeasons(inviteForm.value)"
-              [disabled]="!selectedSeasons.length"
-              [text]="'SELECT (' + selectedSeasons.length + ')' "
+            <rc-loading-btn *ngIf="inviteForm.get('advancedMode').value" (onClick)="selectSeasons(inviteForm.value)"
+              [disabled]="!selectedSeasons.length" [text]="'SELECT (' + selectedSeasons.length + ')' "
               [classes]="['button-next', 'button-padded', 'button', 'button-assertive', 'pull-right']">
             </rc-loading-btn>
-            <button
-              (click)="cancelAdvancedMode()"
-              *ngIf="inviteForm.get('advancedMode').value"
+            <button (click)="cancelAdvancedMode()" *ngIf="inviteForm.get('advancedMode').value"
               class="button-text button pull-right">
               CANCEL
             </button>
@@ -236,20 +190,13 @@
 </div>
 
 
-<rc-action-success-modal
-  (onCancelClick)="submitData(inviteForm.value)"
-  (onSuccessClick)="submitData(inviteForm.value, true)"
-  #actionSuccessModal="modal"
-  [titleText]="'AWESOME!'"
-  [successBtnText]="'PUBLISH THE EVENT AND SEND INVITES'"
-  [cancelText]="'SAVE INVITES AND KEEP EVENT AS DRAFT'"
+<rc-action-success-modal (onCancelClick)="submitData(inviteForm.value)"
+  (onSuccessClick)="submitData(inviteForm.value, true)" #actionSuccessModal="modal" [titleText]="'AWESOME!'"
+  [successBtnText]="'PUBLISH THE EVENT AND SEND INVITES'" [cancelText]="'SAVE INVITES AND KEEP EVENT AS DRAFT'"
   [subTitleText]="'You’ve successfully selected players to invite to your event. What’s next?'">
 </rc-action-success-modal>
 
-<rc-confirmation-modal
-  [title]="'INVITING TO ' + event?.title"
+<rc-confirmation-modal [title]="'INVITING TO ' + event?.title"
   [content]="'Invitations to your event will be sent now, players will get notified via mobile app and email.'"
-  [confirmText]="'YES, SEND INVITES'"
-  (onConfirm)="submitData(inviteForm.value)"
-  #sendInvitesConfirmModal="modal">
+  [confirmText]="'YES, SEND INVITES'" (onConfirm)="submitData(inviteForm.value)" #sendInvitesConfirmModal="modal">
 </rc-confirmation-modal>

@@ -18,12 +18,9 @@
                 <div class="col-sm-6">
                   <div class="input-group">
                     <label for="">DIVISION</label>
-                    <!-- <ng-select
-                      [active]="[{ id: currentDivision?.id, text: currentDivision?.name }]"
-                      (selected)="divisionSelected($event)"
-                      [items]="divisionSelection"
-                      placeholder="Select division">
-                    </ng-select> -->
+                    <ng-select [ngModel]="{ id: currentDivision?.id }" [items]="divisionSelection" bindLabel="text"
+                      bindValue="id" placeholder="Select division" (change)="divisionSelected($event)">
+                    </ng-select>
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -40,13 +37,11 @@
                     </div>
                     <div class="RoundBox__content">
                       <div class="input-group"
-                           [ngClass]="{'has-error': !round.get('roundName').valid && round.get('roundName').touched}">
+                        [ngClass]="{'has-error': !round.get('roundName').valid && round.get('roundName').touched}">
                         <label for="">ROUND TITLE</label>
-                        <input type="text" class="input" formControlName="roundName" required >
+                        <input type="text" class="input" formControlName="roundName" required>
                       </div>
-                      <button
-                        (click)="removeRound(i)"
-                        *ngIf="round.get('isNew').value || round.get('removable').value"
+                      <button (click)="removeRound(i)" *ngIf="round.get('isNew').value || round.get('removable').value"
                         class="button remove-btn">
                         <i class="fa fa-close"></i>
                       </button>
@@ -71,11 +66,9 @@
           <button class="button button-empty cancel-btn" (click)="modal.hide()">
             Cancel
           </button>
-          <rc-loading-btn [text]="editMode ? 'SAVE CHANGES' : 'UPDATE ROUNDS'"
-                          [disabled]="!roundForm.valid"
-                          (onClick)="onSubmit(roundForm.value);"
-                          [loading]="loading"
-                          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          <rc-loading-btn [text]="editMode ? 'SAVE CHANGES' : 'UPDATE ROUNDS'" [disabled]="!roundForm.valid"
+            (onClick)="onSubmit(roundForm.value);" [loading]="loading"
+            [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
           </rc-loading-btn>
         </div>
       </div>

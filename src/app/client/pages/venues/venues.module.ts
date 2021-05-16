@@ -19,7 +19,6 @@ import { CourtEditorComponent } from "./court-editor/court-editor.component";
 import { VenueSchedulerCalendarComponent } from "./components/venue-scheduler-calendar/venue-scheduler-calendar.component";
 import { PackageCreatorModalComponent } from "./components/package-creator-modal/package-creator-modal.component";
 import { NewBookingModalComponent } from "./components/new-booking-modal/new-booking-modal.component";
-// import { SelectModule } from "ng2-select";
 import { VenuePagePackagesComponent } from "./venue-page/venue-page-packages/venue-page-packages.component";
 import { PackageItemCardComponent } from "./components/package-item-card/package-item-card.component";
 import { VenuePageDetailsComponent } from "./venue-page/venue-page-details/venue-page-details.component";
@@ -32,12 +31,13 @@ import { VenuePageAddonsComponent } from "./venue-page/venue-page-addons/venue-p
 import { VenuePageReservationsComponent } from "./venue-page/venue-page-reservations/venue-page-reservations.component";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { PopoverModule } from "ngx-bootstrap/popover";
+import { NgSelectModule } from "@ng-select/ng-select";
 
 @NgModule({
   providers: [LeaveVenueGuard],
   imports: [
     NgxDatatableModule,
-    // SelectModule,
+    NgSelectModule,
     ModalModule.forRoot(),
     RouterModule.forChild(routes),
     BsDropdownModule.forRoot(),

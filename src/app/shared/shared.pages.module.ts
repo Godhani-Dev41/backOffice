@@ -140,6 +140,7 @@ import { NzInputNumberModule } from "ng-zorro-antd/input-number";
 import { NzTypographyModule } from "ng-zorro-antd/typography";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzDatePickerModule } from "ng-zorro-antd/date-picker";
+import { NgSelectModule } from "@ng-select/ng-select";
 
 @NgModule({
   imports: [
@@ -170,7 +171,8 @@ import { NzDatePickerModule } from "ng-zorro-antd/date-picker";
     NzInputNumberModule,
     NzTypographyModule,
     NzIconModule,
-    NzDatePickerModule
+    NzDatePickerModule,
+    NgSelectModule,
   ],
   providers: [MediaUrlPipe],
   declarations: [

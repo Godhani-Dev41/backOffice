@@ -1,11 +1,11 @@
+<rc-venue-search-input></rc-venue-search-input>
+
 <div>
   <div class="row" style="margin-top: 30px; padding-left: 2vw; padding-right: 2vw;" *ngIf="platformUser">
     <div class="col-md-12" *ngIf="stats && platformUser">
       <div class="row">
         <div class="col-md-3">
-          <div
-            class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item"
-          >
+          <div class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item">
             <div class="stat-top text-center stat--text-shadow text-uppercase">
               {{ stats.usedWeeklyHours }}/{{ stats.totalWeeklyHours }}
             </div>
@@ -15,9 +15,7 @@
           </div>
         </div>
         <div class="col-md-3">
-          <div
-            class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item"
-          >
+          <div class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item">
             <div class="stat-top text-center stat--text-shadow text-uppercase">
               {{ stats.usedDailyHours }}/{{ stats.totalDailyHours }}
             </div>
@@ -27,9 +25,7 @@
           </div>
         </div>
         <div class="col-md-3">
-          <div
-            class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item"
-          >
+          <div class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item">
             <div class="stat-top text-center stat--text-shadow text-uppercase">
               ${{ stats.weeklyIncome | number: "1.0-2" }}
             </div>
@@ -39,9 +35,7 @@
           </div>
         </div>
         <div class="col-md-3">
-          <div
-            class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item"
-          >
+          <div class="box-item box--shadow box--border-light box--padding mg-bottom-20 stat-item">
             <div class="stat-top text-center stat--text-shadow text-uppercase">
               ${{ stats.dailyIncome | number: "1.0-2" }}
             </div>
@@ -58,10 +52,7 @@
             <i [ngClass]="'fa fa-calendar'"></i> Daily Schedule
           </h3>
           <div class="rc-calendar" *ngIf="calendarIsVisible">
-            <rc-angular2-fullcalendar
-              #fullCalendar="fullCalendar"
-              [options]="calendarStats"
-            ></rc-angular2-fullcalendar>
+            <rc-angular2-fullcalendar #fullCalendar="fullCalendar" [options]="calendarStats"></rc-angular2-fullcalendar>
           </div>
         </div>
         <div class="col-md-6">
@@ -76,10 +67,7 @@
         {{ msg }}
       </h3>
       <br />
-      <button
-        class="button button-shadow button-assertive button-full"
-        (click)="goToPaymentsPage()"
-      >
+      <button class="button button-shadow button-assertive button-full" (click)="goToPaymentsPage()">
         {{ msgBtn }}
       </button>
     </div>

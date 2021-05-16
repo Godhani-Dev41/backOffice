@@ -13,10 +13,10 @@ import { APP_PROVIDERS } from '@app/shared/services/main';
 import { TEST_HTTP_MOCK, TEST_PROVIDERS } from '@app/test.utils';
 import * as _ from 'lodash';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { SelectModule } from 'ng2-select';
 
 import { SeasonTeamsPageComponent } from './season-teams-page.component';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 class MockActiveRoute {
   parent: any;
@@ -46,7 +46,7 @@ describe('SeasonTeamsPageComponent', () => {
     TestBed.configureTestingModule({
         imports: [
           DragulaModule,
-          SelectModule,
+          NgSelectModule,
           ReactiveFormsModule,
           ModalModule.forRoot(),
           SharedModule,

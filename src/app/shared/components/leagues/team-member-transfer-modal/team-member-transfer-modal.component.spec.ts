@@ -5,10 +5,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { APP_PROVIDERS } from '@app/shared/services/main';
 import { TEST_HTTP_MOCK, TEST_PROVIDERS } from '@app/test.utils';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { SelectModule } from 'ng2-select';
 import { ToastModule } from 'ng2-toastr';
 
 import { TeamMemberTransferModalComponent } from './team-member-transfer-modal.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 describe('TeamMemberTransferModalComponent', () => {
   let component: TeamMemberTransferModalComponent;
@@ -20,7 +20,7 @@ describe('TeamMemberTransferModalComponent', () => {
         ReactiveFormsModule,
         ToastModule.forRoot(),
         ModalModule.forRoot(),
-        SelectModule,
+        NgSelectModule,
         RouterTestingModule
       ],
       schemas: [NO_ERRORS_SCHEMA],

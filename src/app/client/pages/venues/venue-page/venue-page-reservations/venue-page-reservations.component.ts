@@ -29,7 +29,6 @@ export class VenuePageReservationsComponent implements OnInit, OnDestroy {
   };
 
   @ViewChild("bookingEditModal", { static: true }) bookingEditModal: BookingEditModalComponent;
-  @ViewChild("customersInput", { static: true }) customersInput: any;
 
   constructor(
     private venuesService: VenuesService,
@@ -69,15 +68,12 @@ export class VenuePageReservationsComponent implements OnInit, OnDestroy {
       )
       .subscribe((result) => {
         this.zone.run(() => {
-          this.customersInput.items = result.data.map((i) => {
+          this.customers = result.data.map((i) => {
             return {
               text: i.name,
               id: i.id,
             };
           });
-
-          this.customers = this.customersInput.items;
-          this.customersInput.open();
         });
       });
   }
@@ -124,13 +120,15 @@ export class VenuePageReservationsComponent implements OnInit, OnDestroy {
     await this.getEvents();
   }
 
-  onCustomerTyped(event: string) {
-    this.typedObservable$.next(event);
+  onCustomerTyped(event: { term: string; items: any[] }) {
+    this.typedObservable$.next(event.term);
   }
 
   async customerSelected(event) {
-    this.filters.customerId = event.id;
+    if (event) {
+      this.filters.customerId = event.id;
 
-    await this.getEvents();
+      await this.getEvents();
+    }
   }
 }

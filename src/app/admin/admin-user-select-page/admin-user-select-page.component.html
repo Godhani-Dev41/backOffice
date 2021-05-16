@@ -4,12 +4,11 @@
       <div class="text-center" *ngIf="loading">
         <loaders-css [loader]="'ball-pulse'" [loaderClass]="'rc-loader-assertive'"></loaders-css>
       </div>
-      <div class="input-group" *ngIf="!loading" >
+      <div class="input-group" *ngIf="!loading">
         <label for="">SELECT A USER:</label>
-        <!-- <ng-select [items]="users"
-                   (selected)="userSelected($event)"
-                   placeholder="Select user">
-        </ng-select> -->
+        <ng-select [items]="users" bindLabel="text" bindValue="id" placeholder="Select user"
+          (change)="userSelected($event)">
+        </ng-select>
       </div>
     </div>
   </div>

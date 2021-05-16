@@ -14,29 +14,24 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-md-12">
-              <div class="input-group" [ngClass]="{'has-error': !memberTransferForm.get('selectedTeam').valid && memberTransferForm.get('selectedTeam').touched}">
+              <div class="input-group"
+                [ngClass]="{'has-error': !memberTransferForm.get('selectedTeam').valid && memberTransferForm.get('selectedTeam').touched}">
                 <label for="">TRANSFER TO:</label>
-                <!-- <ng-select [items]="teamsSelection"
-                           formControlName="selectedTeam"
-                           [required]="true"
-                           placeholder="Select team">
-                </ng-select> -->
+                <ng-select [required]="true" [items]="teamsSelection" bindLabel="text" bindValue="id"
+                  formControlName="selectedTeam" placeholder="Select team">
+                </ng-select>
               </div>
             </div>
           </div>
         </div>
 
         <div class="modal-footer">
-          <button
-            class="button button-empty cancel-btn"
-            (click)="reset(true)">
+          <button class="button button-empty cancel-btn" (click)="reset(true)">
             Cancel
           </button>
-          <rc-loading-btn [text]="'TRANSFER'"
-                          (onClick)="submit(memberTransferForm.value)"
-                          [loading]="loading"
-                          [disabled]="!memberTransferForm.valid"
-                          [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
+          <rc-loading-btn [text]="'TRANSFER'" (onClick)="submit(memberTransferForm.value)" [loading]="loading"
+            [disabled]="!memberTransferForm.valid"
+            [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
           </rc-loading-btn>
         </div>
       </div>

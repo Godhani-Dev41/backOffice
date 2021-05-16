@@ -164,9 +164,9 @@
               </div>
               <div class="ExistingCustomerPicker" style="padding-top: 25px;"
                 *ngIf="bookingForm.get('customerType').value === 'existing'">
-                <!-- <ng-select #customersInput (selected)="customerSelected($event)" (typed)="onCustomerTyped($event)"
-                  placeholder="Type existing customer name">
-                </ng-select> -->
+                <ng-select [items]="customers" bindLabel="text" bindValue="id" placeholder="Type existing customer name"
+                  (search)="onCustomerTyped($event)" (change)="customerSelected($event)">
+                </ng-select>
               </div>
               <div class="CustomerCreateForm" formGroupName="customer"
                 *ngIf="bookingForm.get('customerType').value === 'new'">
@@ -333,7 +333,8 @@
 
 
               <div class="downpayment-rental" *ngIf="bookingForm.value.billingOption === 'creditCard'">
-                Down payment <input type="number" [(ngModel)]="downpayment" min="0" [ngModelOptions]="{standalone: true}" />
+                Down payment <input type="number" [(ngModel)]="downpayment" min="0"
+                  [ngModelOptions]="{standalone: true}" />
 
               </div>
 
@@ -389,10 +390,8 @@
             [classes]="['button', 'button-assertive', 'button-padded', 'submit-btn']">
           </rc-loading-btn>
 
-          <get-payment-v2 *ngIf="showingPayment" 
-            [totalAmount]="downpayment"
-            [userId]="payingUserId"
-            (onPaymentCollected)="onPaymentCollected($event)" 
+          <get-payment-v2 *ngIf="showingPayment" [totalAmount]="downpayment" [userId]="payingUserId"
+            (onPaymentCollected)="onPaymentCollected($event)"
             (onModalShowingChange)="onPaymentModalShowingChange($event)"></get-payment-v2>
         </div>
       </div>

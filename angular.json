@@ -45,6 +45,17 @@
             "scripts": [
               "node_modules/tinymce/tinymce.min.js",
               "node_modules/tinymce/themes/silver/theme.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "ng2-validation",
+              "babel-runtime",
+              "react-is",
+              "ng2-dragula",
+              "dom-autoscroller",
+              "date-holidays",
+              "@material-ui/icons/KeyboardArrowUp",
+              "@material-ui/icons/KeyboardArrowDown",
+              "eonasdan-bootstrap-datetimepicker"
             ]
           },
           "configurations": {
